@@ -330,7 +330,7 @@ struct vfsquery {
 #define VQ_ASSIST	0x0040	/* filesystem needs assistance from external program */
 #define VQ_NOTRESPLOCK	0x0080	/* server lockd down */
 #define VQ_UPDATE	0x0100	/* filesystem information has changed */
-#define VQ_VERYLOWDISK	0x0200	/* file system has *very* little disk space left */
+#define VQ_FLAG0200	0x0200	/* placeholder */
 #define VQ_FLAG0400	0x0400	/* placeholder */
 #define VQ_FLAG0800	0x0800	/* placeholder */
 #define VQ_FLAG1000	0x1000	/* placeholder */

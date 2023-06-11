@@ -84,6 +84,6 @@
  */
 #undef DIRSIZ
 #define DIRSIZ(dp) \
-    (((unsigned long)&((struct direct *)0)->d_name + (dp)->d_namlen+1 + 3) & ~3)
+    ((sizeof (struct direct) - (MAXNAMLEN+1)) + (((dp)->d_namlen+1 + 3) &~ 3))
 
 #endif /* !_SYS_DIR_H_ */

@@ -405,10 +405,6 @@ typedef uint32_t	upl_size_t;	/* page-aligned byte size */
 #define UPL_COMMIT_INACTIVATE		0x8
 #define UPL_COMMIT_NOTIFY_EMPTY		0x10
 #define UPL_COMMIT_ALLOW_ACCESS		0x20
-#define UPL_COMMIT_CS_VALIDATED		0x40
-#define UPL_COMMIT_CLEAR_PRECIOUS	0x80
-
-#define UPL_COMMIT_KERNEL_ONLY_FLAGS	(UPL_COMMIT_CS_VALIDATED)
 
 /* flags for return of state from vm_map_get_upl,  vm_upl address space */
 /* based call */

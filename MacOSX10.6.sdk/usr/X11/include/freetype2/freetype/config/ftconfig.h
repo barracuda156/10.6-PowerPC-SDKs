@@ -61,6 +61,13 @@ FT_BEGIN_HEADER
 #define HAVE_UNISTD_H 1
 #define HAVE_FCNTL_H 1
 
+#define SIZEOF_INT 4
+#define SIZEOF_LONG 8
+
+
+#define FT_SIZEOF_INT   SIZEOF_INT
+#define FT_SIZEOF_LONG  SIZEOF_LONG
+
 #define FT_CHAR_BIT  CHAR_BIT
 
   /* Preferred alignment of data */
@@ -119,23 +126,106 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /*   Used to guarantee the size of some specific integers.               */
   /*                                                                       */
+  typedef signed short    FT_Int16;
+  typedef unsigned short  FT_UInt16;
 
-#include <stdint.h>
+#if FT_SIZEOF_INT == 4
 
-  typedef int16_t   FT_Int16;
-  typedef uint16_t  FT_UInt16;
-  typedef int32_t   FT_Int32;
-  typedef uint32_t  FT_UInt32;
+  typedef signed int      FT_Int32;
+  typedef unsigned int    FT_UInt32;
 
-  typedef int32_t   FT_Fast;
-  typedef uint32_t  FT_UFast;
+#elif FT_SIZEOF_LONG == 4
+
+  typedef signed long     FT_Int32;
+  typedef unsigned long   FT_UInt32;
+
+#else
+#error "no 32bit type found -- please check your configuration files"
+#endif
+
+
+  /* look up an integer type that is at least 32 bits */
+#if FT_SIZEOF_INT >= 4
+
+  typedef int            FT_Fast;
+  typedef unsigned int   FT_UFast;
+
+#elif FT_SIZEOF_LONG >= 4
+
+  typedef long           FT_Fast;
+  typedef unsigned long  FT_UFast;
+
+#endif
+
+
+  /* determine whether we have a 64-bit int type for platforms without */
+  /* Autoconf                                                          */
+#if FT_SIZEOF_LONG == 8
+
+  /* FT_LONG64 must be defined if a 64-bit type is available */
+#define FT_LONG64
+#define FT_INT64  long
+
+#elif defined( _MSC_VER ) && _MSC_VER >= 900  /* Visual C++ (and Intel C++) */
+
+  /* this compiler provides the __int64 type */
+#define FT_LONG64
+#define FT_INT64  __int64
+
+#elif defined( __BORLANDC__ )  /* Borland C++ */
+
+  /* XXXX: We should probably check the value of __BORLANDC__ in order */
+  /*       to test the compiler version.                               */
+
+  /* this compiler provides the __int64 type */
+#define FT_LONG64
+#define FT_INT64  __int64
+
+#elif defined( __WATCOMC__ )   /* Watcom C++ */
+
+  /* Watcom doesn't provide 64-bit data types */
+
+#elif defined( __MWERKS__ )    /* Metrowerks CodeWarrior */
 
 #define FT_LONG64
-#define FT_INT64  int64_t
+#define FT_INT64  long long int
+
+#elif defined( __GNUC__ )
+
+  /* GCC provides the `long long' type */
+#define FT_LONG64
+#define FT_INT64  long long int
+
+#endif /* FT_SIZEOF_LONG == 8 */
+
 
 #define FT_BEGIN_STMNT  do {
 #define FT_END_STMNT    } while ( 0 )
 #define FT_DUMMY_STMNT  FT_BEGIN_STMNT FT_END_STMNT
+
+
+  /*************************************************************************/
+  /*                                                                       */
+  /* A 64-bit data type will create compilation problems if you compile    */
+  /* in strict ANSI mode.  To avoid them, we disable their use if          */
+  /* __STDC__ is defined.  You can however ignore this rule by             */
+  /* defining the FT_CONFIG_OPTION_FORCE_INT64 configuration macro.        */
+  /*                                                                       */
+#if defined( FT_LONG64 ) && !defined( FT_CONFIG_OPTION_FORCE_INT64 )
+
+#ifdef __STDC__
+
+  /* Undefine the 64-bit macros in strict ANSI compilation mode.  */
+  /* Since `#undef' doesn't survive in configuration header files */
+  /* we use the postprocessing facility of AC_CONFIG_HEADERS to   */
+  /* replace the leading `/' with `#'.                            */
+#undef FT_LONG64
+#undef FT_INT64
+
+#endif /* __STDC__ */
+
+#endif /* FT_LONG64 && !FT_CONFIG_OPTION_FORCE_INT64 */
+
 
 #ifdef FT_MAKE_OPTION_SINGLE_OBJECT
 

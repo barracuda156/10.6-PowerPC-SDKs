@@ -40,6 +40,7 @@
 
 #include <sys/types.h>
 #include <Kerberos/krb5.h>
+#include <Kerberos/krb.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -82,6 +83,8 @@ enum {
     loginOption_LoginName                  = 'name',
     loginOption_LoginInstance              = 'inst',
 
+    loginOption_ShowOptions                = 'sopt',
+    loginOption_RememberShowOptions        = 'ropt',
     loginOption_RememberPrincipal          = 'prin',
     loginOption_RememberExtras             = 'extr',
 
@@ -97,9 +100,7 @@ enum {
 
     loginOption_DefaultForwardableTicket   = '0fwd',
     loginOption_DefaultProxiableTicket     = '0prx',
-    loginOption_DefaultAddresslessTicket   = '0adr',
-    
-    loginOption_RememberPassword           = 'pass'
+    loginOption_DefaultAddresslessTicket   = '0adr'
 };
 typedef int32_t KLEDefaultLoginOptions;
 
@@ -278,12 +279,6 @@ KLStatus KLAcquireNewInitialTicketsWithPassword (KLPrincipal      inPrincipal,
                                                  const char      *inPassword,
                                                  char           **outCredCacheName);
 
-/* Always returns NULL */
-#ifndef CREDENTIALS
-struct credentials;
-typedef struct credentials CREDENTIALS;
-#endif
-    
 KLStatus KLAcquireNewInitialTicketCredentialsWithPassword (KLPrincipal      inPrincipal,
                                                            KLLoginOptions   inLoginOptions,
                                                            const char      *inPassword,

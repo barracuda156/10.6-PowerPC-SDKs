@@ -33,10 +33,10 @@
         unsigned int _isIndexed:1;
         unsigned int _skipValidation:1;
         unsigned int _isIndexedBySpotlight:1;
-        unsigned int _isStoredInExternalRecord:1;
+        unsigned int _isStoredInTruth:1;
         unsigned int _reservedPropertyDescription:25;
     } _propertyDescriptionFlags;    
-    id _reserved2;
+    NSMutableDictionary *_mappings;
     NSMutableDictionary *_userInfo;
 	long _entitysReferenceIDForProperty;
 }
@@ -81,10 +81,10 @@
 - (BOOL)isIndexedBySpotlight AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 - (void)setIndexedBySpotlight:(BOOL)flag AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-/* Returns a boolean value indicating if the property data should be written out to the external record file.
+/* Returns a boolean value indicating if the property data should be written out in a  truth file corresponding to the managed object.
 */
-- (BOOL)isStoredInExternalRecord AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)setStoredInExternalRecord:(BOOL)flag AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (BOOL)isStoredInTruth AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (void)setStoredInTruth:(BOOL)flag AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 - (NSString *)renamingIdentifier AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 - (void)setRenamingIdentifier:(NSString *)value AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;

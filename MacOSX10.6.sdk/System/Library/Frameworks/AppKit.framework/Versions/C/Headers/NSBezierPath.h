@@ -1,7 +1,7 @@
 /*
         NSBezierPath.h
         Application Kit
-        Copyright (c) 1997-2008, Apple Inc.
+        Copyright (c) 1997-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -42,11 +42,11 @@ typedef NSUInteger NSBezierPathElement;
 @interface NSBezierPath : NSObject <NSCopying, NSCoding>
 {
     @private
-    NSInteger _elementCount;
-    NSInteger _elementMax;
+    NSInteger _segmentCount;
+    NSInteger _segmentMax;
     struct PATHSEGMENT *_head;
     NSInteger _lastSubpathIndex;
-    void *_extraSegments;
+    NSInteger _elementCount;
     CGFloat _lineWidth;
     NSRect _controlPointBounds;
     CGFloat _miterLimit;
@@ -55,9 +55,7 @@ typedef NSUInteger NSBezierPathElement;
     NSUInteger _dashedLineCount;
     CGFloat _dashedLinePhase;
     void *_path;
-    NSInteger _extraSegmentCount;
-    NSInteger _extraSegmentMax;
-    id _private[2];
+    id _private[4];
     struct {
         unsigned int _flags:8;
         unsigned int _pathState:2;

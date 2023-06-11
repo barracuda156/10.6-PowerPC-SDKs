@@ -91,7 +91,7 @@ protected:
     static void nvLocation( IORegistryEntry * entry,
 			    UInt8 * busNum, UInt8 * deviceNum, UInt8 * functionNum );
     static SInt32 compareAddressCell( UInt32 cellCount, UInt32 cleft[], UInt32 cright[] );
-	void checkTerminateChildren(IOService * bridgeDevice, bool eject);
+
     IORangeAllocator *	bridgeMemoryRanges;
     IORangeAllocator *	bridgeIORanges;
 

@@ -1,7 +1,7 @@
 /*
     NSAnimationContext.h
     Application Kit
-    Copyright (c) 2006-2008, Apple Inc.
+    Copyright (c) 2006-2007, Apple Inc.
     All rights reserved.
 */
 

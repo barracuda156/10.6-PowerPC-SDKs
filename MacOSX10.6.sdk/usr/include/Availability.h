@@ -1,29 +1,10 @@
 /*
- * Copyright (c) 2007-2008 by Apple Inc.. All rights reserved.
- *
- * @APPLE_LICENSE_HEADER_START@
- * 
- * This file contains Original Code and/or Modifications of Original Code
- * as defined in and that are subject to the Apple Public Source License
- * Version 2.0 (the 'License'). You may not use this file except in
- * compliance with the License. Please obtain a copy of the License at
- * http://www.opensource.apple.com/apsl/ and read it before using this
- * file.
- * 
- * The Original Code and all software distributed under the License are
- * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
- * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
- * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
- * Please see the License for the specific language governing rights and
- * limitations under the License.
- * 
- * @APPLE_LICENSE_HEADER_END@
- */
+    File:       Availability.h
  
-#ifndef __AVAILABILITY__
-#define __AVAILABILITY__
- /*     
+    Copyright:  (c) 2007-2008 by Apple Inc., all rights reserved.
+
+    Contains:   __OSX_AVAILABLE_* macros for Mac OS X and iPhone
+     
     These macros are for use in OS header files. They enable function prototypes
     and Objective-C methods to be tagged with the OS version in which they
     were first available; and, if applicable, the OS version in which they 
@@ -74,17 +55,14 @@
             @end
 
         
-        An enum available on the phone in 2.1 and later, but not available on Mac OS X:
+        An enum available on the phone in 2.0 and later, but not available on Mac OS X:
         
-            #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 20100
+            #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_2_0
                 enum { myEnum = 1 };
             #endif
-        Note: this works when targeting the Mac OS X platform because 
-        __IPHONE_OS_VERSION_MIN_REQUIRED is undefined which evaluates to zero, 
-        so test becomes #if 0 >= 20100 which is false.  Also, we use
-        20100 instead of __IPHONE_2_1 to be safe.  The __IPHONE_2_1 macro did not
-        exist in <Availability.h> prior to the 2.1 SDK.  So, if somehow this 
-        conditional was used with an earilier SDK, it would evaluate incorrectly.
+        Note: this works because __IPHONE_OS_VERSION_MIN_REQUIRED is undefined and  
+        evaluatesto zero when targeting the Mac OS X platform, so test becomes
+        #if 0 >= 20000 which is false.
 
 
     It is also possible to use the *_VERSION_MIN_REQUIRED in source code to make one
@@ -107,6 +85,9 @@
 
 
 */
+#ifndef __AVAILABILITY__
+#define __AVAILABILITY__
+
 
 #define __MAC_10_0      1000
 #define __MAC_10_1      1010
@@ -118,8 +99,7 @@
 #define __MAC_NA        9999   /* not available */
 
 #define __IPHONE_2_0     20000  
-#define __IPHONE_2_1     20100  
-#define __IPHONE_NA      99999  /* not available */
+#define __IPHONE_NA      99999
 
 #include <AvailabilityInternal.h>
 
@@ -133,10 +113,6 @@
     #define __OSX_AVAILABLE_STARTING(_mac, _iphone) __AVAILABILITY_INTERNAL##_mac
     #define __OSX_AVAILABLE_BUT_DEPRECATED(_macIntro, _macDep, _iphoneIntro, _iphoneDep) \
                                                     __AVAILABILITY_INTERNAL##_macIntro##_DEP##_macDep
-
-#else
-    #define __OSX_AVAILABLE_STARTING(_mac, _iphone)
-    #define __OSX_AVAILABLE_BUT_DEPRECATED(_macIntro, _macDep, _iphoneIntro, _iphoneDep) 
 #endif
 
 

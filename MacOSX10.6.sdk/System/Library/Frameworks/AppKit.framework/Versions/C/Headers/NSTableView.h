@@ -9,55 +9,53 @@
 #import <AppKit/AppKitDefines.h>
 #import <AppKit/NSDragging.h>
 #import <AppKit/NSUserInterfaceValidation.h>
-#import <AppKit/NSTextView.h>
 
 @class NSTableHeaderView;
 @class NSTableColumn;
 @class NSMutableArray;
 @class NSIndexSet, NSMutableIndexSet;
-@protocol NSTableViewDelegate, NSTableViewDataSource;
 
 typedef struct __TvFlags {
 #ifdef __BIG_ENDIAN__
-    unsigned int        allowsColumnReordering:1;
-    unsigned int        allowsColumnResizing:1;
-    unsigned int        oldDrawsGridFlag:1;
-    unsigned int        allowsEmptySelection:1;
-    unsigned int        allowsMultipleSelection:1;
-    unsigned int        allowsColumnSelection:1;
-    unsigned int        selectionType:2;
-    unsigned int        changingLayout:1; // Unused
-    unsigned int        compareWidthWithSuperview:2;
-    unsigned int        delegateWillDisplayCell:1;
-    unsigned int        delegateShouldEditTableColumn:1;
-    unsigned int        delegateShouldSelectRow:1;
-    unsigned int        delegateShouldSelectTableColumn:1;
-    unsigned int        delegateSelectionShouldChangeInTableView:1;
-    unsigned int        oldAutoresizesAllColumnsToFit:1;
-    unsigned int        dataSourceSetObjectValue:1;
-    unsigned int        selectionPostingDisableCount:7;
-    unsigned int        movedPostingDisableCount:6;
-    unsigned int        refusesFirstResponder:1;
+    unsigned int	allowsColumnReordering:1;
+    unsigned int	allowsColumnResizing:1;
+    unsigned int	oldDrawsGridFlag:1;
+    unsigned int	allowsEmptySelection:1;
+    unsigned int	allowsMultipleSelection:1;
+    unsigned int	allowsColumnSelection:1;
+    unsigned int	selectionType:2;
+    unsigned int	changingLayout:1; // Unused
+    unsigned int	compareWidthWithSuperview:2;
+    unsigned int	delegateWillDisplayCell:1;
+    unsigned int	delegateShouldEditTableColumn:1;
+    unsigned int	delegateShouldSelectRow:1;
+    unsigned int	delegateShouldSelectTableColumn:1;
+    unsigned int	delegateSelectionShouldChangeInTableView:1;
+    unsigned int	oldAutoresizesAllColumnsToFit:1;
+    unsigned int	dataSourceSetObjectValue:1;
+    unsigned int	selectionPostingDisableCount:7;
+    unsigned int	movedPostingDisableCount:6;
+    unsigned int	refusesFirstResponder:1;
 #else
-    unsigned int        refusesFirstResponder:1;
-    unsigned int        movedPostingDisableCount:6;
-    unsigned int        selectionPostingDisableCount:7;
-    unsigned int        dataSourceSetObjectValue:1;
-    unsigned int        oldAutoresizesAllColumnsToFit:1;
-    unsigned int        delegateSelectionShouldChangeInTableView:1;
-    unsigned int        delegateShouldSelectTableColumn:1;
-    unsigned int        delegateShouldSelectRow:1;
-    unsigned int        delegateShouldEditTableColumn:1;
-    unsigned int        delegateWillDisplayCell:1;
-    unsigned int        compareWidthWithSuperview:2;
-    unsigned int        changingLayout:1; // Unused
-    unsigned int        selectionType:2;
-    unsigned int        allowsColumnSelection:1;
-    unsigned int        allowsMultipleSelection:1;
-    unsigned int        allowsEmptySelection:1;
-    unsigned int        oldDrawsGridFlag:1;
-    unsigned int        allowsColumnResizing:1;
-    unsigned int        allowsColumnReordering:1;
+    unsigned int	refusesFirstResponder:1;
+    unsigned int	movedPostingDisableCount:6;
+    unsigned int	selectionPostingDisableCount:7;
+    unsigned int	dataSourceSetObjectValue:1;
+    unsigned int	oldAutoresizesAllColumnsToFit:1;
+    unsigned int	delegateSelectionShouldChangeInTableView:1;
+    unsigned int	delegateShouldSelectTableColumn:1;
+    unsigned int	delegateShouldSelectRow:1;
+    unsigned int	delegateShouldEditTableColumn:1;
+    unsigned int	delegateWillDisplayCell:1;
+    unsigned int	compareWidthWithSuperview:2;
+    unsigned int	changingLayout:1; // Unused
+    unsigned int	selectionType:2;
+    unsigned int	allowsColumnSelection:1;
+    unsigned int	allowsMultipleSelection:1;
+    unsigned int	allowsEmptySelection:1;
+    unsigned int	oldDrawsGridFlag:1;
+    unsigned int	allowsColumnResizing:1;
+    unsigned int	allowsColumnReordering:1;
 #endif
 } _TvFlags;
 
@@ -67,47 +65,47 @@ enum { NSTableViewDropOn, NSTableViewDropAbove };
 typedef NSUInteger NSTableViewDropOperation;
 
 
-@interface NSTableView : NSControl <NSUserInterfaceValidations, NSTextViewDelegate>
+@interface NSTableView : NSControl <NSUserInterfaceValidations>
 {
     /* All instance variables are private */
-    NSTableHeaderView        *_headerView;
-    NSView                *_cornerView;
-    NSMutableArray             *_tableColumns;
-    NSCell                *_editingCell;
-    id                        _delegate;
-    id                        _dataSource;
-    NSSize                _intercellSpacing;
-    CGFloat                _rowHeight;
-    NSInteger                _lastSelectedColumn;
-    NSInteger                _lastSelectedRow;
-    NSInteger                _editingRow;
-    NSInteger                _editingColumn;
-    NSMutableIndexSet        *_selectedColumns;
-    NSMutableIndexSet        *_selectedRows;
-    NSImage                *_bodyDragImage;
-    NSColor                *_backgroundColor;
-    NSColor                *_gridColor;
-    CGFloat                _dragYPos;
-    id                        _target;
+    NSTableHeaderView	*_headerView;
+    NSView		*_cornerView;
+    NSMutableArray     	*_tableColumns;
+    NSCell		*_editingCell;
+    id			_delegate;
+    id			_dataSource;
+    NSSize		_intercellSpacing;
+    CGFloat		_rowHeight;
+    NSInteger		_lastSelectedColumn;
+    NSInteger		_lastSelectedRow;
+    NSInteger		_editingRow;
+    NSInteger		_editingColumn;
+    NSMutableIndexSet	*_selectedColumns;
+    NSMutableIndexSet	*_selectedRows;
+    NSImage		*_bodyDragImage;
+    NSColor		*_backgroundColor;
+    NSColor		*_gridColor;
+    CGFloat		_dragYPos;
+    id			_target;
     SEL                 _action;
     SEL                 _doubleAction;
-    NSRect                _rectOfLastColumn;
-    NSInteger                _lastCachedRectColumn;
-    NSRect                _rectOfLastRow;
-    NSInteger                _lastCachedRectRow;
+    NSRect		_rectOfLastColumn;
+    NSInteger		_lastCachedRectColumn;
+    NSRect		_rectOfLastRow;
+    NSInteger		_lastCachedRectRow;
     _TvFlags            _tvFlags;
     id                  _reserved;
 }
 
 /* Get and set the dataSource. The dataSource can implement methods in the category NSObject(NSTableViewDataSource). Some methods are required, unless bindings are used, in which case they are optional. The dataSource is a weak reference (non retained) in non garbage collected applications. Under garbage collected apps, it is a strong reference. The default value is 'nil'.
  */
-- (void)setDataSource:(id <NSTableViewDataSource>)aSource;
-- (id <NSTableViewDataSource>)dataSource;
+- (void)setDataSource:(id)aSource;
+- (id)dataSource;
 
 /* Get and set the delegate. The delegate can implement methods in the category NSObject(NSTableViewDelegate). All delegate methods are optional. The delegate is a weak reference (non retained) in non garbage collected applications. Under garbage collected apps, it is a strong reference. The default value is 'nil'.
  */
-- (void)setDelegate:(id <NSTableViewDelegate>)delegate;
-- (id <NSTableViewDelegate>)delegate;
+- (void)setDelegate:(id)delegate;
+- (id)delegate;
 
 /* Get and set the headerView. Calling -setHeaderView:nil will remove the headerView. Calling -setHeaderView: may have the side effect of tiling the enclosingScrollView to accommodate the size change. The default value is a new NSTableHeaderView instance.
  */
@@ -383,12 +381,11 @@ typedef NSInteger NSTableViewSelectionHighlightStyle;
 */
 - (NSRect)rectOfColumn:(NSInteger)column;
 
-/* Returns the rectange for 'row'. If 'row' is < 0 or >= [self numberOfRows], then NSZeroRect is returned.
- */
 - (NSRect)rectOfRow:(NSInteger)row;
 
-/* Returns the indexes for columns in 'rect'. NSTableColumns which have -isHidden == YES are not returned. If 'rect' is empty, no indexes will be returned. Introduced in Mac OS 10.5. 
- */
+/* Introduced in Mac OS 10.5. Returns the indexes for columns in 'rect'. NSTableColumns which have -isHidden == YES are not returned. If 'rect' is empty, no indexes will be returned.
+*/
+
 - (NSIndexSet *)columnIndexesInRect:(NSRect)rect AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
 /* Returns the range of rows in 'rect'. If 'rect' is empty, or if there are no rows, an empty range will be returned. If 'rect' is outside of -[NSTableView bounds], 'rect' will be intersected to only look in the bounds.
@@ -460,8 +457,7 @@ typedef NSInteger NSTableViewSelectionHighlightStyle;
 
 @end
 
-@protocol NSTableViewDelegate <NSControlTextEditingDelegate>
-@optional
+@interface NSObject(NSTableViewDelegate)
 
 /* Allows the delegate to provide further setup for 'cell' in 'tableColumn'/'row'. It is not safe to do drawing inside this method, and you should only setup state for 'cell'.
  */ 
@@ -541,13 +537,6 @@ typedef NSInteger NSTableViewSelectionHighlightStyle;
  */
 - (BOOL)tableView:(NSTableView *)tableView shouldReorderColumn:(NSInteger)columnIndex toColumn:(NSInteger)newColumnIndex AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-/*  Notifications
- */
-- (void)tableViewSelectionDidChange:(NSNotification *)notification;
-- (void)tableViewColumnDidMove:(NSNotification *)notification;
-- (void)tableViewColumnDidResize:(NSNotification *)notification;
-- (void)tableViewSelectionIsChanging:(NSNotification *)notification;
-
 @end
 
 /*
@@ -558,8 +547,14 @@ APPKIT_EXTERN NSString *NSTableViewColumnDidMoveNotification;       // @"NSOldCo
 APPKIT_EXTERN NSString *NSTableViewColumnDidResizeNotification;     // @"NSTableColumn", @"NSOldWidth"
 APPKIT_EXTERN NSString *NSTableViewSelectionIsChangingNotification;
 
-@protocol NSTableViewDataSource <NSObject>
-@optional
+@interface NSObject(NSTableViewNotifications)
+- (void)tableViewSelectionDidChange:(NSNotification *)notification;
+- (void)tableViewColumnDidMove:(NSNotification *)notification;
+- (void)tableViewColumnDidResize:(NSNotification *)notification;
+- (void)tableViewSelectionIsChanging:(NSNotification *)notification;
+@end
+
+@interface NSObject(NSTableViewDataSource)
 
 /* Required Methods
 */
@@ -584,11 +579,11 @@ APPKIT_EXTERN NSString *NSTableViewSelectionIsChangingNotification;
 
 /* This method is used by NSTableView to determine a valid drop target. Based on the mouse position, the table view will suggest a proposed drop 'row' and 'dropOperation'. This method must return a value that indicates which NSDragOperation the data source will perform. The data source may "re-target" a drop, if desired, by calling setDropRow:dropOperation: and returning something other than NSDragOperationNone. One may choose to re-target for various reasons (eg. for better visual feedback when inserting into a sorted position).
 */
-- (NSDragOperation)tableView:(NSTableView *)tableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation;
+- (NSDragOperation)tableView:(NSTableView*)tableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation;
 
 /* This method is called when the mouse is released over an outline view that previously decided to allow a drop via the validateDrop method.  The data source should incorporate the data from the dragging pasteboard at this time. 'row' and 'dropOperation' contain the values previously set in the validateDrop: method.
 */
-- (BOOL)tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation;
+- (BOOL)tableView:(NSTableView*)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation;
 
 /* NSTableView data source objects can support file promised drags via by adding  NSFilesPromisePboardType to the pasteboard in tableView:writeRowsWithIndexes:toPasteboard:.  NSTableView implements -namesOfPromisedFilesDroppedAtDestination: to return the results of this data source method.  This method should returns an array of filenames for the created files (filenames only, not full paths).  The URL represents the drop location.  For more information on file promise dragging, see documentation on the NSDraggingSource protocol and -namesOfPromisedFilesDroppedAtDestination:.
 */
@@ -639,7 +634,7 @@ APPKIT_EXTERN NSString *NSTableViewSelectionIsChangingNotification;
 
 /* Deprecated in Mac OS 10.4.  You should use / override dragImageForRowsWithIndexes:tableColumns:event:dragImageOffset: instead.
 */ 
-- (NSImage *)dragImageForRows:(NSArray*)dragRows event:(NSEvent *)dragEvent dragImageOffset:(NSPointPointer)dragImageOffset DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
+- (NSImage*)dragImageForRows:(NSArray*)dragRows event:(NSEvent *)dragEvent dragImageOffset:(NSPointPointer)dragImageOffset DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
 
 /* Deprecated in Mac OS 10.4.  You should use setColumnAutoresizingStyle: instead.  To preserve compatibility, if flag is YES, This method calls setColumnAutoresizingStyle:NSTableViewUniformColumnAutoresizingStyle.  If flag is NO, this method calls setColumnAutoresizingStyle:NSTableViewLastColumnOnlyAutoresizingStyle.
 */

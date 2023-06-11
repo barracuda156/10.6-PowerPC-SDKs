@@ -1,5 +1,5 @@
 /*	NSConnection.h
-	Copyright (c) 1989-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1989-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -7,8 +7,6 @@
 
 @class NSMutableData, NSDistantObject, NSException, NSData;
 @class NSPort, NSRunLoop, NSPortNameServer, NSDictionary, NSArray;
-@class NSDistantObjectRequest;
-@protocol NSConnectionDelegate;
 
 @interface NSConnection : NSObject {
     @private
@@ -67,8 +65,8 @@
 
 - (NSDistantObject *)rootProxy;
   
-- (void)setDelegate:(id <NSConnectionDelegate>)anObject;
-- (id <NSConnectionDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 
 - (void)setIndependentConversationQueueing:(BOOL)yorn;
 - (BOOL)independentConversationQueueing;
@@ -110,8 +108,7 @@ FOUNDATION_EXPORT NSString * const NSConnectionReplyMode;
 FOUNDATION_EXPORT NSString * const NSConnectionDidDieNotification;
 
 
-@protocol NSConnectionDelegate <NSObject>
-@optional
+@interface NSObject (NSConnectionDelegateMethods)
 
 // Use the NSConnectionDidInitializeNotification notification instead
 // of this delegate method if possible.
@@ -125,8 +122,6 @@ FOUNDATION_EXPORT NSString * const NSConnectionDidDieNotification;
 - (BOOL)authenticateComponents:(NSArray *)components withData:(NSData *)signature;
 
 - (id)createConversationForConnection:(NSConnection *)conn;
-
-- (BOOL)connection:(NSConnection *)connection handleRequest:(NSDistantObjectRequest *)doreq;
 
 @end
 
@@ -142,3 +137,10 @@ FOUNDATION_EXPORT NSString * const NSConnectionDidInitializeNotification;
 - (void)replyWithException:(NSException *)exception;
 
 @end
+
+@interface NSObject (NSDistantObjectRequestMethods)
+
+- (BOOL)connection:(NSConnection *)connection handleRequest:(NSDistantObjectRequest *)doreq;
+
+@end
+

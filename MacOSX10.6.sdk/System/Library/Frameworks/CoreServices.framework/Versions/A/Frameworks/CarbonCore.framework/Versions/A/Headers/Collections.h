@@ -3,7 +3,7 @@
  
      Contains:   Collection Manager Interfaces
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1989-2008 by Apple Computer, Inc., all rights reserved
  
@@ -41,19 +41,19 @@ extern "C" {
 /*************/
 /* Convenience constants for functions which optionally return values */
 enum {
-  kCollectionDontWantTag        = 0,
-  kCollectionDontWantId         = 0,
-  kCollectionDontWantSize       = 0,
-  kCollectionDontWantAttributes = 0,
-  kCollectionDontWantIndex      = 0,
-  kCollectionDontWantData       = 0
+  kCollectionDontWantTag        = 0L,
+  kCollectionDontWantId         = 0L,
+  kCollectionDontWantSize       = 0L,
+  kCollectionDontWantAttributes = 0L,
+  kCollectionDontWantIndex      = 0L,
+  kCollectionDontWantData       = 0L
 };
 
 
 /* attributes bits */
 enum {
   kCollectionNoAttributes       = 0x00000000, /* no attributes bits set */
-  kCollectionAllAttributes      = (int)0xFFFFFFFF, /* all attributes bits set */
+  kCollectionAllAttributes      = (long)0xFFFFFFFF, /* all attributes bits set */
   kCollectionUserAttributes     = 0x0000FFFF, /* user attributes bits */
   kCollectionDefaultAttributes  = 0x40000000 /* default attributes - unlocked, persistent */
 };

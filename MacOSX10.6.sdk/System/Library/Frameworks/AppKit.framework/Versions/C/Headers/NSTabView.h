@@ -1,7 +1,7 @@
 /*
         NSTabView.h
         Application Kit
-        Copyright (c) 2000-2008, Apple Inc.
+        Copyright (c) 2000-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -9,7 +9,6 @@
 #import <AppKit/NSCell.h>
 
 @class NSArray, NSFont, NSTabViewItem;
-@protocol NSTabViewDelegate;
 
 #define NSAppKitVersionNumberWithDirectionalTabs 631.0
 
@@ -113,8 +112,8 @@ typedef NSUInteger NSTabViewType;
 
 	/* Delegate */
 
-- (void)setDelegate:(id <NSTabViewDelegate>)anObject;
-- (id <NSTabViewDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 
 	/* Hit testing */
 
@@ -137,8 +136,7 @@ typedef NSUInteger NSTabViewType;
 //	NSTabViewDelegate protocol
 //================================================================================
 
-@protocol NSTabViewDelegate <NSObject>
-@optional
+@interface NSObject(NSTabViewDelegate)
 - (BOOL)tabView:(NSTabView *)tabView shouldSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 - (void)tabView:(NSTabView *)tabView willSelectTabViewItem:(NSTabViewItem *)tabViewItem;
 - (void)tabView:(NSTabView *)tabView didSelectTabViewItem:(NSTabViewItem *)tabViewItem;

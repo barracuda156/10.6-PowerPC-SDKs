@@ -107,40 +107,27 @@ COREDATA_EXTERN NSString * const NSStoreModelVersionIdentifiersKey AVAILABLE_MAC
 */
 COREDATA_EXTERN NSString * const NSPersistentStoreOSCompatibility AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;    
 
-// Spotlight indexing and external record support keys
+// Spotlight indexing and truth file support keys
 
-/* Values to be passed with NSExternalRecordsFileFormatOption indicating the format used when writing external records. 
-   The files are serialized dictionaries. 
-*/
-COREDATA_EXTERN NSString * const NSXMLExternalRecordType AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-COREDATA_EXTERN NSString * const NSBinaryExternalRecordType AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* option indicating the file format used when writting external records.The default is NSXMLExternalRecordType if this options isn't specified. */
-COREDATA_EXTERN NSString * const NSExternalRecordsFileFormatOption AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* option indicating the directory URL where external records are stored. External records are files that can be used by 
-   Spotlight to index the contents of the store. They can also contain a serialized dictionary representation of the instances.
-   The location specified with this option must be somewhere under the path ~/Library/Caches/Metadata/CoreData or ~/Library/CoreData
-   This option must be set together with NSExternalRecordExtensionOption
-*/
+/* option indicating the directory where supporting files (Spotlight index records, truth files) should be written to */
 COREDATA_EXTERN NSString * const NSExternalRecordsDirectoryOption AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-/* option indicating the extension used in the external record files. This option must be set together with NSExternalRecordsDirectoryOption */
-COREDATA_EXTERN NSString * const NSExternalRecordExtensionOption AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;    
+/* option indicating the extension used for Spotlight index records */
+COREDATA_EXTERN NSString * const NSSpotlightFileExtensionOption AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;    
 
-/* Dictionary key for the entity name extracted from an external record file URL */
+/* Dictionary key for the entity name extracted from a truth file support directory path */
 COREDATA_EXTERN NSString * const NSEntityNameInPathKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;    
 
-/* Dictionary key for the store UUID extracted from an external record file URL */
+/* Dictionary key for the store UUID extracted from a truth file support directory path */
 COREDATA_EXTERN NSString * const NSStoreUUIDInPathKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;    
 
-/* Dictionary key for the store URL extracted from an external record file URL */
+/* Dictionary key for the NSURL store path extracted from a truth file support directory path */
 COREDATA_EXTERN NSString * const NSStorePathKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;    
 
-/* Dictionary key for the managed object model URL extracted from an external record file URL */
+/* Dictionary key for the NSURL managed object model path extracted from a truth file support directory path */
 COREDATA_EXTERN NSString * const NSModelPathKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;    
 
-/* Dictionary key for the object URI extracted from an external record file URL */
+/* Dictionary key for the object URI extracted from a truth file support directory path */
 COREDATA_EXTERN NSString * const NSObjectURIKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;    
 
 @interface NSPersistentStoreCoordinator : NSObject <NSLocking> {
@@ -148,7 +135,7 @@ COREDATA_EXTERN NSString * const NSObjectURIKey AVAILABLE_MAC_OS_X_VERSION_10_6_
     void *_reserved;
     void *_reserved2;
     void *_reserved3;
-    id _externalRecordsHelper;
+    void *_reserved4;
     NSManagedObjectModel *_managedObjectModel;
     id _coreLock;
     NSMutableArray *_persistentStores;
@@ -167,7 +154,7 @@ COREDATA_EXTERN NSString * const NSObjectURIKey AVAILABLE_MAC_OS_X_VERSION_10_6_
 + (NSDictionary *)metadataForPersistentStoreOfType:(NSString *)storeType URL:(NSURL *)url error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER; 
 + (BOOL)setMetadata:(NSDictionary *)metadata forPersistentStoreOfType:(NSString *)storeType URL:(NSURL*)url error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
-/* Takes a URL to an external record file file and returns a dictionary with the derived elements
+/* Takes a path to a Spotlight support file and returns a dictionary with the parsed elements derived from the path
   The keys in the dictionary are
         NSEntityNameInPathKey - the name of the entity for the managed object instance
         NSStoreUUIDInPathKey - UUID of the store containing the instance
@@ -175,13 +162,7 @@ COREDATA_EXTERN NSString * const NSObjectURIKey AVAILABLE_MAC_OS_X_VERSION_10_6_
         NSModelPathKey - path to the model file (this is resolved to the model.mom path contained in the support directory)
         NSObjectURIKey - URI of the object instance.
 */
-+ (NSDictionary *)elementsDerivedFromExternalRecordURL:(NSURL *)fileURL AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* Creates and populates a store with the external records found at externalRecordsURL. The store is written to destinationURL using
-    options and with type storeType. If storeIdentifier is nil, the records for a single store at externalRecordsURL at imported.
-    externalRecordsURL must not exists as the store will be created from scratch (no appending to an existing store is allowed).
-*/
-- (NSPersistentStore *)importStoreWithIdentifier:(NSString *)storeIdentifier fromExternalRecordsDirectory:(NSURL *)externalRecordsURL toURL:(NSURL *)destinationURL options:(NSDictionary *)options withType:(NSString *)storeType error:(NSError **)error;
++ (NSDictionary *)elementsDerivedFromSupportURL:(NSURL *)fileURL AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 /* Sets the metadata stored in the persistent store during the next save operation executed on it; the store type and UUID (NSStoreTypeKey and NSStoreUUIDKey) are always added automatically (but NSStoreUUIDKey is only added if it is not set manually as part of the dictionary argument) 
 */

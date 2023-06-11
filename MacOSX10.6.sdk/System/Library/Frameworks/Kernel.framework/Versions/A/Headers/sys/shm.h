@@ -127,8 +127,6 @@ typedef unsigned short	shmatt_t;
 #define SHM_R       (IPC_R)
 #define SHM_W       (IPC_W)
 
-#pragma pack(4)
-
 /*
  * Technically, we should force all code references to the new structure
  * definition, not in just the standards conformance case, and leave the
@@ -179,8 +177,6 @@ struct __shmid_ds_old {
 	void		*shm_internal;	/* reserved for kernel use */
 };
 #endif	/* !__DARWIN_UNIX03 */
-
-#pragma pack()
 
 
 #endif /* !_SYS_SHM_H_ */

@@ -1,7 +1,7 @@
 /*
         NSDrawer.h
         Application Kit
-        Copyright (c) 1999-2008, Apple Inc.
+        Copyright (c) 1999-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -18,7 +18,6 @@
 @class NSView;
 @class NSWindow;
 @class NSNotification;
-@protocol NSDrawerDelegate;
 
 enum {
     NSDrawerClosedState			= 0,
@@ -62,8 +61,8 @@ typedef NSUInteger NSDrawerState;
 - (NSView *)contentView;
 - (void)setPreferredEdge:(NSRectEdge)edge;
 - (NSRectEdge)preferredEdge;
-- (void)setDelegate:(id <NSDrawerDelegate>)anObject;
-- (id <NSDrawerDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 
 - (void)open;
 - (void)openOnEdge:(NSRectEdge)edge;
@@ -96,18 +95,17 @@ typedef NSUInteger NSDrawerState;
 
 @end
 
-@protocol NSDrawerDelegate <NSObject>
-@optional
-- (BOOL)drawerShouldOpen:(NSDrawer *)sender;
-- (BOOL)drawerShouldClose:(NSDrawer *)sender;
-- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize;
-
-/* Notifications */
+@interface NSObject(NSDrawerNotifications)
 - (void)drawerWillOpen:(NSNotification *)notification;
 - (void)drawerDidOpen:(NSNotification *)notification;
 - (void)drawerWillClose:(NSNotification *)notification;
 - (void)drawerDidClose:(NSNotification *)notification;
+@end
 
+@interface NSObject(NSDrawerDelegate)
+- (BOOL)drawerShouldOpen:(NSDrawer *)sender;
+- (BOOL)drawerShouldClose:(NSDrawer *)sender;
+- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize;
 @end
 
 /* Notifications */

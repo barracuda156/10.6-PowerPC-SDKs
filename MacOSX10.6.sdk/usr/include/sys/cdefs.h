@@ -221,7 +221,7 @@
  *		Apple API extensions in scope.
  *
  *		Most users will use this compilation environment to avoid
- *		behavioral differences between 32 and 64 bit code.
+ *		behavioural differences between 32 and 64 bit code.
  *
  * LEGACY	Defining _NONSTD_SOURCE will get pre-POSIX APIs plus Apple
  *		API extensions in scope.
@@ -246,7 +246,7 @@
  *
  * In any compilation environment, for correct symbol resolution to occur,
  * function prototypes must be in scope.  It is recommended that all Apple
- * tools users add either the "-Wall" or "-Wimplicit-function-declaration"
+ * tools users add etiher the "-Wall" or "-Wimplicit-function-declaration"
  * compiler flags to their projects to be warned when a function is being
  * used without a prototype in scope.
  */
@@ -259,19 +259,19 @@
 
 /*
  * The __DARWIN_ALIAS macros are used to do symbol renaming; they allow
- * legacy code to use the old symbol, thus maintaining binary compatibility
+ * legacy code to use the old symbol, thus maintiang binary compatability
  * while new code can use a standards compliant version of the same function.
  *
  * __DARWIN_ALIAS is used by itself if the function signature has not
  * changed, it is used along with a #ifdef check for __DARWIN_UNIX03
- * if the signature has changed.  Because the __LP64__ environment
- * only supports UNIX03 semantics it causes __DARWIN_UNIX03 to be
+ * if the signature has changed.  Because the __LP64__ enviroment
+ * only supports UNIX03 sementics it causes __DARWIN_UNIX03 to be
  * defined, but causes __DARWIN_ALIAS to do no symbol mangling.
  *
  * As a special case, when XCode is used to target a specific version of the
  * OS, the manifest constant __ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__
  * will be defined by the compiler, with the digits representing major version
- * time 100 + minor version times 10 (e.g. 10.5 := 1050).  If we are targeting
+ * time 100 + minor version times 10 (e.g. 10.5 := 1050).  If we are targetting
  * pre-10.5, and it is the default compilation environment, revert the
  * compilation environment to pre-__DARWIN_UNIX03.
  */

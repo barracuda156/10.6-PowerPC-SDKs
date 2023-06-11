@@ -117,9 +117,9 @@ typedef struct xcb_record_element_header_iterator_t {
 } xcb_record_element_header_iterator_t;
 
 typedef enum xcb_record_h_type_t {
-    XCB_RECORD_H_TYPE_FROM_SERVER_TIME = (1 << 0),
-    XCB_RECORD_H_TYPE_FROM_CLIENT_TIME = (1 << 1),
-    XCB_RECORD_H_TYPE_FROM_CLIENT_SEQUENCE = (1 << 2)
+    XCB_RECORD_H_TYPE_FROM_SERVER_TIME = 0x01,
+    XCB_RECORD_H_TYPE_FROM_CLIENT_TIME = 0x02,
+    XCB_RECORD_H_TYPE_FROM_CLIENT_SEQUENCE = 0x04
 } xcb_record_h_type_t;
 
 typedef uint32_t xcb_record_client_spec_t;

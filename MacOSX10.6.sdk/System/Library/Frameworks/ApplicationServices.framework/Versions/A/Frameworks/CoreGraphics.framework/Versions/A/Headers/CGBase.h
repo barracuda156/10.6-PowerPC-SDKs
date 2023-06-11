@@ -9,15 +9,6 @@
 #include <stddef.h>
 #include <float.h>
 
-#if !defined(__WIN32__)
-#  if defined(_WIN32) || defined(__CYGWIN32__)
-#    define __WIN32__ 1
-#  endif
-#endif /* !defined(__WIN32__) */
-
-#if defined(CG_IPHONE) || defined(__WIN32__)
-#  include <Availability.h>
-#else /* !defined(CG_IPHONE) */
 #  include <AvailabilityMacros.h>
 #  if defined(MAC_OS_X_VERSION_10_6)
 #    include <Availability.h>
@@ -27,7 +18,6 @@
 #      define __OSX_AVAILABLE_BUT_DEPRECATED(a,b,c,d)
 #    endif /* !defined(__AVAILABILITY__) */
 #  endif /* !defined(MAC_OS_X_VERSION_10_6) */
-#endif /* !defined(CG_IPHONE) */
 
 #if defined(CG_BUILDING_CG)
 #  define CG_AVAILABLE_STARTING(_mac,_iphone)
@@ -36,6 +26,12 @@
 #  define CG_AVAILABLE_STARTING __OSX_AVAILABLE_STARTING
 #  define CG_AVAILABLE_BUT_DEPRECATED __OSX_AVAILABLE_BUT_DEPRECATED
 #endif /* !defined(CG_BUILDING_CG) */
+
+#if !defined(__WIN32__)
+#  if defined(_WIN32) || defined(__CYGWIN32__)
+#    define __WIN32__ 1
+#  endif
+#endif /* !defined(__WIN32__) */
 
 #if !defined(CG_EXTERN_C_BEGIN)
 #  if defined(__cplusplus)

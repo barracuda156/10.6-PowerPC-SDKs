@@ -13,8 +13,6 @@
     ICDevice is an abstract class that represents a device supported by Image Capture. ImageCaptureCore defines two concrete subclasses of ICDevice, ICCameraDevice and ICScannerDevice. ICDeviceBrowser creates instances of these two subclasses to represent cameras and scanners it finds.
 */
 
-//------------------------------------------------------------------------------------------------------------------------------
-
 @class  ICDevice;
 
 //------------------------------------------------------------------------------------------------------------------------------
@@ -53,50 +51,6 @@ extern NSString *const ICTransportTypeTCPIP;
     @discussion Indicates that the device use mounts as a mass-storage volume.
 */
 extern NSString *const ICTransportTypeMassStorage;
-
-//------------------------------------------------------------------------------------------------------------------------------
-// Constants used to identify button-press on a device.
-/*!
-    @const      ICButtonTypeScan
-    @abstract   ICButtonTypeScan
-    @discussion Indicates that the "Scan" button on the device was pressed.
-*/
-extern NSString *const ICButtonTypeScan;
-
-/*!
-    @const      ICButtonTypeMail
-    @abstract   ICButtonTypeMail
-    @discussion Indicates that the "Mail" button on the device was pressed.
-*/
-extern NSString *const ICButtonTypeMail;
-
-/*!
-    @const      ICButtonTypeCopy
-    @abstract   ICButtonTypeCopy
-    @discussion Indicates that the "Copy" button on the device was pressed.
-*/
-extern NSString *const ICButtonTypeCopy;
-
-/*!
-    @const      ICButtonTypeWeb
-    @abstract   ICButtonTypeWeb
-    @discussion Indicates that the "Web" button on the device was pressed.
-*/
-extern NSString *const ICButtonTypeWeb;
-
-/*!
-    @const      ICButtonTypePrint
-    @abstract   ICButtonTypePrint
-    @discussion Indicates that the "Print" button on the device was pressed.
-*/
-extern NSString *const ICButtonTypePrint;
-
-/*!
-    @const      ICButtonTypeTransfer
-    @abstract   ICButtonTypeTransfer
-    @discussion Indicates that the "Transfer" button on the device was pressed.
-*/
-extern NSString *const ICButtonTypeTransfer;
 
 //------------------------------------------------------------------------------------------------------------------------------
 // Constants used for device status notifications.
@@ -169,22 +123,15 @@ extern NSString *const ICLocalizedStatusNotificationKey;
 
 /*! 
   @method device:didReceiveNotification:
-  @abstract This message is sent to the device delegate when an unsolicited notification is received from a camera or a scanner.
+  @abstract This message is sent when a camera or scanner has an unsolicited notification.
 */
 - (void)device:(ICDevice*)device didReceiveNotification:(NSDictionary*)notification;
 
 /*! 
   @method scannerDevice:didEncounterError:
-  @abstract This message is sent to the device delegate when a camera or scanner device encounters an error.
+  @abstract This message is sent when a camera or scanner device encounters an error.
 */
 - (void)device:(ICDevice*)device didEncounterError:(NSError*)error;
-
-/*! 
-  @method device:didReceiveButtonPress:
-  @abstract This message is sent to the device delegate if a button is pressed on the device.
-  @discussion This message is sent only if a session is open on the device. The value of 'buttonType' argument is one of the ICButtonType* values defined above.
-*/
-- (void)device:(ICDevice*)device didReceiveButtonPress:(NSString*)buttonType;
 
 @end
 
@@ -296,20 +243,6 @@ extern NSString *const ICLocalizedStatusNotificationKey;
 
 */
 @property(readonly)                     BOOL                  hasOpenSession;
-
-/*!
-    @property UUIDString
-    @abstract ￼A string representation of the Universally Unique ID of the device.
-
-*/
-@property(readonly)                     NSString*             UUIDString;
-
-/*!
-    @property autolaunchApplicationPath
-    @abstract ￼Filesystem path of an application that is to be automatically launched when this device is added.
-
-*/
-@property(readwrite,copy)               NSString*             autolaunchApplicationPath;
 
 /*! 
   @method requestOpenSession:

@@ -1,5 +1,5 @@
 /*
- * "$Id: cups.h 7847 2008-08-19 04:22:14Z mike $"
+ * "$Id: cups.h 6870 2007-08-27 21:13:35Z mike $"
  *
  *   API definitions for the Common UNIX Printing System (CUPS).
  *
@@ -68,7 +68,6 @@ extern "C" {
 #  define CUPS_DATE_ANY		(time_t)-1
 #  define CUPS_EXCLUDE_NONE	(const char *)0
 #  define CUPS_FORMAT_AUTO	"application/octet-stream"
-#  define CUPS_FORMAT_COMMAND	"application/vnd.cups-command"
 #  define CUPS_FORMAT_PDF	"application/pdf"
 #  define CUPS_FORMAT_POSTSCRIPT "application/postscript"
 #  define CUPS_FORMAT_RAW	"application/vnd.cups-raw"
@@ -125,8 +124,7 @@ typedef const char *(*cups_password_cb_t)(const char *prompt);
 typedef void (*cups_device_cb_t)(const char *device_class,
                                  const char *device_id, const char *device_info,
                                  const char *device_make_and_model,
-                                 const char *device_uri,
-				 const char *device_location, void *user_data);
+                                 const char *device_uri, void *user_data);
 					/**** Device callback @since CUPS 1.4@ ****/
 
 typedef struct cups_option_s		/**** Printer Options ****/
@@ -293,11 +291,6 @@ extern ipp_t		*cupsGetResponse(http_t *http,
 			                 const char *resource) _CUPS_API_1_4;
 extern ssize_t		cupsReadResponseData(http_t *http, char *buffer,
 			                     size_t length) _CUPS_API_1_4;
-extern int		cupsResolveConflicts(ppd_file_t *ppd, const char *option,
-			                     const char *choice,
-					     int *num_options,
-					     cups_option_t **options)
-					     _CUPS_API_1_4;
 extern http_status_t	cupsSendRequest(http_t *http, ipp_t *request,
 			                const char *resource,
 					size_t length) _CUPS_API_1_4;
@@ -315,5 +308,5 @@ extern http_status_t	cupsWriteRequestData(http_t *http, const char *buffer,
 #endif /* !_CUPS_CUPS_H_ */
 
 /*
- * End of "$Id: cups.h 7847 2008-08-19 04:22:14Z mike $".
+ * End of "$Id: cups.h 6870 2007-08-27 21:13:35Z mike $".
  */

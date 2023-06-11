@@ -7,43 +7,19 @@
 #endif
 #ifndef OPENSSL_DOING_MAKEDEPEND
 
-#ifndef OPENSSL_NO_CAMELLIA
-# define OPENSSL_NO_CAMELLIA
-#endif
-#ifndef OPENSSL_NO_CAPIENG
-# define OPENSSL_NO_CAPIENG
-#endif
-#ifndef OPENSSL_NO_CMS
-# define OPENSSL_NO_CMS
-#endif
-#ifndef OPENSSL_NO_FIPS
-# define OPENSSL_NO_FIPS
-#endif
-#ifndef OPENSSL_NO_GMP
-# define OPENSSL_NO_GMP
-#endif
 #ifndef OPENSSL_NO_IDEA
 # define OPENSSL_NO_IDEA
 #endif
 #ifndef OPENSSL_NO_KRB5
 # define OPENSSL_NO_KRB5
 #endif
-#ifndef OPENSSL_NO_RFC3779
-# define OPENSSL_NO_RFC3779
-#endif
-#ifndef OPENSSL_NO_TLSEXT
-# define OPENSSL_NO_TLSEXT
-#endif
 
 #endif /* OPENSSL_DOING_MAKEDEPEND */
 #ifndef OPENSSL_THREADS
 # define OPENSSL_THREADS
 #endif
-#ifndef OPENSSL_NO_HW
-# define OPENSSL_NO_HW
-#endif
-#ifndef OPENSSL_NO_STATIC_ENGINE
-# define OPENSSL_NO_STATIC_ENGINE
+#ifndef OPENSSL_NO_ASM
+# define OPENSSL_NO_ASM
 #endif
 
 /* The OPENSSL_NO_* macros are also defined as NO_* if the application
@@ -51,32 +27,11 @@
    who haven't had the time to do the appropriate changes in their
    applications.  */
 #ifdef OPENSSL_ALGORITHM_DEFINES
-# if defined(OPENSSL_NO_CAMELLIA) && !defined(NO_CAMELLIA)
-#  define NO_CAMELLIA
-# endif
-# if defined(OPENSSL_NO_CAPIENG) && !defined(NO_CAPIENG)
-#  define NO_CAPIENG
-# endif
-# if defined(OPENSSL_NO_CMS) && !defined(NO_CMS)
-#  define NO_CMS
-# endif
-# if defined(OPENSSL_NO_FIPS) && !defined(NO_FIPS)
-#  define NO_FIPS
-# endif
-# if defined(OPENSSL_NO_GMP) && !defined(NO_GMP)
-#  define NO_GMP
-# endif
 # if defined(OPENSSL_NO_IDEA) && !defined(NO_IDEA)
 #  define NO_IDEA
 # endif
 # if defined(OPENSSL_NO_KRB5) && !defined(NO_KRB5)
 #  define NO_KRB5
-# endif
-# if defined(OPENSSL_NO_RFC3779) && !defined(NO_RFC3779)
-#  define NO_RFC3779
-# endif
-# if defined(OPENSSL_NO_TLSEXT) && !defined(NO_TLSEXT)
-#  define NO_TLSEXT
 # endif
 #endif
 
@@ -84,14 +39,13 @@
 
 /* Generate 80386 code? */
 #if defined(__i386__)                                            
-#undef I386_ONLY
+#define I386_ONLY
 #else /* !__i386__ */
 #undef I386_ONLY
 #endif /* __i386__ */
 
 #if !(defined(VMS) || defined(__VMS)) /* VMS uses logical names instead */
 #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
-#define ENGINESDIR "/usr/lib/openssl/engines"
 #define OPENSSLDIR "/System/Library/OpenSSL"
 #endif
 #endif

@@ -4,9 +4,8 @@
 
 #import <Foundation/NSObject.h>
 #import <Foundation/NSRange.h>
-#import <Foundation/NSDate.h>
 
-@class NSString, NSArray, NSDictionary, NSDate, NSTimeZone, NSOrthography, NSURL;
+@class NSString, NSArray, NSDictionary, NSDate, NSOrthography, NSURL;
 
 /* NSTextCheckingResult is a class used to describe items located by text checking.  Each of these objects represents something that has been found during checking--a misspelled word, a sentence with grammatical issues, a detected URL, a straight quote to be replaced with curly quotes, and so forth. */
 
@@ -47,8 +46,6 @@ typedef uint64_t NSTextCheckingTypes;   // a combination of types
 @property (readonly) NSOrthography *orthography;
 @property (readonly) NSArray *grammarDetails;
 @property (readonly) NSDate *date;
-@property (readonly) NSTimeZone *timeZone;
-@property (readonly) NSTimeInterval duration;
 @property (readonly) NSDictionary *addressComponents;
 @property (readonly) NSURL *URL;
 @property (readonly) NSString *replacementString;
@@ -74,7 +71,6 @@ FOUNDATION_EXPORT NSString * const NSTextCheckingPhoneKey;
 + (NSTextCheckingResult *)spellCheckingResultWithRange:(NSRange)range;
 + (NSTextCheckingResult *)grammarCheckingResultWithRange:(NSRange)range details:(NSArray *)details;
 + (NSTextCheckingResult *)dateCheckingResultWithRange:(NSRange)range date:(NSDate *)date;
-+ (NSTextCheckingResult *)dateCheckingResultWithRange:(NSRange)range date:(NSDate *)date timeZone:(NSTimeZone *)timeZone duration:(NSTimeInterval)duration;
 + (NSTextCheckingResult *)addressCheckingResultWithRange:(NSRange)range components:(NSDictionary *)components;
 + (NSTextCheckingResult *)linkCheckingResultWithRange:(NSRange)range URL:(NSURL *)url;
 + (NSTextCheckingResult *)quoteCheckingResultWithRange:(NSRange)range replacementString:(NSString *)replacementString;

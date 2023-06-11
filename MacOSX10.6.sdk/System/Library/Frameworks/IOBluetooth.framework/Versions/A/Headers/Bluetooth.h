@@ -1,7 +1,7 @@
 /*
 	File:		Bluetooth.h
 	Contains:	Public interfaces for Bluetooth technology.
-	Copyright:	(c) 2002-2007 by Apple Inc. All rights reserved.
+	Copyright:	© 2002-2007 by Apple Inc. All rights reserved.
 */
 
 #pragma once
@@ -695,7 +695,7 @@ enum
 		kBluetoothHCICommandWriteLoopbackMode							= 0x0002, 
 		kBluetoothHCICommandEnableDeviceUnderTestMode					= 0x0003, 
 #if BLUETOOTH_VERSION_MAX_ALLOWED >= BLUETOOTH_VERSION_2_0
-		kBluetoothHCICommandWriteSimplePairingDebugMode					= 0x0004,
+		kBluetoothHCICommandWriteSimplePairingDebugMode					= 0x0056,
 #endif /* BLUETOOTH_VERSION_MAX_ALLOWED >= BLUETOOTH_VERSION_2_0 */
 
 	// Command Group: Logo Testing (no commands yet)
@@ -1103,14 +1103,6 @@ enum BluetoothHCITransmitReadPowerLevelTypes
 	kReadCurrentTransmitPowerLevel	= 0x00,
 	kReadMaximumTransmitPowerLevel	= 0x01,
 };
-
-typedef UInt8	BluetoothHCIAFHChannelAssessmentMode;	
-enum BluetoothHCIAFHChannelAssessmentModes
-{
-	kAFHChannelAssessmentModeDisabled		= 0x00,
-	kAFHChannelAssessmentModeEnabled		= 0x01
-};
-
 
 typedef struct BluetoothHCITransmitPowerLevelInfo	BluetoothHCITransmitPowerLevelInfo;
 struct BluetoothHCITransmitPowerLevelInfo

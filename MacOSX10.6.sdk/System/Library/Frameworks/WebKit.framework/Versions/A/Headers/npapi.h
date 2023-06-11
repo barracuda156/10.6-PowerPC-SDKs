@@ -335,14 +335,6 @@ typedef enum {
      * NPN_MemAlloc() to allocate memory for the string data.
      */
     NPPVformValue = 16,    /* Not implemented in WebKit */
-
-    NPPVpluginUrlRequestsDisplayedBool = 17, /* Not implemented in WebKit */
-
-    /* Checks if the plugin is interested in receiving the http body of
-     * failed http requests (http status != 200).
-     */
-    NPPVpluginWantsAllNetworkStreams = 18,
-
 #ifdef XP_MACOSX
     /* Used for negotiating drawing models */
     NPPVpluginDrawingModel = 1000,
@@ -375,9 +367,7 @@ typedef enum {
     NPNVWindowNPObject = 15,
 
     /* Get the NPObject wrapper for the plugins DOM element. */
-    NPNVPluginElementNPObject = 16,
-
-    NPNVSupportsWindowless = 17
+    NPNVPluginElementNPObject
 
 #ifdef XP_MACOSX
     , NPNVpluginDrawingModel = 1000 /* The NPDrawingModel specified by the plugin */
@@ -482,7 +472,7 @@ typedef struct _NPCocoaEvent {
         struct {
             NPBool hasFocus;
         } focus;        
-    } data;
+    } event;
 } NPCocoaEvent;
 
 #endif

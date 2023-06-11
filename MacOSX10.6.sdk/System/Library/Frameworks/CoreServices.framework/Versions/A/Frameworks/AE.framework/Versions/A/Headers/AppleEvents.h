@@ -3,7 +3,7 @@
  
      Contains:   AppleEvent Package Interfaces.
  
-     Version:    AppleEvents-464~2
+     Version:    AppleEvents-451~1
  
      Copyright:  © 1989-2008 by Apple Computer, Inc., all rights reserved
  
@@ -71,7 +71,7 @@ enum {
   kAEOpenDocuments              = 'odoc',
   kAEPrintDocuments             = 'pdoc',
   kAEOpenContents               = 'ocon',
-  kAEQuitApplication            = 'quit', /* may include a property kAEQuitReason indicating what lead to the quit being sent. */
+  kAEQuitApplication            = 'quit',
   kAEAnswer                     = 'ansr',
   kAEApplicationDied            = 'obit',
   kAEShowPreferences            = 'pref' /* sent by Mac OS X when the user chooses the Preferences item */
@@ -85,6 +85,9 @@ enum {
   kAENotifyStopRecording        = 'rec0', /* available only in vers 1.0.1 and greater */
   kAENotifyRecording            = 'recr' /* available only in vers 1.0.1 and greater */
 };
+
+
+
 
 
 /*

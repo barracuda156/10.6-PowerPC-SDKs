@@ -1,5 +1,5 @@
 /*	NSXMLParser.h
-        Copyright (c) 2003-2008, Apple Inc. All rights reserved.
+        Copyright (c) 2003-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -7,7 +7,6 @@
 #if MAC_OS_X_VERSION_10_3 <= MAC_OS_X_VERSION_MAX_ALLOWED
 
 @class NSData, NSDictionary, NSError, NSString, NSURL;
-@protocol NSXMLParserDelegate;
 
 @interface NSXMLParser : NSObject {
 @private
@@ -21,8 +20,8 @@
 - (id)initWithData:(NSData *)data; // create the parser from data
 
 // delegate management. The delegate is not retained.
-- (id <NSXMLParserDelegate>)delegate;
-- (void)setDelegate:(id <NSXMLParserDelegate>)delegate;
+- (id)delegate;
+- (void)setDelegate:(id)delegate;
 
 - (void)setShouldProcessNamespaces:(BOOL)shouldProcessNamespaces;
 - (void)setShouldReportNamespacePrefixes:(BOOL)shouldReportNamespacePrefixes;
@@ -63,9 +62,7 @@
  */
 
 // The parser's delegate is informed of events through the methods in the NSXMLParserDelegateEventAdditions category.
-@protocol NSXMLParserDelegate <NSObject>
-@optional
-
+@interface NSObject (NSXMLParserDelegateEventAdditions)
 // Document handling methods
 - (void)parserDidStartDocument:(NSXMLParser *)parser;
     // sent when the parser begins parsing of the document.

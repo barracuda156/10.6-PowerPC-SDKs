@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2004, 2008 Apple Inc. All rights reserved.
+ * Copyright (c) 2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -51,7 +51,7 @@ typedef	unsigned long	__darwin_wctype_t;
 #  if defined(__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__) && ((__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__-0) < 1050)
 #    define _FORTIFY_SOURCE 0
 #  else
-#    define _FORTIFY_SOURCE 2	/* on by default */
+#    define _FORTIFY_SOURCE 0	/* default */
 #  endif
 #endif
 

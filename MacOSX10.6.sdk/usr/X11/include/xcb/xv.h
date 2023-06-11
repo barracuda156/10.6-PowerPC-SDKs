@@ -44,11 +44,11 @@ typedef struct xcb_xv_encoding_iterator_t {
 } xcb_xv_encoding_iterator_t;
 
 typedef enum xcb_xv_type_t {
-    XCB_XV_TYPE_INPUT_MASK = (1 << 0),
-    XCB_XV_TYPE_OUTPUT_MASK = (1 << 1),
-    XCB_XV_TYPE_VIDEO_MASK = (1 << 2),
-    XCB_XV_TYPE_STILL_MASK = (1 << 3),
-    XCB_XV_TYPE_IMAGE_MASK = (1 << 4)
+    XCB_XV_TYPE_INPUT_MASK = 0x00000001,
+    XCB_XV_TYPE_OUTPUT_MASK = 0x00000002,
+    XCB_XV_TYPE_VIDEO_MASK = 0x00000004,
+    XCB_XV_TYPE_STILL_MASK = 0x00000008,
+    XCB_XV_TYPE_IMAGE_MASK = 0x00000010
 } xcb_xv_type_t;
 
 typedef enum xcb_xv_image_format_info_type_t {
@@ -62,8 +62,8 @@ typedef enum xcb_xv_image_format_info_format_t {
 } xcb_xv_image_format_info_format_t;
 
 typedef enum xcb_xv_attribute_flag_t {
-    XCB_XV_ATTRIBUTE_FLAG_GETTABLE = (1 << 0),
-    XCB_XV_ATTRIBUTE_FLAG_SETTABLE = (1 << 1)
+    XCB_XV_ATTRIBUTE_FLAG_GETTABLE = 0x01,
+    XCB_XV_ATTRIBUTE_FLAG_SETTABLE = 0x02
 } xcb_xv_attribute_flag_t;
 
 /**
@@ -561,11 +561,11 @@ typedef struct xcb_xv_select_video_notify_request_t {
  * @brief xcb_xv_select_port_notify_request_t
  **/
 typedef struct xcb_xv_select_port_notify_request_t {
-    uint8_t       major_opcode; /**<  */
-    uint8_t       minor_opcode; /**<  */
-    uint16_t      length; /**<  */
-    xcb_xv_port_t port; /**<  */
-    uint8_t       onoff; /**<  */
+    uint8_t        major_opcode; /**<  */
+    uint8_t        minor_opcode; /**<  */
+    uint16_t       length; /**<  */
+    xcb_drawable_t drawable; /**<  */
+    uint8_t        onoff; /**<  */
 } xcb_xv_select_port_notify_request_t;
 
 /**
@@ -2366,7 +2366,7 @@ xcb_xv_select_video_notify (xcb_connection_t *c  /**< */,
  ** xcb_void_cookie_t xcb_xv_select_port_notify_checked
  ** 
  ** @param xcb_connection_t *c
- ** @param xcb_xv_port_t     port
+ ** @param xcb_drawable_t    drawable
  ** @param uint8_t           onoff
  ** @returns xcb_void_cookie_t
  **
@@ -2374,7 +2374,7 @@ xcb_xv_select_video_notify (xcb_connection_t *c  /**< */,
  
 xcb_void_cookie_t
 xcb_xv_select_port_notify_checked (xcb_connection_t *c  /**< */,
-                                   xcb_xv_port_t     port  /**< */,
+                                   xcb_drawable_t    drawable  /**< */,
                                    uint8_t           onoff  /**< */);
 
 /**
@@ -2391,7 +2391,7 @@ xcb_xv_select_port_notify_checked (xcb_connection_t *c  /**< */,
  ** xcb_void_cookie_t xcb_xv_select_port_notify
  ** 
  ** @param xcb_connection_t *c
- ** @param xcb_xv_port_t     port
+ ** @param xcb_drawable_t    drawable
  ** @param uint8_t           onoff
  ** @returns xcb_void_cookie_t
  **
@@ -2399,7 +2399,7 @@ xcb_xv_select_port_notify_checked (xcb_connection_t *c  /**< */,
  
 xcb_void_cookie_t
 xcb_xv_select_port_notify (xcb_connection_t *c  /**< */,
-                           xcb_xv_port_t     port  /**< */,
+                           xcb_drawable_t    drawable  /**< */,
                            uint8_t           onoff  /**< */);
 
 /**

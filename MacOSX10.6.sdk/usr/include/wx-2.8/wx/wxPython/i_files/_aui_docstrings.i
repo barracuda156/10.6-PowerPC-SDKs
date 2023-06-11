@@ -6,7 +6,7 @@
 // Author:      Robin Dunn
 //
 // Created:     7-July-2006
-// RCS-ID:      $Id: _aui_docstrings.i 40087 2006-07-14 01:26:04Z RD $
+// RCS-ID:      $Id: _aui_docstrings.i,v 1.2 2006/07/14 01:26:04 RD Exp $
 // Copyright:   (c) 2006 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////

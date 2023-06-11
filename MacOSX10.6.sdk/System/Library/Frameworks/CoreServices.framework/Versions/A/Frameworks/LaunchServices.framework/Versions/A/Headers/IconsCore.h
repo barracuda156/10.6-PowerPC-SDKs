@@ -3,7 +3,7 @@
  
      Contains:   Icon Utilities and Icon Services Interfaces.
  
-     Version:    LaunchServices-318.1~4
+     Version:    LaunchServices-305~1
  
      Copyright:  © 1990-2008 by Apple Computer, Inc. All rights reserved
  
@@ -273,22 +273,22 @@ enum {
   kExtensionsFolderIcon         = 'extn',
   kFavoritesFolderIcon          = 'favs',
   kFontsFolderIcon              = 'font',
-  kHelpFolderIcon               = (int)0xC4686C70/*'Ählp' */,
+  kHelpFolderIcon               = (long)0xC4686C70/*'Ählp' */,
   kInternetFolderIcon           = 0x696E74C4/*'intÄ'*/,
-  kInternetPlugInFolderIcon     = (int)0xC46E6574/*'Änet' */,
+  kInternetPlugInFolderIcon     = (long)0xC46E6574/*'Änet' */,
   kInternetSearchSitesFolderIcon = 'issf',
-  kLocalesFolderIcon            = (int)0xC46C6F63/*'Äloc' */,
+  kLocalesFolderIcon            = (long)0xC46C6F63/*'Äloc' */,
   kMacOSReadMeFolderIcon        = 0x6D6F72C4/*'morÄ'*/,
   kPublicFolderIcon             = 'pubf',
   kPreferencesFolderIcon        = 0x707266C4/*'prfÄ'*/,
   kPrinterDescriptionFolderIcon = 'ppdf',
-  kPrinterDriverFolderIcon      = (int)0xC4707264/*'Äprd' */,
+  kPrinterDriverFolderIcon      = (long)0xC4707264/*'Äprd' */,
   kPrintMonitorFolderIcon       = 'prnt',
   kRecentApplicationsFolderIcon = 'rapp',
   kRecentDocumentsFolderIcon    = 'rdoc',
   kRecentServersFolderIcon      = 'rsrv',
-  kScriptingAdditionsFolderIcon = (int)0xC4736372/*'Äscr' */,
-  kSharedLibrariesFolderIcon    = (int)0xC46C6962/*'Älib' */,
+  kScriptingAdditionsFolderIcon = (long)0xC4736372/*'Äscr' */,
+  kSharedLibrariesFolderIcon    = (long)0xC46C6962/*'Älib' */,
   kScriptsFolderIcon            = 0x736372C4/*'scrÄ'*/,
   kShutdownItemsDisabledFolderIcon = 'shdD',
   kShutdownItemsFolderIcon      = 'shdf',
@@ -297,7 +297,7 @@ enum {
   kStartupItemsFolderIcon       = 'strt',
   kSystemExtensionDisabledFolderIcon = 'macD',
   kSystemFolderIcon             = 'macs',
-  kTextEncodingsFolderIcon      = (int)0xC4746578/*'Ätex' */,
+  kTextEncodingsFolderIcon      = (long)0xC4746578/*'Ätex' */,
   kUsersFolderIcon              = 0x757372C4/*'usrÄ'*/,
   kUtilitiesFolderIcon          = 0x757469C4/*'utiÄ'*/,
   kVoicesFolderIcon             = 'fvoc'

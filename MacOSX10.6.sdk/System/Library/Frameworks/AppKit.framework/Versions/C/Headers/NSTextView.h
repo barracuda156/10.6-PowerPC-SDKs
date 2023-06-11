@@ -24,7 +24,6 @@
 @class NSUndoManager;
 @class NSParagraphStyle;
 @class NSOrthography;
-@protocol NSTextViewDelegate;
 
 /* Values for NSSelectionGranularity */
 enum {
@@ -431,8 +430,8 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier AVAILABLE_MAC_OS_
 
 /*************************** NSText methods ***************************/
 
-- (id <NSTextViewDelegate>)delegate;
-- (void)setDelegate:(id <NSTextViewDelegate>)anObject;
+- (id)delegate;
+- (void)setDelegate:(id)anObject;
 - (BOOL)isEditable;
 - (void)setEditable:(BOOL)flag;
 - (BOOL)isSelectable;
@@ -452,18 +451,6 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier AVAILABLE_MAC_OS_
 - (BOOL)isRulerVisible;
 - (void)setSelectedRange:(NSRange)charRange;
     // Other NSText methods are implemented in the base NSTextView implementation rather than in this category.  See NSText.h for declarations.
-
-/*************************** Input Source support ***************************/
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-/* Returns an array of locale identifiers representing keyboard input sources allowed to be enabled when the receiver has the keyboard focus.
- */
-- (NSArray *)allowedInputSourceLocales;
-- (void)setAllowedInputSourceLocales:(NSArray *)localeIdentifiers;
-#endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5 */
-
-@end
-
-@interface NSTextView (NSTextChecking)
 
 /*************************** Smart copy/paste/delete/substitution support ***************************/
 
@@ -506,16 +493,22 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier AVAILABLE_MAC_OS_
     // These two are bulk methods for setting and getting many checking type settings at once.
 
 - (void)checkTextInRange:(NSRange)range types:(NSTextCheckingTypes)checkingTypes options:(NSDictionary *)options;
-- (void)handleTextCheckingResults:(NSArray *)results forRange:(NSRange)range types:(NSTextCheckingTypes)checkingTypes options:(NSDictionary *)options orthography:(NSOrthography *)orthography wordCount:(NSInteger)wordCount;
+- (void)handleTextCheckingResults:(NSArray *)results forRange:(NSRange)range orthography:(NSOrthography *)orthography wordCount:(NSInteger)wordCount;
     // These two methods usually would not be called directly, since NSTextView itself will call them as needed, but they can be overridden.
 #endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 */
 
+/*************************** Input Source support ***************************/
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+/* Returns an array of locale identifiers representing keyboard input sources allowed to be enabled when the receiver has the keyboard focus.
+ */
+- (NSArray *)allowedInputSourceLocales;
+- (void)setAllowedInputSourceLocales:(NSArray *)localeIdentifiers;
+#endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5 */
 @end
 
 // Note that all delegation messages come from the first textView
 
-@protocol NSTextViewDelegate <NSTextDelegate>
-@optional
+@interface NSObject (NSTextViewDelegate)
 
 - (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link atIndex:(NSUInteger)charIndex;
     // Delegate only.
@@ -578,7 +571,7 @@ APPKIT_EXTERN NSString *NSAllRomanInputSourcesLocaleIdentifier AVAILABLE_MAC_OS_
 - (NSDictionary *)textView:(NSTextView *)view willCheckTextInRange:(NSRange)range options:(NSDictionary *)options types:(NSTextCheckingTypes *)checkingTypes;
     // Delegate only.  Called by checkTextInRange:types:options:, this method allows control over text checking options (via the return value) or types (by modifying the flags pointed to by the inout parameter checkingTypes).
 
-- (NSArray *)textView:(NSTextView *)view didCheckTextInRange:(NSRange)range types:(NSTextCheckingTypes)checkingTypes options:(NSDictionary *)options results:(NSArray *)results orthography:(NSOrthography *)orthography wordCount:(NSInteger)wordCount;
+- (NSArray *)textView:(NSTextView *)view didCheckTextInRange:(NSRange)range results:(NSArray *)results orthography:(NSOrthography *)orthography wordCount:(NSInteger)wordCount;
     // Delegate only.  Called by handleTextCheckingResults:forRange:orthography:wordCount:, this method allows observation of text checking, or modification of the results (via the return value).
 #endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 */
 

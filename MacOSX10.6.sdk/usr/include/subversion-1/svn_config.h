@@ -1,7 +1,7 @@
-/**
+/** 
  * @copyright
  * ====================================================================
- * Copyright (c) 2000-2007 CollabNet.  All rights reserved.
+ * Copyright (c) 2000-2004 CollabNet.  All rights reserved.
  *
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
@@ -67,13 +67,10 @@ typedef struct svn_config_t svn_config_t;
 #define SVN_CONFIG_OPTION_HTTP_TIMEOUT              "http-timeout"
 #define SVN_CONFIG_OPTION_HTTP_COMPRESSION          "http-compression"
 #define SVN_CONFIG_OPTION_NEON_DEBUG_MASK           "neon-debug-mask"
-#define SVN_CONFIG_OPTION_HTTP_AUTH_TYPES           "http-auth-types"
 #define SVN_CONFIG_OPTION_SSL_AUTHORITY_FILES       "ssl-authority-files"
 #define SVN_CONFIG_OPTION_SSL_TRUST_DEFAULT_CA      "ssl-trust-default-ca"
 #define SVN_CONFIG_OPTION_SSL_CLIENT_CERT_FILE      "ssl-client-cert-file"
 #define SVN_CONFIG_OPTION_SSL_CLIENT_CERT_PASSWORD  "ssl-client-cert-password"
-#define SVN_CONFIG_OPTION_SSL_PKCS11_PROVIDER       "ssl-pkcs11-provider"
-#define SVN_CONFIG_OPTION_HTTP_LIBRARY              "http-library"
 
 #define SVN_CONFIG_CATEGORY_CONFIG          "config"
 #define SVN_CONFIG_SECTION_AUTH                 "auth"
@@ -84,7 +81,6 @@ typedef struct svn_config_t svn_config_t;
 #define SVN_CONFIG_OPTION_DIFF_CMD                  "diff-cmd"
 #define SVN_CONFIG_OPTION_DIFF3_CMD                 "diff3-cmd"
 #define SVN_CONFIG_OPTION_DIFF3_HAS_PROGRAM_ARG     "diff3-has-program-arg"
-#define SVN_CONFIG_OPTION_MERGE_TOOL_CMD            "merge-tool-cmd"
 #define SVN_CONFIG_SECTION_MISCELLANY           "miscellany"
 #define SVN_CONFIG_OPTION_GLOBAL_IGNORES            "global-ignores"
 #define SVN_CONFIG_OPTION_LOG_ENCODING              "log-encoding"
@@ -92,9 +88,6 @@ typedef struct svn_config_t svn_config_t;
 #define SVN_CONFIG_OPTION_TEMPLATE_ROOT             "template-root"
 #define SVN_CONFIG_OPTION_ENABLE_AUTO_PROPS         "enable-auto-props"
 #define SVN_CONFIG_OPTION_NO_UNLOCK                 "no-unlock"
-#define SVN_CONFIG_OPTION_MIMETYPES_FILE            "mime-types-file"
-#define SVN_CONFIG_OPTION_PRESERVED_CF_EXTS         "preserved-conflict-file-exts"
-#define SVN_CONFIG_OPTION_INTERACTIVE_CONFLICTS     "interactive-conflicts"
 #define SVN_CONFIG_SECTION_TUNNELS              "tunnels"
 #define SVN_CONFIG_SECTION_AUTO_PROPS           "auto-props"
 /** @} */
@@ -111,10 +104,6 @@ typedef struct svn_config_t svn_config_t;
 #define SVN_CONFIG_OPTION_PASSWORD_DB               "password-db"
 #define SVN_CONFIG_OPTION_REALM                     "realm"
 #define SVN_CONFIG_OPTION_AUTHZ_DB                  "authz-db"
-#define SVN_CONFIG_SECTION_SASL                 "sasl"
-#define SVN_CONFIG_OPTION_USE_SASL                  "use-sasl"
-#define SVN_CONFIG_OPTION_MIN_SSF                   "min-encryption"
-#define SVN_CONFIG_OPTION_MAX_SSF                   "max-encryption"
 
 /* For repository password database */
 #define SVN_CONFIG_SECTION_USERS                "users"
@@ -122,21 +111,11 @@ typedef struct svn_config_t svn_config_t;
 
 /*** Configuration Default Values ***/
 
-/* '*' matches leading dots, e.g. '*.rej' matches '.foo.rej'. */
-/* We want this to be printed on two lines in the generated config file,
- * but we don't want the # character to end up in the variable.
- */
-#define SVN_CONFIG__DEFAULT_GLOBAL_IGNORES_LINE_1 \
-  "*.o *.lo *.la *.al .libs *.so *.so.[0-9]* *.a *.pyc *.pyo"
-#define SVN_CONFIG__DEFAULT_GLOBAL_IGNORES_LINE_2 \
-  "*.rej *~ #*# .#* .*.swp .DS_Store"
-
 #define SVN_CONFIG_DEFAULT_GLOBAL_IGNORES \
-  SVN_CONFIG__DEFAULT_GLOBAL_IGNORES_LINE_1 " " \
-  SVN_CONFIG__DEFAULT_GLOBAL_IGNORES_LINE_2
+   "*.o *.lo *.la #*# .*.rej *.rej .*~ *~ .#* .DS_Store"
 
-#define SVN_CONFIG_TRUE  "TRUE"
-#define SVN_CONFIG_FALSE "FALSE"
+#define SVN_CONFIG_TRUE  "true"
+#define SVN_CONFIG_FALSE "false"
 
 
 /** Read configuration information from the standard sources and merge it
@@ -151,7 +130,7 @@ typedef struct svn_config_t svn_config_t;
  * categories (@c SVN_CONFIG_CATEGORY_SERVERS,
  * @c SVN_CONFIG_CATEGORY_CONFIG, etc.) and whose values are the @c
  * svn_config_t * items representing the configuration values for that
- * category.
+ * category.  
  */
 svn_error_t *svn_config_get_config(apr_hash_t **cfg_hash,
                                    const char *config_dir,
@@ -180,7 +159,7 @@ svn_error_t *svn_config_merge(svn_config_t *cfg,
                               svn_boolean_t must_exist);
 
 
-/** Find the value of a (@a section, @a option) pair in @a cfg, set @a
+/** Find the value of a (@a section, @a option) pair in @a cfg, set @a 
  * *valuep to the value.
  *
  * If @a cfg is @c NULL, just sets @a *valuep to @a default_value. If
@@ -197,12 +176,10 @@ void svn_config_get(svn_config_t *cfg, const char **valuep,
                     const char *section, const char *option,
                     const char *default_value);
 
-/** Add or replace the value of a (@a section, @a option) pair in @a cfg with
+/** Add or replace the value of a (@a section, @a option) pair in @a cfg with 
  * @a value.
  *
  * This function invalidates all value expansions in @a cfg.
- *
- * To remove an option, pass NULL for the @c value.
  */
 void svn_config_set(svn_config_t *cfg,
                     const char *section, const char *option,
@@ -211,7 +188,7 @@ void svn_config_set(svn_config_t *cfg,
 /** Like svn_config_get(), but for boolean values.
  *
  * Parses the option as a boolean value. The recognized representations
- * are 'TRUE'/'FALSE', 'yes'/'no', 'on'/'off', '1'/'0'; case does not
+ * are 'true'/'false', 'yes'/'no', 'on'/'off', '1'/'0'; case does not
  * matter. Returns an error if the option doesn't contain a known string.
  */
 svn_error_t *svn_config_get_bool(svn_config_t *cfg, svn_boolean_t *valuep,
@@ -220,7 +197,7 @@ svn_error_t *svn_config_get_bool(svn_config_t *cfg, svn_boolean_t *valuep,
 
 /** Like svn_config_set(), but for boolean values.
  *
- * Sets the option to 'TRUE'/'FALSE', depending on @a value.
+ * Sets the option to 'true'/'false', depending on @a value.
  */
 void svn_config_set_bool(svn_config_t *cfg,
                          const char *section, const char *option,
@@ -236,12 +213,12 @@ void svn_config_set_bool(svn_config_t *cfg,
 typedef svn_boolean_t (*svn_config_section_enumerator_t)(const char *name,
                                                          void *baton);
 
-/** Similar to svn_config_enumerate_sections2(), but uses a memory pool of
+/** Similar to svn_config_enumerate_sections2(), but uses a memory pool of 
  * @a cfg instead of one that is explicitely provided.
  *
- * @deprecated Provided for backwards compatibility with the 1.2 API.
+ * @deprecated Provided for backwards compatibility with the 1.2 API. 
  */
-int svn_config_enumerate_sections(svn_config_t *cfg,
+int svn_config_enumerate_sections(svn_config_t *cfg, 
                                   svn_config_section_enumerator_t callback,
                                   void *baton);
 
@@ -257,16 +234,17 @@ typedef svn_boolean_t (*svn_config_section_enumerator2_t)(const char *name,
 
 /** Enumerate the sections, passing @a baton and the current section's name
  * to @a callback.  Continue the enumeration if @a callback returns @c TRUE.
- * Return the number of times @a callback was called.
+ * Return the number of times @a callback was called. 
  *
  * ### See kff's comment to svn_config_enumerate2().  It applies to this
  * function, too. ###
  *
- * @a callback's @a name parameter is only valid for the duration of the call.
+ * @a callback's @a name and @a name parameters are only valid for the
+ * duration of the call.
  *
  * @since New in 1.3.
  */
-int svn_config_enumerate_sections2(svn_config_t *cfg,
+int svn_config_enumerate_sections2(svn_config_t *cfg, 
                                    svn_config_section_enumerator2_t callback,
                                    void *baton, apr_pool_t *pool);
 
@@ -274,16 +252,16 @@ int svn_config_enumerate_sections2(svn_config_t *cfg,
  * provided with a memory pool argument.
  * See svn_config_enumerate() for the details of this type.
  *
- * @deprecated Provided for backwards compatibility with the 1.2 API.
+ * @deprecated Provided for backwards compatibility with the 1.2 API. 
  */
 typedef svn_boolean_t (*svn_config_enumerator_t)(const char *name,
                                                  const char *value,
                                                  void *baton);
 
-/** Similar to svn_config_enumerate2(), but uses a memory pool of
+/** Similar to svn_config_enumerate2(), but uses a memory pool of 
  * @a cfg instead of one that is explicitely provided.
  *
- * @deprecated Provided for backwards compatibility with the 1.2 API.
+ * @deprecated Provided for backwards compatibility with the 1.2 API. 
  */
 int svn_config_enumerate(svn_config_t *cfg, const char *section,
                          svn_config_enumerator_t callback, void *baton);
@@ -302,7 +280,7 @@ typedef svn_boolean_t (*svn_config_enumerator2_t)(const char *name,
 
 /** Enumerate the options in @a section, passing @a baton and the current
  * option's name and value to @a callback.  Continue the enumeration if
- * @a callback returns @c TRUE.  Return the number of times @a callback
+ * @a callback returns @c TRUE.  Return the number of times @a callback 
  * was called.
  *
  * ### kff asks: A more usual interface is to continue enumerating
@@ -323,7 +301,7 @@ int svn_config_enumerate2(svn_config_t *cfg, const char *section,
                           apr_pool_t *pool);
 
 /**
- * Return @c TRUE if @a section exists in @a cfg, @c FALSE otherwise.
+ * Return @c TRUE if @a section exists in @a config, @c FALSE otherwise.
  *
  * @since New in 1.4.
  */
@@ -386,7 +364,7 @@ svn_error_t *svn_config_ensure(const char *config_dir, apr_pool_t *pool);
 
 /** Accessing cached authentication data in the user config area.
  *
- * @defgroup cached_authentication_data Cached authentication data
+ * @defgroup cached_authentication_data cached authentication data.
  * @{
  */
 

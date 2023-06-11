@@ -1,5 +1,5 @@
 /*	CFURL.h
-	Copyright (c) 1998-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1998-2007, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFURL__)
@@ -420,277 +420,9 @@ Boolean CFURLGetFSRef(CFURLRef url, struct FSRef *fsRef);
 #endif
 #endif
 
-
-#if TARGET_OS_MAC
-
-/* The following APIs provide efficient access to resource properties. Properties 
-are identified by keys, and values are represented as Core Foundation objects. The 
-type of each value is fixed for each property, e.g. the modification date is a CFDateRef, 
-the file size is a CFNumberRef.
-
-Values are fetched on-demand, synchronously, from the resource's backing store. They
-are cached and reused when fetched again through the same URL instance, until the 
-client clears the value. The client has complete control over the cache lifetime.
-
-Some resource property values can be changed, given sufficient access permission to the resource. 
-When a resource property value is set, the change is written to backing store synchronously.
-*/
-
-/* Assigns the requested resource property value to the typeRefValuePtr output */
-/* argument. Returns true if the output value was set. Note that NULL is a valid output value. */
-/* The value is fetched synchronously from the resource backing store only if a value is not */
-/* already cached. The type of the output value type varies by property (see property key */
-/* definitions). Returns false if an error occurs. Optional output error: the error is set to */
-/* a valid CFErrorRef when the function returns false. A valid output error must be */
-/* released by the caller. */
-CF_EXPORT
-Boolean CFURLCopyResourcePropertyForKey(CFURLRef url, CFStringRef key, void *propertyValueTypeRefPtr, CFErrorRef *error) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* Returns any number of resource property values as a dictionary of keyed values. */
-/* The requested values are specified as an array of keys to appear in */
-/* the result dictionary. Values are fetched synchronously from the resource backing store unless */
-/* already cached. The type of each value type varies (see key definitions, below). */
-/* Returns an empty dictionary if no values are found. Returns NULL when an error occurs. */
-/* Optional output error: the error is set to a valid CFErrorRef when the */
-/* function returns NULL. A valid output error must be released by the caller. */
-CF_EXPORT
-CFDictionaryRef CFURLCopyResourcePropertiesForKeys(CFURLRef url, CFArrayRef keys, CFErrorRef *error) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* Changes a resource property value. Synchronously writes the value to the resource backing */
-/* store. The input value type must be a valid CFTypeRef, of the type required for the specified */
-/* key (see key definitions). Returns true upon success, false when an error occurs. */
-/* Optional output error: the error is set to a valid CFErrorRef when the function */
-/* returns false. A valid output error must be released by the caller. */
-/* Note that some values are read-only. Attempting to set a read-only property */
-/* results in an error. */
-CF_EXPORT
-Boolean CFURLSetResourcePropertyForKey(CFURLRef url, CFStringRef key, CFTypeRef propertValue, CFErrorRef *error) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* Changes any number of resource property values, specified as a dictionary of keyed values. */
-/* Synchronously writes values to the resource backing store. The input dictionary's value types must conform */
-/* to the type required for its key (see key definitions). Returns true when all values are set successfully, */
-/* and false if an error occurs. Optional output error: the error is set to a valid CFErrorRef when the function returns */
-/* false. A valid output error must be released by the caller. When an error occurs after some properties have been */
-/* successfully changed, the user dictionary in the error contains an array of keys that */
-/* were not set. Note that some values are read-only. Attempting to set a read-only value */
-/* results in an error. */
-CF_EXPORT
-Boolean CFURLSetResourcePropertiesForKeys(CFURLRef url, CFDictionaryRef keyedPropertyValues, CFErrorRef *error) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* Discards a cached property value for a specific key */
-CF_EXPORT
-void CFURLClearResourcePropertyCacheForKey(CFURLRef url, CFStringRef key) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* Discards all cached property values */
-CF_EXPORT
-void CFURLClearResourcePropertyCache(CFURLRef url) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* Sets a temporary property value. Temporary properties exist only in memory and are never */
-/* written to resource backing store. Once set, a temporary property value can be fetched */
-/* with CFURLCopyResourcePropertyForKey and CFURLCopyResourcePropertiesForKeys. Temporary property */
-/* values are for client use. Values must be valid Core Foundation types, and will be retained. */
-/* To remove a temporary property value, use CFURLClearResourcePropertyCacheForKey. */
-CF_EXPORT
-void CFURLSetTemporaryResourcePropertyForKey(CFURLRef url, CFStringRef key, CFTypeRef propertyValue) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* Synchronously checks if the resource's backing store is reachable and the resource exists, */
-/* returning true if so. The optional output error can be used to determine the type of reachability */
-/* failure (e.g., file not found, network error, etc.). The error is set to a valid CFErrorRef if */
-/* and only if the function returns false. A valid output error must be released by */
-/* the caller. Checking for resource existence and reachability is appropriate when making decisions */
-/* that do not require other immediate operations on the resource. An example would be */
-/* periodic maintenance of UI state that depends on the existence of a particular document. */
-/* When performing an operation such as opening a file, it is more efficient to */
-/* simply try the operation and handle failures than to check first for reachability. */
-CF_EXPORT
-Boolean CFURLResourceIsReachable(CFURLRef url, CFErrorRef *error) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* Properties of File System Resources */
-
-CF_EXPORT 
-const CFStringRef kCFURLNameKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* The resource name provided by the file system (value type CFString) */
-
-CF_EXPORT
-const CFStringRef kCFURLLocalizedNameKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Localized or extension-hidden name as displayed to users (Read-only, value type CFString) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsRegularFileKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for regular files (Read-only, value type CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsDirectoryKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for directories (Read-only, CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsSymbolicLinkKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for symlinks (Read-only, value type CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsVolumeKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for the root directory of a volume (Read-only, value type CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsPackageKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for packaged directories (value type CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsSystemImmutableKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for system-immutable resources (value type CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsUserImmutableKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for user-immutable resources (value type CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsHiddenKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for resources normally hidden from users (value type CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLHasHiddenExtensionKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* True for resources whose filename extension is hiden (value type CFBoolean) */
-
-CF_EXPORT
-const CFStringRef kCFURLCreationDateKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Value type CFDate */
-
-CF_EXPORT
-const CFStringRef kCFURLContentAccessDateKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Value type CFDate */
-
-CF_EXPORT
-const CFStringRef kCFURLContentModificationDateKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Value type CFDate */
-
-CF_EXPORT
-const CFStringRef kCFURLAttributeModificationDateKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Value type CFDate */
-
-CF_EXPORT
-const CFStringRef kCFURLLinkCountKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Number of hard links to the resource (Read-only, CFNumber) */
-
-CF_EXPORT
-const CFStringRef kCFURLParentDirectoryURLKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* URL of the parent directory, if any (Read-only, value type CFURL) */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeURLKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* URL of the volume on which the resource is stored (Read-only, value type CFURL) */
-
-CF_EXPORT
-const CFStringRef kCFURLTypeIdentifierKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Uniform type identifier for the resource (Read-only, value type CFString) */
-
-CF_EXPORT
-const CFStringRef kCFURLLocalizedTypeDescriptionKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* User-visible type or "kind" descriptiopn (Read-only, value type CFString) */
-
-CF_EXPORT
-const CFStringRef kCFURLLabelNumberKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* The label number assigned to the resource (value type CFNumber) */
-
-CF_EXPORT
-const CFStringRef kCFURLLabelColorKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* The color of the assigned label (Read-only, value type CGColorRef, must link with Application Services) */
-
-CF_EXPORT
-const CFStringRef kCFURLLocalizedLabelKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* The user-visible label text (Read-only, value type CFString) */
-
-CF_EXPORT
-const CFStringRef kCFURLEffectiveIconKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* The icon normally displayed for the resource (Read-only, value type CGImageRef, must link with Application Services) */
-
-CF_EXPORT
-const CFStringRef kCFURLCustomIconKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* The custom icon assigned to the resource, if any (value type CGImageRef, must link with Application Services) */
-
-
-/* File Properties */
-
-CF_EXPORT
-const CFStringRef kCFURLFileSizeKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Total file size, in bytes (Read-only, value type CFNumber) */
-
-CF_EXPORT
-const CFStringRef kCFURLFileAllocatedSizeKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Total size of blocks allocated (Read-only, value type CFNumber) */
-
-CF_EXPORT
-const CFStringRef kCFURLIsAliasFileKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-/*  true if the url is a Finder alias file, false otherwise ( Read-only, value type CFBooleanRef) */
-
-
-/* Volume Properties */
-
-/* For convenience, volume properties may be requested from any resource on a volume. */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeLocalizedFormatDescriptionKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* The user-visible volume format (Read-only, value type CFString) */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeTotalCapacityKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Total volume capacity in bytes (Read-only, value type CFNumber) */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeAvailableCapacityKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Total free space, in bytes (Read-only, value type CFNumber) */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeResourceCountKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Total number of resources on the volume (Read-only, value type CFNumber) */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeSupportsPersistentIDsKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeSupportsSymbolicLinksKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeSupportsHardLinksKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeSupportsJournalingKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeIsJournalingKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeSupportsSparseFilesKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeSupportsZeroRunsKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeSupportsCaseSensitiveNamesKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
-CF_EXPORT
-const CFStringRef kCFURLVolumeSupportsCasePreservedNamesKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-    /* Read-only, value type CFBoolean */
-
 enum {
     kCFURLBookmarkCreationPreferFileIDResolutionMask = 0x100,  // At resolution time, this alias will prefer resolving by the embedded fileID to the path
     kCFURLBookmarkCreationMinimalBookmarkMask = 0x200, // Creates a bookmark with "less" information, which may be smaller but still be able to resolve in certain ways
-    kCFURLBookmarkCreationSuitableForBookmarkFile = 0x400, // includes in the created bookmark those properties which are needed for a bookmark/alias file
 };
 typedef CFOptionFlags CFURLBookmarkCreationOptions;
 
@@ -699,8 +431,6 @@ enum  {
     kCFBookmarkResolutionWithoutMountingMask = 0x200,	// don't mount a volume during bookmark resolution
 };
 typedef CFOptionFlags CFURLBookmarkResolutionOptions;
-
-typedef CFOptionFlags CFURLBookmarkFileCreationOptions;
 
 /*	@function CFURLCreateBookmarkData
 	@discussion	Create a CFDataRef containing an externalizable representation from a CFURLRef, modified with the given options, including ( at the minimum ) any
@@ -712,7 +442,7 @@ typedef CFOptionFlags CFURLBookmarkFileCreationOptions;
 	@param relativeToURL If non-NULL, the created bookmark will be relative to the given url
 	@param error	If non-NULL, on exit will be filled in with a CFErrorRef representing any error which occured during creation of the bookmark data
 	@result	A CFDataRef containing an data, which can be later be passed to CFURLCreateByResolvingBookmarkData() or to CFURLCopyPropertiesForKeysFromBookmarkData() / CFURLCopyPropertyForKeyFromBookmarkData() */
-CFDataRef CFURLCreateBookmarkData ( CFAllocatorRef allocator, CFURLRef url, CFURLBookmarkCreationOptions options, CFArrayRef resourcePropertiesToInclude, CFURLRef relativeToURL, CFErrorRef* error ) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+CFDataRef CFURLCreateBookmarkData ( CFAllocatorRef allocator, CFURLRef url, CFURLBookmarkCreationOptions options, CFArrayRef resourcePropertiesToInclude, CFURLRef relativeToURL, CFErrorRef* error );
 
 /*	@function CFURLCreateByResolvingBookmarkData
 	@discussion Given a CFDataRef created with CFURLCreateBookmarkRepresentation(), return a CFURLRef of the item it was a bookmark to, and
@@ -730,7 +460,7 @@ CFDataRef CFURLCreateBookmarkData ( CFAllocatorRef allocator, CFURLRef url, CFUR
 		have saved and create a new one.
 	@param error	If non-NULL, on exit will be filled in with a CFErrorRef representing any error which occured during resolution of the bookmark data
 	@result A CFURLRef of a file which is the closest match to the file the bookmark data */
-CFURLRef CFURLCreateByResolvingBookmarkData ( CFAllocatorRef allocator, CFDataRef bookmark, CFURLBookmarkResolutionOptions options, CFURLRef relativeToURL, CFArrayRef resourcePropertiesToInclude, Boolean* isStale, CFErrorRef* error ) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+CFURLRef CFURLCreateByResolvingBookmarkData ( CFAllocatorRef allocator, CFDataRef bookmark, CFURLBookmarkResolutionOptions options, CFURLRef relativeToURL, CFArrayRef resourcePropertiesToInclude, Boolean* isStale, CFErrorRef* error );
 
 /*	@function	CFURLCreatePropertiesForKeysFromBookmarkData
 	@discussion	Given a bookmark, return a dictionary of properties ( all properties if propertiesToReturn == NULL ).
@@ -739,7 +469,7 @@ CFURLRef CFURLCreateByResolvingBookmarkData ( CFAllocatorRef allocator, CFDataRe
 	@param	 bookmark a CFDataRef containing a bookmark data, created with CFURLCreateBookmarkData
 	@param	propertiesToReturn a CFArrayRef of the properties of the bookmark data which the client would like returned.
 	@result	a CFDictionaryRef containing the values for the properties passed in obtained from the bookmark data ( not by attempting to resolve it or do i/o in any way ) */
-CFDictionaryRef CFURLCreateResourcePropertiesForKeysFromBookmarkData ( CFAllocatorRef allocator, CFArrayRef resourcePropertiesToReturn, CFDataRef bookmark ) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+CFDictionaryRef CFURLCreateResourcePropertiesForKeysFromBookmarkData ( CFAllocatorRef allocator, CFArrayRef resourcePropertiesToReturn, CFDataRef bookmark );
 
 /*	@function	CFURLCreatePropertyForKeyFromBookmarkData
 	@discussion	Given a bookmark, return the value for a given property from the bookmark data
@@ -748,34 +478,8 @@ CFDictionaryRef CFURLCreateResourcePropertiesForKeysFromBookmarkData ( CFAllocat
 	@param	 bookmark a CFDataRef containing a bookmark data, created with CFURLCreateBookmarkData
 	@param	propertyKey the property key to return.
 	@result	a CFTypeRef value for the property passed in obtained from the bookmark data ( not by attempting to resolve it or do i/o in any way ) */
-CFTypeRef  CFURLCreateResourcePropertyForKeyFromBookmarkData( CFAllocatorRef allocator, CFStringRef resourcePropertyKey, CFDataRef bookmark ) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+CFTypeRef  CFURLCreateResourcePropertyForKeyFromBookmarkData( CFAllocatorRef allocator, CFStringRef resourcePropertyKey, CFDataRef bookmark );
 
-/*!	@function 	CFURLCreateBookmarkDataFromFile
-	@description	Given a fileURL of a file which is a Finder "alias" file, return a CFDataRef with the bookmark data from the file.  If urlRef points to an alias file
-			created before SnowLeopard which contains Alias Manager information and no bookmark data, then a CFDataRef will be synthesized which contains
-			a approximation of the alias information in a format which can be used to resolve the bookmark.  If an error prevents reading the data or
-			if it is corrupt, NULL will be returned and error will be filled in if errorRef is non-NULL.
-	@param	allocator the CFAllocator to use to create this object
-	@param	fileURL a CFURLRef to to the alias file to create the bookmark data from
-	@param	errorRef    if non-NULL, on exit will be filled in with a CFErrorRef representing any error which occurred during the creation of the bookmark data from the file
-	@result	A CFDataRef containing bookmark data, or NULL if there was an error creating bookmark data from the file, such as if the file is not an alias file.
- */
-CFDataRef CFURLCreateBookmarkDataFromFile(CFAllocatorRef allocator, CFURLRef fileURL, CFErrorRef *errorRef );
-
-/*!	@function	CFURLWriteBookmarkDataToFile
-	@description	Given a created bookmarkData object, create a new Finder "alias" file at fileURL which contains the bookmark data.  If fileURL is a url to a directory, an alias file
-			will be created with the same name as the bookmarked item and a ".alias" extension.  If fileURL is a url for a file and it exists it will be overwritten.  If a
-			.alias extension is not present it will be added.  In addition to the bookmark data, sufficient pre-SnowLeopard alias data will added to the file to allow
-			systems running something before SnowLeopard to resolve this file using Alias Manager routines and get back the same file as the bookmark routines.
-			The bookmark data must have been created with the kCFURLBookmarkCreationSuitableForBookmarkFile option and an error will be returned if not.
-	@param	allocator	 the CFAllocator to use to create this object
-	@param	 bookmark a CFDataRef containing a bookmark data, created with CFURLCreateBookmarkData
-	@param	options	options flags 
-	@param	errorRef    if non-NULL, on exit will be filled in with a CFErrorRef representing any error which occurred during the creation of the alias file
- */
-Boolean CFURLWriteBookmarkDataToFile( CFDataRef bookmarkRef, CFURLRef fileURL, CFURLBookmarkFileCreationOptions options, CFErrorRef *errorRef );
-
-#endif /* TARGET_OS_MAC */
 
 CF_EXTERN_C_END
 

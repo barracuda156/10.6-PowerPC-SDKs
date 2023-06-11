@@ -31,7 +31,7 @@
 extern "C" {
 #endif
 
-#define IOGRAPHICSTYPES_REV	20
+#define IOGRAPHICSTYPES_REV	13
 
 typedef SInt32	IOIndex;
 typedef UInt32	IOSelect;
@@ -134,10 +134,10 @@ typedef UInt32  IOAppleTimingID;
  * @field refreshRate Refresh rate in fixed point 16.16.
  * @field maxDepthIndex Highest depth index available in this display mode.
  * @field flags Flags for the mode, including: <br>
- *   kDisplayModeInterlacedFlag mode is interlaced. <br>
- *   kDisplayModeSimulscanFlag mode is available on multiple display connections. <br>
- *   kDisplayModeNotPresetFlag mode is not a factory preset for the display (geometry may need correction). <br>
- *   kDisplayModeStretchedFlag mode is stretched/distorted to match the display aspect ratio. <br>
+    kDisplayModeInterlacedFlag mode is interlaced. <br>
+    kDisplayModeSimulscanFlag mode is available on multiple display connections. <br>
+    kDisplayModeNotPresetFlag mode is not a factory preset for the display (geometry may need correction). <br>
+    kDisplayModeStretchedFlag mode is stretched/distorted to match the display aspect ratio. <br>
  * @field reserved Set to zero.
  */
 
@@ -240,7 +240,6 @@ enum {
 //// Controller attributes
 
 enum {
-    kIOPowerStateAttribute		= 'pwrs',
     kIOPowerAttribute			= 'powr',
     kIOHardwareCursorAttribute		= 'crsr',
 
@@ -296,22 +295,22 @@ typedef struct IODetailedTimingInformationV1 IODetailedTimingInformationV1;
  * @field horizontalScaledInset If the mode is scaled, sets the number of active pixels to remove the left and right edges in order to display an underscanned image.
  * @field verticalScaledInset If the mode is scaled, sets the number of active lines to remove the top and bottom edges in order to display an underscanned image.
  * @field scalerFlags If the mode is scaled,
- *    kIOScaleStretchToFit may be set to allow stretching.
- *    kIOScaleRotateFlags is mask which may have the value given by kIOScaleRotate90, kIOScaleRotate180, kIOScaleRotate270 to display a rotated framebuffer.
+     kIOScaleStretchToFit may be set to allow stretching.
+     kIOScaleRotateFlags is mask which may have the value given by kIOScaleRotate90, kIOScaleRotate180, kIOScaleRotate270 to display a rotated framebuffer.
  * @field horizontalScaled If the mode is scaled, sets the size of the image before scaling or rotation.
  * @field verticalScaled If the mode is scaled, sets the size of the image before scaling or rotation.
  * @field signalConfig 
- *    kIOAnalogSetupExpected set if display expects a blank-to-black setup or pedestal.  See VESA signal standards. <br>
- *    kIOInterlacedCEATiming set for a CEA style interlaced timing:<br>
- *	Field 1 vertical blanking = half specified vertical blanking lines. <br>
- *	Field 2 vertical blanking = (half vertical blanking lines) + 1 line. <br>
- *	Field 1 vertical offset = half specified vertical sync offset. <br>
- *	Field 2 vertical offset = (half specified vertical sync offset) + 0.5 lines. <br>
+    kIOAnalogSetupExpected set if display expects a blank-to-black setup or pedestal.  See VESA signal standards. <br>
+    kIOInterlacedCEATiming set for a CEA style interlaced timing:<br>
+	Field 1 vertical blanking = half specified vertical blanking lines. <br>
+	Field 2 vertical blanking = (half vertical blanking lines) + 1 line. <br>
+	Field 1 vertical offset = half specified vertical sync offset. <br>
+	Field 2 vertical offset = (half specified vertical sync offset) + 0.5 lines. <br>
  * @field signalLevels One of:<br>
- *   kIOAnalogSignalLevel_0700_0300 0.700 - 0.300 V p-p.<br>
- *   kIOAnalogSignalLevel_0714_0286 0.714 - 0.286 V p-p.<br>
- *   kIOAnalogSignalLevel_1000_0400 1.000 - 0.400 V p-p.<br>
- *   kIOAnalogSignalLevel_0700_0000 0.700 - 0.000 V p-p.<br>
+    kIOAnalogSignalLevel_0700_0300 0.700 - 0.300 V p-p.<br>
+    kIOAnalogSignalLevel_0714_0286 0.714 - 0.286 V p-p.<br>
+    kIOAnalogSignalLevel_1000_0400 1.000 - 0.400 V p-p.<br>
+    kIOAnalogSignalLevel_0700_0000 0.700 - 0.000 V p-p.<br>
  * @field pixelClock Pixel clock frequency in Hz.
  * @field minPixelClock Minimum pixel clock frequency in Hz, with error.
  * @field maxPixelClock Maximum pixel clock frequency in Hz, with error.
@@ -431,22 +430,22 @@ typedef struct IOFBDisplayModeDescription IOFBDisplayModeDescription;
  * @field minPixelClock maximum pixel clock frequency in range, in Hz.
  * @field maxPixelError largest variation between specified and actual pixel clock frequency, in Hz.
  * @field supportedSyncFlags mask of supported sync attributes. The following are defined:<br>
- *    kIORangeSupportsSeparateSyncs - digital separate syncs.<br>
- *    kIORangeSupportsSyncOnGreen - sync on green.<br>
- *    kIORangeSupportsCompositeSync - composite sync.<br>
- *    kIORangeSupportsVSyncSerration - vertical sync has serration and equalization pulses.<br>
+    kIORangeSupportsSeparateSyncs - digital separate syncs.<br>
+    kIORangeSupportsSyncOnGreen - sync on green.<br>
+    kIORangeSupportsCompositeSync - composite sync.<br>
+    kIORangeSupportsVSyncSerration - vertical sync has serration and equalization pulses.<br>
  * @field supportedSignalLevels mask of possible signal levels. The following are defined:<br>
- *    kIORangeSupportsSignal_0700_0300 0.700 - 0.300 V p-p.<br>
- *    kIORangeSupportsSignal_0714_0286 0.714 - 0.286 V p-p.<br>
- *    kIORangeSupportsSignal_1000_0400 1.000 - 0.400 V p-p.<br>
- *    kIORangeSupportsSignal_0700_0000 0.700 - 0.000 V p-p.<br>
+    kIORangeSupportsSignal_0700_0300 0.700 - 0.300 V p-p.<br>
+    kIORangeSupportsSignal_0714_0286 0.714 - 0.286 V p-p.<br>
+    kIORangeSupportsSignal_1000_0400 1.000 - 0.400 V p-p.<br>
+    kIORangeSupportsSignal_0700_0000 0.700 - 0.000 V p-p.<br>
  * @field supportedSignalConfigs mask of possible signal configurations. The following are defined:<br>
- *    kIORangeSupportsInterlacedCEATiming Supports CEA style interlaced timing:<br>
- *	Field 1 vertical blanking = specified vertical blanking lines. <br>
- *	Field 2 vertical blanking = vertical blanking lines + 1 line. <br> 
- *	Field 1 vertical offset = specified vertical sync offset. <br>
- *	Field 2 vertical offset = specified vertical sync offset + 0.5 lines. <br>
- *    kIORangeSupportsInterlacedCEATimingWithConfirm Supports CEA style interlaced timing, but require a confirm.
+    kIORangeSupportsInterlacedCEATiming Supports CEA style interlaced timing:<br>
+	Field 1 vertical blanking = specified vertical blanking lines. <br>
+	Field 2 vertical blanking = vertical blanking lines + 1 line. <br>
+	Field 1 vertical offset = specified vertical sync offset. <br>
+	Field 2 vertical offset = specified vertical sync offset + 0.5 lines. <br>
+    kIORangeSupportsInterlacedCEATimingWithConfirm Supports CEA style interlaced timing, but require a confirm.
  * @field minFrameRate minimum frame rate (vertical refresh frequency) in range, in Hz.
  * @field maxFrameRate maximum frame rate (vertical refresh frequency) in range, in Hz.
  * @field minLineRate minimum line rate (horizontal refresh frequency) in range, in Hz.
@@ -632,13 +631,13 @@ enum {
  * @field version Set to zero.
  * @field __reservedB Set to zero.
  * @field scalerFeatures Mask of scaling features. The following are defined:<br>
- *   kIOScaleStretchOnly If set the framebuffer can only provide stretched scaling with non-square pixels, without borders.<br>
- *   kIOScaleCanUpSamplePixels If set framebuffer can scale up from a smaller number of source pixels to a larger native timing (eg. 640x480 pixels on a 1600x1200 timing).<br>
- *   kIOScaleCanDownSamplePixels If set framebuffer can scale down from a larger number of source pixels to a smaller native timing (eg. 1600x1200 pixels on a 640x480 timing).<br>
- *   kIOScaleCanScaleInterlaced If set framebuffer can scale an interlaced detailed timing.<br>
- *   kIOScaleCanSupportInset If set framebuffer can support scaled modes with non-zero horizontalScaledInset, verticalScaledInset fields.<br>
- *   kIOScaleCanRotate If set framebuffer can support some of the flags in the kIOScaleRotateFlags mask.<br>
- *   kIOScaleCanBorderInsetOnly If set framebuffer can support scaled modes with non-zero horizontalScaledInset, verticalScaledInset fields, but requires the active pixels to be equal in size to the inset area, ie. can do insets with a border versus scaling an image.<br>
+    kIOScaleStretchOnly If set the framebuffer can only provide stretched scaling with non-square pixels, without borders.<br>
+    kIOScaleCanUpSamplePixels If set framebuffer can scale up from a smaller number of source pixels to a larger native timing (eg. 640x480 pixels on a 1600x1200 timing).<br>
+    kIOScaleCanDownSamplePixels If set framebuffer can scale down from a larger number of source pixels to a smaller native timing (eg. 1600x1200 pixels on a 640x480 timing).<br>
+    kIOScaleCanScaleInterlaced If set framebuffer can scale an interlaced detailed timing.<br>
+    kIOScaleCanSupportInset If set framebuffer can support scaled modes with non-zero horizontalScaledInset, verticalScaledInset fields.<br>
+    kIOScaleCanRotate If set framebuffer can support some of the flags in the kIOScaleRotateFlags mask.<br>
+    kIOScaleCanBorderInsetOnly If set framebuffer can support scaled modes with non-zero horizontalScaledInset, verticalScaledInset fields, but requires the active pixels to be equal in size to the inset area, ie. can do insets with a border versus scaling an image.<br>
  * @field maxHorizontalPixels Maximum number of horizontal source pixels (horizontalScaled).<br>
  * @field maxVerticalPixels Maximum number of vertical source pixels (verticalScaled).<br>
  * @field __reservedC Set to zero.
@@ -682,7 +681,6 @@ enum {
     kConnectionSupportsLLDDCSense	= 'lddc',
     kConnectionSupportsHLDDCSense	= 'hddc',
     kConnectionEnable			= 'enab',
-    kConnectionCheckEnable		= 'cena',
     kConnectionProbe			= 'prob',
     kConnectionChanged			= 'chng',
     kConnectionPower			= 'powr',
@@ -690,13 +688,7 @@ enum {
     kConnectionDisplayParameterCount	= 'pcnt',
     kConnectionDisplayParameters	= 'parm',
     kConnectionOverscan			= 'oscn',
-    kConnectionVideoBest		= 'vbst',
-
-    kConnectionRedGammaScale		= 'rgsc',
-    kConnectionGreenGammaScale		= 'ggsc',
-    kConnectionBlueGammaScale		= 'bgsc',
-
-    kConnectionHandleDisplayPortEvent	= 'dpir',
+    kConnectionVideoBest		= 'vbst'
 };
 
 // kConnectionFlags values
@@ -717,20 +709,7 @@ enum {
     kIOSyncOnRed			= 0x00000020
 };
 
-// kConnectionHandleDisplayPortEvent values
-enum {
-	kIODPEventStart				= 1,
-	kIODPEventIdle				= 2,
 
-	kIODPEventForceRetrain			= 3,
-
-	kIODPEventRemoteControlCommandPending	= 256,
-	kIODPEventAutomatedTestRequest		= 257,
-	kIODPEventContentProtection		= 258,
-	kIODPEventMCCS				= 259,
-	kIODPEventSinkSpecific		        = 260
-};
-	
 #define IO_DISPLAY_CAN_FILL		0x00000040
 #define IO_DISPLAY_CAN_BLIT		0x00000020
 
@@ -845,40 +824,6 @@ struct IOHardwareCursorDescriptor {
 };
 typedef struct IOHardwareCursorDescriptor IOHardwareCursorDescriptor;
 
-enum {
-   kHardwareCursorInfoMajorVersion		= 0x0001,
-   kHardwareCursorInfoMinorVersion		= 0x0000
-};
-
-/*!
- * @struct IOHardwareCursorInfo
- * @abstract A structure defining the converted data of a hardware cursor.
- * @discussion This structure is used by IOFramebuffer to return the data of a hardware cursor by convertCursorImage() after conversion based on the IOHardwareCursorDescriptor passed to that routine.
- * @field majorVersion Set to kHardwareCursorInfoMajorVersion.
- * @field minorVersion Set to kHardwareCursorInfoMinorVersion.
- * @field cursorHeight The actual size of the cursor is returned.
- * @field cursorWidth The actual size of the cursor is returned.
- * @field colorMap Pointer to array of IOColorEntry structures, with the number of elements set by the numColors field of the IOHardwareCursorDescriptor. Zero should be passed for direct pixel formats.
- * @field hardwareCursorData Buffer to receive the converted cursor data.
- * @field cursorHotSpotX Cursor's hotspot.
- * @field cursorHotSpotY Cursor's hotspot.
- * @field reserved Reserved, set to zero.
- */
-
-struct IOHardwareCursorInfo {
-   UInt16		majorVersion;
-   UInt16		minorVersion;
-   UInt32		cursorHeight;
-   UInt32		cursorWidth;
-   // nil or big enough for hardware's max colors
-   IOColorEntry *	colorMap;
-   UInt8 *		hardwareCursorData;
-   UInt16		cursorHotSpotX;
-   UInt16		cursorHotSpotY;
-   UInt32		reserved[5];
-};
-typedef struct IOHardwareCursorInfo IOHardwareCursorInfo;
-
 // interrupt types
 
 enum {
@@ -892,11 +837,7 @@ enum {
     // Demand to remove framebuffer (Hardware not available on dependent change -- but must not buserror)
     kIOFBOfflineInterruptType		= 'remv',
     // Notice that hardware is available (after being removed)
-    kIOFBOnlineInterruptType		= 'add ',
-    // DisplayPort short pulse
-    kIOFBDisplayPortInterruptType			= 'dpir',
-    // DisplayPort link event
-    kIOFBDisplayPortLinkChangeInterruptType	= 'dplk'
+    kIOFBOnlineInterruptType		= 'add '
 };
 
 // IOAppleTimingID's
@@ -991,7 +932,7 @@ enum {
 #define kIOFBGammaWidthKey		"IOFBGammaWidth"
 #define kIOFBGammaCountKey		"IOFBGammaCount"
 #define kIOFBCLUTDeferKey		"IOFBCLUTDefer"
-	
+
 // exists on the hibernate progress display device
 #ifndef kIOHibernatePreviewActiveKey
 #define kIOHibernatePreviewActiveKey	"IOHibernatePreviewActive"
@@ -1129,13 +1070,8 @@ enum {
 #define kIODisplayOverscanKey		"oscn"
 #define kIODisplayVideoBestKey		"vbst"
 
-#define kIODisplayRedGammaScaleKey	"rgsc"
-#define kIODisplayGreenGammaScaleKey	"ggsc"
-#define kIODisplayBlueGammaScaleKey	"bgsc"
-
 #define kIODisplayParametersCommitKey	"commit"
 #define kIODisplayParametersDefaultKey	"defaults"
-#define kIODisplayParametersFlushKey	"flush"
 
 #ifdef __cplusplus
 }

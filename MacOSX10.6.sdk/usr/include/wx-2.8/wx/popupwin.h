@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     06.01.01
-// RCS-ID:      $Id: popupwin.h 53135 2008-04-12 02:31:04Z VZ $
+// RCS-ID:      $Id: popupwin.h,v 1.39 2006/05/16 22:56:59 VZ Exp $
 // Copyright:   (c) 2001 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // License:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -66,8 +66,6 @@ public:
     #include "wx/motif/popupwin.h"
 #elif defined(__WXMGL__)
     #include "wx/mgl/popupwin.h"
-#elif defined(__WXMAC__)
-    #include "wx/mac/popupwin.h"
 #else
     #error "wxPopupWindow is not supported under this platform."
 #endif
@@ -77,8 +75,8 @@ public:
 // when the user clicks mouse outside it or if it loses focus in any other way
 // ----------------------------------------------------------------------------
 
-class WXDLLIMPEXP_FWD_CORE wxPopupWindowHandler;
-class WXDLLIMPEXP_FWD_CORE wxPopupFocusHandler;
+class WXDLLEXPORT wxPopupWindowHandler;
+class WXDLLEXPORT wxPopupFocusHandler;
 
 class WXDLLEXPORT wxPopupTransientWindow : public wxPopupWindow
 {
@@ -127,7 +125,7 @@ protected:
     // get alerted when child gets deleted from under us
     void OnDestroy(wxWindowDestroyEvent& event);
 
-#if defined( __WXMSW__ ) || defined( __WXMAC__ )
+#ifdef __WXMSW__
     // check if the mouse needs captured or released
     void OnIdle(wxIdleEvent& event);
 #endif

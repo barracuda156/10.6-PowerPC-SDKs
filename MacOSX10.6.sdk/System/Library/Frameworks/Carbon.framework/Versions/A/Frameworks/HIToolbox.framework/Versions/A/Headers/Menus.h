@@ -3,7 +3,7 @@
  
      Contains:   Menu Manager Interfaces.
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 1985-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -176,11 +176,7 @@ enum {
   kMenuControlISOGlyph          = 0x8A, /* Control key (ISO standard)*/
   kMenuEjectGlyph               = 0x8C, /* Eject key (available on Mac OS X 10.2 and later)*/
   kMenuEisuGlyph                = 0x8D, /* Japanese eisu key (available in Mac OS X 10.4 and later)*/
-  kMenuKanaGlyph                = 0x8E, /* Japanese kana key (available in Mac OS X 10.4 and later)*/
-  kMenuF16Glyph                 = 0x8F, /* F16 key (available in SnowLeopard and later)*/
-  kMenuF17Glyph                 = 0x90, /* F17 key (available in SnowLeopard and later)*/
-  kMenuF18Glyph                 = 0x91, /* F18 key (available in SnowLeopard and later)*/
-  kMenuF19Glyph                 = 0x92  /* F19 key (available in SnowLeopard and later)*/
+  kMenuKanaGlyph                = 0x8E  /* Japanese kana key (available in Mac OS X 10.4 and later)*/
 };
 
 
@@ -3945,11 +3941,7 @@ GetMenuItemCommandKey(
  *      these values: 
  *      
  *      0x2190..0x2193 (left, up, right, and down-arrow)
- *       kSpaceCharCode 
- *      
- *      In Mac OS X 10.6 and later, the Menu Manager also supports
- *      these values: 
- *      NSF16FunctionKey..NSF19FunctionKey, NSDeleteFunctionKey
+ *       kSpaceCharCode
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in Carbon.framework [32-bit only]

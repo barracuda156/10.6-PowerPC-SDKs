@@ -38,7 +38,7 @@ NSC_LIBS=""
 NSC_AGENTLIBS=" "
 NSC_PREFIX=$prefix
 NSC_EXEC_PREFIX=$exec_prefix
-NSC_SRCDIR=/var/tmp/net_snmp/net_snmp-119~45/net-snmp
+NSC_SRCDIR=/var/tmp/net_snmp/net_snmp-118~13/net-snmp
 NSC_INCDIR=${NSC_PREFIX}/include
 NSC_BASE_SUBAGENT_LIBS="-lnetsnmpagent -lnetsnmphelpers -lnetsnmp"
 NSC_BASE_AGENT_LIBS="-lnetsnmpmibs -lnetsnmpagent -lnetsnmphelpers -lnetsnmp"
@@ -82,7 +82,7 @@ else
       echo "indent -orig -nbc -bap -nut -nfca `(cd $NSC_INCDIR/net-snmp; perl -n -e 'print "-T $1 " if (/}\s*(netsnmp_\w+)\s*;/);' */*.h)`"
       ;;
     --configure-options|--con*)
-      echo "'--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--sysconfdir=/etc' '--with-install-prefix=/BinaryCache/net_snmp/net_snmp-119~45/Root' '--with-default-snmp-version=2' '--with-persistent-directory=/var/db/net-snmp' '--with-defaults' '--without-rpm' '--with-sys-contact=postmaster@example.com' '--with-mib-modules=host ucd-snmp/diskio ucd-snmp/loadave ucd-snmp/lmSensorsTables' '--disable-static' '--enable-ipv6' '--disable-embedded-perl' '--without-kmem-usage' 'CFLAGS=   -g -Os -pipe -DBUILD=119 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe' 'CXXFLAGS=   -g -Os -pipe -DBUILD=119 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe' 'LDFLAGS=              '"
+      echo "'--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--sysconfdir=/etc' '--with-install-prefix=/BinaryCache/net_snmp/net_snmp-118~13/Root' '--with-default-snmp-version=2' '--with-persistent-directory=/var/db/net-snmp' '--with-defaults' '--without-rpm' '--with-sys-contact=postmaster@example.com' '--with-mib-modules=host ucd-snmp/diskio ucd-snmp/loadave ucd-snmp/lmSensorsTables' '--disable-static' '--enable-ipv6' '--disable-embedded-perl' '--without-kmem-usage' 'CFLAGS=   -g -Os -pipe -DBUILD=118 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe' 'CXXFLAGS=   -g -Os -pipe -DBUILD=118 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe' 'LDFLAGS=              '"
       ;;
     --snmpd-module-list|--mod*)
       
@@ -104,10 +104,10 @@ echo   ucd-snmp/diskio  ucd-snmp/loadave  host/hr_system  host/hr_storage  host/
       ;;
     #################################################### compile
     --base-cflags)
-      echo -DNETSNMP_ENABLE_IPV6    -g -Os -pipe -DBUILD=119 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe -Udarwin10 -Ddarwin10=darwin10  -I${NSC_INCLUDEDIR}
+      echo -DNETSNMP_ENABLE_IPV6    -g -Os -pipe -DBUILD=118 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe -Udarwin10 -Ddarwin10=darwin10  -I${NSC_INCLUDEDIR}
       ;;
     --cflags|--cf*)
-      echo -DNETSNMP_ENABLE_IPV6    -g -Os -pipe -DBUILD=119 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe -Udarwin10 -Ddarwin10=darwin10   -I. -I${NSC_INCLUDEDIR}
+      echo -DNETSNMP_ENABLE_IPV6    -g -Os -pipe -DBUILD=118 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe -Udarwin10 -Ddarwin10=darwin10   -I. -I${NSC_INCLUDEDIR}
       ;;
     --srcdir)
       echo $NSC_SRCDIR
@@ -637,7 +637,7 @@ EOF
         echo "Ack.  Can't create $tmpfile."
 	exit 1
       fi
-      cmd="gcc $cflags -DNETSNMP_ENABLE_IPV6    -g -Os -pipe -DBUILD=119 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe -Udarwin10 -Ddarwin10=darwin10  -I. -I${NSC_INCLUDEDIR} -o $outname $tmpfile $cfiles $NSC_LDFLAGS $NSC_LIBDIR $NSC_BASE_AGENT_LIBS $NSC_AGENTLIBS $ldflags"
+      cmd="gcc $cflags -DNETSNMP_ENABLE_IPV6    -g -Os -pipe -DBUILD=118 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/    -pipe -Udarwin10 -Ddarwin10=darwin10  -I. -I${NSC_INCLUDEDIR} -o $outname $tmpfile $cfiles $NSC_LDFLAGS $NSC_LIBDIR $NSC_BASE_AGENT_LIBS $NSC_AGENTLIBS $ldflags"
       echo "running: $cmd"
       `$cmd`
       if test "x$norm" != "x1" ; then

@@ -3,7 +3,7 @@
  
      Contains:   Gestalt Interfaces.
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1988-2008 by Apple Computer, Inc.  All rights reserved
  
@@ -467,7 +467,7 @@ enum {
   gestaltAFPClient3_8_1         = 0x0009, /* including 3.8.2 */
   gestaltAFPClient3_8_3         = 0x000A,
   gestaltAFPClient3_8_4         = 0x000B, /* including 3.8.5, 3.8.6 */
-  gestaltAFPClientAttributeMask = (int)0xFFFF0000, /* high word of response is a */
+  gestaltAFPClientAttributeMask = (long)0xFFFF0000, /* high word of response is a */
                                         /* set of attribute bits*/
   gestaltAFPClientCfgRsrc       = 16,   /* Client uses config resources*/
   gestaltAFPClientSupportsIP    = 29,   /* Client supports AFP over TCP/IP*/
@@ -2408,8 +2408,8 @@ enum {
   gestaltUSBPrinterSharingVersion = 'zak ', /* USB Printer Sharing Version*/
   gestaltUSBPrinterSharingVersionMask = 0x0000FFFF, /* mask for bits in version*/
   gestaltUSBPrinterSharingAttr  = 'zak ', /* USB Printer Sharing Attributes*/
-  gestaltUSBPrinterSharingAttrMask = (int)0xFFFF0000, /*  mask for attribute bits*/
-  gestaltUSBPrinterSharingAttrRunning = (int)0x80000000, /* printer sharing is running*/
+  gestaltUSBPrinterSharingAttrMask = (long)0xFFFF0000, /*  mask for attribute bits*/
+  gestaltUSBPrinterSharingAttrRunning = (long)0x80000000, /* printer sharing is running*/
   gestaltUSBPrinterSharingAttrBooted = 0x40000000 /* printer sharing was installed at boot time*/
 };
 

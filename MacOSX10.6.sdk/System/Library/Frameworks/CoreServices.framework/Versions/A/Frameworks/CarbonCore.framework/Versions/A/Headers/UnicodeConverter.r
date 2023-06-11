@@ -3,7 +3,7 @@
  
      Contains:   Types, constants, and prototypes for Unicode Converter
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1994-2008 Apple Inc. All rights reserved.
  

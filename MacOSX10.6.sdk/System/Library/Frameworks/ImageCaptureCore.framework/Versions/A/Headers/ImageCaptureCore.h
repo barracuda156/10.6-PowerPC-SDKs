@@ -9,7 +9,6 @@
 //
 //------------------------------------------------------------------------------------------------------------------------------
 
-#import <ImageCaptureCore/ICCommonConstants.h>
 #import <ImageCaptureCore/ICDeviceBrowser.h>
 #import <ImageCaptureCore/ICDevice.h>
 #import <ImageCaptureCore/ICCameraItem.h>

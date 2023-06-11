@@ -40,8 +40,8 @@ CG_EXTERN CGError CGBeginDisplayConfiguration(CGDisplayConfigRef *pConfigRef) CG
  */
 CG_EXTERN CGError CGConfigureDisplayOrigin(CGDisplayConfigRef configRef,
                                  CGDirectDisplayID display,
-                                 int32_t x,
-                                 int32_t y) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_NA);
+                                 CGDisplayCoord x,
+                                 CGDisplayCoord y) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_NA);
 
 /*
  * Set the display mode

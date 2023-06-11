@@ -110,8 +110,6 @@ typedef struct vm_statistics	vm_statistics_data_t;
 #define VM_PAGE_QUERY_PAGE_COPIED       0x20
 #define VM_PAGE_QUERY_PAGE_SPECULATIVE	0x40
 #define VM_PAGE_QUERY_PAGE_EXTERNAL	0x80
-#define VM_PAGE_QUERY_PAGE_CS_VALIDATED	0x100
-#define VM_PAGE_QUERY_PAGE_CS_TAINTED	0x200
 
 
 /*
@@ -147,6 +145,8 @@ typedef struct vm_statistics	vm_statistics_data_t;
 #define VM_FLAGS_PURGABLE	0x0002
 #define VM_FLAGS_NO_CACHE	0x0010
 
+#define VM_FLAGS_GUARD_BEFORE	0x0010
+#define VM_FLAGS_GUARD_AFTER	0x0020
 
 #define VM_FLAGS_ALIAS_MASK	0xFF000000
 #define VM_GET_FLAGS_ALIAS(flags, alias)			\

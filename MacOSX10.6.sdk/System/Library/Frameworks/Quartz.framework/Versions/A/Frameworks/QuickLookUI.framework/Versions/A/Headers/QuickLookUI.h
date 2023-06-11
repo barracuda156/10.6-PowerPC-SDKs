@@ -13,7 +13,4 @@
 // Until transition is over, the real headers are in QuickLook framework
 #include <QuickLook/QuickLook.h>
 
-#import <QuickLookUI/QLPreviewItem.h>
-#import <QuickLookUI/QLPreviewPanel.h>
-
 #endif /* __QUICKLOOKUI_QUICKLOOKUI__ */

@@ -78,11 +78,6 @@ enum {
 	errSecCSHostProtocolUnrelated,		/* host protocol violation - the given guest is not a guest of the given host */
 	errSecCSInvalidOperation,			/* requested operation is not valid */
 	errSecCSNotSupported,				/* operation not supported for this type of code */
-	errSecCSCMSTooLarge,				/* signature too large to embed */
-	errSecCSHostProtocolInvalidHash,	/* host protocol violation - invalid guest hash */
-	errSecCSStaticCodeChanged,			/* the program on disk does not match what is running */
-	errSecCSSigDBDenied,				/* access to signature database denied */
-	errSecCSSigDBAccess,				/* cannot access signature database */
 };
 
 
@@ -207,37 +202,6 @@ enum {
 	kSecCodeSignatureForceHard = 0x0100,	/* always set HARD mode on launch */
 	kSecCodeSignatureForceKill = 0x0200,	/* always set KILL mode on launch */
 	kSecCodeSignatureForceExpiration = 0x0400, /* force certificat expiration checks */
-};
-
-
-/*!
-	@typedef SecCodeStatus
-	The code signing system attaches a set of operational flags to each running code.
-	These flags are maintained by the code's host, and can be read by anyone.
-	A code may change its own flags, and root may change anyone's flags.
-	However, these flags are sticky in that each can change in only one direction
-	(and never back, for the lifetime of the code).
-
-	There are other flags in SecCodeStatus that are not publicly documented.
-	Do not rely on them.
-
-	@constant kSecCodeStatusValid
-	Indicates that the code is dynamically valid, i.e. it started properly signed
-	and has not been invalidated since it started. The valid bit can only be cleared.
-	@constant kSecCodeStatusHard
-	Indicates that the code prefers to be denied access to resources if gaining access
-	would invalidate it. This bit can only be set.
-	It is undefined whether a code that is marked hard and already invalid will still
-	be denied access to a resource that would invalidate it were it valid.
-	@constant kSecCodeStatusKill
-	Indicates that the code wants to be killed (terminated) if it ever loses its validity.
-	This bit can only be set. Code that has the kill flag set will never be invalid (and live).
-*/
-typedef uint32_t SecCodeStatus;
-enum {
-	kSecCodeStatusValid =	0x0001,
-	kSecCodeStatusHard =	0x0100,
-	kSecCodeStatusKill =	0x0200,
 };
 
 

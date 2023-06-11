@@ -1,6 +1,6 @@
 /*	
     NSURLError.h
-    Copyright (C) 2003-2008, Apple Inc. All rights reserved.    
+    Copyright (C) 2003-2007, Apple Inc. All rights reserved.    
     
     Public header file.
 */
@@ -9,13 +9,6 @@
 // a runtime check for Foundation-462.1 or later.
 #import <AvailabilityMacros.h>
 #if MAC_OS_X_VERSION_10_2 <= MAC_OS_X_VERSION_MAX_ALLOWED
-
-// Retrieve kCFURLError* values used in the NSURLError* assignments
-#if DEPLOYMENT_TARGET_EMBEDDED || DEPLOYMENT_TARGET_WINDOWS
-#import <CFNetwork/CFNetwork.h>
-#else
-#import <CoreServices/CoreServices.h>
-#endif
 
 @class NSString;
 
@@ -42,50 +35,48 @@ extern NSString * const NSErrorFailingURLStringKey;
 enum
 {
     NSURLErrorUnknown = 			-1,
-    NSURLErrorCancelled = 			kCFURLErrorCancelled,
-    NSURLErrorBadURL = 				kCFURLErrorBadURL,
-    NSURLErrorTimedOut = 			kCFURLErrorTimedOut,
-    NSURLErrorUnsupportedURL = 			kCFURLErrorUnsupportedURL,
-    NSURLErrorCannotFindHost = 			kCFURLErrorCannotFindHost,
-    NSURLErrorCannotConnectToHost = 		kCFURLErrorCannotConnectToHost,
-    NSURLErrorNetworkConnectionLost = 		kCFURLErrorNetworkConnectionLost,
-    NSURLErrorDNSLookupFailed = 		kCFURLErrorDNSLookupFailed,
-    NSURLErrorHTTPTooManyRedirects = 		kCFURLErrorHTTPTooManyRedirects,
-    NSURLErrorResourceUnavailable = 		kCFURLErrorResourceUnavailable,
-    NSURLErrorNotConnectedToInternet = 		kCFURLErrorNotConnectedToInternet,
-    NSURLErrorRedirectToNonExistentLocation = 	kCFURLErrorRedirectToNonExistentLocation,
-    NSURLErrorBadServerResponse = 		kCFURLErrorBadServerResponse,
-    NSURLErrorUserCancelledAuthentication = 	kCFURLErrorUserCancelledAuthentication,
-    NSURLErrorUserAuthenticationRequired = 	kCFURLErrorUserAuthenticationRequired,
-    NSURLErrorZeroByteResource = 		kCFURLErrorZeroByteResource,
-    NSURLErrorCannotDecodeRawData =             kCFURLErrorCannotDecodeRawData,
-    NSURLErrorCannotDecodeContentData =         kCFURLErrorCannotDecodeContentData,
-    NSURLErrorCannotParseResponse =             kCFURLErrorCannotParseResponse,
-    NSURLErrorFileDoesNotExist = 		kCFURLErrorFileDoesNotExist,
-    NSURLErrorFileIsDirectory = 		kCFURLErrorFileIsDirectory,
-    NSURLErrorNoPermissionsToReadFile = 	kCFURLErrorNoPermissionsToReadFile,
+    NSURLErrorCancelled = 			-999,
+    NSURLErrorBadURL = 				-1000,
+    NSURLErrorTimedOut = 			-1001,
+    NSURLErrorUnsupportedURL = 			-1002,
+    NSURLErrorCannotFindHost = 			-1003,
+    NSURLErrorCannotConnectToHost = 		-1004,
+    NSURLErrorNetworkConnectionLost = 		-1005,
+    NSURLErrorDNSLookupFailed = 		-1006,
+    NSURLErrorHTTPTooManyRedirects = 		-1007,
+    NSURLErrorResourceUnavailable = 		-1008,
+    NSURLErrorNotConnectedToInternet = 		-1009,
+    NSURLErrorRedirectToNonExistentLocation = 	-1010,
+    NSURLErrorBadServerResponse = 		-1011,
+    NSURLErrorUserCancelledAuthentication = 	-1012,
+    NSURLErrorUserAuthenticationRequired = 	-1013,
+    NSURLErrorZeroByteResource = 		-1014,
+    NSURLErrorCannotDecodeRawData =             -1015,
+    NSURLErrorCannotDecodeContentData =         -1016,
+    NSURLErrorCannotParseResponse =             -1017,
+    NSURLErrorFileDoesNotExist = 		-1100,
+    NSURLErrorFileIsDirectory = 		-1101,
+    NSURLErrorNoPermissionsToReadFile = 	-1102,
 #if MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED
-    NSURLErrorDataLengthExceedsMaximum =	kCFURLErrorDataLengthExceedsMaximum,
+    NSURLErrorDataLengthExceedsMaximum =	-1103,
 #endif
-    
-    // SSL errors
-    NSURLErrorSecureConnectionFailed = 		kCFURLErrorSecureConnectionFailed,
-    NSURLErrorServerCertificateHasBadDate = 	kCFURLErrorServerCertificateHasBadDate,
-    NSURLErrorServerCertificateUntrusted = 	kCFURLErrorServerCertificateUntrusted,
-    NSURLErrorServerCertificateHasUnknownRoot = kCFURLErrorServerCertificateHasUnknownRoot,
-    NSURLErrorServerCertificateNotYetValid = 	kCFURLErrorServerCertificateNotYetValid,
-    NSURLErrorClientCertificateRejected = 	kCFURLErrorClientCertificateRejected,
-    NSURLErrorCannotLoadFromNetwork = 		kCFURLErrorCannotLoadFromNetwork,
-    
+    NSURLErrorSecureConnectionFailed = 		-1200,
+    NSURLErrorServerCertificateHasBadDate = 	-1201,
+    NSURLErrorServerCertificateUntrusted = 	-1202,
+    NSURLErrorServerCertificateHasUnknownRoot = -1203,
+    NSURLErrorServerCertificateNotYetValid = 	-1204,
+	NSURLErrorClientCertificateRejected = 	-1205,
+    NSURLErrorCannotLoadFromNetwork = 		-2000,
+
     // Download and file I/O errors
-    NSURLErrorCannotCreateFile = 		kCFURLErrorCannotCreateFile,
-    NSURLErrorCannotOpenFile = 			kCFURLErrorCannotOpenFile,
-    NSURLErrorCannotCloseFile = 		kCFURLErrorCannotCloseFile,
-    NSURLErrorCannotWriteToFile = 		kCFURLErrorCannotWriteToFile,
-    NSURLErrorCannotRemoveFile = 		kCFURLErrorCannotRemoveFile,
-    NSURLErrorCannotMoveFile = 			kCFURLErrorCannotMoveFile,
-    NSURLErrorDownloadDecodingFailedMidStream = kCFURLErrorDownloadDecodingFailedMidStream,
-    NSURLErrorDownloadDecodingFailedToComplete =kCFURLErrorDownloadDecodingFailedToComplete,
+    NSURLErrorCannotCreateFile = 		-3000,
+    NSURLErrorCannotOpenFile = 			-3001,
+    NSURLErrorCannotCloseFile = 		-3002,
+    NSURLErrorCannotWriteToFile = 		-3003,
+    NSURLErrorCannotRemoveFile = 		-3004,
+    NSURLErrorCannotMoveFile = 			-3005,
+    NSURLErrorDownloadDecodingFailedMidStream = -3006,
+    NSURLErrorDownloadDecodingFailedToComplete =-3007,
 };
 
 #endif

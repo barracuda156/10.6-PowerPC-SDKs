@@ -5,9 +5,6 @@
 
 */
 
-#ifndef QTCAPTUREDEVICEINPUT_H // TODO: FIX BUILD SYSTEM INSTEAD - plus rdar://problem/5947690
-#define QTCAPTUREDEVICEINPUT_H
-
 #import <Foundation/Foundation.h>
 #import <QTKit/QTKitDefines.h>
 
@@ -21,7 +18,9 @@
 
 @interface QTCaptureDeviceInput : QTCaptureInput {
 @private;
+#if !__LP64__
 	QTCaptureDeviceInputInternal *_internal;
+#endif
 	long						_reserved4;
 	long						_reserved5;
 	long						_reserved6;
@@ -35,5 +34,3 @@
 @end
 
 #endif	/* (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_2) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4) */
-
-#endif // QTCAPTUREDEVICEINPUT_H

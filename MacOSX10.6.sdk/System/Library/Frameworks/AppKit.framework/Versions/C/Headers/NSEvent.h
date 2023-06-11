@@ -1,12 +1,11 @@
 /*
     NSEvent.h
     Application Kit
-    Copyright (c) 1994-2008, Apple Inc.
+    Copyright (c) 1994-2007, Apple Inc.
     All rights reserved.
 */
 
 #import <ApplicationServices/ApplicationServices.h>
-#import <Foundation/NSObjCRuntime.h>
 #import <Foundation/NSObject.h>
 #import <Foundation/NSDate.h>
 #import <Foundation/NSGeometry.h>
@@ -52,9 +51,6 @@ enum {        /* various types of events */
 #endif
 };
 typedef NSUInteger NSEventType;
-
-// For APIs introduced in Mac OS X 10.6 and later, this type is used with NS*Mask constants to indicate the events of interest.
-typedef unsigned long long NSEventMask;
 
 enum {                    /* masks for the types of events */
     NSLeftMouseDownMask         = 1 << NSLeftMouseDown,
@@ -357,33 +353,12 @@ enum {
 // global mouse coordinates
 + (NSPoint)mouseLocation;
 
-/* modifier keys currently down.  This returns the state of devices combined with synthesized events at the moment, independent of which events have been delivered via the event stream. */
-+ (NSUInteger)modifierFlags AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* mouse buttons currently down.  Returns indices of the mouse buttons currently down.  1 << 0 corresponds to leftMouse, 1 << 1 to rightMouse, and 1 << n, n >= 2 to other mouse buttons.  This returns the state of devices combined with synthesized events at the moment, independent of which events have been delivered via the event stream, so this method is not suitable for tracking. */
-+ (NSUInteger)pressedMouseButtons AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
 /* the time in which a second click must occur in order to be considered a doubleClick.  This is a system value so overrides will have no effect. */
 + (NSTimeInterval)doubleClickInterval   AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 /* the time for which a key must be held down in order to generate the first key repeat event.  This is a system value so overrides will have no effect. */
 + (NSTimeInterval)keyRepeatDelay        AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 /* the time between subsequent key repeat events.  This is a system value so overrides will have no effect. */
 + (NSTimeInterval)keyRepeatInterval     AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/*
-   API for monitoring events in other processes, or in your own process. For either +addGlobal or +addLocal, pass an event mask specifying which events you wish to monitor, and a block that will be called with the event to monitor.
-
-   Use +addGlobal to install an event monitor that receives copies of events posted to other applications. Events are delivered asynchronously to your app and you can only observe the event; you cannot modify or otherwise prevent the event from being delivered to its original target application. Key-related events may only be monitored if accessibility is enabled or if your application is trusted for accessibility access (see AXIsProcessTrusted in AXUIElement.h). Note that your handler will not be called for events that are sent to your own application.
-
-   Use +addLocal to install an event monitor that receives events before they are dispatched by -[NSApplication sendEvent:]. In this case, your block should either return a valid NSEvent (which may be the same as the incoming NSEvent, or may be a newly created NSEvent) to cause the event to be dispatched, or it may return nil to stop dispatching of the event. Note that your handler will not be called for events that are consumed by nested event-tracking loops such as control tracking, menu tracking, or window dragging; only events that are dispatched through -[NSApplication sendEvent:] will be passed to your handler.
-
-   In either case, the return value of the API is a retained NSObject. To remove the event monitor, pass the return value from the +add API to +removeMonitor. You typically do not need to retain and release the event monitor yourself, since the implementation will retain it while needed.
-*/
-#if NS_BLOCKS_AVAILABLE
-+ (id)addGlobalMonitorForEventsMatchingMask:(NSEventMask)mask handler:(void (^)(NSEvent*))block AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-+ (id)addLocalMonitorForEventsMatchingMask:(NSEventMask)mask handler:(NSEvent* (^)(NSEvent*))block AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-+ (void)removeMonitor:(id)eventMonitor AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-#endif
 
 @end
 

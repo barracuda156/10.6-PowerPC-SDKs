@@ -874,25 +874,6 @@ public:
     virtual IOReturn synchronizeCache(IOService * client);
 
     /*!
-     * @function discard
-     * @discussion
-     * Delete unused data from the storage object at the specified byte offset,
-     * synchronously.
-     * @param client
-     * Client requesting the operation.
-     * @param byteStart
-     * Starting byte offset for the operation.
-     * @param byteCount
-     * Size of the operation.
-     * @result
-     * Returns the status of the operation.
-     */
-
-    virtual IOReturn discard(IOService * client,
-                             UInt64      byteStart,
-                             UInt64      byteCount);
-
-    /*!
      * @function ejectMedia
      * @discussion
      * Eject the media from the device.  The driver is responsible for tearing
@@ -1498,30 +1479,14 @@ protected:
                                 IOStorageAttributes * attributes,
                                 IOStorageCompletion * completion); /* 10.5.0 */
 
-public:
-
-    /*!
-     * @function requestIdle
-     * @abstract
-     * Request that the device enter an idle state.
-     * @discussion
-     * Request that the device enter an idle state.  The device will exit this state on the
-     * next read or write request, or as it sees necessary.  One example is for a DVD drive
-     * to spin down when it enters such an idle state, and spin up on the next read request
-     * from the system.
-     */
-
-    virtual IOReturn	requestIdle(void); /* 10.6.0 */
-
 #ifdef __LP64__
     OSMetaClassDeclareReservedUnused(IOBlockStorageDriver,  0);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDriver,  1);
-    OSMetaClassDeclareReservedUnused(IOBlockStorageDriver,  2);
 #else /* !__LP64__ */
     OSMetaClassDeclareReservedUsed(IOBlockStorageDriver,  0);
     OSMetaClassDeclareReservedUsed(IOBlockStorageDriver,  1);
-    OSMetaClassDeclareReservedUsed(IOBlockStorageDriver,  2);
 #endif /* !__LP64__ */
+    OSMetaClassDeclareReservedUnused(IOBlockStorageDriver,  2);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDriver,  3);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDriver,  4);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDriver,  5);

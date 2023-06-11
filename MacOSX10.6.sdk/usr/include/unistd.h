@@ -446,11 +446,7 @@ char	*getcwd(char *, size_t);
 gid_t	 getegid(void);
 uid_t	 geteuid(void);
 gid_t	 getgid(void);
-#if defined(_DARWIN_UNLIMITED_GETGROUPS) || defined(_DARWIN_C_SOURCE)
-int	 getgroups(int, gid_t []) __DARWIN_EXTSN(getgroups);
-#else /* !_DARWIN_UNLIMITED_GETGROUPS && !_DARWIN_C_SOURCE */
 int	 getgroups(int, gid_t []);
-#endif /* _DARWIN_UNLIMITED_GETGROUPS || _DARWIN_C_SOURCE */
 long	 gethostid(void);
 int	 gethostname(char *, size_t);
 char	*getlogin(void);
@@ -595,17 +591,17 @@ int    setattrlist(const char*,void*,void*,size_t,unsigned int) __DARWIN_ALIAS(s
 int exchangedata(const char*,const char*,unsigned int);
 int    getdirentriesattr(int,void*,void*,size_t,unsigned int*,unsigned int*,unsigned int*,unsigned int);
 
+int fsctl(const char *,unsigned int,void*,unsigned int);
 #else /* __LP64__ */
 int	getattrlist(const char*,void*,void*,size_t,unsigned long) __DARWIN_ALIAS(getattrlist);
 int	setattrlist(const char*,void*,void*,size_t,unsigned long) __DARWIN_ALIAS(setattrlist);
 int exchangedata(const char*,const char*,unsigned long);
 int	getdirentriesattr(int,void*,void*,size_t,unsigned long*,unsigned long*,unsigned long*,unsigned long);
 
+int fsctl(const char *,unsigned long,void*,unsigned long);		
 #endif /* __LP64__ */
 
 int	 searchfs(const char *, void *, void *, unsigned int, unsigned int, void *);
-int	 fsctl(const char *,unsigned int,void*,unsigned int);
-int	 ffsctl(int,unsigned int,void*,unsigned int);
 
 extern int optreset;
 

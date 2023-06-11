@@ -1,5 +1,5 @@
 /*	CFLocale.h
-	Copyright (c) 2002-2008, Apple Inc. All rights reserved.
+	Copyright (c) 2002-2007, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFLOCALE__)
@@ -80,14 +80,6 @@ CFStringRef CFLocaleCreateCanonicalLocaleIdentifierFromScriptManagerCodes(CFAllo
 	// Map a Mac OS LangCode and RegionCode to the canonical locale identifier.
 
 CF_EXPORT
-CFStringRef CFLocaleCreateLocaleIdentifierFromWindowsLocaleCode(CFAllocatorRef allocator, uint32_t lcid) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-	// Map a Windows LCID to the canonical locale identifier.
-
-CF_EXPORT
-uint32_t CFLocaleGetWindowsLocaleCodeFromLocaleIdentifier(CFStringRef localeIdentifier) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-	// Map a locale identifier to a Windows LCID.
-
-CF_EXPORT
 CFDictionaryRef CFLocaleCreateComponentsFromLocaleIdentifier(CFAllocatorRef allocator, CFStringRef localeID) AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 	// Parses a locale ID consisting of language, script, country, variant,
 	// and keyword/value pairs into a dictionary. The keys are the constant
@@ -152,7 +144,6 @@ CF_EXPORT const CFStringRef kCFLocaleDecimalSeparator AVAILABLE_MAC_OS_X_VERSION
 CF_EXPORT const CFStringRef kCFLocaleGroupingSeparator AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 CF_EXPORT const CFStringRef kCFLocaleCurrencySymbol AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 CF_EXPORT const CFStringRef kCFLocaleCurrencyCode AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER; // ISO 3-letter currency code
-CF_EXPORT const CFStringRef kCFLocaleCollatorIdentifier AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 // Values for kCFLocaleCalendarIdentifier
 CF_EXPORT const CFStringRef kCFGregorianCalendar AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;

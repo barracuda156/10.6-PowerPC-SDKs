@@ -24,7 +24,7 @@
     __weak NSEntityDescription *_entity;
     NSPredicate *_predicate;
     NSArray *_sortDescriptors;
-    NSUInteger _batchSize;
+    unsigned long _inUseCounter;
     unsigned long _fetchLimit;
     NSArray *_affectedStores;
     NSArray *_relationshipKeyPathsForPrefetching;
@@ -35,8 +35,7 @@
         unsigned int resultType:3;
         unsigned int returnsObjectsAsFaults:1;
         unsigned int excludePendingChanges:1;
-        unsigned int isInUse:1;
-        unsigned int _RESERVED:23;
+        unsigned int _RESERVED:24;
     } _flags;
 }
 
@@ -117,11 +116,6 @@ typedef NSUInteger NSFetchRequestResultType;
 /* Allows you to specify an offset at which rows will begin being returned.  Effectively, the request will skip over 'offset' number of matching entries.  For example, given a fetch which would normally return a, b, c, and d, specifying an offset of 1 will return b, c, and d and an offset of 4  will return an empty array. Offsets are ignored in nested requests such as subqueries.  Default value is 0.  */
 - (NSUInteger)fetchOffset AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 - (void)setFetchOffset:(NSUInteger)offset AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* This breaks the result set into batches.  The entire request will be evaluated, and the identities of all matching objects will be recorded, but no more than batchSize objects' data will be fetched from the persistent store at a time.  The array returned from executing the request will be a subclass that transparently faults batches on demand.  For purposes of thread safety, the returned array proxy is owned by the NSManagedObjectContext the request is executed against, and should be treated as if it were a managed object registered with that context.  A batch size of 0 is treated as infinite, which disables the batch faulting behavior.  The default is 0. */
-
-- (NSUInteger)fetchBatchSize AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)setFetchBatchSize:(NSUInteger) bsize AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 @end
 

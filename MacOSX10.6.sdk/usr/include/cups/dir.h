@@ -1,5 +1,5 @@
 /*
- * "$Id: dir.h 7026 2007-10-19 00:57:45Z mike $"
+ * "$Id: dir.h 214 2006-08-30 18:43:09Z jlovell $"
  *
  *   Public directory definitions for the Common UNIX Printing System (CUPS).
  *
@@ -65,5 +65,5 @@ extern void		cupsDirRewind(cups_dir_t *dp) _CUPS_API_1_2;
 #endif /* !_CUPS_DIR_H_ */
 
 /*
- * End of "$Id: dir.h 7026 2007-10-19 00:57:45Z mike $".
+ * End of "$Id: dir.h 214 2006-08-30 18:43:09Z jlovell $".
  */

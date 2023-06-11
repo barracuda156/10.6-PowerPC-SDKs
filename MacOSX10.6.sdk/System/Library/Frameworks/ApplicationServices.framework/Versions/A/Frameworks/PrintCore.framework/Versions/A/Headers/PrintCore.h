@@ -46,10 +46,6 @@
 #include <PrintCore/PMPrintAETypes.h>
 #endif
 
-#ifndef __PMPRINTSETTINGSKEYS__
-#include <PrintCore/PMPrintSettingsKeys.h>
-#endif
-
 
 #endif /* __PRINTCORE__ */
 

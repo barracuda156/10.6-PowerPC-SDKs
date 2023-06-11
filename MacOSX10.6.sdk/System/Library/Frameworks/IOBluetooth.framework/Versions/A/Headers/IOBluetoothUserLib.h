@@ -119,14 +119,8 @@
 			#define BLUETOOTH_VERSION_MAX_ALLOWED	BLUETOOTH_VERSION_1_1
 		#elif MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_2_5
 			#define BLUETOOTH_VERSION_MAX_ALLOWED	BLUETOOTH_VERSION_1_2
-		#elif MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_2_7
-			#define BLUETOOTH_VERSION_MAX_ALLOWED	BLUETOOTH_VERSION_1_3_1
-		#elif MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5_0
-			#define BLUETOOTH_VERSION_MAX_ALLOWED	BLUETOOTH_VERSION_2_0
-		#elif MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5_4
-			#define BLUETOOTH_VERSION_MAX_ALLOWED	BLUETOOTH_VERSION_2_1_1
 		#else 
-			#define BLUETOOTH_VERSION_MAX_ALLOWED	BLUETOOTH_VERSION_2_1_1
+			#define BLUETOOTH_VERSION_MAX_ALLOWED	BLUETOOTH_VERSION_1_3_1
 		#endif
 	#endif
 #endif
@@ -1272,7 +1266,7 @@ extern IOReturn IOBluetoothLocalDeviceReadPageScanMode(	BluetoothHCIPageScanMode
 extern	void	IOBluetoothIgnoreHIDDevice( IOBluetoothDeviceRef	device );
 
 //--------------------------------------------------------------------------------------------------------------------------
-/*!	@function	IOBluetoothRemoveIgnoredHIDDevice
+/*!	@function	IOBluetoothLocalDeviceReadPageScanMode
 	@abstract	The counterpart to the above IOBluetoothIgnoreHIDDevice() API.
 	@param		device	A Bluetooth Device to "un"ignore.
 */

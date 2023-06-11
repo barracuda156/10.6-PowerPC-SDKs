@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Image Compression Interfaces.
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 1990-2008 by Apple Inc., all rights reserved
  
@@ -295,7 +295,7 @@ enum {
 
 enum {
                                         /* The minimum data size for spooling in or out data */
-  codecMinimumDataSize          = 32768
+  codecMinimumDataSize          = 32768L
 };
 
 
@@ -4128,7 +4128,7 @@ enum {
   kQTPhotoshopLayerOpacity      = 'lopa', /* UInt8, 0 = transparent .. 255 = opaque */
   kQTPhotoshopLayerClipping     = 'lclp', /* UInt8, 0 = base, 1 = non-base */
   kQTPhotoshopLayerFlags        = 'lflg', /* UInt8 */
-  kQTPhotoshopLayerName         = (int)0xA96C6E6D/*'©lnm' */, /* Text */
+  kQTPhotoshopLayerName         = (long)0xA96C6E6D/*'©lnm' */, /* Text */
   kQTPhotoshopLayerUnicodeName  = 'luni' /* Unicode characters, not terminated */
 };
 
@@ -5450,7 +5450,7 @@ enum {
 enum {
   kQTTIFFCompressionMethod      = 'tifc', /* UInt32*/
   kQTTIFFCompression_None       = 1,
-  kQTTIFFCompression_PackBits   = 32773,
+  kQTTIFFCompression_PackBits   = 32773L,
   kQTTIFFLittleEndian           = 'tife' /* UInt8 (boolean)*/
 };
 

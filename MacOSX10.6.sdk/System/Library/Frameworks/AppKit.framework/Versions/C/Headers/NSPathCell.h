@@ -1,7 +1,7 @@
 /*
     NSPathCell.h
     Application Kit
-    Copyright (c) 2005-2008, Apple Inc.
+    Copyright (c) 2005-2007, Apple Inc.
     All rights reserved.
 */
 
@@ -12,7 +12,6 @@
 #import <AppKit/NSActionCell.h>
 
 @class NSString, NSImage, NSMutableArray, NSArray, NSAnimation, NSPathComponentCell, NSURL, NSPopUpButtonCell, NSNotification, NSOpenPanel;
-@protocol NSPathCellDelegate, NSOpenSavePanelDelegate;
 
 /* 
     NSPathCell
@@ -48,7 +47,7 @@ enum {
 
 typedef NSInteger NSPathStyle;
 
-@interface NSPathCell : NSActionCell <NSOpenSavePanelDelegate> {
+@interface NSPathCell : NSActionCell {
 @private
     NSColor *_backgroundColor;
     NSMutableArray *_borderColors;
@@ -89,8 +88,8 @@ typedef NSInteger NSPathStyle;
 
 /* Get and set the delegate. Non-retained. 
 */
-- (id <NSPathCellDelegate>)delegate;
-- (void)setDelegate:(id <NSPathCellDelegate>)value;
+- (id)delegate;
+- (void)setDelegate:(id)value;
 
 /* Returns the class used to create pathComponentCells when automatically filling up the control. Subclassers can override this method to return a custom cell class that will automatically be used. By default, it will return [NSPathComponentCell class], or a specialized subclass thereof.
 */

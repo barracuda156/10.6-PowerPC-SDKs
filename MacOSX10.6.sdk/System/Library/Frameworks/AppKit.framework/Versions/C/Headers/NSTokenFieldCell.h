@@ -1,7 +1,7 @@
 /*
 	NSTokenFieldCell.h
 	Application Kit
-	Copyright (c) 2004-2008, Apple Inc.
+	Copyright (c) 2004-2007, Apple Inc.
 	All rights reserved.
 
 */
@@ -12,7 +12,6 @@
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4
 
 @class NSMutableArray, NSMutableCharacterSet, NSMutableDictionary, NSTextContainer;
-@protocol NSTokenFieldCellDelegate;
 
 enum {
     NSDefaultTokenStyle,             // Style best used for keyword type tokens.  Currently a rounded style, but this may change in future releases.
@@ -42,9 +41,8 @@ typedef NSUInteger NSTokenStyle;
         unsigned int _pendingComplete:1;
         unsigned int _autoCompleteMode:2;
         unsigned int _inValidateEditing:1;
-        unsigned int _performingDrop:1;
 
-        unsigned int _reserved:20;
+        unsigned int _reserved:21;
     } _tfcFlags;
 }
 
@@ -63,15 +61,13 @@ typedef NSUInteger NSTokenStyle;
 - (NSCharacterSet *)tokenizingCharacterSet;
 + (NSCharacterSet *)defaultTokenizingCharacterSet;
 
-- (void)setDelegate:(id <NSTokenFieldCellDelegate>)anObject;
-- (id <NSTokenFieldCellDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 
 @end
 
-@protocol NSTokenFieldCellDelegate <NSObject>
-
-@optional
-
+@interface NSObject (NSTokenFieldCellDelegate)
+ 
 // Each element in the array should be an NSString or an array of NSStrings.
 // substring is the partial string that is being completed.  tokenIndex is the index of the token being completed.
 // selectedIndex allows you to return by reference an index specifying which of the completions should be selected initially. 

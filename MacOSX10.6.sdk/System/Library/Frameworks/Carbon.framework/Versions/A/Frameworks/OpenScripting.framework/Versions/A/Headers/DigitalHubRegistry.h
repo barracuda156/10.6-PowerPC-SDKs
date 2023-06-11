@@ -3,7 +3,7 @@
  
      Contains:   Digital Hub AppleEvents
  
-     Version:    OSA-126~1
+     Version:    OSA-123~1
  
      Copyright:  © 2002-2008 by Apple Computer, Inc.  All rights reserved
  

@@ -1,7 +1,7 @@
 /*
 	NSPrintPanel.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -150,12 +150,12 @@ APPKIT_EXTERN NSString *NSPrintPanelAccessorySummaryItemDescriptionKey AVAILABLE
 
 /* Methods that were deprecated in Mac OS 10.5. -setAccessoryView: replaces all of the accessory controllers that have been added so far by -addAccessoryController:. -accessoryView merely returns the view of the first accessory controller, or nil.
 */
-- (void)setAccessoryView:(NSView *)accessoryView DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (NSView *)accessoryView DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
+- (void)setAccessoryView:(NSView *)accessoryView;
+- (NSView *)accessoryView;
 
 /* Methods that were also deprecated in Mac OS 10.5.
 */
-- (void)updateFromPrintInfo DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (void)finalWritePrintInfo DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
+- (void)updateFromPrintInfo;
+- (void)finalWritePrintInfo;
 
 @end

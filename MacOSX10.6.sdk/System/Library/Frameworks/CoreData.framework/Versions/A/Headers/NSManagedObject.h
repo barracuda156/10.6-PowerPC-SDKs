@@ -17,17 +17,6 @@
 @class NSManagedObjectID;
 @class NSString;
 
-enum {
-	NSSnapshotEventUndoInsertion = 1 << 1,
-	NSSnapshotEventUndoDeletion = 1 << 2,
-	NSSnapshotEventUndoUpdate = 1 << 3,
-	NSSnapshotEventRollback = 1 << 4,
-	NSSnapshotEventRefresh = 1 << 5,
-	NSSnapshotEventMergePolicy = 1 << 6
-};
-
-typedef NSUInteger NSSnapshotEventType;
-
 @interface NSManagedObject : NSObject {
 @private
     int32_t             _cd_rc;
@@ -42,9 +31,6 @@ typedef NSUInteger NSSnapshotEventType;
     uintptr_t           _cd_lockingInfo;
     id                  _cd_queueReference;
 }
-
-/*  Distinguish between changes that should and should not dirty the object for any key unknown to Core Data.  10.5 & earlier default to NO.  10.6 and later default to YES. */
-+ (BOOL)contextShouldIgnoreUnmodeledPropertyChanges AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 // The designated initializer.
 - (id)initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context;    
@@ -62,8 +48,10 @@ typedef NSUInteger NSSnapshotEventType;
 // this information is useful in many situations when computations are optional - this can be used to avoid growing the object graph unnecessarily (which allows to control performance as it can avoid time consuming fetches from databases)
 - (BOOL)isFault;    
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 // returns a Boolean indicating if the relationship for the specified key is a fault.  If a value of NO is returned, the resulting relationship is a realized object;  otherwise the relationship is a fault.  If the specified relationship is a fault, calling this method does not result in the fault firing.
-- (BOOL)hasFaultForRelationshipNamed:(NSString *)key AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER; 
+- (BOOL) hasFaultForRelationshipNamed:(NSString *)key; 
+#endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5 */
 
 
 // lifecycle/change management (includes key-value observing methods)
@@ -84,13 +72,7 @@ typedef NSUInteger NSSnapshotEventType;
 - (void)awakeFromFetch;    
 
 // invoked after an insert (commonly used for initializing special default/initial settings)
-- (void)awakeFromInsert;
-
-/* Callback for undo, redo, and other multi-property state resets */
-- (void)awakeFromSnapshotEvents:(NSSnapshotEventType)flags AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* Callback before delete propagation while the object is still alive.  Useful to perform custom propagation before the relationships are torn down or reconfigure KVO observers. */
-- (void)prepareForDeletion AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (void)awakeFromInsert;    
 
 // commonly used to compute persisted values from other transient/scratchpad values, to set timestamps, etc. - this method can have "side effects" on the persisted values
 - (void)willSave;    
@@ -98,11 +80,14 @@ typedef NSUInteger NSSnapshotEventType;
 // commonly used to notify other objects after a save
 - (void)didSave;    
 
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 // invoked automatically by the Core Data framework before receiver is converted (back) to a fault.  This method is the companion of the -didTurnIntoFault method, and may be used to (re)set state which requires access to property values (for example, observers across keypaths.)  The default implementation does nothing.  
-- (void)willTurnIntoFault AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
+- (void) willTurnIntoFault;
+#endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5 */
 
 // commonly used to clear out additional transient values or caches
 - (void)didTurnIntoFault;    
+
 
 // value access (includes key-value coding methods)
 

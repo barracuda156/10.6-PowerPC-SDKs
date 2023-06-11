@@ -1,5 +1,5 @@
 /*	NSComparisonPredicate.h
-	Copyright (c) 2004-2008, Apple Inc. All rights reserved.
+	Copyright (c) 2004-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSPredicate.h>
@@ -37,7 +37,7 @@ enum {
     NSCustomSelectorPredicateOperatorType
 #if MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED
     ,
-    NSContainsPredicateOperatorType = 99, // lhs contains rhs returns true
+    NSContainsPredicateOperatorType = 99,
     NSBetweenPredicateOperatorType
 #endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5 */
 };

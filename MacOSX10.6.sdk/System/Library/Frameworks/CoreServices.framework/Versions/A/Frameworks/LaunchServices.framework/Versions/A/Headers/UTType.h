@@ -3,7 +3,7 @@
  
      Contains:   Public interfaces for Uniform Type Identification
  
-     Version:    LaunchServices-318.1~4
+     Version:    LaunchServices-305~1
  
      Copyright:  © 2003-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -644,8 +644,8 @@ UTTypeCopyDeclaringBundleURL(CFStringRef inUTI)               AVAILABLE_MAC_OS_X
  *      the OSType value to encode
  *  
  *  Result:
- *    a new CFString representing the OSType. Returns the empty string
- *    when the argument is 0
+ *    a new CFString representing the OSType, or NULL if the argument
+ *    is 0 or '????'
  *  
  *  Availability:
  *    Mac OS X:         in version 10.3 and later in ApplicationServices.framework

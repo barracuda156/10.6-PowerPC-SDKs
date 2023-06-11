@@ -88,7 +88,6 @@
 	#include <AudioUnit/AudioComponent.h>
 #else
 	#include "Components.h"
-	#include "AudioComponent.h"
 	#include "CoreAudioTypes.h"
 #endif
 

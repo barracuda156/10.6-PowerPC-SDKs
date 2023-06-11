@@ -327,18 +327,6 @@ typedef struct AudioFormatListItem AudioFormatListItem;
 					the return value is an array of Float32 values of the number of channels
 						represented by this specified channel layout.  
 					The volume values will typically be presented within a 0->1 range (where 1 is unity gain)
-    @constant   kAudioFormatProperty_ID3TagSize
-					Returns a UInt32 indicating the ID3 tag size. 
-					The specifier must begin with the ID3 tag header and be at least 10 bytes in length
-    @constant   kAudioFormatProperty_ID3TagToDictionary
-					Returns a CFDictionary containing key/value pairs for the frames in the ID3 tag
-					The specifier is the entire ID3 tag
-					Caller must call CFRelease for the returned dictionary
-					
-					
-					
-					
-					
 */
 enum
 {
@@ -383,15 +371,8 @@ enum
 
 	kAudioFormatProperty_TagsForNumberOfChannels		= 'tagc',				
 	kAudioFormatProperty_PanningMatrix					= 'panm',
-	kAudioFormatProperty_BalanceFade					= 'balf',
+	kAudioFormatProperty_BalanceFade					= 'balf'
 #endif // !TARGET_OS_IPHONE
-
-//=============================================================================
-//	The following properties concern the ID3 Tags
-//=============================================================================
-
-	kAudioFormatProperty_ID3TagSize						= 'id3s',
-	kAudioFormatProperty_ID3TagToDictionary				= 'id3d'
 };
 
 //=============================================================================

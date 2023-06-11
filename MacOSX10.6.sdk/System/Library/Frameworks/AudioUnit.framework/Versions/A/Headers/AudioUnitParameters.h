@@ -124,13 +124,11 @@ enum {
 	kHALOutputParam_Volume 		= 14 
 };
 
-// Parameters for the AUTimePitch, AUTimePitch (offline), AUPitch, and AUSimpleTime (iPhone only) units
+// Parameters for the AUTimePitch, AUTimePitch (offline), and AUPitch units
 enum {
 	kTimePitchParam_Rate						= 0,
-#if !TARGET_OS_IPHONE
 	kTimePitchParam_Pitch						= 1,
 	kTimePitchParam_EffectBlend					= 2		// only for the AUPitch unit
-#endif
 };
 
 #if !TARGET_OS_IPHONE
@@ -354,9 +352,7 @@ enum {
 	kDynamicsProcessorParam_MasterGain 			= 6,
 	
 		// Global, dB, read-only parameter
-	kDynamicsProcessorParam_CompressionAmount 	= 1000,
-	kDynamicsProcessorParam_InputAmplitude		= 2000,
-	kDynamicsProcessorParam_OutputAmplitude 	= 3000
+	kDynamicsProcessorParam_CompressionAmount 	= 1000
 };
 
 
@@ -386,17 +382,7 @@ enum {
 	kMultibandCompressorParam_CompressionAmount1 = 1000,
 	kMultibandCompressorParam_CompressionAmount2 = 2000,
 	kMultibandCompressorParam_CompressionAmount3 = 3000,
-	kMultibandCompressorParam_CompressionAmount4 = 4000,
-
-	kMultibandCompressorParam_InputAmplitude1 = 5000,
-	kMultibandCompressorParam_InputAmplitude2 = 6000,
-	kMultibandCompressorParam_InputAmplitude3 = 7000,
-	kMultibandCompressorParam_InputAmplitude4 = 8000,
-
-	kMultibandCompressorParam_OutputAmplitude1 = 9000,
-	kMultibandCompressorParam_OutputAmplitude2 = 10000,
-	kMultibandCompressorParam_OutputAmplitude3 = 11000,
-	kMultibandCompressorParam_OutputAmplitude4 = 12000
+	kMultibandCompressorParam_CompressionAmount4 = 4000
 };
 
 // Parameters for the AUVarispeed unit

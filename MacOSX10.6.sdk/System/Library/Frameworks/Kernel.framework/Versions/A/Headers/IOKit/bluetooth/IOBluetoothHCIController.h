@@ -236,8 +236,6 @@ protected:
 												unsigned long	powerState,
 												IOService *		from );
 
-	virtual	unsigned long	maxCapabilityForDomainState(  IOPMPowerFlags domainState );
-
 	virtual unsigned long	initialPowerStateForDomainState ( IOPMPowerFlags powerFlags );
 
 	// Our protected custom stuff.
@@ -682,7 +680,7 @@ public:
 
 	virtual IOReturn	BluetoothHCIReadRemoteVersionInformation(	BluetoothHCIRequestID		inID, 
 																	BluetoothConnectionHandle	inConnectionHandle, 
-																	BluetoothHCIEventReadRemoteVersionInfoResults *	outVersionInfo );
+																	BluetoothHCIVersionInfo *	outVersionInfo );
 
 	virtual IOReturn	BluetoothHCIReadClockOffset(	BluetoothHCIRequestID		inID, 
 														BluetoothConnectionHandle	inConnectionHandle,
@@ -1008,7 +1006,6 @@ protected:
 
 		// New Airport notifications:
 		IONotifier *				mIO80211Interface;
-		
 	} ExpansionData;
 
 	ExpansionData*		mExpansionData;
@@ -1234,26 +1231,12 @@ public:
 																BluetoothHCIPageNumber				inPageNumber,
 																BluetoothHCIExtendedFeaturesInfo *	outFeatures  );
 
-	OSMetaClassDeclareReservedUsed(	IOBluetoothHCIController,  41 );
-	virtual	IOReturn	BluetoothHCIReadAFHChannelAssessmentMode(	BluetoothHCIRequestID					inID,
-																	BluetoothHCIAFHChannelAssessmentMode *	outData );
-	
-	OSMetaClassDeclareReservedUsed(	IOBluetoothHCIController,  42 );
-	virtual IOReturn	BluetoothHCIWriteAFHChannelAssessmentMode(	BluetoothHCIRequestID						inID,
-																	BluetoothHCIAFHChannelAssessmentMode		inData  );
-
-	OSMetaClassDeclareReservedUsed(	IOBluetoothHCIController,  43 );
-	virtual IOReturn	BluetoothHCISetAFHHostChannelClassification(	BluetoothHCIRequestID						inID,
-																		uint8_t	 *									inDataPtr,
-																		uint8_t										inDataLength );
 	
 private:
-	OSMetaClassDeclareReservedUsed(	IOBluetoothHCIController,  44 );
-	virtual IOReturn	BluetoothHCIReadAFHChannelMap(	BluetoothHCIRequestID	 		inID,
-														BluetoothConnectionHandle		inConnectionHandle,
-														BluetoothAFHResults *			outData );
-	
-private:
+	OSMetaClassDeclareReservedUnused(	IOBluetoothHCIController,  41 );
+	OSMetaClassDeclareReservedUnused(	IOBluetoothHCIController,  42 );
+	OSMetaClassDeclareReservedUnused(	IOBluetoothHCIController,  43 );
+	OSMetaClassDeclareReservedUnused(	IOBluetoothHCIController,  44 );
 	OSMetaClassDeclareReservedUnused(	IOBluetoothHCIController,  45 );
 	OSMetaClassDeclareReservedUnused(	IOBluetoothHCIController,  46 );
 	OSMetaClassDeclareReservedUnused(	IOBluetoothHCIController,  47 );

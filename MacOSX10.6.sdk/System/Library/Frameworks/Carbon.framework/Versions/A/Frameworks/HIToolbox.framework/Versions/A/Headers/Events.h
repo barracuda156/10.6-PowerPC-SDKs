@@ -3,7 +3,7 @@
  
      Contains:   Event Manager Interfaces.
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 1985-2008 by Apple Computer, Inc., all rights reserved
  
@@ -484,7 +484,7 @@ GetCaretTime(void)                                            AVAILABLE_MAC_OS_X
 
 typedef UInt32                          KeyMap[4];
 #else
-typedef BigEndianUInt32                 KeyMap[4];
+typedef BigEndianLong                   KeyMap[4];
 #endif  /* TARGET_API_MAC_OS8 */
 
 typedef UInt8                           KeyMapByteArray[16];
@@ -564,22 +564,8 @@ typedef GetNextEventFilterUPP           GNEFilterUPP;
 /*
  *  GetDblTime()
  *  
- *  Summary:
- *    Returns the maximum time (in units of 1/60th of a second) allowed
- *    between two consecutive mouse-down events in order for the second
- *    click to be considered a double-click.
- *  
- *  Discussion:
- *    In 64-bit applications, you may replace calls to this API with
- *    calls to NXClickTime (declared in
- *    <IOKit/hidsystem/event_status_driver.h>) or with +[NSEvent
- *    doubleClickInterval] (available in Mac OS X 10.6 and later).
- *  
  *  Mac OS X threading:
  *    Not thread safe
- *  
- *  Result:
- *    The maximum time between mouse-downs allowed for a double-click.
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in Carbon.framework [32-bit only]

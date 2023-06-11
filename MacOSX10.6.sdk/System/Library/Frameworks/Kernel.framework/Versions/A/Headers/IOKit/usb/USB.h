@@ -413,8 +413,6 @@ Completion Code         Error Returned              Description
 #define kIOUSBMessageExpressCardCantWake			iokit_usb_msg(0x10)		// 0xe00004010  Message from a driver to a bus that an express card will disconnect on sleep and thus shouldn't wake
 #define kIOUSBMessageCompositeDriverReconfigured    iokit_usb_msg(0x11)		// 0xe00004011  Message from the composite driver indicating that it has finished re-configuring the device after a reset
 #define kIOUSBMessageHubSetPortRecoveryTime			iokit_usb_msg(0x12)		// 0xe00004012  Message sent to a hub to set the # of ms required when resuming a particular port
-#define kIOUSBMessageOvercurrentCondition			iokit_usb_msg(0x13)     // 0xe00004013  Message sent to the clients of the device's hub parent, when a device causes an overcurrent condition.  The message argument contains the locationID of the device
-#define kIOUSBMessageNotEnoughPower					iokit_usb_msg(0x14)     // 0xe00004014  Message sent to the clients of the device's hub parent, when a device causes an low power notice to be displayed.  The message argument contains the locationID of the device
 
 // Obsolete
 //
@@ -1011,7 +1009,6 @@ enum {
 #define kUSBControllerNeedsContiguousMemoryForIsoch	"Need contiguous memory for isoch"
 #define kUSBHubDontAllowLowPower				"kUSBHubDontAllowLowPower"
 #define kUSBDeviceResumeRecoveryTime			"kUSBDeviceResumeRecoveryTime"
-#define kUSBOutOfSpecMPSOK						"Out of spec MPS OK"
 
 /*!
 @enum USBReEnumerateOptions
@@ -1036,8 +1033,6 @@ typedef enum {
  @constant	kUSBInformationDeviceIsInResetBit			The hub port to which the USB device is attached is being reset
  @constant	kUSBInformationDeviceOvercurrentBit			The USB device generated an overcurrent
  @constant	kUSBInformationDevicePortIsInTestModeBit	The hub port to which the USB device is attached is in test mode
- @constant  kUSBInformationDeviceIsRootHub				The device is actually the root hub simulation
- @constant  kUSBInformationRootHubisBuiltIn				If this is a root hub simulation and it's built into the machine, this bit is set.  If it's on an expansion card, it will be cleared
  
  */
 	typedef enum {
@@ -1049,9 +1044,7 @@ typedef enum {
 		kUSBInformationDeviceIsSuspendedBit				= 5,
 		kUSBInformationDeviceIsInResetBit				= 6,
 		kUSBInformationDeviceOvercurrentBit				= 7,
-		kUSBInformationDevicePortIsInTestModeBit		= 8,
-		kUSBInformationDeviceIsRootHub					= 9,
-		kUSBInformationRootHubisBuiltIn					= 10
+		kUSBInformationDevicePortIsInTestModeBit		= 8
 	} USBDeviceInformationBits;
 	
 	/*!
@@ -1066,9 +1059,12 @@ typedef enum {
 	} USBPowerRequestTypes;
 	
 	// Apple specific properties
+#define kAppleExtraPowerInSleep		"AAPL,current-in-sleep"
 #define kAppleCurrentAvailable		"AAPL,current-available"
+#define kAppleExtraPowerAggregate	"AAPL,current-available"				
 #define kAppleCurrentInSleep		"AAPL,current-in-sleep"
 #define kAppleCurrentExtra			"AAPL,current-extra"
+#define kAppleExtraPowerPerPort		"AAPL,current-extra"
 #define kAppleInternalUSBDevice		"AAPL,device-internal"
 #define kUSBBusID					"AAPL,bus-id"
 	

@@ -350,7 +350,7 @@ AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_
  * @function	dsFillAuthBuffer
  * @abstract	Fills a buffer with a list of items.
  * @discussion	Use this function as a convenient way to compose the buffer
- *				for calls to dsDoDirNodeAuth().
+				for calls to dsDoDirNodeAuth().
  * @param		inOutAuthBuffer pass in a preallocated buffer to be filled.
  * @param		inCount the number of length/data pairs on the stack
  * @param		inLen the length of one buffer item
@@ -366,7 +366,7 @@ AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_
  * @function dsAppendAuthBuffer
  * @abstract	Appends a list of items to an existing buffer.
  * @discussion	Use this function as a convenient way to compose the buffer
- *				for calls to dsDoDirNodeAuth().
+				for calls to dsDoDirNodeAuth().
  * @param		inOutAuthBuffer pass in a preallocated buffer.
  * @param		inCount the number of length/data pairs on the stack
  * @param		inLen the length of one buffer item
@@ -434,7 +434,7 @@ AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_
  *				needs to be large enough to handle the context information and
  *				the data returned by the authentication method.
  * @param		inServiceInfo A dictionary that contains context information
- *				from a service
+				from a service
  * @param		inBufferSize The desired size of the buffer. It is expanded if
  *				necessary to fit the context information. The buffer must be large
  *				enough to hold the data returned by the authentication method used.

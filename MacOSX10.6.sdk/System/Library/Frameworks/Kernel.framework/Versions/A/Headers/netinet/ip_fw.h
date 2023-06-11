@@ -45,6 +45,15 @@
 
 #include <sys/appleapiopts.h>
 
+/*
+ * This should be removed once the interfaces are LP64-ready.
+ */
+#if !defined(KERNEL) && defined(__LP64__)
+#if !defined(IP_FW_PRIVATE)
+#error "Not yet ready for LP64"
+#endif
+#endif
+
 #ifdef IPFW2
 #include <netinet/ip_fw2.h>
 #else /* !IPFW2, good old ipfw */
@@ -299,5 +308,5 @@ struct ipfw_dyn_rule {
  * Main firewall chains definitions and global var's definitions.
  */
 
-#endif /* !IPFW2 */
+#endif !IPFW2
 #endif /* _IP_FW_H */

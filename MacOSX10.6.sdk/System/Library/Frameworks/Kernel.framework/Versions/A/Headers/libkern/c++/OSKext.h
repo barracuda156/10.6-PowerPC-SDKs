@@ -54,8 +54,6 @@ typedef uint8_t OSKextExcludeLevel;
 #define kOSKextExcludeKext  (1)
 #define kOSKextExcludeAll   (2)
 
-#define KERNEL_KEXT_ID    "__kernel__"
-
 /********************************************************************/
 /*! 
  * @class OSKext
@@ -114,9 +112,7 @@ public:
     static const uint32_t DebugFlagKextDetail = 1 << 4;
     static const uint32_t DebugFlagLoadDetail = 1 << 5;
 
-#if 0
 #pragma mark Private Functions
-#endif
 private:
     static OSData     * getKernelLinkState(KXLDContext * kxld_context);
 
@@ -134,7 +130,6 @@ private:
 
     bool initWithBooterData(OSString * deviceTreeName,
         OSData * booterData);
-    bool initWithPrelinkedInfoDict(OSDictionary * infoDict);
     bool postInit(bool status);
         
     virtual void free(void);
@@ -162,7 +157,7 @@ private:
         OSNumber * offsetNum,
         const char * entryName);
     static OSData * extractMkext2FileData(
-        UInt8 * data,
+        const UInt8 * data,
         uint32_t compressedSize,
         uint32_t fullSize);
 
@@ -198,9 +193,7 @@ private:
     static  OSArray      * copyLoadedKextInfo(OSArray * bundleIDs);
     virtual OSDictionary * copyInfo(void);
 
-#if 0
 #pragma mark Protected Functions
-#endif
 protected:
     static void initialize(void); // priv/prot
 
@@ -211,8 +204,9 @@ protected:
 
     static OSKext * withBooterData(OSString * deviceTreeName,
         OSData * booterData);
-    static OSKext * withPrelinkedInfoDict(OSDictionary * infoDict);
 
+    static void flushNonloadedKexts(void);
+    
     virtual OSReturn addClass(OSMetaClass * aClass, uint32_t numClasses);
     virtual OSReturn removeClass(OSMetaClass * aClass);
 
@@ -225,12 +219,8 @@ protected:
     
     virtual bool    hasOSMetaClassInstances(void);
 
-    static void recordBundleIDRequest(const OSString *aBundleID);
-
 public:
-#if 0
 #pragma mark Public-By Necessity Functions - for kext-mgmt internal use only
-#endif
    /* Do not call these functions, they are for internal use only.
     */
     // called by IOPMrootDomain on system shutdown
@@ -264,15 +254,11 @@ public:
     static  void    considerUnloads(void);
 
     virtual void    removePersonalitiesFromCatalog(void);
-    static void flushNonloadedKexts(Boolean flushPrelinkedKexts);
-    
 
     // How can I make private/protected and have work in the kern_allocate callback?
     virtual bool setLinkedExecutable(
         OSData * anExecutable,
         bool isPrelinked = false);
-
-    static void checkPrelinkedKernel(void);
 
    /* Here for the cutover only.
     */
@@ -281,9 +267,7 @@ public:
     static void kmodDestroyNotify(const char * kmod_name);
     static OSReturn cutoverUnload(OSKext * theKext);
 
-#if 0
 #pragma mark Really Public Functions
-#endif
     // caller must release
     static OSKext * lookupKextWithBundleID(const char * aBundleID);
     static OSKext * lookupKextWithBundleID(OSString * aBundleID);
@@ -324,7 +308,6 @@ public:
     virtual bool               isLoadableInSafeBoot(void);
     virtual bool               isLoaded(void);
     virtual bool               isStarted(void);
-    virtual bool               isPrelinked(void);
     
     static  OSData * copyUUIDOfKextWithBundleID(OSString * bundleID);
     virtual OSData * copyUUID(void);

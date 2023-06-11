@@ -1,7 +1,7 @@
 /*
         NSTreeNode.h
 	AppKit
-	Copyright (c) 2007-2008, Apple Inc.
+	Copyright (c) 2007, Apple Inc.
 	All rights reserved.
  */
 

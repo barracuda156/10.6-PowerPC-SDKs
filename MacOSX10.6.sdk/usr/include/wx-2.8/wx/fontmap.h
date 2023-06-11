@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     04.11.99
-// RCS-ID:      $Id: fontmap.h 49563 2007-10-31 20:46:21Z VZ $
+// RCS-ID:      $Id: fontmap.h,v 1.29 2006/06/07 17:49:26 VZ Exp $
 // Copyright:   (c) Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -25,13 +25,13 @@
 #endif // wxUSE_GUI
 
 #if wxUSE_CONFIG && wxUSE_FILECONFIG
-    class WXDLLIMPEXP_FWD_BASE wxConfigBase;
+    class WXDLLIMPEXP_BASE wxConfigBase;
 #endif // wxUSE_CONFIG
 
-class WXDLLIMPEXP_FWD_CORE wxFontMapper;
+class WXDLLIMPEXP_CORE wxFontMapper;
 
 #if wxUSE_GUI
-    class WXDLLIMPEXP_FWD_CORE wxWindow;
+    class WXDLLIMPEXP_CORE wxWindow;
 #endif // wxUSE_GUI
 
 // ============================================================================

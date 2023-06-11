@@ -3,7 +3,7 @@
  
      Contains:   Definition of the combo box view provided by HIToolbox.
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 2006-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -118,32 +118,32 @@ enum {
   /*
    * A constant with value zero; the lack of any attributes.
    */
-  kHIComboBoxNoAttributes       = 0,
+  kHIComboBoxNoAttributes       = 0L,
 
   /*
    * The view will attempt to auto complete the text the user is typing
    * with an item in the ComboBox list that is the closest appropriate
    * match.
    */
-  kHIComboBoxAutoCompletionAttribute = (1 << 0),
+  kHIComboBoxAutoCompletionAttribute = (1L << 0),
 
   /*
    * The view will disclose the ComboBox list after the user enters
    * text.
    */
-  kHIComboBoxAutoDisclosureAttribute = (1 << 1),
+  kHIComboBoxAutoDisclosureAttribute = (1L << 1),
 
   /*
    * The items in the ComboBox list will be automatically sorted in
    * alphabetical order.
    */
-  kHIComboBoxAutoSortAttribute  = (1 << 2),
+  kHIComboBoxAutoSortAttribute  = (1L << 2),
 
   /*
    * The ComboBox list will be automatically sized to fit the Human
    * Interface Guidelines.
    */
-  kHIComboBoxAutoSizeListAttribute = (1 << 3),
+  kHIComboBoxAutoSizeListAttribute = (1L << 3),
 
   /*
    * The minimum set of ComboBox attributes commonly used.

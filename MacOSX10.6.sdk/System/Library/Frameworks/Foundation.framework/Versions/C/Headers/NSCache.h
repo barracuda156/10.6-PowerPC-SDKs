@@ -4,8 +4,6 @@
 
 #import <Foundation/NSObject.h>
 
-#if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
-
 @class NSString;
 
 @interface NSCache : NSObject {
@@ -44,5 +42,4 @@
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj;
 @end
 
-#endif
 

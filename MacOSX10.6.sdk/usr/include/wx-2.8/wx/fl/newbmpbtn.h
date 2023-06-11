@@ -4,7 +4,7 @@
 // Author:      Aleksandras Gluchovas
 // Modified by:
 // Created:     ??/09/98
-// RCS-ID:      $Id: newbmpbtn.h 35650 2005-09-23 12:56:45Z MR $
+// RCS-ID:      $Id: newbmpbtn.h,v 1.14 2005/09/23 12:46:57 MR Exp $
 // Copyright:   (c) Aleksandras Gluchovas
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

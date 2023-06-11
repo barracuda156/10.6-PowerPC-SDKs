@@ -109,4 +109,4 @@ extern errno_t inet_arp_handle_input(ifnet_t ifp, u_int16_t arpop,
  */
 extern void inet_arp_init_ifaddr(ifnet_t interface, ifaddr_t ipaddr);
 
-#endif /* _NETINET_IN_ARP_H_ */
+#endif _NETINET_IN_ARP_H_

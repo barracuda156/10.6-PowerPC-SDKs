@@ -70,20 +70,6 @@
 extern "C" {
 #endif
 
-/*!
-	@function CFNetworkCopySystemProxySettings
-	@discussion Returns a CFDictionary containing the current system internet proxy settings.
-	@result Returns a dictionary containing key-value pairs that represent
-		the current internet proxy settings.  See below for definitions of the keys and
-		values.
-		NULL if no proxy settings have been defined or if an error
-		was encountered.
-		The caller is responsible for releasing the returned dictionary.
-*/
-CFN_EXPORT CFDictionaryRef
-CFNetworkCopySystemProxySettings( void )					__OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_2_0);
-
-	
 /*
  *  CFNetworkCopyProxiesForURL()
  *  
@@ -239,8 +225,6 @@ CFNetworkExecuteProxyAutoConfigurationScript(
  *	that CFNetworkExecuteProxyAutoConfigurationURL will additionally
  *	download the contents of proxyAutoConfigURL, convert it to a
  *	JavaScript string, and then execute that script.
- *  Ownership for the returned CFRunLoopSourceRef follows the copy rule, 
- *  the client is responsible for releasing the object.
  *  
  *  Availability:
  *	Mac OS X:		 in version 10.5 and later in CoreServices.framework
@@ -254,6 +238,24 @@ CFNetworkExecuteProxyAutoConfigurationURL(
   CFProxyAutoConfigurationResultCallback   cb,
   CFStreamClientContext *				  clientContext)	 __OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_2_0);
 
+
+/*
+ *  CFNetworkProxyAutoConfigurationSetAuthentication()
+ *  
+ *  Discussion:
+ *	Invoke on the ticket given with ExecuteProxyAutoConfigurarion URL prior to scheduling to 
+ *	supply authentication credentials to the PAC file fetch.
+ *  
+ *  Availability:
+ *	Mac OS X:		 in version 10.5 and later in CoreServices.framework
+ *	CarbonLib:		not available
+ *	Non-Carbon CFM:   not available
+ */
+CFN_EXPORT void 
+CFNetworkProxyAutoConfigurationSetAuthentication(
+CFRunLoopSourceRef executionTicket, 
+CFStringRef login, 
+CFStringRef password) __OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_2_0);
 
 /*
  *  kCFProxyTypeKey
@@ -421,6 +423,19 @@ CFN_EXPORT const CFStringRef kCFProxyAutoConfigurationHTTPResponseKey			__OSX_AV
 	
 
 #if TARGET_OS_MAC
+/*!
+	@function CFNetworkCopySystemProxySettings
+	@discussion Returns a CFDictionary containing the current system internet proxy settings.
+	@result Returns a dictionary containing key-value pairs that represent
+		the current internet proxy settings.  See below for definitions of the keys and
+		values.
+		NULL if no proxy settings have been defined or if an error
+		was encountered.
+		The caller is responsible for releasing the returned dictionary.
+*/
+CFN_EXPORT CFDictionaryRef
+CFNetworkCopySystemProxySettings( void )					__OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_2_0);
+
 /*
  *  kCFNetworkProxiesExceptionsList
  *  

@@ -1,3 +1,4 @@
+// -*- mode: c++; c-basic-offset: 4 -*-
 /*
  * Copyright (C) 2006 Apple Computer, Inc.  All rights reserved.
  *
@@ -28,10 +29,8 @@
 
 #include <JavaScriptCore/JSValueRef.h>
 
-#ifndef __cplusplus
 #include <stdbool.h>
-#endif
-#include <stddef.h> /* for size_t */
+#include <stddef.h> // for size_t
 
 #ifdef __cplusplus
 extern "C" {
@@ -141,4 +140,4 @@ JS_EXPORT bool JSStringIsEqualToUTF8CString(JSStringRef a, const char* b);
 }
 #endif
 
-#endif /* JSStringRef_h */
+#endif // JSStringRef_h

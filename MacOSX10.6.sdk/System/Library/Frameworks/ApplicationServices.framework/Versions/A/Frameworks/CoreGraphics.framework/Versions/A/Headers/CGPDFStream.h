@@ -27,4 +27,4 @@ CG_EXTERN CFDataRef CGPDFStreamCopyData(CGPDFStreamRef stream,
     CGPDFDataFormat *format)
     CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
-#endif /* CGPDFSTREAM_H_ */
+#endif	/* CGPDFSTREAM_H_ */

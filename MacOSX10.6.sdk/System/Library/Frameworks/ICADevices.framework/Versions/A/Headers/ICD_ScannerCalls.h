@@ -216,7 +216,7 @@ typedef CALLBACK_API_C(ICAError, __ICD_ScannerOpenTCPIPDevice)
                                     (CFDictionaryRef params, ScannerObjectInfo* objectInfo);
 
 typedef CALLBACK_API_C(ICAError, __ICD_ScannerOpenMassStorageDevice)
-                                    (CFStringRef diskBSDName, DASessionRef daSession, ScannerObjectInfo* objectInfo);
+                                    (CFStringRef mountPoint, ScannerObjectInfo* objectInfo);
 
 typedef CALLBACK_API_C(ICAError, __ICD_ScannerCloseDevice)
                                     (ScannerObjectInfo* objectInfo);

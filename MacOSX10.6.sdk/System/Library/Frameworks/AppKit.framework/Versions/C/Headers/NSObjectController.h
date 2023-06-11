@@ -1,16 +1,17 @@
 /*
 	NSObjectController.h
 	Application Kit
-	Copyright (c) 2002-2008, Apple Inc.
+	Copyright (c) 2002-2007, Apple Inc.
 	All rights reserved.
  */
 
 #import <AppKit/NSController.h>
-#import <AppKit/NSUserInterfaceValidation.h>
+#import <AppKit/NSMenu.h>
+#import <CoreData/NSFetchRequest.h>
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
 
-@class NSArray, NSPredicate, NSManagedObjectContext, NSFetchRequest, NSError;
+@class NSArray, NSPredicate, NSManagedObjectContext, NSError;
 
 @interface NSObjectController : NSController {
 @private

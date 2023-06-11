@@ -3,7 +3,7 @@
  
      Contains:   File Manager Interfaces.
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1985-2008 Apple, Inc. All rights reserved
  
@@ -1102,7 +1102,7 @@ enum {
   kFSCatInfoAllDates            = 0x000003E0,
   kFSCatInfoGettableInfo        = 0x0003FFFF,
   kFSCatInfoSettableInfo        = 0x00001FE3, /* flags, dates, permissions, Finder info, text encoding */
-  kFSCatInfoReserved            = (int)0xFFFC0000 /* bits that are currently reserved */
+  kFSCatInfoReserved            = (long)0xFFFC0000 /* bits that are currently reserved */
 };
 
 /*  Constants for nodeFlags field of FSCatalogInfo */
@@ -1353,7 +1353,7 @@ enum {
   kFSIterateFlat                = 0,    /* Immediate children of container only */
   kFSIterateSubtree             = 1,    /* Entire subtree rooted at container */
   kFSIterateDelete              = 2,
-  kFSIterateReserved            = (int)0xFFFFFFFC
+  kFSIterateReserved            = (long)0xFFFFFFFC
 };
 
 typedef OptionBits                      FSIteratorFlags;
@@ -2304,9 +2304,6 @@ extern void  PBExchangeObjectsAsync(FSRefParam * paramBlock)  AVAILABLE_MAC_OS_X
     
     FSReplaceObject may not be atomic -- it may issue multiple system calls to
     accurately replace and preserve the metadata of a file system object.
-    
-    FSReplaceObject may fail if the source or destination files are open or
-    the source or destination objects are directories which contain open files.
 */
 
 /*
@@ -7174,7 +7171,7 @@ enum {
 /* Folder and File values of access privileges in ioACAccess */
 enum {
   kioACAccessOwnerBit           = 31,   /* User is owner of directory */
-  kioACAccessOwnerMask          = (int)0x80000000,
+  kioACAccessOwnerMask          = (long)0x80000000,
   kioACAccessBlankAccessBit     = 28,   /* Directory has blank access privileges */
   kioACAccessBlankAccessMask    = 0x10000000,
   kioACAccessUserWriteBit       = 26,   /* User has write privileges */

@@ -1,5 +1,5 @@
 /*	CFByteOrder.h
-	Copyright (c) 1995-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1995-2007, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFBYTEORDER__)

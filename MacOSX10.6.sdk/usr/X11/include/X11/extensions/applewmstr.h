@@ -41,7 +41,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 typedef struct _AppleWMQueryVersion {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMQueryVersion */
+    CARD8	wmReqType;		/* always X_WMQueryVersion */
     CARD16	length B16;
 } xAppleWMQueryVersionReq;
 #define sz_xAppleWMQueryVersionReq	4
@@ -63,7 +63,7 @@ typedef struct {
 
 typedef struct _AppleWMDisableUpdate {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMDisableUpdate */
+    CARD8	wmReqType;		/* always X_WMDisableUpdate */
     CARD16	length B16;
     CARD32	screen B32;
 } xAppleWMDisableUpdateReq;
@@ -71,7 +71,7 @@ typedef struct _AppleWMDisableUpdate {
 
 typedef struct _AppleWMReenableUpdate {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMReenableUpdate */
+    CARD8	wmReqType;		/* always X_WMReenableUpdate */
     CARD16	length B16;
     CARD32	screen B32;
 } xAppleWMReenableUpdateReq;
@@ -79,7 +79,7 @@ typedef struct _AppleWMReenableUpdate {
 
 typedef struct _AppleWMSelectInput {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMSelectInput */
+    CARD8	wmReqType;		/* always X_WMSelectInput */
     CARD16	length B16;
     CARD32	mask B32;
 } xAppleWMSelectInputReq;
@@ -98,7 +98,7 @@ typedef struct _AppleWMNotify {
 
 typedef struct _AppleWMSetWindowMenu {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMSetWindowMenu */
+    CARD8	wmReqType;		/* always X_WMSetWindowMenu */
     CARD16	length B16;
     CARD16	nitems B16;
     CARD16	pad1 B16;
@@ -107,7 +107,7 @@ typedef struct _AppleWMSetWindowMenu {
 
 typedef struct _AppleWMSetWindowMenuCheck {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMSetWindowMenuCheck */
+    CARD8	wmReqType;		/* always X_WMSetWindowMenuCheck */
     CARD16	length B16;
     CARD32	index;
 } xAppleWMSetWindowMenuCheckReq;
@@ -115,14 +115,14 @@ typedef struct _AppleWMSetWindowMenuCheck {
 
 typedef struct _AppleWMSetFrontProcess {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMSetFrontProcess */
+    CARD8	wmReqType;		/* always X_WMSetFrontProcess */
     CARD16	length B16;
 } xAppleWMSetFrontProcessReq;
 #define sz_xAppleWMSetFrontProcessReq 4
 
 typedef struct _AppleWMSetWindowLevel {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMSetWindowLevel */
+    CARD8	wmReqType;		/* always X_WMSetWindowLevel */
     CARD16	length B16;
     CARD32	window;
     CARD32	level;
@@ -131,7 +131,7 @@ typedef struct _AppleWMSetWindowLevel {
 
 typedef struct _AppleWMSetCanQuit {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMSetCanQuit */
+    CARD8	wmReqType;		/* always X_WMSetCanQuit */
     CARD16	length B16;
     CARD32	state;
 } xAppleWMSetCanQuitReq;
@@ -139,7 +139,7 @@ typedef struct _AppleWMSetCanQuit {
 
 typedef struct _AppleWMFrameGetRect {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMFrameGetRect */
+    CARD8	wmReqType;		/* always X_WMFrameGetRect */
     CARD16	length B16;
     CARD16	frame_class B16;
     CARD16	frame_rect B16;
@@ -172,7 +172,7 @@ typedef struct {
 
 typedef struct _AppleWMFrameHitTest {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMFrameHitTest */
+    CARD8	wmReqType;		/* always X_WMFrameHitTest */
     CARD16	length B16;
     CARD16	frame_class B16;
     CARD16	pad1 B16;
@@ -205,7 +205,7 @@ typedef struct {
 
 typedef struct _AppleWMFrameDraw {
     CARD8	reqType;		/* always WMReqCode */
-    CARD8	wmReqType;		/* always X_AppleWMFrameDraw */
+    CARD8	wmReqType;		/* always X_WMFrameDraw */
     CARD16	length B16;
     CARD32	screen B32;
     CARD32	window B32;

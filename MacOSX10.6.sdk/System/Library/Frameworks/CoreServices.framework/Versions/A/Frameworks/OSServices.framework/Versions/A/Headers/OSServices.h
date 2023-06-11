@@ -3,7 +3,7 @@
  
      Contains:   Master include for OSServices private framework
  
-     Version:    OSServices-310~14
+     Version:    OSServices-302.1~3
  
      Copyright:  © 2000-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -25,6 +25,9 @@
 #endif
 
 
+#ifndef __APPLEDISKPARTITIONS__
+#include <OSServices/AppleDiskPartitions.h>
+#endif
 
 #ifndef __CSIDENTITYAUTHORITY__
 #include <OSServices/CSIdentityAuthority.h>

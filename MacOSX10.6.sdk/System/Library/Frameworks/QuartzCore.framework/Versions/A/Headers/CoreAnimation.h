@@ -22,9 +22,7 @@
 #import <QuartzCore/CAMediaTimingFunction.h>
 #import <QuartzCore/CAOpenGLLayer.h>
 #import <QuartzCore/CARenderer.h>
-#import <QuartzCore/CAReplicatorLayer.h>
 #import <QuartzCore/CAScrollLayer.h>
-#import <QuartzCore/CAShapeLayer.h>
 #import <QuartzCore/CATextLayer.h>
 #import <QuartzCore/CATiledLayer.h>
 #import <QuartzCore/CATransaction.h>

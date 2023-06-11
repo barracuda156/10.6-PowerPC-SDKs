@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     19.08.03
-// RCS-ID:      $Id: bookctrl.h 49563 2007-10-31 20:46:21Z VZ $
+// RCS-ID:      $Id: bookctrl.h,v 1.44 2006/11/04 12:20:06 VZ Exp $
 // Copyright:   (c) 2003 Vadim Zeitlin <vadim@wxwidgets.org>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -25,8 +25,8 @@
 
 WX_DEFINE_EXPORTED_ARRAY_PTR(wxWindow *, wxArrayPages);
 
-class WXDLLIMPEXP_FWD_CORE wxImageList;
-class WXDLLIMPEXP_FWD_CORE wxBookCtrlBaseEvent;
+class WXDLLEXPORT wxImageList;
+class WXDLLEXPORT wxBookCtrlBaseEvent;
 
 // ----------------------------------------------------------------------------
 // constants

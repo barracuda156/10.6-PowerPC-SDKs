@@ -1,5 +1,5 @@
 /*	NSDateFormatter.h
-	Copyright (c) 1995-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1995-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSFormatter.h>
@@ -39,9 +39,7 @@ typedef NSUInteger NSDateFormatterStyle;
 
 enum {
     NSDateFormatterBehaviorDefault = 0,
-#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
     NSDateFormatterBehavior10_0 = 1000,
-#endif
     NSDateFormatterBehavior10_4 = 1040,
 };
 typedef NSUInteger NSDateFormatterBehavior;
@@ -49,9 +47,6 @@ typedef NSUInteger NSDateFormatterBehavior;
 #endif
 
 + (NSString *)localizedStringFromDate:(NSDate *)date dateStyle:(NSDateFormatterStyle)dstyle timeStyle:(NSDateFormatterStyle)tstyle AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-+ (NSString *)dateFormatFromTemplate:(NSString *)tmplate options:(NSUInteger)opts locale:(NSLocale *)locale AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-	// no options defined, pass 0 for now
 
 // Attributes of an NSDateFormatter
 

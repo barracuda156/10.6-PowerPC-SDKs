@@ -3,7 +3,7 @@
  
      Contains:   AppleScript Registry constants.
  
-     Version:    OSA-126~1
+     Version:    OSA-123~1
  
      Copyright:  © 1991-2008 by Apple Computer, Inc., all rights reserved
  
@@ -76,7 +76,7 @@ enum {
   kASRemainder                  = 'mod ',
   kASPower                      = '^   ',
   kASEqual                      = kAEEquals,
-  kASNotEqual                   = (int)0xAD202020,
+  kASNotEqual                   = (long)0xAD202020,
   kASGreaterThan                = kAEGreaterThan,
   kASGreaterThanOrEqual         = kAEGreaterThanEquals,
   kASLessThan                   = kAELessThan,

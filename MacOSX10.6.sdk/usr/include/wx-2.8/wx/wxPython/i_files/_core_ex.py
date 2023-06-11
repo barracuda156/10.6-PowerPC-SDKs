@@ -126,10 +126,14 @@ class _wxPyUnbornObject(object):
     attrStr = "The C++ part of this object has not been initialized, attribute access not allowed."
 
     def __repr__(self):
-        return self.reprStr
+        #if not hasattr(self, "_name"):
+        #    self._name = "[unknown]"
+        return self.reprStr #% self._name
 
     def __getattr__(self, *args):
-        raise PyUnbornObjectError(self.attrStr) 
+        #if not hasattr(self, "_name"):
+        #    self._name = "[unknown]"
+        raise PyUnbornObjectError(self.attrStr) # % self._name )
 
     def __nonzero__(self):
         return 0

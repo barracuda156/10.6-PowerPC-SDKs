@@ -581,25 +581,25 @@ You can override this method to customize the appending of extensions to file na
 
 /* Methods that were deprecated in Mac OS 10.4. See the comments above for information about when your overrides of them are still invoked, for backward binary compatibility.
 */
-- (NSData *)dataRepresentationOfType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (NSDictionary *)fileAttributesToWriteToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName saveOperation:(NSSaveOperationType)saveOperationType AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_4;
-- (NSString *)fileName DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (NSFileWrapper *)fileWrapperRepresentationOfType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)initWithContentsOfFile:(NSString *)absolutePath ofType:(NSString *)typeName DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (void)printShowingPrintPanel:(BOOL)flag DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)revertToSavedFromFile:(NSString *)fileName ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)revertToSavedFromURL:(NSURL *)url ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (NSInteger)runModalPageLayoutWithPrintInfo:(NSPrintInfo *)printInfo DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (void)saveToFile:(NSString *)fileName saveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (void)setFileName:(NSString *)fileName DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)writeToFile:(NSString *)fileName ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)writeToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName originalFile:(NSString *)fullOriginalDocumentPath saveOperation:(NSSaveOperationType)saveOperationType DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)writeWithBackupToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName saveOperation:(NSSaveOperationType)saveOperationType DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
+- (NSData *)dataRepresentationOfType:(NSString *)type;
+- (NSDictionary *)fileAttributesToWriteToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName saveOperation:(NSSaveOperationType)saveOperationType;
+- (NSString *)fileName;
+- (NSFileWrapper *)fileWrapperRepresentationOfType:(NSString *)type;
+- (id)initWithContentsOfFile:(NSString *)absolutePath ofType:(NSString *)typeName;
+- (id)initWithContentsOfURL:(NSURL *)absoluteURL ofType:(NSString *)typeName;
+- (BOOL)loadDataRepresentation:(NSData *)data ofType:(NSString *)type;
+- (BOOL)loadFileWrapperRepresentation:(NSFileWrapper *)wrapper ofType:(NSString *)type;
+- (void)printShowingPrintPanel:(BOOL)flag;
+- (BOOL)readFromFile:(NSString *)fileName ofType:(NSString *)type;
+- (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)type;
+- (BOOL)revertToSavedFromFile:(NSString *)fileName ofType:(NSString *)type;
+- (BOOL)revertToSavedFromURL:(NSURL *)url ofType:(NSString *)type;
+- (NSInteger)runModalPageLayoutWithPrintInfo:(NSPrintInfo *)printInfo;
+- (void)saveToFile:(NSString *)fileName saveOperation:(NSSaveOperationType)saveOperation delegate:(id)delegate didSaveSelector:(SEL)didSaveSelector contextInfo:(void *)contextInfo;
+- (void)setFileName:(NSString *)fileName;
+- (BOOL)writeToFile:(NSString *)fileName ofType:(NSString *)type;
+- (BOOL)writeToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName originalFile:(NSString *)fullOriginalDocumentPath saveOperation:(NSSaveOperationType)saveOperationType;
+- (BOOL)writeToURL:(NSURL *)url ofType:(NSString *)type;
+- (BOOL)writeWithBackupToFile:(NSString *)fullDocumentPath ofType:(NSString *)documentTypeName saveOperation:(NSSaveOperationType)saveOperationType;
 
 @end

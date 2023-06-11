@@ -66,12 +66,7 @@
 
       NeverFormatsRelationships - a Boolean that indicates that this client will never format
       a relationship that it pulls. If yes then the sync services frameworks can make certain
-      optimizations for this client. For 10.6 and greater the default is that a client will NOT
-      format relationships.
-
-      FormatsRelationships - a Boolean that indicates that this client MIGHT format
-      a relationship that it pulls. On 10.6 we have changed the default sense for clients
-      and assume that they DO NOT format relationships.
+      optimizations for this client.
       
       SyncsWith - a dictionary specifying the kinds of clients this client wants to sync
       with.  See -setShouldSynchronize:withClientsOfType: for details.  The dictionary contains the

@@ -699,41 +699,6 @@ AudioFileWriteBytes (	AudioFileID  	inAudioFile,
                         const void		*inBuffer)							__OSX_AVAILABLE_STARTING(__MAC_10_2,__IPHONE_2_0);
 
 /*!
-    @function	AudioFileReadPacketData
-    @abstract   Read packets of audio data from the audio file.
-    @discussion For all uncompressed formats, packets == frames.
-				If the byte size of the number packets requested is 
-				less than the buffer size, ioNumBytes will be reduced.
-				If the buffer is too small for the number of packets 
-				requested, ioNumPackets and ioNumBytes will be reduced 
-				to the number of packets that can be accommodated and their byte size.
-				Returns eofErr when read encounters end of file.
-
-    @param inAudioFile				an AudioFileID.
-    @param inUseCache 				true if it is desired to cache the data upon read, else false
-    @param ioNumBytes				on input the size of outBuffer in bytes. 
-									on output, the number of bytes actually returned.
-    @param outPacketDescriptions 	An array of packet descriptions describing the packets being returned. 
-									The size of the array must be greater or equal to the number of packets requested. 
-									On return the packet description will be filled out with the packet offsets and sizes.
-									Packet descriptions are ignored for CBR data.   
-    @param inStartingPacket 		The packet index of the first packet desired to be returned
-    @param ioNumPackets 			on input, the number of packets to read, on output, the number of
-									packets actually read.
-    @param outBuffer 				outBuffer should be a pointer to user allocated memory.
-    @result							returns noErr if successful.
-*/
-extern OSStatus	
-AudioFileReadPacketData (	AudioFileID  					inAudioFile, 
-                       		Boolean							inUseCache,
-                       		UInt32							*ioNumBytes,
-                       		AudioStreamPacketDescription	*outPacketDescriptions,
-                       		SInt64							inStartingPacket, 
-                       		UInt32  						*ioNumPackets, 
-                       		void							*outBuffer)			__OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_2_0);
-
-
-/*!
     @function	AudioFileReadPackets
     @abstract   Read packets of audio data from the audio file.
     @discussion For all uncompressed formats, packets == frames.
@@ -960,10 +925,6 @@ AudioFileRemoveUserData ( AudioFileID			inAudioFile,
 					or all the audio data packets have been scanned, the value will accurately reflect the duration of the audio data. 
 	@constant	kAudioFilePropertyBitRate
 					Returns the bit rate for the audio data as a UInt32. For some formats this will be approximate.
-	@constant	kAudioFilePropertyID3Tag
-					A void * pointing to memory set up by the caller to contain a fully formatted ID3 tag (get/set v2.2, v2.3, or v2.4, v1 get only).
-					The ID3 tag is not manipulated in anyway either for read or write. 
-					When setting, this property must be called before calling AudioFileWritePackets.
 */
 enum
 {
@@ -991,8 +952,7 @@ enum
 	kAudioFilePropertyPacketSizeUpperBound  =	'pkub',
 	kAudioFilePropertyReserveDuration		=	'rsrv',
 	kAudioFilePropertyEstimatedDuration		=	'edur',
-	kAudioFilePropertyBitRate				=	'brat',
-	kAudioFilePropertyID3Tag				=	'id3t'
+	kAudioFilePropertyBitRate				=	'brat'
 };
 
 

@@ -4,7 +4,7 @@
 // Author:      Robert Roebling
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: treectlg.h 49804 2007-11-10 01:09:42Z VZ $
+// RCS-ID:      $Id: treectlg.h,v 1.65 2006/11/25 14:54:22 VZ Exp $
 // Copyright:   (c) 1997,1998 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -21,14 +21,14 @@
 // forward declaration
 // -----------------------------------------------------------------------------
 
-class WXDLLIMPEXP_FWD_CORE wxGenericTreeItem;
+class WXDLLEXPORT wxGenericTreeItem;
 
-class WXDLLIMPEXP_FWD_CORE wxTreeItemData;
+class WXDLLEXPORT wxTreeItemData;
 
-class WXDLLIMPEXP_FWD_CORE wxTreeRenameTimer;
-class WXDLLIMPEXP_FWD_CORE wxTreeFindTimer;
-class WXDLLIMPEXP_FWD_CORE wxTreeTextCtrl;
-class WXDLLIMPEXP_FWD_CORE wxTextCtrl;
+class WXDLLEXPORT wxTreeRenameTimer;
+class WXDLLEXPORT wxTreeFindTimer;
+class WXDLLEXPORT wxTreeTextCtrl;
+class WXDLLEXPORT wxTextCtrl;
 
 // -----------------------------------------------------------------------------
 // wxGenericTreeCtrl - the tree control

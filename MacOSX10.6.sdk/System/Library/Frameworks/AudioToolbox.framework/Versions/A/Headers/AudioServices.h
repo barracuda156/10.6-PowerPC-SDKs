@@ -184,9 +184,9 @@ enum
     @abstract       Play an Alert Sound
     @discussion     Play the provided SystemSoundID with AlertSound behavior.
     @param          inSystemSoundID
-                        A SystemSoundID for the System Sound server to play. On the desktop you
-                        can pass the kSystemSoundID_UserPreferredAlert constant to playback the alert sound 
-                        selected by the user in System Preferences. On iPhone there is no preferred user alert sound.
+                        A SystemSoundID for the System Sound server to play. Pass the
+                        kSystemSoundID_UserPreferredAlert constant to playback the alert sound 
+                        selected by the User in System Preferences.
 */
 extern void 
 AudioServicesPlayAlertSound(SystemSoundID inSystemSoundID)                                          __OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_2_0);
@@ -534,9 +534,11 @@ AudioHardwareServiceAddPropertyListener(    AudioObjectID                       
                     notifications when the given properties change.
     @param          inObjectID
                         The AudioObject to unregister the listener from.
-    @param          inAddress
-                        The AudioObjectPropertyAddresses indicating which property the listener
-                        will stop being notified about.
+    @param          inNumberAddresses
+                        The number of elements in the inAddresses array.
+    @param          inAddresses
+                        The AudioObjectPropertyAddress indicating which property the listener should
+                        be removed from.
     @param          inListener
                         The AudioObjectPropertyListenerProc being removed.
     @param          inClientData
@@ -572,9 +574,6 @@ AudioHardwareServiceRemovePropertyListener( AudioObjectID                       
                         The property is not supported.
     @constant       kAudioSessionBadPropertySizeError 
                         The size of the property data was not correct.
-    @constant       kAudioSessionNotActiveError 
-                        The operation failed because the AudioSession is not active.
-                        Calling AudioSessionSetActive(true) first will fix this error in most cases.
 */
 enum
 {
@@ -583,8 +582,7 @@ enum
     kAudioSessionAlreadyInitialized                     = 'init',
     kAudioSessionInitializationError                    = 'ini?',
     kAudioSessionUnsupportedPropertyError               = 'pty?',
-    kAudioSessionBadPropertySizeError                   = '!siz',
-    kAudioSessionNotActiveError                         = '!act'
+    kAudioSessionBadPropertySizeError                   = '!siz'
 };
 
 //==================================================================================================
@@ -623,13 +621,13 @@ enum {
     @enum           AudioSession audio categories states
     @abstract       These are used with as values for the kAudioSessionProperty_AudioCategory property
                     to indicate the audio category of the AudioSession.
-    @constant       kAudioSessionCategory_UserInterfaceSoundEffects
+    @constant       kAudioSessionUserInterfaceSoundEffects
                         Use this category for sound effects such as touch feedback, explosions, etc.
-    @constant       kAudioSessionCategory_AmbientSound 
+    @constant       kAudioSessionAmbientSound 
                         Use this category for backgound sounds such as rain, car engine noise, etc.
-    @constant       kAudioSessionCategory_MediaPlayback 
+    @constant       kAudioSessionMediaPlayback 
                         Use this category for music tracks.
-    @constant       kAudioSessionCategory_LiveAudio 
+    @constant       kAudioSessionLiveAudio 
                         Use this category for interactive music such as playing an instrument on the screen.
     @constant       kAudioSessionCategory_RecordAudio 
                         Use this category when recording audio.
@@ -645,22 +643,6 @@ enum {
     kAudioSessionCategory_PlayAndRecord              = 'plar'
 };
 
-#pragma mark    AudioSession Audio Category Routing Overrides
-
-/*!
-    @enum           AudioSession audio category routing overrides
-    @abstract       These are used with as values for the kAudioSessionProperty_OverrideAudioRoute property.
-    @constant       kAudioSessionOverrideAudioRoute_None
-                        No override.  Return audio routing to the default state for the current audio category.
-    @constant       kAudioSessionOverrideAudioRoute_Speaker 
-                        Route audio output to speaker.  Use this override with the kAudioSessionCategory_PlayAndRecord
-                        category, which by default routes the output to the receiver.
-*/
-enum {
-    kAudioSessionOverrideAudioRoute_None    = 0,
-    kAudioSessionOverrideAudioRoute_Speaker = 'spkr'
-};
-
 //==================================================================================================
 #pragma mark    AudioSession reason codes for route change
 
@@ -670,25 +652,26 @@ enum {
     @constant       kAudioSessionRouteChangeReason_Unknown
                         The reason is unknown.
     @constant       kAudioSessionRouteChangeReason_NewDeviceAvailable
-                        A new device became available (e.g. headphones have been plugged in).
+                        A new devide became available.
     @constant       kAudioSessionRouteChangeReason_OldDeviceUnavailable
-                        The old device became unavailable (e.g. headphones have been unplugged).
-    @constant       kAudioSessionRouteChangeReason_CategoryChange
-                        The audio category has changed (e.g. kAudioSessionCategory_MediaPlayback
-                        has been changed to kAudioSessionCategory_PlayAndRecord).
+                        The old device became unavailable.
+    @constant       kAudioSessionRouteChangeReason_PolicyChange
+                        The policy has changed.
     @constant       kAudioSessionRouteChangeReason_Override
-                        The route has been overriden (e.g. category is kAudioSessionCategory_PlayAndRecord
-                        and the output has been changed from the receiver, which is the default, to the speaker).
+                        The route has been overriden.
+    @constant       kAudioSessionRouteChangeReason_BroadcastUpdate
+                        A broadcast update.
     @constant       kAudioSessionRouteChangeReason_WakeFromSleep
                         The device woke from sleep.
 */
 enum {
 	kAudioSessionRouteChangeReason_Unknown = 0,
-	kAudioSessionRouteChangeReason_NewDeviceAvailable = 1,
-	kAudioSessionRouteChangeReason_OldDeviceUnavailable = 2,
-	kAudioSessionRouteChangeReason_CategoryChange = 3,
-	kAudioSessionRouteChangeReason_Override = 4,
-	kAudioSessionRouteChangeReason_WakeFromSleep = 6,
+	kAudioSessionRouteChangeReason_NewDeviceAvailable,
+	kAudioSessionRouteChangeReason_OldDeviceUnavailable,
+	kAudioSessionRouteChangeReason_PolicyChange,
+	kAudioSessionRouteChangeReason_Override,
+	kAudioSessionRouteChangeReason_BroadcastUpdate,
+	kAudioSessionRouteChangeReason_WakeFromSleep,
 };
 
 #define kAudioSession_AudioRouteChangeKey_Reason    "OutputDeviceDidChange_Reason"
@@ -711,52 +694,17 @@ enum {
     @constant       kAudioSessionProperty_AudioRoute 
                         A CFStringRef with the name of the current route ("Headphone," "Speaker," etc.)
     @constant       kAudioSessionProperty_AudioRouteChange 
-                        The value for this property is ONLY provided with the property changed callback. You cannot get the 
-                        value of this property (or set it).
-                        The property changed callbak provides a CFDictionaryRef with two keyed values:
+                        A CFDictionaryRef with two keyed values:
                         Key = kAudioSession_AudioRouteChangeKey_Reason; value is a CFNumberRef with one of the reasons listed above.
                         Key = kAudioSession_AudioRouteChangeKey_OldRoute; value is a CFStringRef with the name of the old route.
                         The new route can be obtained by calling AudioSessionGetProperty(kAudioSessionProperty_AudioRoute).
-    @constant       kAudioSessionProperty_CurrentHardwareSampleRate 
-                        A Float64 indicating the current hardware sample rate
-    @constant       kAudioSessionProperty_CurrentHardwareInputNumberChannels 
-                        A UInt32 indicating the current number of hardware input channels
-    @constant       kAudioSessionProperty_CurrentHardwareOutputNumberChannels 
-                        A UInt32 indicating the current number of hardware output channels
-    @constant       kAudioSessionProperty_CurrentHardwareInputVolume 
-                        A Float32 indicating the current input volume
-    @constant       kAudioSessionProperty_CurrentHardwareOutputVolume 
-                        A Float32 indicating the current output volume
-    @constant       kAudioSessionProperty_CurrentHardwareInputLatency 
-                        A Float32 indicating the current hardware input latency in seconds.
-    @constant       kAudioSessionProperty_CurrentHardwareOutputLatency 
-                        A Float32 indicating the current hardware output latency in seconds.
-    @constant       kAudioSessionProperty_CurrentHardwareIOBufferDuration 
-                        A Float32 indicating the current hardware IO buffer duration in seconds.
-    @constant       kAudioSessionProperty_OtherAudioIsPlaying 
-                        A UInt32 with a value other than zero when someone else, typically the iPod application, is playing audio
-    @constant       kAudioSessionProperty_OverrideAudioRoute 
-                        A UInt32 with one of two values: kAudioSessionOverrideAudioRoute_None or kAudioSessionOverrideAudioRoute_Speaker
-    @constant       kAudioSessionProperty_AudioInputAvailable 
-                        A UInt32 with a value other than zero when audio input is available
 */
 enum { // typedef UInt32 AudioSessionPropertyID
     kAudioSessionProperty_PreferredHardwareSampleRate           = 'hwsr',   // Float64          (get/set)
     kAudioSessionProperty_PreferredHardwareIOBufferDuration     = 'iobd',   // Float32          (get/set)
     kAudioSessionProperty_AudioCategory                         = 'acat',   // UInt32           (get/set)
     kAudioSessionProperty_AudioRoute                            = 'rout',   // CFStringRef      (get only)
-    kAudioSessionProperty_AudioRouteChange                      = 'roch',   // CFDictionaryRef  (property listener)
-    kAudioSessionProperty_CurrentHardwareSampleRate             = 'chsr',   // Float64          (get only)
-    kAudioSessionProperty_CurrentHardwareInputNumberChannels    = 'chic',   // UInt32           (get only)
-    kAudioSessionProperty_CurrentHardwareOutputNumberChannels   = 'choc',   // UInt32           (get only)
-    kAudioSessionProperty_CurrentHardwareInputVolume            = 'chiv',   // Float32          (get only/property listener)
-    kAudioSessionProperty_CurrentHardwareOutputVolume           = 'chov',   // Float32          (get only/property listener)
-    kAudioSessionProperty_CurrentHardwareInputLatency           = 'cilt',   // Float32          (get only)
-    kAudioSessionProperty_CurrentHardwareOutputLatency          = 'colt',   // Float32          (get only)
-    kAudioSessionProperty_CurrentHardwareIOBufferDuration       = 'chbd',   // Float32          (get only)
-    kAudioSessionProperty_OtherAudioIsPlaying                   = 'othr',   // UInt32           (get only)
-    kAudioSessionProperty_OverrideAudioRoute                    = 'ovrd',   // UInt32           (set only)
-    kAudioSessionProperty_AudioInputAvailable                   = 'aiav'    // UInt32           (get only/property listener)
+    kAudioSessionProperty_AudioRouteChange                      = 'roch'    // CFDictionaryRef  (property listener)
 };
 
 //==================================================================================================
@@ -786,10 +734,10 @@ typedef void (*AudioSessionInterruptionListener)(
                         The client user data to use when calling the listener.
     @param          inID
                         The AudioSession property that changed
-    @param          inDataSize
-                        The size of the payload
     @param          inData
                         The payload of the property that changed (see data type for each property)
+    @param          inDataSize
+                        The size of the payload
 */
 typedef void (*AudioSessionPropertyListener)(
 								void *                  inClientData,
@@ -868,10 +816,10 @@ AudioSessionGetProperty(            AudioSessionPropertyID              inID,
                     Valid properties are listed in an enum above.
     @param          inID
                         The AudioSessionPropertyID for which we want to set the value.
-    @param          inDataSize
+    @param          ioDataSize
                         The size of the data payload.
-    @param          inData
-                        The data for the property we want to set.
+    @param          outData
+                        The data for the property ww want to set.
 */
 extern OSStatus
 AudioSessionSetProperty(            AudioSessionPropertyID              inID,
@@ -920,20 +868,7 @@ AudioSessionAddPropertyListener(    AudioSessionPropertyID              inID,
                         The AudioSessionPropertyID for which we want to remove the listener.
 */
 extern OSStatus
-AudioSessionRemovePropertyListener(	AudioSessionPropertyID          inID)                           __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_NA,__MAC_NA,__IPHONE_2_0,__IPHONE_2_0);
-
-/*!
-    @function       AudioSessionRemovePropertyListener
-    @abstract       Remove a property listener.
-    @discussion     This function can be called to remove the listener for a property.
-                    Valid properties are listed above.
-    @param          inID
-                        The AudioSessionPropertyID for which we want to remove the listener.
-*/
-extern OSStatus
-AudioSessionRemovePropertyListenerWithUserData(	AudioSessionPropertyID          inID,
-                                                AudioSessionPropertyListener    inProc,
-                                                void                            *inClientData)              __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_2_1);
+AudioSessionRemovePropertyListener(	AudioSessionPropertyID          inID)                           __OSX_AVAILABLE_STARTING(__MAC_NA,__IPHONE_2_0);
 
 //==================================================================================================
 #endif //TARGET_OS_IPHONE

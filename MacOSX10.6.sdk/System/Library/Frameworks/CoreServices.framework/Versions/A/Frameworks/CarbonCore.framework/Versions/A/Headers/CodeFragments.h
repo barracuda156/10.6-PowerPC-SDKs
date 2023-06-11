@@ -3,7 +3,7 @@
  
      Contains:   Public Code Fragment Manager Interfaces.
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1992-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -68,7 +68,7 @@ enum {
   kCFragResourceType            = 'cfrg',
   kCFragResourceID              = 0,
   kCFragLibraryFileType         = 'shlb',
-  kCFragAllFileTypes            = (int)0xFFFFFFFF
+  kCFragAllFileTypes            = (long)0xFFFFFFFF
 };
 
 
@@ -98,7 +98,7 @@ enum {
 typedef UInt32                          CFragVersionNumber;
 enum {
   kNullCFragVersion             = 0,
-  kWildcardCFragVersion         = (int)0xFFFFFFFF
+  kWildcardCFragVersion         = (long)0xFFFFFFFF
 };
 
 

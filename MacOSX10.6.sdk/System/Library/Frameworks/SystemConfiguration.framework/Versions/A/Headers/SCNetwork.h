@@ -54,10 +54,6 @@
 		nodename or address is reachable, whether a connection is
 		required, and whether some user intervention may be required
 		when establishing a connection.
-
-		Note: the SCNetworkConnection flags have been deprecated
-		in favor of the newer SCNetworkReachability flags defined
-		in SCNetworkReachability.h.
 	@constant kSCNetworkFlagsTransientConnection
 		This flag indicates that the specified nodename or address can
 		be reached via a transient connection, such as PPP.
@@ -119,18 +115,6 @@ __BEGIN_DECLS
 	@function SCNetworkCheckReachabilityByAddress
 	@discussion Determines if the given network address is
 		reachable using the current network configuration.
-
-		Note: this API has been deprecated but you can
-		      get equivalent results with :
-<pre>
-	SCNetworkReachabiltyRef   target;
-	SCNetworkReachabiltyFlags flags = 0;
-	Boolean                   ok;
-
-	target = SCNetworkReachabilityCreateWithAddress(NULL, address);
-	ok = SCNetworkReachabilityGetFlags(target, &flags);
-	CFRelease(target);
-</pre>
 	@param address The network address of the desired host.
 	@param addrlen The length, in bytes, of the address.
 	@param flags A pointer to memory that will be filled with a
@@ -150,18 +134,6 @@ SCNetworkCheckReachabilityByAddress	(
 	@function SCNetworkCheckReachabilityByName
 	@discussion Determines if the given network host or node name is
 		reachable using the current network configuration.
-
-		Note: this API has been deprecated but you can
-		      get equivalent results with :
-<pre>
-	SCNetworkReachabiltyRef   target;
-	SCNetworkReachabiltyFlags flags = 0;
-	Boolean                   ok;
-
-	target = SCNetworkReachabilityCreateWithName(NULL, name);
-	ok = SCNetworkReachabilityGetFlags(target, &flags);
-	CFRelease(target);
-</pre>
 	@param nodename The node name of the desired host. This name would
 		be the same as that passed to the gethostbyname(3) or
 		getaddrinfo(3) functions.

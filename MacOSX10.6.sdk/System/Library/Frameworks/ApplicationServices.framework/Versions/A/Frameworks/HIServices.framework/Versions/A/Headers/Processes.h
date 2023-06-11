@@ -3,7 +3,7 @@
  
      Contains:   Process Manager Interfaces.
  
-     Version:    HIServices-289~2
+     Version:    HIServices-282~2
  
      Copyright:  © 1989-2008 by Apple Computer, Inc., all rights reserved
  
@@ -466,13 +466,6 @@ GetNextProcess(ProcessSerialNumber * PSN)                     AVAILABLE_MAC_OS_X
  *    
  *    On Mac OS X, the processSize and processFreeMem fields are
  *    returned with the value 0.
- *    
- *    On Mac OS X 10.6 and later, the processLaunchDate field is an
- *    integer value with the same scale as CFAbsoluteTime.  Prior
- *    releases used a value in 60th of a second with a random zero
- *    time, making it difficult to use. Since most applications just
- *    look at the comparison from this field to other launch dates this
- *    change should not affect many applications.
  *  
  *  Mac OS X threading:
  *    Thread safe since version 10.3

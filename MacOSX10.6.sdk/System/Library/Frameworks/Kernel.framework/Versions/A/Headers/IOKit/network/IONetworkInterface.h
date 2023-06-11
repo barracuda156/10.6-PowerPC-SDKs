@@ -1011,16 +1011,15 @@ public:
     virtual bool serializeProperties( OSSerialize * s ) const;
 
 /*! @function attachToDataLinkLayer
-    @abstract Attaches the network interface to the BSD data link layer.
+    @abstract Attaches the network interface to the data link layer.
     @discussion This function is called by the family to attach the network
-    interface managed by an IONetworkInterface to the BSD data link layer.
-    This call occurs after the interface initialization and setup, and the
-    assignment of an interface unit number. The family does not implicitly
-    close the gate on the network controller's work loop when calling this
-    function. Prior to the data link attachment, services provided by an
-    IONetworkInterface will be inaccessible to BSD networking, though the
-    object can be found in the I/O Kit Registry. Subclasses can override
-    this function to perform interface specific work.
+    interface managed by an IONetworkInterface to the data link layer. This
+    call occurs after the interface initialization and setup, including the
+    assignment of an interface unit number. Prior to the data link attach,
+    services provided by an IONetworkInterface will be inaccessible to BSD
+    networking, though the object can be found in the I/O Kit Registry.
+    Subclasses can extend this function to perform additional work that is
+    specific to a type of interface.
     @param options Options for the attach call. None are currently defined.
     @param parameter Parameter for the attach call. Not currently used.
     @result Returns kIOReturnSuccess on success. 
@@ -1032,13 +1031,12 @@ public:
     OSMetaClassDeclareReservedUsed(IONetworkInterface, 0);
 
 /*! @function detachFromDataLinkLayer
-    @abstract Detaches the network interface from the BSD data link layer.
+    @abstract Detaches the network interface from the data link layer.
     @discussion This function is called by the family to detach the network
-    interface managed by an IONetworkInterface from the BSD data link layer.
+    interface managed by an IONetworkInterface from the data link layer.
     This call is made when the interface is terminated, before the last close.
-    The family does not implicitly close the gate on the network controller's
-    work loop when calling this function. Subclasses can override this function
-    to perform additional interface specific work.
+    Subclasses can extend this function to perform additional work that is
+    specific to a type of interface.
     @param options Options for the detach call. None are currently defined.
     @param parameter Parameter for the detach call. Not currently used. 
 */
@@ -1049,26 +1047,25 @@ public:
     OSMetaClassDeclareReservedUsed(IONetworkInterface, 1);
 
 protected:
-/*! @function feedInputPacketTap
-    @abstract Feed received packets to the BPF
-    @discussion This function is called by the family for each inbound packet
-    to feed it to the BPF function.  Interface classes can override if they
-    need to provide class specific functionality or modifications to the BPF tap.
-    @param mbuf Pointer to the packet.
-*/
-    virtual void feedPacketInputTap(mbuf_t);
-
+		/*! @function feedInputPacketTap
+		@abstract Feed received packets to the BPF
+		@discussion This function is called by the family for each inbound packet
+		to feed it to the BPF function.  Interface classes can override if they
+		need to provide class specific functionality or modifications to the BPF tap.
+		@param mbuf Pointer to the packet.
+		*/
+		virtual void feedPacketInputTap(mbuf_t);
+	
 	OSMetaClassDeclareReservedUsed( IONetworkInterface,  2);
-
-/*! @function feedOutputPacketTap
-    @abstract Feed sent packets to the BPF
-    @discussion This function is called by the family for each outbound packet
-    to feed it to the BPF function.  Interface classes can override if they
-    need to provide class specific functionality or modifications to the BPF tap.
-    @param mbuf Pointer to the packet.
-*/
+	/*! @function feedOutputPacketTap
+		@abstract Feed sent packets to the BPF
+		@discussion This function is called by the family for each outbound packet
+		to feed it to the BPF function.  Interface classes can override if they
+		need to provide class specific functionality or modifications to the BPF tap.
+		@param mbuf Pointer to the packet.
+		*/
 	virtual void feedPacketOutputTap(mbuf_t);
-
+	
 	OSMetaClassDeclareReservedUsed( IONetworkInterface,  3);
 	
 	virtual bool initIfnetParams(struct ifnet_init_params *params);

@@ -147,7 +147,7 @@ typedef CALLBACK_API_C(ICAError, __ICD_OpenTCPIPDevice)
                                     (CFDictionaryRef params, ObjectInfo* objectInfo);
 
 typedef CALLBACK_API_C(ICAError, __ICD_OpenMassStorageDevice)
-                                    (CFStringRef diskBSDName, DASessionRef daSession, ObjectInfo* objectInfo);
+                                    (CFStringRef mountPoint, ObjectInfo* objectInfo);
 
 typedef CALLBACK_API_C(ICAError, __ICD_CloseDevice)
                                     (ObjectInfo* objectInfo);

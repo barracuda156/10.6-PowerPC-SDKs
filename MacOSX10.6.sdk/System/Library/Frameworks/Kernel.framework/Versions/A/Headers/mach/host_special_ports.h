@@ -87,10 +87,7 @@
 #define HOST_LOCKD_PORT                 (5 + HOST_MAX_SPECIAL_KERNEL_PORT)
 #define HOST_SEATBELT_PORT              (7 + HOST_MAX_SPECIAL_KERNEL_PORT)
 #define HOST_KEXTD_PORT                 (8 + HOST_MAX_SPECIAL_KERNEL_PORT)
-#define HOST_CHUD_PORT                  (9 + HOST_MAX_SPECIAL_KERNEL_PORT)
-#define HOST_UNFREED_PORT		(10 + HOST_MAX_SPECIAL_KERNEL_PORT)
-#define HOST_AMFID_PORT			(11 + HOST_MAX_SPECIAL_KERNEL_PORT)
-#define HOST_MAX_SPECIAL_PORT           (12 + HOST_MAX_SPECIAL_KERNEL_PORT)
+#define HOST_MAX_SPECIAL_PORT           (9 + HOST_MAX_SPECIAL_KERNEL_PORT)
                                         /* room to grow here as well */
 
 /*
@@ -158,23 +155,5 @@
 	HOST_LOCAL_NODE, HOST_KEXTD_PORT, (port)))
 #define host_set_kextd_port(host, port)	\
 	(host_set_special_port((host), HOST_KEXTD_PORT, (port)))
-
-#define host_get_chud_port(host, port)	\
-	(host_get_special_port((host), 			\
-	HOST_LOCAL_NODE, HOST_CHUD_PORT, (port)))
-#define host_set_chud_port(host, port)	\
-	(host_set_special_port((host), HOST_CHUD_PORT, (port)))
-
-#define host_get_unfreed_port(host, port)	\
-	(host_get_special_port((host), 			\
-	HOST_LOCAL_NODE, HOST_UNFREED_PORT, (port)))
-#define host_set_unfreed_port(host, port)	\
-	(host_set_special_port((host), HOST_UNFREED_PORT, (port)))
-
-#define host_get_amfid_port(host, port)	\
-	(host_get_special_port((host), 			\
-	HOST_LOCAL_NODE, HOST_AMFID_PORT, (port)))
-#define host_set_amfid_port(host, port)	\
-	(host_set_special_port((host), HOST_AMFID_PORT, (port)))
 
 #endif	/* _MACH_HOST_SPECIAL_PORTS_H_ */

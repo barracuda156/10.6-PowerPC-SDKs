@@ -54,8 +54,6 @@
 __BEGIN_DECLS
 int  xattr_protected(const char *);
 int  xattr_validatename(const char *);
-
-#define XATTR_MAXSIZE	(64 * 1024 * 1024)
 __END_DECLS
 
 

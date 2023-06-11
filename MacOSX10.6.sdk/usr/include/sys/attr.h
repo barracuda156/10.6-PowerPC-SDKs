@@ -181,9 +181,10 @@ typedef struct vol_capabilities_attr {
  * A volume that must always read from disk or always perform a network
  * transaction should not set this bit.  
  * 
- * VOL_CAP_FMT_2TB_FILESIZE: If this bit is set the volume format supports
- * file sizes larger than 4GB, and potentially up to 2TB; it does not
- * indicate whether the filesystem supports files larger than that.
+ * VOL_CAP_FMT_2TB_FILESIZE: When set, the volume format supports file 
+ * size upto 2TB.  This bit does not necessarily mean that the file 
+ * system does not support file size more than 2TB.   This bit does 
+ * not mean that the currently available space on the volume is 2TB. 
  *
  * VOL_CAP_FMT_OPENDENYMODES: When set, the volume supports open deny
  * modes (e.g. "open for read write, deny write"; effectively, mandatory
@@ -201,10 +202,6 @@ typedef struct vol_capabilities_attr {
  * capability and it is assumed that most file systems will not support
  * it.  Its use is for legacy non-posix APIs like ResolveFileIDRef.
  * 
- * VOL_CAP_FMT_NO_VOLUME_SIZES: When set, the volume does not support 
- * returning values for total data blocks, available blocks, or free blocks
- * (as in f_blocks, f_bavail, or f_bfree in "struct statfs").  Historically,
- * those values were set to 0xFFFFFFFF for volumes that did not support them.
  */
 #define VOL_CAP_FMT_PERSISTENTOBJECTIDS		0x00000001
 #define VOL_CAP_FMT_SYMBOLICLINKS 		0x00000002
@@ -221,7 +218,6 @@ typedef struct vol_capabilities_attr {
 #define VOL_CAP_FMT_OPENDENYMODES		0x00001000
 #define VOL_CAP_FMT_HIDDEN_FILES		0x00002000
 #define VOL_CAP_FMT_PATH_FROM_ID		0x00004000
-#define VOL_CAP_FMT_NO_VOLUME_SIZES		0x00008000
 
 
 /*

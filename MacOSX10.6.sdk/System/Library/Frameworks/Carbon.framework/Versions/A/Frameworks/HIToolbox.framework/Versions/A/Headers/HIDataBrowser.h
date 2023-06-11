@@ -3,7 +3,7 @@
  
      Contains:   API and type definitions related to Data Browser.
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 1999-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -137,13 +137,13 @@ enum {
 /* Data Browser Item Management */
 typedef unsigned long                   DataBrowserItemID;
 enum {
-  kDataBrowserNoItem            = 0     /* Reserved DataBrowserItemID */
+  kDataBrowserNoItem            = 0L    /* Reserved DataBrowserItemID */
 };
 
 typedef UInt32 DataBrowserItemState;
 enum {
   kDataBrowserItemNoState       = 0,
-  kDataBrowserItemAnyState      = (unsigned int)(-1),
+  kDataBrowserItemAnyState      = (unsigned long)(-1),
   kDataBrowserItemIsSelected    = 1 << 0,
   kDataBrowserContainerIsOpen   = 1 << 1,
   kDataBrowserItemIsDragTarget  = 1 << 2 /* During a drag operation */
@@ -218,15 +218,15 @@ enum {
  */
 enum {
                                         /* Predefined attribute properties, optional & non-display unless otherwise stated */
-  kDataBrowserItemNoProperty    = 0,    /* The anti-property (no associated data) */
-  kDataBrowserItemIsActiveProperty = 1, /* Boolean typed data (defaults to true) */
-  kDataBrowserItemIsSelectableProperty = 2, /* Boolean typed data (defaults to true) */
-  kDataBrowserItemIsEditableProperty = 3, /* Boolean typed data (defaults to false, used for editable properties) */
-  kDataBrowserItemIsContainerProperty = 4, /* Boolean typed data (defaults to false) */
-  kDataBrowserContainerIsOpenableProperty = 5, /* Boolean typed data (defaults to true) */
-  kDataBrowserContainerIsClosableProperty = 6, /* Boolean typed data (defaults to true) */
-  kDataBrowserContainerIsSortableProperty = 7, /* Boolean typed data (defaults to true) */
-  kDataBrowserItemSelfIdentityProperty = 8, /* kDataBrowserIconAndTextType (display property; ColumnView only) */
+  kDataBrowserItemNoProperty    = 0L,   /* The anti-property (no associated data) */
+  kDataBrowserItemIsActiveProperty = 1L, /* Boolean typed data (defaults to true) */
+  kDataBrowserItemIsSelectableProperty = 2L, /* Boolean typed data (defaults to true) */
+  kDataBrowserItemIsEditableProperty = 3L, /* Boolean typed data (defaults to false, used for editable properties) */
+  kDataBrowserItemIsContainerProperty = 4L, /* Boolean typed data (defaults to false) */
+  kDataBrowserContainerIsOpenableProperty = 5L, /* Boolean typed data (defaults to true) */
+  kDataBrowserContainerIsClosableProperty = 6L, /* Boolean typed data (defaults to true) */
+  kDataBrowserContainerIsSortableProperty = 7L, /* Boolean typed data (defaults to true) */
+  kDataBrowserItemSelfIdentityProperty = 8L, /* kDataBrowserIconAndTextType (display property; ColumnView only) */
 
   /*
    * kDataBrowserContainerAliasIDProperty is sent to your
@@ -242,7 +242,7 @@ enum {
    * item whose contents are already displayed in an existing column
    * view column, the contents can be shared between those two columns.
    */
-  kDataBrowserContainerAliasIDProperty = 9, /* DataBrowserItemID (alias/symlink an item to a container item) */
+  kDataBrowserContainerAliasIDProperty = 9L, /* DataBrowserItemID (alias/symlink an item to a container item) */
 
   /*
    * kDataBrowserColumnViewPreviewProperty is sent to various callbacks
@@ -258,7 +258,7 @@ enum {
    * kDataBrowserColumnViewPreviewProperty is only supported in column
    * view.
    */
-  kDataBrowserColumnViewPreviewProperty = 10, /* kDataBrowserCustomType (display property; ColumnView only) */
+  kDataBrowserColumnViewPreviewProperty = 10L, /* kDataBrowserCustomType (display property; ColumnView only) */
 
   /*
    * kDataBrowserItemParentContainerProperty is sent to your
@@ -285,7 +285,7 @@ enum {
    * times, so you should be sure to support this property if your Data
    * Browser displays a containment hierarchy.
    */
-  kDataBrowserItemParentContainerProperty = 11 /* DataBrowserItemID (the parent of the specified item, used by ColumnView) */
+  kDataBrowserItemParentContainerProperty = 11L /* DataBrowserItemID (the parent of the specified item, used by ColumnView) */
 };
 
 typedef unsigned long                   DataBrowserPropertyID;
@@ -312,7 +312,7 @@ enum {
 /*      For use with GetDataBrowserItemPartBounds. */
 typedef OSType                          DataBrowserPropertyPart;
 enum {
-  kDataBrowserPropertyEnclosingPart = 0,
+  kDataBrowserPropertyEnclosingPart = 0L,
   kDataBrowserPropertyContentPart = '----',
   kDataBrowserPropertyDisclosurePart = 'disc',
   kDataBrowserPropertyTextPart  = kDataBrowserTextType,

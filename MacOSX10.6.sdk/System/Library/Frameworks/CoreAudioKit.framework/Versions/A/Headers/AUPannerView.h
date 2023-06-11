@@ -12,9 +12,6 @@
 	http://developer.apple.com/bugreporter/
 */
 
-#import <Cocoa/Cocoa.h>
-#include <AudioUnit/AudioUnit.h>
-
 /*!
 @class AUPannerView
 @abstract  An AUPannerView object retrieves and instantiates a generic panner view for the given panner unit

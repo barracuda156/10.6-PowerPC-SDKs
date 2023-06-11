@@ -3,7 +3,7 @@
  
      Contains:   Base object for HIToolbox
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 2001-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -90,16 +90,15 @@ extern "C" {
  *    kEventHIObjectConstruct event. When called like this, you are not
  *    really being called in the context of a handler stack, so you
  *    cannot do things like CallNextEventHandler. The userData
- *    parameter is what you specified as the inConstructData parameter
- *    to HIObjectRegisterSubclass. Typically, during construction you
- *    will allocate memory yourself to store your own instance data;
- *    this allocation might be as simple as calling malloc or NewPtr,
- *    or it might involve creating your own C++ object. In the
- *    construct event, the base HIObject of the object being created is
- *    passed as the kEventParamHIObjectInstance parameter. Typically
- *    you would store this HIObjectRef in your own instance data for
- *    later use. When handling this construct event, you should be sure
- *    to use SetEventParameter to set the kEventParamHIObjectInstance
+ *    parameter is what you specified when you registered the class.
+ *    Typically, during construction you will allocate memory yourself
+ *    to store your own instance data; this allocation might be as
+ *    simple as calling malloc or NewPtr, or it might involve creating
+ *    your own C++ object. In the construct event, you are passed the
+ *    base HIObjectRef of the object being created. Typically you would
+ *    store this HIObjectRef in your own instance data for later use.
+ *    When handling this construct event, you should be sure to use
+ *    SetEventParameter to set the kEventParamHIObjectInstance
  *    parameter in the construction event with your own instance data.
  *    You must use typeVoidPtr as the type. 
  *    

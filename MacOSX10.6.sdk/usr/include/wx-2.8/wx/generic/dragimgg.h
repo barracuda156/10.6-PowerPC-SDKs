@@ -5,7 +5,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     29/2/2000
-// RCS-ID:      $Id: dragimgg.h 42397 2006-10-25 12:12:56Z VS $
+// RCS-ID:      $Id: dragimgg.h,v 1.18 2006/10/25 12:10:57 VS Exp $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

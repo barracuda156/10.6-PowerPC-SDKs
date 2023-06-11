@@ -3,7 +3,7 @@
  
      Contains:   AppleEvent Data Model Interfaces.
  
-     Version:    AppleEvents-464~2
+     Version:    AppleEvents-451~1
  
      Copyright:  © 1996-2008 by Apple Computer, Inc., all rights reserved
  
@@ -111,7 +111,6 @@
 #define typeProperty 					'prop'
 #define typeFSRef 						'fsrf'				/*  FSRef  */
 #define typeFileURL 					'furl'
-#define typeBookmarkData 				'bmrk'
 #define typeKeyword 					'keyw'				/*  OSType  */
 #define typeSectionH 					'sect'
 #define typeWildCard 					'****'
@@ -163,11 +162,6 @@
 #define keyOriginalAddressAttr 			'from'				/*  new in 1.0.1  */
 #define keyAcceptTimeoutAttr 			'actm'				/*  new for Mac OS X  */
 #define keyReplyRequestedAttr 			'repq'				/*  Was a reply requested for this event - returned as typeBoolean  */
-#define keySecureSenderEUID 			'seid'				/*  read only, returned as typeInteger.  Will be the euid of the sender of this event.  */
-#define keySecureSenderEGID 			'sgid'				/*  read only, returned as typeInteger.  Will be the egid of the sender of this event.  */
-#define keySecureSenderUID 				'uids'				/*  read only, returned as typeInteger.  Will be the uid of the sender of this event.  */
-#define keySecureSenderGID 				'gids'				/*  read only, returned as typeInteger.  Will be the gid of the sender of this event.  */
-#define keySecureSenderPID 				'spid'				/*  read only, returned as typeInteger.  Will be the pid of the sender of this event.  */
 
 /* These bits are specified in the keyXMLDebuggingAttr (an SInt32) */
 #define kAEDebugPOSTHeader 				0x01				/*  headers of the HTTP post we sent - typeChar  */

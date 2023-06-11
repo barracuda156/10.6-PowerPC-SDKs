@@ -3,7 +3,7 @@
  
      Contains:   Dictionary Manager Interfaces
  
-     Version:    LanguageAnalysis-203~1
+     Version:    LanguageAnalysis-198~1
  
      Copyright:  © 1992-2008 by Apple Inc., all rights reserved.
  
@@ -87,7 +87,7 @@ enum {
   kDCMRequiredFieldMask         = 0x00000002,
   kDCMIdentifyFieldMask         = 0x00000004,
   kDCMFixedSizeFieldMask        = 0x00000008,
-  kDCMHiddenFieldMask           = (int)0x80000000
+  kDCMHiddenFieldMask           = (long)0x80000000
 };
 
 typedef OptionBits                      DCMFieldAttributes;

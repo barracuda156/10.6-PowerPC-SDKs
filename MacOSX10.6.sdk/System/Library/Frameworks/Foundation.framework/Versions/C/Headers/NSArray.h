@@ -1,5 +1,5 @@
 /*	NSArray.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -65,16 +65,6 @@
 
 - (NSArray *)sortedArrayUsingComparator:(NSComparator)cmptr AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 - (NSArray *)sortedArrayWithOptions:(NSSortOptions)opts usingComparator:(NSComparator)cmptr AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-enum {
-	NSBinarySearchingFirstEqual = (1 << 8),
-	NSBinarySearchingLastEqual = (1 << 9),
-	NSBinarySearchingInsertionIndex = (1 << 10),
-};
-typedef NSUInteger NSBinarySearchingOptions;
-
-- (NSUInteger)indexOfObject:(id)obj inSortedRange:(NSRange)r options:(NSBinarySearchingOptions)opts usingComparator:(NSComparator)cmp AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; // binary search
-
 #endif
 
 @end

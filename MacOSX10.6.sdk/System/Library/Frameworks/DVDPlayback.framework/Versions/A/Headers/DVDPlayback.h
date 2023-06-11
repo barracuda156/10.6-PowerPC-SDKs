@@ -38,6 +38,22 @@
 #include	<ApplicationServices/ApplicationServices.h>
 #include	<Security/Authorization.h>
 
+#ifndef AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6
+	#define AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6    AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER
+#endif
+
+#ifndef AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6
+	#define AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6    AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER
+#endif
+
+#ifndef AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6
+	#define AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6    AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER
+#endif
+
+#ifndef AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER
+	#define AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -78,8 +94,7 @@ enum {
 	kDVDErrorInvalidBookmarkVersion		= -70030,	//	invalid bookmark version
 	kDVDErrorInvalidBookmarkSize		= -70031,	//	invalid bookmark size
 	kDVDErrorInvalidBookmarkForMedia	= -70032,	//	invalid bookmark for media
-	kDVDErrorNoValidBookmarkForLastPlay	= -70033,	//	no valid last play bookmark
-	kDVDErrorDisplayAuthentification	= -70034	//	invalid display authentication: e.g. HDCP failure, ...
+	kDVDErrorNoValidBookmarkForLastPlay	= -70033	//	no valid last play bookmark
 
 };
 typedef	OSStatus	DVDErrorCode;

@@ -37,7 +37,12 @@
 */
 @interface QTCaptureDecompressedVideoOutput : QTCaptureOutput {
 @private
+#if __LP64__
+	int32_t										_delegateProxy;
+#endif
+#if !__LP64__
 	QTCaptureDecompressedVideoOutputInternal	*_internal;
+#endif	
 	id											_delegate;
 
 	long										_reserved4;
@@ -81,7 +86,7 @@
 */
 - (void)setPixelBufferAttributes:(NSDictionary *)pixelBufferAttributes;
 
-#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7
+#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6
 
 /*!
     @method minimumVideoFrameInterval
@@ -124,7 +129,7 @@
  */
 - (void)setAutomaticallyDropsLateVideoFrames:(BOOL)automaticallyDropsLateVideoFrames;
 
-#endif /* QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7 */
+#endif /* QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6 */
 
 /*!
     @method delegate
@@ -138,6 +143,8 @@
 */
 - (void)setDelegate:(id)delegate;
 
+#if !__LP64__
+
 /*!
     @method outputVideoFrame:withSampleBuffer:fromConnection:
     @abstract Called whenever the receiver outputs a new video frame.
@@ -150,6 +157,8 @@
     @param connection The connection from which the video was received.
 */
 - (void)outputVideoFrame:(CVImageBufferRef)videoFrame withSampleBuffer:(QTSampleBuffer *)sampleBuffer fromConnection:(QTCaptureConnection *)connection;
+
+#endif /* !__LP64__ */
 
 @end
 
@@ -168,7 +177,7 @@
 */
 - (void)captureOutput:(QTCaptureOutput *)captureOutput didOutputVideoFrame:(CVImageBufferRef)videoFrame withSampleBuffer:(QTSampleBuffer *)sampleBuffer fromConnection:(QTCaptureConnection *)connection;
 
-#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7
+#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6
 /*!
     @method captureOutput:didDropVideoFrameWithSampleBuffer:fromConnection:
     @abstract This method is called once for each frame that is dropped when automaticallyDropsLateVideoFrames is set to YES.
@@ -185,7 +194,7 @@
     @param connection The connection from which the dropped video frame was received.
 */
 - (void)captureOutput:(QTCaptureOutput *)captureOutput didDropVideoFrameWithSampleBuffer:(QTSampleBuffer *)sampleBuffer fromConnection:(QTCaptureConnection *)connection;
-#endif /* QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7 */
+#endif /* QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6 */
 
 @end
 

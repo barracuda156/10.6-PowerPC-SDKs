@@ -3,7 +3,7 @@
  
      Contains:   HIView-based movie playback
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 2004-2008 by Apple Inc., all rights reserved.
  
@@ -95,7 +95,7 @@ enum {
   /*
    * No attributes
    */
-  kHIMovieViewNoAttributes      = 0,
+  kHIMovieViewNoAttributes      = 0L,
 
   /*
    * Movie controller bar is visible below visual content

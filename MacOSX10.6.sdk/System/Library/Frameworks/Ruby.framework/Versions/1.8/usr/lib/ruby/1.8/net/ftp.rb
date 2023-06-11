@@ -278,9 +278,12 @@ module Net
     def sendport(host, port)
       af = (@sock.peeraddr)[0]
       if af == "AF_INET"
-	cmd = "PORT " + (host.split(".") + port.divmod(256)).join(",")
+	hbytes = host.split(".")
+	pbytes = [port / 256, port % 256]
+	bytes = hbytes + pbytes
+	cmd = "PORT " + bytes.join(",")
       elsif af == "AF_INET6"
-	cmd = sprintf("EPRT |2|%s|%d|", host, port)
+	cmd = "EPRT |2|" + host + "|" + sprintf("%d", port) + "|"
       else
 	raise FTPProtoError, host
       end

@@ -44,7 +44,7 @@ that executes an action on the driver's work-loop.  'On the work-loop' is
 actually a lie but the work-loop single threaded semantic is maintained for this
 event source.  Using the work-loop gate rather than execution by the workloop.
 The command gate tests for a potential self dead lock by checking if the
-runCommand request is made from the work-loop's thread, it doesn't check for a
+runCommand request is made from the work-loop's thread, it doens't check for a
 mutual dead lock though where a pair of work loop's dead lock each other.
 <br><br>
 	The IOCommandGate is a lighter weight version of the IOCommandQueue and

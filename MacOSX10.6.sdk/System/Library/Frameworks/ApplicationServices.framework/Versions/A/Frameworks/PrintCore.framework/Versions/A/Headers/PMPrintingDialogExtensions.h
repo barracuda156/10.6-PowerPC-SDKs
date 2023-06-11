@@ -16,8 +16,8 @@
 #ifndef __PMPRINTINGDIALOGEXTENSIONS__
 #define __PMPRINTINGDIALOGEXTENSIONS__
 
+#include <ApplicationServices/ApplicationServices.h>
 #include <CoreFoundation/CoreFoundation.h>
-#include <CoreServices/CoreServices.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -78,7 +78,7 @@ Basic types...
 #define kAppPrintThumbnailTypeIDStr			CFSTR("9320FE03-B5D5-11D5-84D1-003065D6135E")
 #define kPrinterModuleTypeIDStr				CFSTR("BDB091F4-E57F-11D3-B5CC-0050E4603277")
 
-	
+
 #ifdef __cplusplus
 }
 #endif

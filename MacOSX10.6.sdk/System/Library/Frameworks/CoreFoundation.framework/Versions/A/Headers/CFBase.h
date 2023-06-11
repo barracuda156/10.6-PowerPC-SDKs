@@ -1,11 +1,15 @@
 /*	CFBase.h
-	Copyright (c) 1998-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1998-2007, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFBASE__)
 #define __COREFOUNDATION_CFBASE__ 1
 
 #include <TargetConditionals.h>
+
+#if TARGET_OS_WIN32
+#define WIN32_LEAN_AND_MEAN 1
+#endif
 
 #if (defined(__CYGWIN32__) || defined(_WIN32)) && !defined(__WIN32__)
 #define __WIN32__ 1
@@ -32,6 +36,10 @@
 #endif
 
 #if TARGET_OS_WIN32
+#define BOOL WINDOWS_BOOL
+//#include <winsock2.h>
+//#include <windows.h>
+#undef BOOL
 #include <stdint.h>
 #include <stdbool.h>
 #elif defined(__GNUC__)
@@ -100,18 +108,6 @@
 #endif
 #endif
 
-#if TARGET_OS_WIN32 && defined(CF_BUILDING_CF) && defined(__cplusplus)
-#define CF_EXPORT extern "C" __declspec(dllexport) 
-#elif TARGET_OS_WIN32 && defined(CF_BUILDING_CF) && !defined(__cplusplus)
-#define CF_EXPORT extern __declspec(dllexport) 
-#elif TARGET_OS_WIN32 && defined(__cplusplus)
-#define CF_EXPORT extern "C" __declspec(dllimport) 
-#elif TARGET_OS_WIN32
-#define CF_EXPORT extern __declspec(dllimport) 
-#else
-#define CF_EXPORT extern
-#endif
-
 CF_EXTERN_C_BEGIN
 
 #if !defined(NULL)
@@ -132,6 +128,23 @@ CF_EXTERN_C_BEGIN
     #define FALSE	0
 #endif
 
+#if TARGET_OS_WIN32
+    #undef CF_EXPORT
+    #if defined(CF_BUILDING_CF)
+	#define CF_EXPORT __declspec(dllexport) extern
+    #else
+	#define CF_EXPORT __declspec(dllimport) extern
+    #endif
+#elif defined(macintosh)
+    #if defined(__MWERKS__)
+        #define CF_EXPORT __declspec(export) extern
+    #endif
+#endif
+
+#if !defined(CF_EXPORT)
+    #define CF_EXPORT extern
+#endif
+
 #if !defined(CF_INLINE)
     #if defined(__GNUC__) && (__GNUC__ == 4) && !defined(DEBUG)
         #define CF_INLINE static __inline__ __attribute__((always_inline))
@@ -149,7 +162,6 @@ CF_EXTERN_C_BEGIN
 
 CF_EXPORT double kCFCoreFoundationVersionNumber;
 
-#if TARGET_OS_MAC
 #define kCFCoreFoundationVersionNumber10_0	196.40
 #define kCFCoreFoundationVersionNumber10_0_3	196.50
 #define kCFCoreFoundationVersionNumber10_1	226.00
@@ -194,14 +206,6 @@ CF_EXPORT double kCFCoreFoundationVersionNumber;
 #define kCFCoreFoundationVersionNumber10_4_11	368.31
 #define kCFCoreFoundationVersionNumber10_5	476.00
 #define kCFCoreFoundationVersionNumber10_5_1	476.00
-#define kCFCoreFoundationVersionNumber10_5_2	476.10
-#define kCFCoreFoundationVersionNumber10_5_3	476.13
-#define kCFCoreFoundationVersionNumber10_5_4	476.14
-#endif
-
-#if TARGET_OS_IPHONE
-#define kCFCoreFoundationVersionNumber_iPhoneOS_2_0	478.23
-#endif
 
 typedef unsigned long CFTypeID;
 typedef unsigned long CFOptionFlags;

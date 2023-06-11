@@ -60,12 +60,12 @@ DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
  * @discussion Opens Directory Services API reference via TCP. Must be called before any other
  * 		Directory Services API calls because this reference is needed for any other call.
  * @param outDirRef reference to use in subsequent Directory Services API calls
- * @param inHostOrIPAddress either the hostname or dotted IP address of the remote DirectoryService machine
+ * @param inIPAddress either the domain or IP (dot) address of the remote DirectoryService machine
  * @param inIPPort either the client defined port or "0" which then allows use of the default
  */
 #define DSPROXY 1
 tDirStatus	dsOpenDirServiceProxy 		(	tDirReference		   *outDirRef,
-											const char			   *inHostOrIPAddress,
+											const char			   *inIPAddress,
 											UInt32					inIPPort,
 											tDataNodePtr			inAuthMethod,
 											tDataBufferPtr			inAuthStepData,

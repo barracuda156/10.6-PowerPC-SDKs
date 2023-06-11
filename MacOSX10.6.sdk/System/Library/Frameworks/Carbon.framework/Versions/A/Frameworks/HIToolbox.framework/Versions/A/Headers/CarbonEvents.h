@@ -3,7 +3,7 @@
  
      Contains:   Carbon Event Manager
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 1999-2008 by Apple Inc., all rights reserved.
  
@@ -2644,8 +2644,8 @@ enum {
 
 typedef UInt32 TSMDocAccessAttributes;
 enum {
-  kTSMDocAccessFontSizeAttribute = 1 << kTSMDocAccessFontSizeAttributeBit,
-  kTSMDocAccessEffectiveRangeAttribute = 1 << kTSMDocAccessEffectiveRangeAttributeBit /* More attributes may be added in the future*/
+  kTSMDocAccessFontSizeAttribute = 1L << kTSMDocAccessFontSizeAttributeBit,
+  kTSMDocAccessEffectiveRangeAttribute = 1L << kTSMDocAccessEffectiveRangeAttributeBit /* More attributes may be added in the future*/
 };
 
 
@@ -4703,8 +4703,8 @@ enum {
 };
 
 enum {
-  kEventKeyModifierNumLockMask  = 1 << kEventKeyModifierNumLockBit,
-  kEventKeyModifierFnMask       = 1 << kEventKeyModifierFnBit
+  kEventKeyModifierNumLockMask  = 1L << kEventKeyModifierNumLockBit,
+  kEventKeyModifierFnMask       = 1L << kEventKeyModifierFnBit
 };
 
 
@@ -6007,9 +6007,9 @@ enum {
    * If kHIModalClickIsModal is set and kHIModalClickAllowEvent is not
    * set, this flag indicates whether the caller should announce that
    * the click has been blocked by a modal window using appropriate UI
-   * (typically, by calling AudioServicesPlayAlertSound). If
-   * kHIModalClickIsModal is not set, or if kHIModalClickAllowEvent is
-   * set, this flag is ignored.
+   * (typically, by calling AlertSoundPlay). If kHIModalClickIsModal is
+   * not set, or if kHIModalClickAllowEvent is set, this flag is
+   * ignored.
    */
   kHIModalClickAnnounce         = 1 << 2,
 
@@ -6122,8 +6122,7 @@ enum {
  *          modal window that is in front of the clicked window, if
  *          any. This parameter is only required if the
  *          kEventParamModalClickResult parameter contains
- *          kHIModalClickIsModal. The modality values you may add here
- *          are from the WindowModality enumeration in MacWindows.h.
+ *          kHIModalClickIsModal.
  *  
  *  Availability:
  *    Mac OS X:         in version 10.4 and later in Carbon.framework
@@ -8604,72 +8603,57 @@ enum {
  *    
  *    --> kEventParamWindowRef (in, typeWindowRef)
  *          The window under the mouse. Available in Mac OS X 10.1 and
- *          later. This parameter may not be present in all instances
- *          of this event, even on Mac OS X 10.1 and later.
+ *          later.
  *    
  *    --> kEventParamWindowMouseLocation (in, typeHIPoint)
  *          The window-relative position of the mouse in the window
  *          given in the kEventParamWindowRef parameter. 0,0 is at the
  *          top left of the structure of the window. Available in Mac
- *          OS X 10.1 and later. This parameter may not be present in
- *          all instances of this event, even on Mac OS X 10.1 and
- *          later.
+ *          OS X 10.1 and later.
  *    
  *    --> kEventParamWindowPartCode (in, typeWindowPartCode)
  *          The part code that the mouse location hit in the window.
- *          This parameter may not be present in all instances of this
- *          event. This saves you the trouble of calling FindWindow,
+ *          This parameter only exists if the WindowRef parameter
+ *          exists. This saves you the trouble of calling FindWindow,
  *          which is expensive on Mac OS X as it needs to call the
- *          Window Server. Available in Mac OS X 10.3 and later. This
- *          parameter may not be present in all instances of this
- *          event, even on Mac OS X 10.3 and later.
+ *          Window Server. Available in Mac OS X 10.3 and later.
  *    
  *    --> kEventParamKeyModifiers (in, typeUInt32)
  *          The keyboard modifiers that were pressed when the event was
  *          generated.
  *    
  *    --> kEventParamMouseButton (in, typeMouseButton)
- *          Which mouse button was pressed. This parameter may not be
- *          present in all instances of this event.
+ *          Which mouse button was pressed.
  *    
  *    --> kEventParamClickCount (in, typeUInt32)
- *          Whether this is a single click, double click, etc. This
- *          parameter may not be present in all instances of this event.
+ *          Whether this is a single click, double click, etc.
  *    
  *    --> kEventParamMouseChord (in, typeUInt32)
  *          Which other mouse buttons were pressed when the event was
- *          generated. Available on Mac OS X only. This parameter may
- *          not be present in all instances of this event, even on Mac
- *          OS X.
+ *          generated. Available on Mac OS X only.
  *    
  *    --> kEventParamTabletEventType (in, typeUInt32)
  *          The type of tablet event which generated this mouse event;
  *          contains either kEventTabletPoint or kEventTabletProximity.
  *          Only present if the event was generated from a tablet.
  *          Available in Mac OS X 10.1 and CarbonLib 1.5, and later.
- *          This parameter may not be present in all instances of this
- *          event, even on the previously mentioned platforms.
  *    
  *    --> kEventParamTabletPointRec (in, typeTabletPointRec)
  *          Further information about the tablet event which generated
  *          this mouse event. Present if the the
  *          kEventParamTabletEventType parameter contains
  *          kEventTabletPoint. Available on Mac OS X 10.1 and CarbonLib
- *          1.5, and later. This parameter may not be present in all
- *          instances of this event, even on the previously mentioned
- *          platforms.
+ *          1.5, and later.
  *    
  *    --> kEventParamTabletProximityRec (in, typeTabletProximityRec)
  *          Further information about the tablet event which generated
  *          this mouse event. Present if the the
  *          kEventParamTabletEventType parameter contains
  *          kEventTabletProximity. Available on Mac OS X 10.1 and
- *          CarbonLib 1.5, and later. This parameter may not be present
- *          in all instances of this event, even on the previously
- *          mentioned platforms.
+ *          CarbonLib 1.5, and later.
  *  
  *  Availability:
- *    Mac OS X:         in version 10.1 and later in Carbon.framework
+ *    Mac OS X:         in version 10.0 and later in Carbon.framework
  *    CarbonLib:        not available
  */
 enum {
@@ -9792,9 +9776,7 @@ enum {
 
   /*
    * Indicates that this Carbon event has been sent during a popup menu
-   * tracking session. In Mac OS X 10.6 and later,
-   * kMenuContextContextualMenu may also be set if the popup menu is a
-   * contextual menu.
+   * tracking session.
    */
   kMenuContextPopUpTracking     = 1 << 17,
 
@@ -9836,16 +9818,7 @@ enum {
    * determine if any menu item content does not need to be updated.
    * Available on Mac OS X 10.5 and later.
    */
-  kMenuContextInspection        = 1 << 22,
-
-  /*
-   * Indicates that this Carbon event has been sent during display of a
-   * contextual menu. When this flag is set, the
-   * kMenuContextPopUpTracking flag will also be set (since contextual
-   * menus are always also popup menus). Available in Mac OS X 10.6 and
-   * later.
-   */
-  kMenuContextContextualMenu    = 1 << 23
+  kMenuContextInspection        = 1 << 22
 };
 
 
@@ -11530,7 +11503,7 @@ enum {
    * This bit is set for commands generated from menu items in all
    * versions of CarbonLib and Mac OS X.
    */
-  kHICommandFromMenu            = (1 << 0),
+  kHICommandFromMenu            = (1L << 0),
 
   /*
    * Indicates that the command originates from a control. The
@@ -11538,7 +11511,7 @@ enum {
    * introduced in Mac OS X 10.2 and CarbonLib 1.6. It is never set in
    * earlier versions of Mac OS X or CarbonLib.
    */
-  kHICommandFromControl         = (1 << 1),
+  kHICommandFromControl         = (1L << 1),
 
   /*
    * Indicates that the command originates from a window. The
@@ -11546,7 +11519,7 @@ enum {
    * introduced in Mac OS X 10.2 and CarbonLib 1.6. It is never set in
    * earlier versions of Mac OS X or CarbonLib.
    */
-  kHICommandFromWindow          = (1 << 2)
+  kHICommandFromWindow          = (1L << 2)
 };
 
 

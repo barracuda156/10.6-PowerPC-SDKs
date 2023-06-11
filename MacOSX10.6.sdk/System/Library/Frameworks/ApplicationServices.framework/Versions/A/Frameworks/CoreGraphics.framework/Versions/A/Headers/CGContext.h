@@ -73,11 +73,10 @@ typedef enum CGTextEncoding CGTextEncoding;
 /* Interpolation quality. */
 
 enum CGInterpolationQuality {
-    kCGInterpolationDefault = 0,	/* Let the context decide. */
-    kCGInterpolationNone = 1,		/* Never interpolate. */
-    kCGInterpolationLow = 2,		/* Low quality, fast interpolation. */
-    kCGInterpolationMedium = 4,		/* Medium quality, slower than kCGInterpolationLow. */
-    kCGInterpolationHigh = 3		/* Highest quality, slower than kCGInterpolationMedium. */
+    kCGInterpolationDefault,		/* Let the context decide. */
+    kCGInterpolationNone,		/* Never interpolate. */
+    kCGInterpolationLow,		/* Faster, lower quality. */
+    kCGInterpolationHigh		/* Slower, higher quality. */
 };
 typedef enum CGInterpolationQuality CGInterpolationQuality;
 
@@ -338,30 +337,23 @@ CG_EXTERN void CGContextReplacePathWithStrokedPath(CGContextRef c)
 
 /** Path information functions. **/
 
-/* Return true if the path of `context' contains no elements, false
+/* Return true if the context's path contains no elements, false
    otherwise. */
 
-CG_EXTERN bool CGContextIsPathEmpty(CGContextRef context)
+CG_EXTERN bool CGContextIsPathEmpty(CGContextRef c)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return the current point of the current subpath of the path of
-   `context'. */
+/* Return the current point of the current subpath of the context's path. */
 
-CG_EXTERN CGPoint CGContextGetPathCurrentPoint(CGContextRef context)
+CG_EXTERN CGPoint CGContextGetPathCurrentPoint(CGContextRef c)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Return the bounding box of the path of `context'. The bounding box is the
+/* Return the bounding box of the context's path. The bounding box is the
    smallest rectangle completely enclosing all points in the path, including
    control points for Bezier and quadratic curves. */
 
-CG_EXTERN CGRect CGContextGetPathBoundingBox(CGContextRef context)
+CG_EXTERN CGRect CGContextGetPathBoundingBox(CGContextRef c)
     CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
-
-/* Return a copy of the path of `context'. The returned path is specified in
-   the current user space of `context'. */
-
-CG_EXTERN CGPathRef CGContextCopyPath(CGContextRef context)
-    CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Return true if `point' is contained in the current path of `context'. A
    point is contained within a context's path if it is inside the painted
@@ -903,75 +895,27 @@ CG_EXTERN void CGContextSynchronize(CGContextRef c)
 /* Turn on antialiasing if `shouldAntialias' is true; turn it off otherwise.
    This parameter is part of the graphics state. */
 
-CG_EXTERN void CGContextSetShouldAntialias(CGContextRef context,
+CG_EXTERN void CGContextSetShouldAntialias(CGContextRef c,
     bool shouldAntialias) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
 
-/* Allow antialiasing in `context' if `allowsAntialiasing' is true; don't
+/* Allow antialiasing in context `c' if `allowsAntialiasing' is true; don't
    allow it otherwise. This parameter is not part of the graphics state. A
    context will perform antialiasing if both `allowsAntialiasing' and the
    graphics state parameter `shouldAntialias' are true. */
 
 CG_EXTERN void CGContextSetAllowsAntialiasing(CGContextRef context,
-    bool allowsAntialiasing) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+    bool allowsAntialiasing)
+    CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
-/** Font display functions. **/
+/** Font smoothing functions. **/
 
 /* Turn on font smoothing if `shouldSmoothFonts' is true; turn it off
    otherwise. This parameter is part of the graphics state. Note that this
    doesn't guarantee that font smoothing will occur: not all destination
    contexts support font smoothing. */
 
-CG_EXTERN void CGContextSetShouldSmoothFonts(CGContextRef context,
+CG_EXTERN void CGContextSetShouldSmoothFonts(CGContextRef c,
     bool shouldSmoothFonts) CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
-
-/* If `allowsFontSmoothing' is true, then allow font smoothing when
-   displaying text in `context'; otherwise, don't allow font smoothing. This
-   parameter is not part of the graphics state. Fonts will be smoothed if
-   they are antialiased when drawn and if both `allowsFontSmoothing' and the
-   graphics state parameter `shouldSmoothFonts' are true. */
- 
-CG_EXTERN void CGContextSetAllowsFontSmoothing(CGContextRef context,
-    bool allowsFontSmoothing) CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
-
-/* If `shouldSubpixelPositionFonts' is true, then glyphs may be placed at
-   subpixel positions (if allowed) when displaying text in `context';
-   otherwise, glyphs will be forced to integer pixel boundaries. This
-   parameter is part of the graphics state. */
-
-CG_EXTERN void CGContextSetShouldSubpixelPositionFonts(CGContextRef context,
-    bool shouldSubpixelPositionFonts)
-    CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-
-/* If `allowsFontSubpixelPositioning' is true, then allow font subpixel
-   positioning when displaying text in `context'; otherwise, don't allow
-   subpixel positioning. This parameter is not part of the graphics state. A
-   context will place glyphs at subpixel positions if fonts will be
-   antialiased when drawn and if both `allowsFontSubpixelPositioning' and
-   the graphics state parameter `shouldSubpixelPositionFonts' are true. */
-
-CG_EXTERN void CGContextSetAllowsFontSubpixelPositioning(CGContextRef context,
-    bool allowsFontSubpixelPositioning)
-    CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-
-/* If `shouldSubpixelQuantizeFonts' is true, then quantize the subpixel
-   positions of glyphs when displaying text in `context'; otherwise, don't
-   quantize the subpixel positions. This parameter is part of the graphics
-   state. */
-
-CG_EXTERN void CGContextSetShouldSubpixelQuantizeFonts(CGContextRef context,
-    bool shouldSubpixelQuantizeFonts)
-    CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
-
-/* If `allowsFontSubpixelQuantization' is true, then allow font subpixel
-   quantization when displaying text in `context'; otherwise, don't allow
-   subpixel quantization. This parameter is not part of the graphics state.
-   A context quantizes subpixel positions if glyphs will be drawn at
-   subpixel positions and `allowsFontSubpixelQuantization' and the graphics
-   state parameter `shouldSubpixelQuantizeFonts' are both true. */
-
-CG_EXTERN void CGContextSetAllowsFontSubpixelQuantization(CGContextRef context,
-    bool allowsFontSubpixelQuantization)
-    CG_AVAILABLE_STARTING(__MAC_10_5, __IPHONE_2_0);
 
 /** Transparency layer support. **/
 

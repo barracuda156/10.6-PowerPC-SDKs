@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 1990-2008 by Apple Inc., all rights reserved
  
@@ -147,38 +147,38 @@ enum {
 enum {
   kUserDataMovieControllerType  = 'ctyp',
   kUserDataName                 = 'name',
-  kUserDataTextAlbum            = (int)0xA9616C62/*'©alb' */,
-  kUserDataTextArtist           = (int)0xA9415254,
-  kUserDataTextAuthor           = (int)0xA9617574/*'©aut' */,
-  kUserDataTextChapter          = (int)0xA9636870/*'©chp' */,
-  kUserDataTextComment          = (int)0xA9636D74/*'©cmt' */,
-  kUserDataTextComposer         = (int)0xA9636F6D/*'©com' */,
-  kUserDataTextCopyright        = (int)0xA9637079/*'©cpy' */,
-  kUserDataTextCreationDate     = (int)0xA9646179/*'©day' */,
-  kUserDataTextDescription      = (int)0xA9646573/*'©des' */,
-  kUserDataTextDirector         = (int)0xA9646972/*'©dir' */,
-  kUserDataTextDisclaimer       = (int)0xA9646973/*'©dis' */,
-  kUserDataTextEncodedBy        = (int)0xA9656E63/*'©enc' */,
-  kUserDataTextFullName         = (int)0xA96E616D/*'©nam' */,
-  kUserDataTextGenre            = (int)0xA967656E/*'©gen' */,
-  kUserDataTextHostComputer     = (int)0xA9687374/*'©hst' */,
-  kUserDataTextInformation      = (int)0xA9696E66/*'©inf' */,
-  kUserDataTextKeywords         = (int)0xA96B6579/*'©key' */,
-  kUserDataTextMake             = (int)0xA96D616B/*'©mak' */,
-  kUserDataTextModel            = (int)0xA96D6F64/*'©mod' */,
-  kUserDataTextOriginalArtist   = (int)0xA96F7065/*'©ope' */,
-  kUserDataTextOriginalFormat   = (int)0xA9666D74/*'©fmt' */,
-  kUserDataTextOriginalSource   = (int)0xA9737263/*'©src' */,
-  kUserDataTextPerformers       = (int)0xA9707266/*'©prf' */,
-  kUserDataTextProducer         = (int)0xA9707264/*'©prd' */,
-  kUserDataTextProduct          = (int)0xA9505244,
-  kUserDataTextSoftware         = (int)0xA9737772/*'©swr' */,
-  kUserDataTextSpecialPlaybackRequirements = (int)0xA9726571/*'©req' */,
-  kUserDataTextTrack            = (int)0xA974726B/*'©trk' */,
-  kUserDataTextWarning          = (int)0xA977726E/*'©wrn' */,
-  kUserDataTextWriter           = (int)0xA9777274/*'©wrt' */,
-  kUserDataTextURLLink          = (int)0xA975726C/*'©url' */,
-  kUserDataTextEditDate1        = (int)0xA9656431/*'©ed1' */,
+  kUserDataTextAlbum            = (long)0xA9616C62/*'©alb' */,
+  kUserDataTextArtist           = (long)0xA9415254,
+  kUserDataTextAuthor           = (long)0xA9617574/*'©aut' */,
+  kUserDataTextChapter          = (long)0xA9636870/*'©chp' */,
+  kUserDataTextComment          = (long)0xA9636D74/*'©cmt' */,
+  kUserDataTextComposer         = (long)0xA9636F6D/*'©com' */,
+  kUserDataTextCopyright        = (long)0xA9637079/*'©cpy' */,
+  kUserDataTextCreationDate     = (long)0xA9646179/*'©day' */,
+  kUserDataTextDescription      = (long)0xA9646573/*'©des' */,
+  kUserDataTextDirector         = (long)0xA9646972/*'©dir' */,
+  kUserDataTextDisclaimer       = (long)0xA9646973/*'©dis' */,
+  kUserDataTextEncodedBy        = (long)0xA9656E63/*'©enc' */,
+  kUserDataTextFullName         = (long)0xA96E616D/*'©nam' */,
+  kUserDataTextGenre            = (long)0xA967656E/*'©gen' */,
+  kUserDataTextHostComputer     = (long)0xA9687374/*'©hst' */,
+  kUserDataTextInformation      = (long)0xA9696E66/*'©inf' */,
+  kUserDataTextKeywords         = (long)0xA96B6579/*'©key' */,
+  kUserDataTextMake             = (long)0xA96D616B/*'©mak' */,
+  kUserDataTextModel            = (long)0xA96D6F64/*'©mod' */,
+  kUserDataTextOriginalArtist   = (long)0xA96F7065/*'©ope' */,
+  kUserDataTextOriginalFormat   = (long)0xA9666D74/*'©fmt' */,
+  kUserDataTextOriginalSource   = (long)0xA9737263/*'©src' */,
+  kUserDataTextPerformers       = (long)0xA9707266/*'©prf' */,
+  kUserDataTextProducer         = (long)0xA9707264/*'©prd' */,
+  kUserDataTextProduct          = (long)0xA9505244,
+  kUserDataTextSoftware         = (long)0xA9737772/*'©swr' */,
+  kUserDataTextSpecialPlaybackRequirements = (long)0xA9726571/*'©req' */,
+  kUserDataTextTrack            = (long)0xA974726B/*'©trk' */,
+  kUserDataTextWarning          = (long)0xA977726E/*'©wrn' */,
+  kUserDataTextWriter           = (long)0xA9777274/*'©wrt' */,
+  kUserDataTextURLLink          = (long)0xA975726C/*'©url' */,
+  kUserDataTextEditDate1        = (long)0xA9656431/*'©ed1' */,
   kUserDataAnimatedGIFLoopCount = 'gifc', /* data is big-endian UInt16 */
   kQTAnimatedGIFLoopCountInfinite = 0,
   kUserDataAnimatedGIFBufferingSize = 'gifb' /* data is big-endian UInt32 */
@@ -8069,7 +8069,7 @@ enum {
   kMovieLoadStateLoaded         = 2000,
   kMovieLoadStatePlayable       = 10000,
   kMovieLoadStatePlaythroughOK  = 20000,
-  kMovieLoadStateComplete       = 100000
+  kMovieLoadStateComplete       = 100000L
 };
 
 /*

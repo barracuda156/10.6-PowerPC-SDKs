@@ -70,7 +70,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 /* "Kinds" of ActivationNotify events */
 #define AppleWMIsActive			0
 #define AppleWMIsInactive		1
-#define AppleWMReloadPreferences	2
 
 /* "Kinds" of PasteboardNotify events */
 #define AppleWMCopyToPasteboard		0

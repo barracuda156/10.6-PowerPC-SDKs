@@ -3,7 +3,7 @@
  
      Contains:   WebServicesCore Method implementation API
  
-     Version:    OSServices-310~14
+     Version:    OSServices-302.1~3
  
      Copyright:  © 2002-2008 by Apple Computer, Inc., all rights reserved
  

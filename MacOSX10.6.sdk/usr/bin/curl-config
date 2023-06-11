@@ -6,7 +6,7 @@
 #                            | (__| |_| |  _ <| |___
 #                             \___|\___/|_| \_\_____|
 #
-# Copyright (C) 2001 - 2008, Daniel Stenberg, <daniel@haxx.se>, et al.
+# Copyright (C) 2001 - 2007, Daniel Stenberg, <daniel@haxx.se>, et al.
 #
 # This software is licensed as described in the file COPYING, which
 # you should have received as part of this distribution. The terms
@@ -19,7 +19,7 @@
 # This software is distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY
 # KIND, either express or implied.
 #
-# $Id: curl-config.in,v 1.32 2008-01-10 22:14:02 bagder Exp $
+# $Id: curl-config.in,v 1.30 2007-10-25 22:30:35 danf Exp $
 ###########################################################################
 #
 # The idea to this kind of setup info script was stolen from numerous
@@ -68,7 +68,7 @@ while test $# -gt 0; do
 
     case "$1" in
     --ca)
-	echo ""/usr/share/curl/curl-ca-bundle.crt""
+	echo ""${prefix}/share/curl/curl-ca-bundle.crt""
 	;;
 
     --cc)
@@ -83,7 +83,7 @@ while test $# -gt 0; do
 	if test "1" = "1"; then
           echo "SSL"
           NTLM=1 # OpenSSL implies NTLM
-        elif test -n "1"; then
+        elif test -n ""; then
           echo "SSL"
         fi
 	if test "" = "1"; then
@@ -141,13 +141,13 @@ while test $# -gt 0; do
 	if test "" != "1"; then
           echo "TFTP"
         fi
-	if test "" = "1"; then
+	if test "1" = "1"; then
           echo "SCP"
           echo "SFTP"
         fi
 	;;
     --version)
-	echo libcurl 7.19.0
+	echo libcurl 7.17.1
 	exit 0
 	;;
 
@@ -159,20 +159,20 @@ while test $# -gt 0; do
 	# dash as that's used for things like version 1.2.3-CVS
 	cpatch=`echo $checkfor | cut -d. -f3 | cut -d- -f1`
         checknum=`echo "$cmajor*256*256 + $cminor*256 + ${cpatch:-0}" | bc`
-        numuppercase=`echo 071300 | tr 'a-f' 'A-F'`
+        numuppercase=`echo 071101 | tr 'a-f' 'A-F'`
         nownum=`echo "obase=10; ibase=16; $numuppercase" | bc`
 
 	if test "$nownum" -ge "$checknum"; then
 	  # silent success
 	  exit 0
 	else
-	  echo "requested version $checkfor is newer than existing 7.19.0"
+	  echo "requested version $checkfor is newer than existing 7.17.1"
 	  exit 1
 	fi
 	;;
 
     --vernum)
-	echo 071300
+	echo 071101
 	exit 0
 	;;
 
@@ -189,20 +189,20 @@ while test $# -gt 0; do
        	;;
 
     --libs)
-	if test "X${exec_prefix}/lib" != "X/usr/lib" -a "X${exec_prefix}/lib" != "X/usr/lib64"; then
+	if test "X${exec_prefix}/lib" != "X/usr/lib"; then
 	   CURLLIBDIR="-L${exec_prefix}/lib "
 	else
 	   CURLLIBDIR=""
 	fi
 	if test "Xyes" = "Xyes"; then
-	  echo ${CURLLIBDIR}-lcurl -lssl -lcrypto -Wl,-weak-lldap -dynamic -g -Os -pipe -pipe -Wl,-search_paths_first -Wl,-weak-lgssapi_krb5 -Wl,-weak-lkrb5 -Wl,-weak-lk5crypto -Wl,-weak-lcom_err -Wl,-weak-lresolv -lz 
+	  echo ${CURLLIBDIR}-lcurl -lssl -lcrypto  -lz 
 	else
 	  echo ${CURLLIBDIR}-lcurl 
 	fi
 	;;
 
     --static-libs)
-	echo ${exec_prefix}/lib/libcurl.a -lssl -lcrypto -Wl,-weak-lldap -dynamic -g -Os -pipe -pipe -Wl,-search_paths_first -Wl,-weak-lgssapi_krb5 -Wl,-weak-lkrb5 -Wl,-weak-lk5crypto -Wl,-weak-lcom_err -Wl,-weak-lresolv -lz 
+	echo ${exec_prefix}/lib/libcurl.a -Wl,-weak-lldap -arch ppc -arch i386 -arch x86_64             -L/BinaryCache/curl/curl-48~50/Root/usr/local/lib -lfbopenssl -dynamic -arch ppc -arch i386 -arch x86_64 -g -Os -pipe -arch ppc -arch i386 -arch x86_64 -pipe -Wl,-search_paths_first -Wl,-weak-lgssapi_krb5 -Wl,-weak-lkrb5 -Wl,-weak-lk5crypto -Wl,-weak-lcom_err -Wl,-weak-lresolv -lssl -lcrypto  -lz 
 	;;
 
     *)

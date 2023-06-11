@@ -7,7 +7,7 @@
 #import <QuartzCore/CATransform3D.h>
 #import <Foundation/NSObject.h>
 
-@class NSArray, NSDictionary, NSEnumerator, CAAnimation, CALayerArray;
+@class NSArray, NSDictionary, NSEnumerator, CAAnimation;
 @protocol CAAction;
 
 /* Bit definitions for `autoresizingMask' property. */
@@ -42,7 +42,7 @@ enum CAEdgeAntialiasingMask
     int32_t refcount;
     uint32_t flags;
     uintptr_t parent;
-    CALayerArray *sublayers;
+    void *sublayers;
     CALayer *mask;
     struct _CALayerState *state;
     struct _CALayerState *previous_state;

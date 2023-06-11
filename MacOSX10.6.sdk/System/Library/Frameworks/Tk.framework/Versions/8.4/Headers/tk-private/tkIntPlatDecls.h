@@ -9,7 +9,7 @@
  * Copyright (c) 1998-1999 by Scriptics Corporation.
  * All rights reserved.
  *
- * RCS: @(#) $Id: tkIntPlatDecls.h,v 1.15.2.4 2005/11/27 02:44:25 das Exp $
+ * RCS: @(#) $Id: tkIntPlatDecls.h,v 1.15 2002/12/08 00:46:51 hobbs Exp $
  */
 
 #ifndef _TKINTPLATDECLS
@@ -107,7 +107,7 @@ EXTERN void		TkWinSetWindowPos _ANSI_ARGS_((HWND hwnd,
 /* 27 */
 EXTERN void		TkWinWmCleanup _ANSI_ARGS_((HINSTANCE hInstance));
 /* 28 */
-EXTERN void		TkWinXCleanup _ANSI_ARGS_((ClientData clientData));
+EXTERN void		TkWinXCleanup _ANSI_ARGS_((HINSTANCE hInstance));
 /* 29 */
 EXTERN void		TkWinXInit _ANSI_ARGS_((HINSTANCE hInstance));
 /* 30 */
@@ -123,8 +123,6 @@ EXTERN Tcl_Obj *	TkWinGetMenuSystemDefault _ANSI_ARGS_((
 EXTERN int		TkWinGetPlatformId _ANSI_ARGS_((void));
 /* 34 */
 EXTERN void		TkWinSetHINSTANCE _ANSI_ARGS_((HINSTANCE hInstance));
-/* 35 */
-EXTERN int		TkWinGetPlatformTheme _ANSI_ARGS_((void));
 #endif /* __WIN32__ */
 #ifdef MAC_TCL
 /* 0 */
@@ -302,8 +300,8 @@ EXTERN Window		TkMacOSXGetXWindow _ANSI_ARGS_((WindowRef macWinPtr));
 EXTERN int		TkMacOSXGrowToplevel _ANSI_ARGS_((
 				WindowRef whichWindow, Point start));
 /* 18 */
-EXTERN void		TkMacOSXHandleMenuSelect _ANSI_ARGS_((MenuID theMenu, 
-				MenuItemIndex theItem, int optionKeyPressed));
+EXTERN void		TkMacOSXHandleMenuSelect _ANSI_ARGS_((long mResult, 
+				int optionKeyPressed));
 /* Slot 19 is reserved */
 /* Slot 20 is reserved */
 /* 21 */
@@ -362,7 +360,8 @@ EXTERN void		TkSetWMName _ANSI_ARGS_((TkWindow * winPtr,
 EXTERN void		TkSuspendClipboard _ANSI_ARGS_((void));
 /* 41 */
 EXTERN int		TkMacOSXZoomToplevel _ANSI_ARGS_((
-				WindowPtr whichWindow, short zoomPart));
+				WindowPtr whichWindow, Point where, 
+				short zoomPart));
 /* 42 */
 EXTERN Tk_Window	Tk_TopCoordsToWindow _ANSI_ARGS_((Tk_Window tkwin, 
 				int rootX, int rootY, int * newX, int * newY));
@@ -456,14 +455,13 @@ typedef struct TkIntPlatStubs {
     void (*tkWinSetMenu) _ANSI_ARGS_((Tk_Window tkwin, HMENU hMenu)); /* 25 */
     void (*tkWinSetWindowPos) _ANSI_ARGS_((HWND hwnd, HWND siblingHwnd, int pos)); /* 26 */
     void (*tkWinWmCleanup) _ANSI_ARGS_((HINSTANCE hInstance)); /* 27 */
-    void (*tkWinXCleanup) _ANSI_ARGS_((ClientData clientData)); /* 28 */
+    void (*tkWinXCleanup) _ANSI_ARGS_((HINSTANCE hInstance)); /* 28 */
     void (*tkWinXInit) _ANSI_ARGS_((HINSTANCE hInstance)); /* 29 */
     void (*tkWinSetForegroundWindow) _ANSI_ARGS_((TkWindow * winPtr)); /* 30 */
     void (*tkWinDialogDebug) _ANSI_ARGS_((int debug)); /* 31 */
     Tcl_Obj * (*tkWinGetMenuSystemDefault) _ANSI_ARGS_((Tk_Window tkwin, CONST char * dbName, CONST char * className)); /* 32 */
     int (*tkWinGetPlatformId) _ANSI_ARGS_((void)); /* 33 */
     void (*tkWinSetHINSTANCE) _ANSI_ARGS_((HINSTANCE hInstance)); /* 34 */
-    int (*tkWinGetPlatformTheme) _ANSI_ARGS_((void)); /* 35 */
 #endif /* __WIN32__ */
 #ifdef MAC_TCL
     void (*tkGenerateActivateEvents) _ANSI_ARGS_((TkWindow * winPtr, int active)); /* 0 */
@@ -553,7 +551,7 @@ typedef struct TkIntPlatStubs {
     void *reserved15;
     Window (*tkMacOSXGetXWindow) _ANSI_ARGS_((WindowRef macWinPtr)); /* 16 */
     int (*tkMacOSXGrowToplevel) _ANSI_ARGS_((WindowRef whichWindow, Point start)); /* 17 */
-    void (*tkMacOSXHandleMenuSelect) _ANSI_ARGS_((MenuID theMenu, MenuItemIndex theItem, int optionKeyPressed)); /* 18 */
+    void (*tkMacOSXHandleMenuSelect) _ANSI_ARGS_((long mResult, int optionKeyPressed)); /* 18 */
     void *reserved19;
     void *reserved20;
     void (*tkMacOSXInvalidateWindow) _ANSI_ARGS_((MacDrawable * macWin, int flag)); /* 21 */
@@ -576,7 +574,7 @@ typedef struct TkIntPlatStubs {
     int (*tkSetMacColor) _ANSI_ARGS_((unsigned long pixel, RGBColor * macColor)); /* 38 */
     void (*tkSetWMName) _ANSI_ARGS_((TkWindow * winPtr, Tk_Uid titleUid)); /* 39 */
     void (*tkSuspendClipboard) _ANSI_ARGS_((void)); /* 40 */
-    int (*tkMacOSXZoomToplevel) _ANSI_ARGS_((WindowPtr whichWindow, short zoomPart)); /* 41 */
+    int (*tkMacOSXZoomToplevel) _ANSI_ARGS_((WindowPtr whichWindow, Point where, short zoomPart)); /* 41 */
     Tk_Window (*tk_TopCoordsToWindow) _ANSI_ARGS_((Tk_Window tkwin, int rootX, int rootY, int * newX, int * newY)); /* 42 */
     MacDrawable * (*tkMacOSXContainerId) _ANSI_ARGS_((TkWindow * winPtr)); /* 43 */
     MacDrawable * (*tkMacOSXGetHostToplevel) _ANSI_ARGS_((TkWindow * winPtr)); /* 44 */
@@ -758,10 +756,6 @@ extern TkIntPlatStubs *tkIntPlatStubsPtr;
 #ifndef TkWinSetHINSTANCE
 #define TkWinSetHINSTANCE \
 	(tkIntPlatStubsPtr->tkWinSetHINSTANCE) /* 34 */
-#endif
-#ifndef TkWinGetPlatformTheme
-#define TkWinGetPlatformTheme \
-	(tkIntPlatStubsPtr->tkWinGetPlatformTheme) /* 35 */
 #endif
 #endif /* __WIN32__ */
 #ifdef MAC_TCL

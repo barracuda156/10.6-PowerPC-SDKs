@@ -1,7 +1,7 @@
 /*
 	NSDocumentController.h
 	Application Kit
-	Copyright (c) 1997-2008, Apple Inc.
+	Copyright (c) 1997-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -252,20 +252,20 @@ For backward binary compatibility with Mac OS 10.4 and earlier, the default impl
 
 /* Methods that were deprecated in Mac OS 10.5, and don't work well in applications whose document types are declared with UTIs. In general, if each of the application's CFBundleDocumentTypes Info.plist entries has a valid LSItemContentTypes subentry, and the application doesn't invoke deprecated methods like -fileNamesFromRunningOpenPanel, then these methods will never be invoked from within Cocoa.
 */
-- (NSArray *)fileExtensionsFromType:(NSString *)typeName DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (NSString *)typeFromFileExtension:(NSString *)fileNameExtensionOrHFSFileType DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
+- (NSArray *)fileExtensionsFromType:(NSString *)typeName;
+- (NSString *)typeFromFileExtension:(NSString *)fileNameExtensionOrHFSFileType;
 
 /* Methods that were deprecated in Mac OS 10.4. See the comments above for information about when your overrides of them are still invoked, for backward binary compatibility.
 */
-- (id)documentForFileName:(NSString *)fileName DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (NSArray *)fileNamesFromRunningOpenPanel DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)makeDocumentWithContentsOfFile:(NSString *)fileName ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)makeDocumentWithContentsOfURL:(NSURL *)url ofType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)makeUntitledDocumentOfType:(NSString *)type DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)openDocumentWithContentsOfFile:(NSString *)fileName display:(BOOL)display DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)openDocumentWithContentsOfURL:(NSURL *)url display:(BOOL)display DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)openUntitledDocumentOfType:(NSString*)type display:(BOOL)display DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (void)setShouldCreateUI:(BOOL)flag DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (BOOL)shouldCreateUI DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
+- (id)documentForFileName:(NSString *)fileName;
+- (NSArray *)fileNamesFromRunningOpenPanel;
+- (id)makeDocumentWithContentsOfFile:(NSString *)fileName ofType:(NSString *)type;
+- (id)makeDocumentWithContentsOfURL:(NSURL *)url ofType:(NSString *)type;
+- (id)makeUntitledDocumentOfType:(NSString *)type;
+- (id)openDocumentWithContentsOfFile:(NSString *)fileName display:(BOOL)display;
+- (id)openDocumentWithContentsOfURL:(NSURL *)url display:(BOOL)display;
+- (id)openUntitledDocumentOfType:(NSString*)type display:(BOOL)display;
+- (void)setShouldCreateUI:(BOOL)flag;
+- (BOOL)shouldCreateUI;
 
 @end

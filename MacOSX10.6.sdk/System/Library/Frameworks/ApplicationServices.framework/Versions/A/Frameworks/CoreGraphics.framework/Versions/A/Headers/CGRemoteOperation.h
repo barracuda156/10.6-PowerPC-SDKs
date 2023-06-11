@@ -9,7 +9,6 @@
 #include <CoreGraphics/CGGeometry.h>
 #include <CoreGraphics/CGError.h>
 #include <CoreGraphics/CGDirectDisplay.h>
-#include <CoreFoundation/CFMachPort.h>
 
 typedef CGError CGEventErr;
 #define CGEventNoErr kCGErrorSuccess
@@ -358,7 +357,7 @@ CGEventSuppressionState state) CG_AVAILABLE_STARTING(__MAC_10_1, __IPHONE_NA);
  * the mouse cursor position, which will not change with mouse movement. Use the
  * <CoreGraphics/CGDirectDisplay.h> function:
  *
- *	void CGGetLastMouseDelta( int32_t * deltaX, int32_t * deltaY );
+ *	void CGGetLastMouseDelta( CGMouseDelta * deltaX, CGMouseDelta * deltaY );
  *
  * This will report mouse movement associated with the last mouse move or drag event.
  *

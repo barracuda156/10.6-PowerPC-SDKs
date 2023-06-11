@@ -21,12 +21,6 @@
  * @APPLE_LICENSE_HEADER_END@
  */
 
-/*!
-    @header		CFOpenDirectoryErrors
-    @abstract   A list of error codes
-    @discussion Contains a list of error codes that can be returned by OpenDirectory APIs.
-*/
-
 #ifndef __CFOPENDIRECTORYERRORS_H
 #define __CFOPENDIRECTORYERRORS_H
 

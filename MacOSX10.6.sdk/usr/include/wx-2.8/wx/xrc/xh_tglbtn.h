@@ -3,7 +3,7 @@
 // Purpose:     XML resource handler for wxToggleButton
 // Author:      Julian Smart
 // Created:     2004-08-30
-// RCS-ID:      $Id: xh_tglbtn.h 41590 2006-10-03 14:53:40Z VZ $
+// RCS-ID:      $Id: xh_tglbtn.h,v 1.5 2006/10/03 14:53:32 VZ Exp $
 // Copyright:   (c) 2004 Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

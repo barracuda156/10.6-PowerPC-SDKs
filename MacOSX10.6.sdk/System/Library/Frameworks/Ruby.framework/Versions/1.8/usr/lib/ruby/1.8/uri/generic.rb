@@ -3,7 +3,7 @@
 #
 # Author:: Akira Yamada <akira@ruby-lang.org>
 # License:: You can redistribute it and/or modify it under the same term as Ruby.
-# Revision:: $Id: generic.rb 17096 2008-06-11 06:23:18Z shyouhei $
+# Revision:: $Id: generic.rb 11751 2007-02-15 07:45:04Z knu $
 #
 
 require 'uri/common'
@@ -1103,9 +1103,8 @@ module URI
       end
     end
 
-    @@to_s = Kernel.instance_method(:to_s)
     def inspect
-      @@to_s.bind(self).call.sub!(/>\z/) {" URL:#{self}>"}
+      sprintf("#<%s:%#0x URL:%s>", self.class.to_s, self.object_id, self.to_s)
     end
 
     def coerce(oth)

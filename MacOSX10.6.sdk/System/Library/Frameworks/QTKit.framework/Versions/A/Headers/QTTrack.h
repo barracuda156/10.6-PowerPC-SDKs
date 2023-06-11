@@ -109,14 +109,4 @@ QTKIT_EXTERN NSString * const QTTrackVolumeAttribute						AVAILABLE_MAC_OS_X_VER
 
 @end
 
-#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7
-@interface QTTrack (QTTrack_Stepping)
-
-- (QTTime)frameStartTime:(QTTime)atTime;
-- (QTTime)frameEndTime:(QTTime)atTime;
-- (QTTime)keyframeStartTime:(QTTime)atTime;
-
-@end
-#endif
-
 #endif	// QTTRACK_H

@@ -1,18 +1,17 @@
 /*
 	NSAlert.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
 #import <AppKit/NSGraphics.h>
 @class NSTextField, NSPanel, NSArray, NSWindow, NSImage, NSButton, NSError;
-@protocol NSAlertDelegate;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
 
-// The default alert style is NSWarningAlertStyle.  NSCriticalAlertStyle should be reserved for critical alerts and will cause the icon to be badged with a caution icon.
+// The default alert style is NSAlertWarningStyle.  NSAlertCriticalStyle should be reserved for critical alerts and will cause the icon to be badged with a caution icon.
 enum {
     NSWarningAlertStyle = 0,
     NSInformationalAlertStyle = 1,
@@ -113,8 +112,8 @@ enum {
 - (void)setAlertStyle:(NSAlertStyle)style;
 - (NSAlertStyle)alertStyle;
 
-- (void)setDelegate:(id <NSAlertDelegate>)delegate;
-- (id <NSAlertDelegate>)delegate;
+- (void)setDelegate:(id)delegate;
+- (id)delegate;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 /* -setShowsSuppressionButton: indicates whether or not the alert should contain a suppression checkbox.  The default is NO.  This checkbox is typically used to give the user an option to not show this alert again.  If shown, the suppression button will have a default localized title similar to @"Do not show this message again".  You can customize this title using [[alert suppressionButton] setTitle:].  When the alert is dismissed, you can get the state of the suppression button, using [[alert suppressionButton] state] and store the result in user defaults, for example.  This setting can then be checked before showing the alert again.  By default, the suppression button is positioned below the informative text, and above the accessory view (if any) and the alert buttons, and left-aligned with the informative text.  However do not count on the placement of this button, since it might be moved if the alert panel user interface is changed in the future. If you need a checkbox for purposes other than suppression text, it is recommended you create your own using an accessory view.
@@ -151,8 +150,7 @@ enum {
 
 @end
 
-@protocol NSAlertDelegate <NSObject>
-@optional
+@interface NSObject(NSAlertDelegate)
 // the delegate should implement this if custom help behavior is required.
 - (BOOL)alertShowHelp:(NSAlert *)alert;
 @end

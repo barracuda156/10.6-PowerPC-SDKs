@@ -142,10 +142,10 @@ CG_EXTERN CGRect CGPDFDocumentGetArtBox(CGPDFDocumentRef document, int page)
 	__IPHONE_NA, __IPHONE_NA);
 
 /* DEPRECATED; return the rotation angle (in degrees) of page number `page'
-   in `document'. */
+ * in `document'. */
 
 CG_EXTERN int CGPDFDocumentGetRotationAngle(CGPDFDocumentRef document,
     int page) CG_AVAILABLE_BUT_DEPRECATED(__MAC_10_0, __MAC_10_5,
 	__IPHONE_NA, __IPHONE_NA);
 
-#endif /* CGPDFDOCUMENT_H_ */
+#endif	/* CGPDFDOCUMENT_H_ */

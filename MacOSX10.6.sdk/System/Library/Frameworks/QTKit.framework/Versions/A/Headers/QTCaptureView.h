@@ -22,6 +22,10 @@
 
 @interface QTCaptureView : NSView {
 @private
+#if __LP64__
+	int32_t							_proxy;
+	int32_t							_delegateProxy;
+#endif
 	QTCaptureViewInternal			*_internal;
 
 	long							_reserved1;

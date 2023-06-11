@@ -16,7 +16,6 @@
 */
 #import <Foundation/Foundation.h>
 #import <Carbon/Carbon.h>
-#import <Carbon/CarbonPriv.h>
 
 @class IMKInputController;
 @protocol IMKServerProxy;

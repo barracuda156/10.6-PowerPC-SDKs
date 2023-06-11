@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Error codes.
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 1999-2008 by Apple Inc., all rights reserved.
  

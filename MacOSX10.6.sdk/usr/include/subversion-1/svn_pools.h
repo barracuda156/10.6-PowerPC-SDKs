@@ -67,7 +67,7 @@ svn_pool_create_ex_debug(pool, allocator, APR_POOL__FILE_LINE__)
 
 
 /** Create a pool as a subpool of @a parent_pool */
-#define svn_pool_create(parent_pool) svn_pool_create_ex(parent_pool, NULL)
+#define svn_pool_create(pool) svn_pool_create_ex(pool, NULL)
 
 /** Clear a @a pool destroying its children.
  *
@@ -76,7 +76,7 @@ svn_pool_create_ex_debug(pool, allocator, APR_POOL__FILE_LINE__)
 #define svn_pool_clear apr_pool_clear
 
 
-/** Destroy a @a pool and all of its children.
+/** Destroy a @a pool and all of its children. 
  *
  * This define for @c svn_pool_destroy exists for symmetry and
  * completeness.

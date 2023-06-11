@@ -1,6 +1,6 @@
 /*
 	NSKeyValueCoding.h
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -200,21 +200,21 @@ Performance note: the repetitive -set<Key>: messages implied by step 2's descrip
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 @interface NSObject(NSDeprecatedKeyValueCoding)
 
-/* Methods that were deprecated in Mac OS 10.4.
+/* Methods that were deprecated in Mac OS 10.4. If you are using the NSManagedObject class, use its -primitiveValueForKey: and -setPrimitiveValue:forKey: methods instead.
 */
-+ (BOOL)useStoredAccessor DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (id)storedValueForKey:(NSString *)key DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
-- (void)takeStoredValue:(id)value forKey:(NSString *)key DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
++ (BOOL)useStoredAccessor;
+- (id)storedValueForKey:(NSString *)key;
+- (void)takeStoredValue:(id)value forKey:(NSString *)key;
 
 /* Methods that were deprecated in Mac OS 10.3. Use the new, more consistently named, methods declared above instead.
 */
-- (void)takeValue:(id)value forKey:(NSString *)key DEPRECATED_IN_MAC_OS_X_VERSION_10_3_AND_LATER;
-- (void)takeValue:(id)value forKeyPath:(NSString *)keyPath DEPRECATED_IN_MAC_OS_X_VERSION_10_3_AND_LATER;
-- (id)handleQueryWithUnboundKey:(NSString *)key DEPRECATED_IN_MAC_OS_X_VERSION_10_3_AND_LATER;
-- (void)handleTakeValue:(id)value forUnboundKey:(NSString *)key DEPRECATED_IN_MAC_OS_X_VERSION_10_3_AND_LATER;
-- (void)unableToSetNilForKey:(NSString *)key DEPRECATED_IN_MAC_OS_X_VERSION_10_3_AND_LATER;
-- (NSDictionary *)valuesForKeys:(NSArray *)keys DEPRECATED_IN_MAC_OS_X_VERSION_10_3_AND_LATER;
-- (void)takeValuesFromDictionary:(NSDictionary *)properties DEPRECATED_IN_MAC_OS_X_VERSION_10_3_AND_LATER;
+- (void)takeValue:(id)value forKey:(NSString *)key;
+- (void)takeValue:(id)value forKeyPath:(NSString *)keyPath;
+- (id)handleQueryWithUnboundKey:(NSString *)key;
+- (void)handleTakeValue:(id)value forUnboundKey:(NSString *)key;
+- (void)unableToSetNilForKey:(NSString *)key;
+- (NSDictionary *)valuesForKeys:(NSArray *)keys;
+- (void)takeValuesFromDictionary:(NSDictionary *)properties;
 
 @end
 #endif

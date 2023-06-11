@@ -1,7 +1,7 @@
 /*
         NSQuickDrawView.h
         Application Kit
-        Copyright (c) 1999-2008, Apple Inc.
+        Copyright (c) 1999-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -18,7 +18,7 @@
     BOOL   _synchToView;
 }
 
-- (void*) qdPort DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
+- (void*) qdPort;
 
 @end
 #endif !__LP64__

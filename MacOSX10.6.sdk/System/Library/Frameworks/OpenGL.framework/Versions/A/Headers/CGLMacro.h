@@ -1,5 +1,5 @@
 /*
-    Copyright:  (c) 1999-2008 Apple Inc. All rights reserved.
+    Copyright:    (c) 1999 by Apple Computer, Inc., all rights reserved.
 */
 
 #ifndef _CGLMACRO_H
@@ -1749,7 +1749,7 @@
 	(*(CGL_MACRO_CONTEXT)->disp.get_programiv)(CGL_MACRO_CONTEXT_RENDERER, program, pname, params)
 
 #define glGetAttachedShaders(program, maxCount, count, shaders) \
-	(*(CGL_MACRO_CONTEXT)->disp.get_attached_shaders)(CGL_MACRO_CONTEXT_RENDERER, program, maxCount, count, shaders)
+	(*(CGL_MACRO_CONTEXT)->disp.get_attached_objects_ARB)(CGL_MACRO_CONTEXT_RENDERER, CGL_HANDLE_ARB(program), maxCount, count, (GLhandleARB *) shaders)
 
 #define glGetShaderInfoLog(shader, bufSize, length, infoLog) \
 	(*(CGL_MACRO_CONTEXT)->disp.get_shader_info_log)(CGL_MACRO_CONTEXT_RENDERER, shader, bufSize, length, infoLog)
@@ -2430,8 +2430,6 @@
 	(*(CGL_MACRO_CONTEXT)->disp.transform_feedback_varyings_EXT)(CGL_MACRO_CONTEXT_RENDERER, program, count, varyings, bufferMode)
 #define glGetTransformFeedbackVaryingEXT(program, index, bufSize, length, size, type, name) \
 	(*(CGL_MACRO_CONTEXT)->disp.get_transform_feedback_varying_EXT)(CGL_MACRO_CONTEXT_RENDERER, program, index, bufSize, length, size, type, name)
-
-/* GL_EXT_transform_feedback || GL_EXT_draw_buffers2 */
 #define glGetIntegerIndexedvEXT(param, index, values) \
 	(*(CGL_MACRO_CONTEXT)->disp.get_integer_indexedv_EXT)(CGL_MACRO_CONTEXT_RENDERER, param, index, values)
 #define glGetBooleanIndexedvEXT(param, index, values) \
@@ -2528,16 +2526,6 @@
 	(*(CGL_MACRO_CONTEXT)->disp.bind_frag_data_location_EXT)(CGL_MACRO_CONTEXT_RENDERER, program, colorNumber, name)
 #define glGetFragDataLocationEXT(program, name) \
 	(*(CGL_MACRO_CONTEXT)->disp.get_frag_data_location_EXT)(CGL_MACRO_CONTEXT_RENDERER, program, name)
-
-/* GL_EXT_draw_buffers2 */
-#define glColorMaskIndexedEXT(index, r, g, b, a) \
-	(*(CGL_MACRO_CONTEXT)->disp.color_mask_indexed_EXT)(CGL_MACRO_CONTEXT_RENDERER, index, r, g, b, a)
-#define glEnableIndexedEXT(target, index) \
-	(*(CGL_MACRO_CONTEXT)->disp.enable_indexed_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, index)
-#define glDisableIndexedEXT(target, index) \
-	(*(CGL_MACRO_CONTEXT)->disp.disable_indexed_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, index)
-#define glIsEnabledIndexedEXT(target, index) \
-	(*(CGL_MACRO_CONTEXT)->disp.is_enabled_indexed_EXT)(CGL_MACRO_CONTEXT_RENDERER, target, index)
 
 /*********** APPLE Extensions ***********************************************/
 

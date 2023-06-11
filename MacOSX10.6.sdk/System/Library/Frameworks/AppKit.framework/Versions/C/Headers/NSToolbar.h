@@ -1,7 +1,7 @@
 /*
 	NSToolbar.h
 	Application Kit
-	Copyright (c) 2000-2008, Apple Inc.
+	Copyright (c) 2000-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @class NSArray, NSDictionary, NSMutableArray, NSNotification, NSString, NSToolbarItem, NSWindow;
-@protocol NSToolbarDelegate;
 
 enum { NSToolbarDisplayModeDefault, NSToolbarDisplayModeIconAndLabel, NSToolbarDisplayModeIconOnly, NSToolbarDisplayModeLabelOnly };
 typedef NSUInteger NSToolbarDisplayMode;
@@ -28,7 +27,7 @@ typedef NSUInteger NSToolbarSizeMode;
     id				_initPListTarget; 
     
     NSString *			_selectedItemIdentifier;
-    __strong void *		_metrics;
+    void *			_metrics;
 
     id				_delegate;
     NSWindow *			_window;
@@ -53,8 +52,7 @@ typedef NSUInteger NSToolbarSizeMode;
         unsigned int clickAndDragPerformsCustomization:1;
         unsigned int showsNoContextMenu:1;
         unsigned int currentlyLoadingPlaceholders:1;
-        unsigned int delegateItemWithItemIdentifier2:1;
-        unsigned int reserved:4;
+        unsigned int reserved:5;
         unsigned int keyboardLoopNeedsUpdating:1;
         unsigned int showHideDuringConfigurationChangeDisabled:1;
 	unsigned int displayMode:2;
@@ -77,8 +75,8 @@ typedef NSUInteger NSToolbarSizeMode;
 - (void)removeItemAtIndex:(NSInteger)index;
     /* Primitives for explicitly adding and removing items.  Any change made will be propogated immediately to all other toolbars with the same identifier. */
 
-- (void)setDelegate:(id <NSToolbarDelegate>)delegate;
-- (id <NSToolbarDelegate>)delegate;
+- (void)setDelegate:(id)delegate;
+- (id)delegate;
     /* Customizable toolbars must have a delegate, and must implement the required NSToolbarDelegate methods. */
 
 - (void)setVisible:(BOOL)shown;
@@ -149,8 +147,7 @@ each of the visible items.  The toolbar will iterate through the list of visible
 
 @end
 
-@protocol NSToolbarDelegate <NSObject>
-@optional
+@interface NSObject (NSToolbarDelegate)
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag;
     /* Required method.  Given an item identifier, this method returns an item.  Note that, it is expected that each toolbar receives its own distinct copies.   If the item has a custom view, that view should be in place when the item is returned.  Finally, do not assume the returned item is going to be added as an active item in the toolbar.  In fact, the toolbar may ask for items here in order to construct the customization palette (it makes copies of the returned items).  if willBeInsertedIntoToolbar is YES, the returned item will be inserted, and you can expect toolbarWillAddItem: is about to be posted.  */
@@ -161,22 +158,24 @@ each of the visible items.  The toolbar will iterate through the list of visible
 - (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar;
     /* Required method.  Returns the list of all allowed items by identifier.  By default, the toolbar does not assume any items are allowed, even the separator.  So, every allowed item must be explicitly listed.  The set of allowed items is used to construct the customization palette.  The order of items does not necessarily guarantee the order of appearance in the palette.  At minimum, you should return the default item list.*/
 
-@optional
-
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
 - (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar;
     /* Optional method. Those wishing to indicate item selection in a toolbar should implement this method to return a non-empty array of selectable item identifiers.  If implemented, the toolbar will remember and display the selected item with a special highlight.  A selected item is one whose item identifier matches the current selected item identifier.  Clicking on an item whose identifier is selectable will automatically update the toolbars selected item identifier when possible. (see setSelectedItemIdentifier: for more details) */
 #endif
 
-    /* Notifications */
+@end
+
+
+@interface NSObject (NSToolbarNotifications)
 
 - (void)toolbarWillAddItem: (NSNotification *)notification;
     /* Before an new item is added to the toolbar, this notification is posted.  This is the best place to notice a new item is going into the toolbar.  For instance, if you need to cache a reference to the toolbar item or need to set up some initial state, this is the best place to do it.   The notification object is the toolbar to which the item is being added.  The item being added is found by referencing the @"item" key in the userInfo.  */
 
 - (void)toolbarDidRemoveItem: (NSNotification *)notification;
-    /* After an item is removed from a toolbar the notification is sent.  This allows the chance to tear down information related to the item that may have been cached.  The notification object is the toolbar from which the item is being removed.  The item being removed is found by referencing the @"item" key in the userInfo.  */
+    /* After an item is removed from a toolbar the notification is sent.  This allows the chance to tear down information related to the item that may have been cached.  The notification object is the toolbar to which the item is being added.  The item being added is found by referencing the @"item" key in the userInfo.  */
 
 @end
+
 
 /* Notifications */
 APPKIT_EXTERN NSString *NSToolbarWillAddItemNotification;

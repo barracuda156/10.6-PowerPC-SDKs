@@ -64,8 +64,8 @@ extern void cmn_err( int, const char *, ... );
  * pid/proc
  */
 
-/* Solaris proc_t is the struct. Darwin's proc_t is a pointer to it. */
-#define proc_t struct proc /* Steer clear of the Darwin typedef for proc_t */
+typedef struct proc SUN_PROC_T; /* Solaris proc_t is the struct. Darwin's proc_t is a pointer to it. */
+#define proc_t SUN_PROC_T /* replace all the original uses of (Solaris) proc_t */
 #define curproc ((struct proc *)current_proc()) /* Called from probe context, must blacklist */
 
 proc_t* sprlock(pid_t pid);
@@ -185,13 +185,11 @@ extern void unregister_cpu_setup_func(cpu_setup_func_t *, void *);
 #endif
 #define CPU_DTRACE_USTACK_FP	0x0400  /* pid provider hint to ustack() */
 #define	CPU_DTRACE_ENTRY	0x0800	/* pid provider hint to ustack() */
-#define CPU_DTRACE_BADSTACK 0x1000  /* DTrace fault: bad stack */
 
 #define	CPU_DTRACE_FAULT	(CPU_DTRACE_BADADDR | CPU_DTRACE_BADALIGN | \
 				CPU_DTRACE_DIVZERO | CPU_DTRACE_ILLOP | \
 				CPU_DTRACE_NOSCRATCH | CPU_DTRACE_KPRIV | \
-				CPU_DTRACE_UPRIV | CPU_DTRACE_TUPOFLOW | \
-				CPU_DTRACE_BADSTACK)
+				CPU_DTRACE_UPRIV | CPU_DTRACE_TUPOFLOW)
 #define	CPU_DTRACE_ERROR	(CPU_DTRACE_FAULT | CPU_DTRACE_DROP)
 
 /*
@@ -496,6 +494,8 @@ extern void delay( int ); /* kern/clock.h */
 
 extern int vuprintf(const char *, va_list);
 
+extern boolean_t dtxnu_is_RAM_page(ppnum_t);
+
 extern hrtime_t dtrace_abs_to_nano(uint64_t);
 
 __private_extern__ const char * strstr(const char *, const char *);
@@ -516,7 +516,6 @@ __private_extern__ const char * strstr(const char *, const char *);
  */
 #define LIT_STRNSTART(s1, lit_s2) (0 == strncmp( (s1), (lit_s2), sizeof((lit_s2)) - 1 ))
 
-#define KERNELBASE VM_MIN_KERNEL_ADDRESS
 #endif /* KERNEL_BUILD */
 #endif /* _DTRACE_GLUE_H */
 

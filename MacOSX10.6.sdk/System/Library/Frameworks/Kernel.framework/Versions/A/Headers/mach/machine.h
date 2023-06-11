@@ -303,7 +303,6 @@ typedef integer_t	cpu_threadtype_t;
 #define CPU_SUBTYPE_ARM_V6              ((cpu_subtype_t) 6)
 #define CPU_SUBTYPE_ARM_V5TEJ           ((cpu_subtype_t) 7)
 #define CPU_SUBTYPE_ARM_XSCALE		((cpu_subtype_t) 8)
-#define CPU_SUBTYPE_ARM_V7		((cpu_subtype_t) 9)
 
 /*
  *	CPU families (sysctl hw.cpufamily)
@@ -328,7 +327,6 @@ typedef integer_t	cpu_threadtype_t;
 #define CPUFAMILY_ARM_9      0xe73283ae
 #define CPUFAMILY_ARM_11     0x8ff620d8
 #define CPUFAMILY_ARM_XSCALE 0x53b005f5
-#define CPUFAMILY_ARM_13     0x0cc90e64
 
 #define CPUFAMILY_INTEL_YONAH	CPUFAMILY_INTEL_6_14
 #define CPUFAMILY_INTEL_MEROM	CPUFAMILY_INTEL_6_15

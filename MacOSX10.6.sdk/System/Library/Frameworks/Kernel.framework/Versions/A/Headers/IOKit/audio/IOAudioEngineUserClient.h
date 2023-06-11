@@ -198,7 +198,7 @@ class IOAudioEngineUserClient : public IOUserClient
 		
 		static IOReturn registerNotificationAction(OSObject *owner, void *arg1, void *arg2, void *arg3, void *arg4);
 		virtual IOReturn registerNotification(mach_port_t port, UInt32 refCon);
-	
+		
 		virtual void setOnline(bool newOnline);
 		
 		virtual IOReturn performClientOutput(UInt32 firstSampleFrame, UInt32 loopCount, IOAudioClientBufferSet *bufferSet, UInt32 sampleIntervalHi, UInt32 sampleIntervalLo);

@@ -660,7 +660,6 @@ enum
 	CSSM_APPLE_PRIVATE_CSPDL_CODE_13 = 13,
 	CSSM_APPLE_PRIVATE_CSPDL_CODE_14 = 14,
 	CSSM_APPLE_PRIVATE_CSPDL_CODE_15 = 15,
-	CSSM_APPLE_PRIVATE_CSPDL_CODE_16 = 16,
 	
 	/* Given a CSSM_KEY_PTR in any format, obtain the SHA-1 hash of the 
 	 * associated key blob. 

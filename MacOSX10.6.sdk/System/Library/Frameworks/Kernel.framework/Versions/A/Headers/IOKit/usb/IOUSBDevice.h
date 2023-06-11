@@ -24,17 +24,8 @@
 /*
  *
  *	$Log: IOUSBDevice.h,v $
- *	Revision 1.57.84.3  2008/06/16 21:31:16  nano
- *	Bring in changes from Foxhound 320.2.17
- *	
  *	Revision 1.57.84.2  2008/04/22 22:38:01  nano
  *	Bring in changes from Foxhound-320.2.9
- *	
- *	Revision 1.60.28.2  2008/05/22 17:36:18  nano
- *	Fix the reporting of the internal bit for GetDeviceInformation
- *	
- *	Revision 1.60.28.1  2008/05/21 17:51:43  nano
- *	<rdar://problem/5952635> GetDeviceInformation needs some fixes
  *	
  *	Revision 1.60  2008/04/18 22:03:28  nano
  *	Bring in fix for rdar://5874560
@@ -175,8 +166,6 @@ protected:
 		UInt32					_sleepPowerAllocated;				// how much sleep power we already gave to our client
 		UInt32					_wakePowerAllocated;				// how much extra power during wake did we already give our client
 		UInt32					_devicePortInfo;
-		bool					_deviceIsInternal;					// Will be set if all our upstream hubs are captive (internal to the computer)
-		bool					_deviceIsInternalIsValid;			// true if we have already determined whether the device is internal
     };	
     ExpansionData * _expansionData;
 
@@ -474,19 +463,19 @@ public:
 	
     OSMetaClassDeclareReservedUsed(IOUSBDevice,  6);
 	/*!
-	 @function SetHubParent
+	 @function SetHubPolicyMaker
 	 @abstract Used by the hub driver to give the nub a pointer to its HubPolicyMaker object
 	 @param hubPolicyMaker	The object representing the Hub driver
 	 */
-    virtual void	SetHubParent(IOUSBHubPolicyMaker *hubParent);
+    virtual void	SetPolicyMaker(IOUSBHubPolicyMaker *hubPolicyMaker);
     
     OSMetaClassDeclareReservedUsed(IOUSBDevice,  7);
 	/*!
-	 @function GetHubParent
+	 @function SetHubPolicyMaker
 	 @abstract Used by the hub driver to give the nub a pointer to its HubPolicyMaker object
 	 @param hubPolicyMaker	The object representing the Hub driver
 	 */
-    virtual IOUSBHubPolicyMaker*	GetHubParent();
+    virtual IOUSBHubPolicyMaker*	GetPolicyMaker();
     
     OSMetaClassDeclareReservedUsed(IOUSBDevice,  8);
     /*!

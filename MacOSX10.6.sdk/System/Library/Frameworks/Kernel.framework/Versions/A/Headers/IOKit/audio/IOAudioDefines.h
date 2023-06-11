@@ -166,8 +166,6 @@
 
 #define kIOAudioEngineFlavorKey							"IOAudioEngineFlavor"
 
-#define	kIOAudioEngineAlwaysLoadCoreAudioPlugInKey		"IOAudioEngineAlwaysLoadCoreAudioPlugIn"
-
 /*****
  *
  * IOAudioStream defines

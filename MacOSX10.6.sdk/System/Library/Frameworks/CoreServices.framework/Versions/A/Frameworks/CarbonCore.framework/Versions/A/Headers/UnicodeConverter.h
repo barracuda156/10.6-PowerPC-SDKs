@@ -3,7 +3,7 @@
  
      Contains:   Types, constants, and prototypes for Unicode Converter
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1994-2008 Apple Inc. All rights reserved.
  
@@ -173,10 +173,10 @@ enum {
 
 /* values for kUnicodeFallbackSequencing field */
 enum {
-  kUnicodeFallbackDefaultOnly   = 0,
-  kUnicodeFallbackCustomOnly    = 1,
-  kUnicodeFallbackDefaultFirst  = 2,
-  kUnicodeFallbackCustomFirst   = 3
+  kUnicodeFallbackDefaultOnly   = 0L,
+  kUnicodeFallbackCustomOnly    = 1L,
+  kUnicodeFallbackDefaultFirst  = 2L,
+  kUnicodeFallbackCustomFirst   = 3L
 };
 
 

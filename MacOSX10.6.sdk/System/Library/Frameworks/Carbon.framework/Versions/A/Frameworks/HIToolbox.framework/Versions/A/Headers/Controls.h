@@ -3,7 +3,7 @@
  
      Contains:   Control Manager interfaces
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 1985-2008 by Apple Computer, Inc., all rights reserved
  
@@ -746,12 +746,7 @@ enum {
 
 /*
  *  Discussion:
- *    Control Feature Bits - Returned by GetControlFeatures 
- *    
- *    This list is similar to the list of HIView features in HIView.h.
- *    Historical note: This list is longer because some of these
- *    constants were introduced to enable the Control Manager to tell
- *    whether a CDEF supported a new CDEF message.
+ *    Control Feature Bits - Returned by GetControlFeatures
  */
 enum {
   kControlSupportsGhosting      = 1 << 0,

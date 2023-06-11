@@ -1,7 +1,7 @@
 /* This is the gssapi_krb5.h prologue. */
 #include <stdint.h>
 /* End of gssapi_krb5.h prologue. */
-/* -*- c -*-
+/*
  * Copyright 1993 by OpenVision Technologies, Inc.
  * 
  * Permission to use, copy, modify, distribute, and sell this software

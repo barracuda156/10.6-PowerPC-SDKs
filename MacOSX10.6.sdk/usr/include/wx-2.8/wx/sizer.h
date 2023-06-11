@@ -4,7 +4,7 @@
 // Author:      Robert Roebling and Robin Dunn
 // Modified by: Ron Lee, Vadim Zeitlin (wxSizerFlags)
 // Created:
-// RCS-ID:      $Id: sizer.h 52331 2008-03-05 15:02:22Z VS $
+// RCS-ID:      $Id: sizer.h,v 1.96.2.1 2007/01/31 03:33:59 VZ Exp $
 // Copyright:   (c) Robin Dunn, Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -20,12 +20,10 @@
 // classes
 //---------------------------------------------------------------------------
 
-class WXDLLIMPEXP_FWD_CORE wxButton;
-class WXDLLIMPEXP_FWD_CORE wxBoxSizer;
-class WXDLLIMPEXP_FWD_CORE wxSizerItem;
-class WXDLLIMPEXP_FWD_CORE wxSizer;
-class WXDLLIMPEXP_FWD_CORE wxFlexGridSizer;
-class WXDLLIMPEXP_FWD_CORE wxGridBagSizer;
+class WXDLLEXPORT wxButton;
+class WXDLLEXPORT wxBoxSizer;
+class WXDLLEXPORT wxSizerItem;
+class WXDLLEXPORT wxSizer;
 
 #ifndef wxUSE_BORDER_BY_DEFAULT
     #ifdef __SMARTPHONE__
@@ -176,11 +174,6 @@ public:
         return *this;
     }
 #endif // wx 2.8.2+
-
-#if wxABI_VERSION >= 20808
-    // makes the item ignore window's visibility status
-    wxSizerFlags& ReserveSpaceEvenIfHidden();
-#endif
 
     // accessors for wxSizer only
     int GetProportion() const { return m_proportion; }
@@ -400,15 +393,8 @@ protected:
     wxObject    *m_userData;
 
 private:
-    // 2.8-only implementation detail for wxRESERVE_SPACE_EVEN_IF_HIDDEN
-    bool ShouldAccountFor() const;
-
     DECLARE_CLASS(wxSizerItem)
     DECLARE_NO_COPY_CLASS(wxSizerItem)
-
-    friend class wxBoxSizer;
-    friend class wxFlexGridSizer;
-    friend class wxGridBagSizer;
 };
 
 WX_DECLARE_EXPORTED_LIST( wxSizerItem, wxSizerItemList );
@@ -561,11 +547,6 @@ public:
     virtual wxSize CalcMin() = 0;
 
     virtual void Layout();
-
-#if wxABI_VERSION >= 20808
-    wxSize ComputeFittingClientSize(wxWindow *window);
-    wxSize ComputeFittingWindowSize(wxWindow *window);
-#endif
 
     wxSize Fit( wxWindow *window );
     void FitInside( wxWindow *window );
@@ -785,7 +766,7 @@ private:
 
 #if wxUSE_STATBOX
 
-class WXDLLIMPEXP_FWD_CORE wxStaticBox;
+class WXDLLEXPORT wxStaticBox;
 
 class WXDLLEXPORT wxStaticBoxSizer: public wxBoxSizer
 {
@@ -877,7 +858,7 @@ private:
 
 // this sizer works with wxNotebook/wxListbook/... and sizes the control to
 // fit its pages
-class WXDLLIMPEXP_FWD_CORE wxBookCtrlBase;
+class WXDLLEXPORT wxBookCtrlBase;
 
 class WXDLLEXPORT wxBookCtrlSizer : public wxSizer
 {
@@ -908,7 +889,7 @@ private:
 
 // before wxBookCtrlBase we only had wxNotebookSizer, keep it for backwards
 // compatibility
-class WXDLLIMPEXP_FWD_CORE wxNotebook;
+class WXDLLEXPORT wxNotebook;
 
 class WXDLLEXPORT wxNotebookSizer : public wxBookCtrlSizer
 {

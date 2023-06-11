@@ -27,15 +27,6 @@
 #include <apr_tables.h>         /* for apr_array_header_t */
 #include <apr_hash.h>
 
-/* Define a MAX macro if we don't already have one */
-#ifndef MAX
-#define MAX(a, b) ((a) < (b) ? (b) : (a))
-#endif
-
-/* Define a MIN macro if we don't already have one */
-#ifndef MIN
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -63,17 +54,15 @@ typedef struct svn_sort__item_t {
  * greater than, equal to, or less than the key of @a b as determined
  * by comparing them with svn_path_compare_paths().
  *
- * The key strings must be NULL-terminated, even though klen does not
+ * The key strings must be null-terminated, even though klen does not
  * include the terminator.
- *
+ * 
  * This is useful for converting a hash into a sorted
  * @c apr_array_header_t.  For example, to convert hash @a hsh to a sorted
  * array, do this:
- *
- * @verbatim
-     apr_array_header_t *hdr;
-     hdr = svn_sort__hash (hsh, @c svn_sort_compare_items_as_paths, pool);
-   @endverbatim
+ * 
+ *<pre>   apr_array_header_t *hdr;
+ *   hdr = svn_sort__hash (hsh, @c svn_sort_compare_items_as_paths, pool);</pre>
  */
 int svn_sort_compare_items_as_paths(const svn_sort__item_t *a,
                                     const svn_sort__item_t *b);
@@ -112,13 +101,6 @@ int svn_sort_compare_revisions(const void *a, const void *b);
  */
 int svn_sort_compare_paths(const void *a, const void *b);
 
-/**
- * Compare two @c svn_merge_range_t *'s, returning an integer greater
- * than, equal to, or less than 0 if the first range is greater than,
- * equal to, or less than, the second range.
- * @since New in 1.5
- */
-int svn_sort_compare_ranges(const void *a, const void *b);
 
 /** Sort @a ht according to its keys, return an @c apr_array_header_t
  * containing @c svn_sort__item_t structures holding those keys and values

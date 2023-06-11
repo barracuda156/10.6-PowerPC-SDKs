@@ -11,7 +11,6 @@
 
 typedef int ISyncChangeType;
 enum __ISyncChangeType {
-    ISyncChangeTypeNone = 0,    
     ISyncChangeTypeAdd = 1,
     ISyncChangeTypeModify,
     ISyncChangeTypeDelete

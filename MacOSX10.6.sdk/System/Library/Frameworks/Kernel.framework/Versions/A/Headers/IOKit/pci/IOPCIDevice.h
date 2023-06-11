@@ -231,10 +231,6 @@ enum
     kIOInterruptTypePCIMessaged = 0x00010000
 };
 
-class IOPCIBridge;
-class IOPCI2PCIBridge;
-class IOPCIMessagedInterruptController;
-
 /*! @class IOPCIDevice : public IOService
     @abstract An IOService class representing a PCI device.
     @discussion The discovery of a PCI device by the PCI bus family results in an instance of the IOPCIDevice being created and published. It provides services for looking up and mapping memory mapped hardware, and access to the PCI configuration and I/O spaces. 
@@ -296,6 +292,10 @@ Matches with any device with a vendor ID of 0x9004, and a device ID of 0xzz78 or
 Matches a device whose class code is 0x0200zz, an ethernet device.
 
 */
+
+class IOPCIBridge;
+class IOPCI2PCIBridge;
+class IOPCIMessagedInterruptController;
 
 class IOPCIDevice : public IOService
 {

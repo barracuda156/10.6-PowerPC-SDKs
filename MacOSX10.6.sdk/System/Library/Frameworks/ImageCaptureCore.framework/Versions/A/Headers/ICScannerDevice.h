@@ -32,13 +32,6 @@ extern NSString *const ICScannerStatusWarmingUp;
 */
 extern NSString *const ICScannerStatusWarmUpDone;
 
-/*!
-    @const      ICScannerStatusRequestsOverviewScan
-    @abstract   ICScannerStatusRequestsOverviewScan
-    @discussion A non-localized notification string to indicate that the scanner is requesting an overview scan to be performed.
-*/
-extern NSString *const ICScannerStatusRequestsOverviewScan;
-
 //-------------------------------------------------------------------------------------------------------------------- Constants
 /*!
   @enum ICScannerTransferMode
@@ -104,7 +97,6 @@ typedef NSUInteger ICScannerTransferMode;
   @discusson This message is sent after the scanner device completes a scan.
 */
 - (void)scannerDevice:(ICScannerDevice*)scanner didCompleteScanWithError:(NSError*)error;
-
 @end
 
 //------------------------------------------------------------------------------------------------------------------------------

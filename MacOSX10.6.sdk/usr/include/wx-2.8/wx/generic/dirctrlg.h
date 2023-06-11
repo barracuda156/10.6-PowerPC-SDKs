@@ -7,7 +7,7 @@
 // Author:      Robert Roebling, Harm van der Heijden, Julian Smart et al
 // Modified by:
 // Created:     21/3/2000
-// RCS-ID:      $Id: dirctrlg.h 53135 2008-04-12 02:31:04Z VZ $
+// RCS-ID:      $Id: dirctrlg.h,v 1.33 2006/09/05 20:45:22 VZ Exp $
 // Copyright:   (c) Robert Roebling, Harm van der Heijden, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -30,9 +30,9 @@
 // classes
 //-----------------------------------------------------------------------------
 
-class WXDLLIMPEXP_FWD_CORE wxTextCtrl;
-class WXDLLIMPEXP_FWD_CORE wxImageList;
-class WXDLLIMPEXP_FWD_BASE wxHashTable;
+class WXDLLIMPEXP_CORE wxTextCtrl;
+class WXDLLIMPEXP_CORE wxImageList;
+class WXDLLIMPEXP_BASE wxHashTable;
 
 //-----------------------------------------------------------------------------
 // Extra styles for wxGenericDirCtrl
@@ -76,7 +76,7 @@ public:
 // wxDirCtrl
 //-----------------------------------------------------------------------------
 
-class WXDLLIMPEXP_FWD_CORE wxDirFilterListCtrl;
+class WXDLLEXPORT wxDirFilterListCtrl;
 
 class WXDLLEXPORT wxGenericDirCtrl: public wxControl
 {

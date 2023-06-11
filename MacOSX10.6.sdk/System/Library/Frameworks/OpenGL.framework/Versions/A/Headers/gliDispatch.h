@@ -1,5 +1,5 @@
 /*
-	Copyright:  (c) 1999-2008 Apple Inc. All rights reserved.
+	Copyright:  (c) 1999 by Apple Computer, Inc., all rights reserved.
 */
 
 #ifndef _GLIDISPATCH_H
@@ -782,11 +782,11 @@ typedef struct __GLIFunctionDispatchRec
 	void (*bind_frag_data_location_EXT)(GLIContext ctx, GLuint program, GLuint colorNumber, const GLchar *name);
 	GLint (*get_frag_data_location_EXT)(GLIContext ctx, GLuint program, const GLchar *name);
 
-	/* EXT_draw_buffers2 */
-	void (*color_mask_indexed_EXT) (GLIContext ctx, GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
-	void (*enable_indexed_EXT) (GLIContext ctx, GLenum target, GLuint index);
-	void (*disable_indexed_EXT) (GLIContext ctx, GLenum target, GLuint index);
-	GLboolean (*is_enabled_indexed_EXT) (GLIContext ctx, GLenum target, GLuint index);
+	/* introduced by OpenGL ES 2.0 */
+	void (*shader_binary_OES)(GLIContext ctx, GLint n, GLuint *shaders, GLenum binaryformat, const GLvoid *binary, GLint length);
+	void (*get_shader_precision_format_OES)(GLIContext ctx, GLenum shadertype, GLenum precisiontype, GLint *range, GLint *precision);
+	void (*release_shader_compiler_OES)(GLIContext ctx);
+	void (*get_renderbuffer_storage_formatsiv_OES)(GLIContext ctx, GLenum target, GLint n, GLint *listofformats, GLint *numsupportedformats);
 
 	/* OpenGL 2.1 */
 	void (*uniform_matrix2x3fv) (GLIContext ctx, GLint location, GLsizei count, GLboolean transpose, const GLfloat *value);
@@ -800,13 +800,7 @@ typedef struct __GLIFunctionDispatchRec
 	void (*blit_framebuffer_EXT) (GLIContext ctx, GLint srcX0, GLint srcY0, GLint srcX1, GLint srcY1, GLint dstX0, GLint dstY0, GLint dstX1, GLint dstY1, GLbitfield mask, GLenum filter);
 	void (*renderbuffer_storage_multisample_EXT) (GLIContext ctx, GLenum target, GLsizei samples, GLenum internalformat, GLsizei width, GLsizei height);
 
-	/* NV_conditional_render */
-	void (*gl_begin_conditional_render_NV)(GLIContext ctx, GLuint id, GLenum mode);
-	void (*gl_end_conditional_render_NV)(GLIContext ctx);
 
-	void (*get_attached_shaders) (GLIContext ctx, GLuint program, GLsizei maxCount, GLsizei *count, GLuint *shaders);
-
-    
 } GLIFunctionDispatch;
 
 #ifdef __cplusplus

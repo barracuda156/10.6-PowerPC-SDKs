@@ -1,7 +1,7 @@
 /**
  * @copyright
  * ====================================================================
- * Copyright (c) 2000-2007 CollabNet.  All rights reserved.
+ * Copyright (c) 2000-2004 CollabNet.  All rights reserved.
  *
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
@@ -43,7 +43,7 @@ extern "C" {
  * the subcommand.  See @a os->argv and @a os->ind.
  *
  * @a baton is anything you need it to be.
- *
+ * 
  * @a pool is used for allocating errors, and for any other allocation
  * unless the instance is explicitly documented to allocate from a
  * pool in @a baton.
@@ -125,36 +125,36 @@ typedef struct svn_opt_subcommand_desc_t
 
 
 /**
- * Return the entry in @a table whose name matches @a cmd_name, or @c NULL if
+ * Return the entry in @a table whose name matches @a cmd_name, or @c NULL if 
  * none.  @a cmd_name may be an alias.
  *
  * @since New in 1.4.
- */
+ */  
 const svn_opt_subcommand_desc2_t *
 svn_opt_get_canonical_subcommand2(const svn_opt_subcommand_desc2_t *table,
                                   const char *cmd_name);
 
 
 /**
- * Return the entry in @a table whose name matches @a cmd_name, or @c NULL if
+ * Return the entry in @a table whose name matches @a cmd_name, or @c NULL if 
  * none.  @a cmd_name may be an alias.
  *
  * Same as svn_opt_get_canonical_subcommand2(), but acts on
  * #svn_opt_subcommand_desc_t.
  *
  * @deprecated Provided for backward compatibility with the 1.3 API.
- */
+ */  
 const svn_opt_subcommand_desc_t *
 svn_opt_get_canonical_subcommand(const svn_opt_subcommand_desc_t *table,
                                  const char *cmd_name);
 
 
 /**
- * Return pointer to an @c apr_getopt_option_t for the option whose
+ * Return pointer to an @c apr_getopt_option_t for the option whose 
  * option code is @a code, or @c NULL if no match.  @a option_table must end
  * with an element whose every field is zero.  If @c command is non-NULL,
- * then return the subcommand-specific option description instead of the
- * generic one, if a specific description is defined.
+ * then the subcommand-specific option description instead of the generic one,
+ * if a specific description is defined.
  *
  * The returned value may be statically allocated, or allocated in @a pool.
  *
@@ -180,23 +180,10 @@ svn_opt_get_option_from_code(int code,
 
 
 /**
- * Return @c TRUE iff subcommand @a command supports option @a
- * option_code, else return @c FALSE.  If @a global_options is
- * non-NULL, it is a zero-terminated array, and all subcommands take
- * the options listed in it.
+ * Return @c TRUE iff subcommand @a command supports option @a option_code,
+ * else return @c FALSE.
  *
- * @since New in 1.5.
- */
-svn_boolean_t
-svn_opt_subcommand_takes_option3(const svn_opt_subcommand_desc2_t *command,
-                                 int option_code,
-                                 const int *global_options);
-
-/**
- * Same as svn_opt_subcommand_takes_option3(), but with @c NULL for @a
- * global_options.
- *
- * @deprecated Provided for backward compatibility with the 1.4 API.
+ * @since New in 1.4.
  */
 svn_boolean_t
 svn_opt_subcommand_takes_option2(const svn_opt_subcommand_desc2_t *command,
@@ -220,11 +207,11 @@ svn_opt_subcommand_takes_option(const svn_opt_subcommand_desc_t *command,
 /**
  * Print a generic (not command-specific) usage message to @a stream.
  *
- * ### @todo Why is @a stream a stdio file instead of an svn stream?
+ * (### todo: why is @a stream a stdio file instead of an svn stream?)
  *
- * If @a header is non-NULL, print @a header followed by a newline.  Then
+ * If @a header is non-null, print @a header followed by a newline.  Then
  * loop over @a cmd_table printing the usage for each command (getting
- * option usages from @a opt_table).  Then if @a footer is non-NULL, print
+ * option usages from @a opt_table).  Then if @a footer is non-null, print
  * @a footer followed by a newline.
  *
  * Use @a pool for temporary allocation.
@@ -240,8 +227,7 @@ svn_opt_print_generic_help2(const char *header,
                             FILE *stream);
 
 
-/**
- * Same as svn_opt_print_generic_help2(), but acts on
+/* Same as svn_opt_print_generic_help2(), but acts on
  * #svn_opt_subcommand_desc_t.
  *
  * @deprecated Provided for backward compatibility with the 1.3 API.
@@ -256,7 +242,7 @@ svn_opt_print_generic_help(const char *header,
 
 
 /**
- * Print an option @a opt nicely into a @a string allocated in @a pool.
+ * Print an option @a opt nicely into a @a string allocated in @a pool.  
  * If @a doc is set, include the generic documentation string of @a opt,
  * localized to the current locale if a translation is available.
  */
@@ -269,30 +255,16 @@ svn_opt_format_option(const char **string,
 
 
 /**
- * Get @a subcommand's usage from @a table, and print it to @c stdout.
- * Obtain option usage from @a options_table.  If not @c NULL, @a
- * global_options is a zero-terminated list of global options.  Use @a
- * pool for temporary allocation.  @a subcommand may be a canonical
- * command name or an alias.  ### @todo Why does this only print to
- * @c stdout, whereas svn_opt_print_generic_help() gives us a choice?
+ * Get @a subcommand's usage from @a table, and print it to @c stdout.  
+ * Obtain option usage from @a options_table.  Use @a pool for temporary
+ * allocation.  @a subcommand may be a canonical command name or an
+ * alias.  (### todo: why does this only print to @c stdout, whereas
+ * svn_opt_print_generic_help() gives us a choice?)
  *
- * @since New in 1.5.
+ * @since New in 1.4.
  */
 void
-svn_opt_subcommand_help3(const char *subcommand,
-                         const svn_opt_subcommand_desc2_t *table,
-                         const apr_getopt_option_t *options_table,
-                         const int *global_options,
-                         apr_pool_t *pool);
-
-/**
- * Same as svn_opt_subcommand_help3(), but with @a global_options
- * always NULL.
- *
- * @deprecated Provided for backward compatibility with the 1.4 API.
- */
-void
-svn_opt_subcommand_help2(const char *subcommand,
+svn_opt_subcommand_help2(const char *subcommand, 
                          const svn_opt_subcommand_desc2_t *table,
                          const apr_getopt_option_t *options_table,
                          apr_pool_t *pool);
@@ -305,7 +277,7 @@ svn_opt_subcommand_help2(const char *subcommand,
  * @deprecated Provided for backward compatibility with the 1.3 API.
  */
 void
-svn_opt_subcommand_help(const char *subcommand,
+svn_opt_subcommand_help(const char *subcommand, 
                         const svn_opt_subcommand_desc_t *table,
                         const apr_getopt_option_t *options_table,
                         apr_pool_t *pool);
@@ -315,7 +287,7 @@ svn_opt_subcommand_help(const char *subcommand,
 /* Parsing revision and date options. */
 
 /**
- * Various ways of specifying revisions.
+ * Various ways of specifying revisions. 
  *
  * @note
  * In contexts where local mods are relevant, the `working' kind
@@ -360,10 +332,7 @@ enum svn_opt_revision_kind {
  */
 typedef union svn_opt_revision_value_t
 {
-  /** The revision number */
   svn_revnum_t number;
-
-  /** the date of the revision */
   apr_time_t date;
 } svn_opt_revision_value_t;
 
@@ -374,26 +343,17 @@ typedef struct svn_opt_revision_t
   svn_opt_revision_value_t value;   /**< Extra data qualifying the @c kind */
 } svn_opt_revision_t;
 
-/** A revision range, specified in one of @c svn_opt_revision_kind ways. */
-typedef struct svn_opt_revision_range_t
-{
-  /** The first revision in the range */
-  svn_opt_revision_t start;
-
-  /** The last revision in the range */
-  svn_opt_revision_t end;
-} svn_opt_revision_range_t;
 
 /**
- * Set @a *start_revision and/or @a *end_revision according to @a arg,
+ * Set @a *start_revision and/or @a *end_revision according to @a arg, 
  * where @a arg is "N" or "N:M", like so:
- *
+ * 
  *    - If @a arg is "N", set @a *start_revision to represent N, and
  *      leave @a *end_revision untouched.
  *
  *    - If @a arg is "N:M", set @a *start_revision and @a *end_revision
- *      to represent N and M respectively.
- *
+ *      to represent N and M respectively. 
+ * 
  * N and/or M may be one of the special revision descriptors
  * recognized by revision_from_word(), or a date in curly braces.
  *
@@ -410,61 +370,6 @@ int svn_opt_parse_revision(svn_opt_revision_t *start_revision,
                            const char *arg,
                            apr_pool_t *pool);
 
-/**
- * Parse @a arg, where @a arg is "N" or "N:M", into a
- * @c svn_opt_revision_range_t and push that onto @a opt_ranges.
- *
- *    - If @a arg is "N", set the @c start field of the
- *      @c svn_opt_revision_range_t to represent N and the @c end field
- *      to @c svn_opt_revision_unspecified.
- *
- *    - If @a arg is "N:M", set the @c start field of the
- *      @c svn_opt_revision_range_t to represent N and the @c end field
- *      to represent M.
- *
- * If @a arg is invalid, return -1; else return 0.  It is invalid to omit
- * a revision (as in, ":", "N:" or ":M").
- *
- * Use @a pool to allocate @c svn_opt_revision_range_t pushed to the array.
- *
- * @since New in 1.5.
- */
-int
-svn_opt_parse_revision_to_range(apr_array_header_t *opt_ranges,
-                                const char *arg,
-                                apr_pool_t *pool);
-
-/**
- * Resolve peg revisions and operational revisions in the following way:
- *
- *    - If @a is_url is set and @a peg_rev->kind is
- *      @c svn_opt_revision_unspecified, @a peg_rev->kind defaults to
- *      @c svn_opt_revision_head.
- *
- *    - If @a is_url is not set, and @a peg_rev->kind is
- *      @c svn_opt_revision_unspecified, @a peg_rev->kind defaults to
- *      @c svn_opt_revision_base.
- *
- *    - If @a op_rev->kind is @c svn_opt_revision_unspecified, @a op_rev
- *      defaults to @a peg_rev.
- *
- * Both @a peg_rev and @a op_rev may be modified as a result of this
- * function.  @a is_url should be set if the path the revisions refer to is
- * a url, and unset otherwise.
- *
- * If @a notice_local_mods is set, @c svn_opt_revision_working is used,
- * instead of @c svn_opt_revision_base.
- *
- * Use @a pool for allocations.
- *
- * @since New in 1.5.
- */
-svn_error_t *
-svn_opt_resolve_revisions(svn_opt_revision_t *peg_rev,
-                          svn_opt_revision_t *op_rev,
-                          svn_boolean_t is_url,
-                          svn_boolean_t notice_local_mods,
-                          apr_pool_t *pool);
 
 
 /* Parsing arguments. */
@@ -477,34 +382,12 @@ svn_opt_resolve_revisions(svn_opt_revision_t *peg_rev,
  *
  * On each URL target, do some IRI-to-URI encoding and some
  * auto-escaping.  On each local path, canonicalize case and path
- * separators.
+ * separators, and silently skip it if it has the same name as a
+ * Subversion working copy administrative directory.
  *
  * Allocate @a *targets_p and its elements in @a pool.
  *
- * If a path has the same name as a Subversion working copy
- * administrative directory, return SVN_ERR_RESERVED_FILENAME_SPECIFIED;
- * if multiple reserved paths are encountered, return a chain of
- * errors, all of which are SVN_ERR_RESERVED_FILENAME_SPECIFIED.  Do
- * not return this type of error in a chain with any other type of
- * error, and if this is the only type of error encountered, complete
- * the operation before returning the error(s).
- *
- * @since New in 1.5.
- */
-svn_error_t *
-svn_opt_args_to_target_array3(apr_array_header_t **targets_p,
-                              apr_getopt_t *os,
-                              apr_array_header_t *known_targets,
-                              apr_pool_t *pool);
-
-/**
- * This is the same as svn_opt_args_to_target_array3() except that it
- * silently ignores paths that have the same name as a working copy
- * administrative directory.
- *
  * @since New in 1.2.
- *
- * @deprecated Provided for backward compatibility with the 1.4 API.
  */
 svn_error_t *
 svn_opt_args_to_target_array2(apr_array_header_t **targets_p,
@@ -550,7 +433,7 @@ void svn_opt_push_implicit_dot_target(apr_array_header_t *targets,
 
 /**
  * Parse @a num_args non-target arguments from the list of arguments in
- * @a os->argv, return them as <tt>const char *</tt> in @a *args_p, without
+ * @a os->argv, return them as <tt>const char *</tt> in @a *args_p, without 
  * doing any UTF-8 conversion.  Allocate @a *args_p and its values in @a pool.
  */
 svn_error_t *
@@ -587,8 +470,8 @@ svn_opt_parse_all_args(apr_array_header_t **args_p,
  *    "http://a/b@%7B1999-12-31%7D   -> "http://a/b",    (date, 1999-12-31)
  *    "foo/bar@1:2"                  -> error
  *    "foo/bar@baz"                  -> error
- *    "foo/bar@"                     -> "foo/bar",       (base)
- *    "foo/bar/@13"                  -> "foo/bar/",      (number, 13)
+ *    "foo/bar@"                     -> error
+ *    "foo/bar/@13"                  -> "foo/bar",       (number, 13)
  *    "foo/bar@@13"                  -> "foo/bar@",      (number, 13)
  *    "foo/@bar@HEAD"                -> "foo/@bar",      (head)
  *    "foo@/bar"                     -> "foo@/bar",      (unspecified)
@@ -603,10 +486,6 @@ svn_opt_parse_all_args(apr_array_header_t **args_p,
  * set @a *truepath to @a path and @a rev->kind to @c
  * svn_opt_revision_unspecified.
  *
- * This function does not require that @a path be in canonical form.
- * No canonicalization is done and @a *truepath will only be in
- * canonical form if @a path is in canonical form.
- *
  * @since New in 1.1.
  */
 svn_error_t *
@@ -616,29 +495,21 @@ svn_opt_parse_path(svn_opt_revision_t *rev,
                    apr_pool_t *pool);
 
 /**
- * Central dispatcher function for various kinds of help message.
- * Prints one of:
- *   * subcommand-specific help (svn_opt_subcommand_help)
- *   * generic help (svn_opt_print_generic_help)
- *   * version info
- *   * simple usage complaint: "Type '@a pgm_name help' for usage."
+ * Print either generic help, or command-specific help for @a pgm_name.
+ * If there are arguments in @a os, then try printing help for them as
+ * though they are subcommands, using  @a cmd_table and @a option_table 
+ * for option information.
  *
- * If @a os is not @c NULL and it contains arguments, then try
- * printing help for them as though they are subcommands, using @a
- * cmd_table and @a option_table for option information.  If not @c
- * NULL, @a global_options is a zero-terminated array of options taken
- * by all subcommands.
+ * If @a os is @c NULL, or there are no targets in @a os, then:
  *
- * Else, if @a print_version is TRUE, then print version info, in
- * brief form if @a quiet is also TRUE; if @a quiet is FALSE, then if
- * @a version_footer is non-NULL, print it following the version
- * information.
+ *    - If @a print_version is true, then print version info, in brief
+ *      form if @a quiet is also true; if @a quiet is false, then if
+ *      @a version_footer is non-null, print it following the version
+ *      information.
  *
- * Else, if @a os is not @c NULL and does not contain arguments, print
- * generic help, via svn_opt_print_generic_help2() with the @a header,
- * @a cmd_table, @a option_table, and @a footer arguments.
- *
- * Else, when @a os is @c NULL, print the simple usage complaint.
+ *    - Else if @a print_version is not true, then print generic help,
+ *      via svn_opt_print_generic_help2() with the @a header, @a cmd_table,
+ *      @a option_table, and @a footer arguments.
  *
  * Use @a pool for temporary allocations.
  *
@@ -647,28 +518,8 @@ svn_opt_parse_path(svn_opt_revision_t *rev,
  * --version flag *and* subcommand arguments on a help command line.
  * The logic for handling such a situation should be in one place.
  *
- * @since New in 1.5.
+ * @since New in 1.4.
  */
-svn_error_t *
-svn_opt_print_help3(apr_getopt_t *os,
-                    const char *pgm_name,
-                    svn_boolean_t print_version,
-                    svn_boolean_t quiet,
-                    const char *version_footer,
-                    const char *header,
-                    const svn_opt_subcommand_desc2_t *cmd_table,
-                    const apr_getopt_option_t *option_table,
-                    const int *global_options,
-                    const char *footer,
-                    apr_pool_t *pool);
-
-/**
- * Same as svn_opt_print_help3(), but with @a global_options always @c
- * NULL.
- *
- * @deprecated Provided for backward compatibility with the 1.4 API.
- */
-
 svn_error_t *
 svn_opt_print_help2(apr_getopt_t *os,
                     const char *pgm_name,
@@ -682,8 +533,7 @@ svn_opt_print_help2(apr_getopt_t *os,
                     apr_pool_t *pool);
 
 
-/**
- * Same as svn_opt_print_help2(), but acts on #svn_opt_subcommand_desc_t.
+/* Same as vn_opt_print_help2), but acts on #svn_opt_subcommand_desc_t.
  *
  * @deprecated Provided for backward compatibility with the 1.3 API.
  */

@@ -11,16 +11,14 @@
 @class NSWindow;
 
 @interface NSOpenPanel : NSSavePanel {
-@private
     char _reservedOpenPanel[4];
     void *_privateOpenPanel;
 }
 
-/* Creates a new instance of the NSOpenPanel. This class is not a singleton. 
- */
 + (NSOpenPanel *)openPanel;
 
 - (NSArray *)URLs;
+- (NSArray *)filenames;
 
 - (BOOL)resolvesAliases;
 - (void)setResolvesAliases:(BOOL)flag;
@@ -36,33 +34,11 @@
 
 @end
 
-@interface NSOpenPanel (NSDeprecated)
+@interface NSOpenPanel (NSOpenPanelRuntime)
 
-/* This method is deprecated in 10.6, and will be formally deprecated in a future release. Use URLs instead.
- */
-- (NSArray *)filenames;
-
-/* This method is deprecated in 10.6, and will be formally deprecated in a future release. Use -runModalForWindow:completionHandler: instead.
-    Set the -directoryURL property instead of passing in a 'path'.
-    Set the -allowedFileTypes property instead of passing in the 'fileTypes'.
- */
 - (void)beginSheetForDirectory:(NSString *)path file:(NSString *)name types:(NSArray *)fileTypes modalForWindow:(NSWindow *)docWindow modalDelegate:(id)delegate didEndSelector:(SEL)didEndSelector contextInfo:(void *)contextInfo;
-
-/* This method is deprecated in 10.6, and will be formally deprecated in a future release. Use -runWithCompletionHandler: instead. 
-    Set the -directoryURL property instead of passing in a 'path'.
-    Set the -allowedFileTypes property instead of passing in the 'fileTypes'.
- */
-- (void)beginForDirectory:(NSString *)path file:(NSString *)name types:(NSArray *)fileTypes modelessDelegate:(id)delegate didEndSelector:(SEL)didEndSelector contextInfo:(void *)contextInfo ;
-
-/* This method is deprecated in 10.6, and will be formally deprecated in a future release. Use -runModal instead. 
-    Set the -directoryURL property instead of passing in a 'path'.
-    Set the -allowedFileTypes property instead of passing in the 'fileTypes'.
- */
+- (void)beginForDirectory:(NSString *)path file:(NSString *)name types:(NSArray *)fileTypes modelessDelegate:(id)delegate didEndSelector:(SEL)didEndSelector contextInfo:(void *)contextInfo AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 - (NSInteger)runModalForDirectory:(NSString *)path file:(NSString *)name types:(NSArray *)fileTypes;
-
-/* This method is deprecated in 10.6, and will be formally deprecated in a future release. Use -runModal instead. 
-    Set the -allowedFileTypes property instead of passing in the 'fileTypes'.
- */
 - (NSInteger)runModalForTypes:(NSArray *)fileTypes;
 
 @end

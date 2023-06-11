@@ -76,7 +76,6 @@ enum {
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
     , NSInferredMappingModelError                      = 134190 // inferred mapping model creation error
-    , NSExternalRecordImportError                      = 134200 // general error encountered while importing external records
 #endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 */
 };
 

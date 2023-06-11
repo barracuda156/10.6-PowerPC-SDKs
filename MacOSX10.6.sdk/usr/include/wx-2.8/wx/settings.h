@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     01/02/97
-// RCS-ID:      $Id: settings.h 49563 2007-10-31 20:46:21Z VZ $
+// RCS-ID:      $Id: settings.h,v 1.32 2006/02/06 17:42:13 JS Exp $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -15,7 +15,7 @@
 #include "wx/colour.h"
 #include "wx/font.h"
 
-class WXDLLIMPEXP_FWD_CORE wxWindow;
+class WXDLLEXPORT wxWindow;
 
 // possible values for wxSystemSettings::GetFont() parameter
 //

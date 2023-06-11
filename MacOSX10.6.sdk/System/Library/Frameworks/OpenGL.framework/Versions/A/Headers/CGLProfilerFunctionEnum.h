@@ -746,81 +746,11 @@ typedef enum
 	kCGLFEglObjectPurgeableAPPLE,
 	kCGLFEglObjectUnpurgeableAPPLE,
 	kCGLFEglGetObjectParameterivAPPLE,
-
-	/* GL_EXT_geometry_shader4 */
-	kCGLFEglProgramParameteriEXT,
-	kCGLFEglFramebufferTextureEXT,
-	kCGLFEglFramebufferTextureLayerEXT,
-	kCGLFEglFramebufferTextureFaceEXT,
-
-	/* GL_EXT_transform_feedback */
-	kCGLFEglBindBufferRangeEXT,
-	kCGLFEglBindBufferOffsetEXT,
-	kCGLFEglBindBufferBaseEXT,
-	kCGLFEglBeginTransformFeedbackEXT,
-	kCGLFEglEndTransformFeedbackEXT,
-	kCGLFEglTransformFeedbackVaryingsEXT,
-	kCGLFEglGetTransformFeedbackVaryingEXT,
-
-	/* GL_EXT_transform_feedback || GL_EXT_draw_buffers2 */
-	kCGLFEglGetIntegerIndexedvEXT,
-	kCGLFEglGetBooleanIndexedvEXT,
-
-	/* GL_EXT_bindable_uniform */
-	kCGLFEglUniformBufferEXT,
-	kCGLFEglGetUniformBufferSizeEXT,
-	kCGLFEglGetUniformOffsetEXT,
-
-	/* GL_EXT_texture_integer */
-	kCGLFEglClearColorIiEXT,
-	kCGLFEglClearColorIuiEXT,
-	kCGLFEglTexParameterIivEXT,
-	kCGLFEglTexParameterIuivEXT,
-	kCGLFEglGetTexParameterIivEXT,
-	kCGLFEglGetTexParameterIuivEXT,
-
-	/* GL_EXT_gpu_shader4 */
-	kCGLFEglVertexAttribI1iEXT,
-	kCGLFEglVertexAttribI2iEXT,
-	kCGLFEglVertexAttribI3iEXT,
-	kCGLFEglVertexAttribI4iEXT,
-	kCGLFEglVertexAttribI1uiEXT,
-	kCGLFEglVertexAttribI2uiEXT,
-	kCGLFEglVertexAttribI3uiEXT,
-	kCGLFEglVertexAttribI4uiEXT,
-	kCGLFEglVertexAttribI1ivEXT,
-	kCGLFEglVertexAttribI2ivEXT,
-	kCGLFEglVertexAttribI3ivEXT,
-	kCGLFEglVertexAttribI4ivEXT,
-	kCGLFEglVertexAttribI1uivEXT,
-	kCGLFEglVertexAttribI2uivEXT,
-	kCGLFEglVertexAttribI3uivEXT,
-	kCGLFEglVertexAttribI4uivEXT,
-	kCGLFEglVertexAttribI4bvEXT,
-	kCGLFEglVertexAttribI4svEXT,
-	kCGLFEglVertexAttribI4ubvEXT,
-	kCGLFEglVertexAttribI4usvEXT,
-	kCGLFEglVertexAttribIPointerEXT,
-	kCGLFEglGetVertexAttribIivEXT,
-	kCGLFEglGetVertexAttribIuivEXT,
-	kCGLFEglUniform1uiEXT,
-	kCGLFEglUniform2uiEXT,
-	kCGLFEglUniform3uiEXT,
-	kCGLFEglUniform4uiEXT,
-	kCGLFEglUniform1uivEXT,
-	kCGLFEglUniform2uivEXT,
-	kCGLFEglUniform3uivEXT,
-	kCGLFEglUniform4uivEXT,
-	kCGLFEglGetUniformuivEXT,
-	kCGLFEglBindFragDataLocationEXT,
-	kCGLFEglGetFragDataLocationEXT,
-
-	/* EXT_draw_buffers2 */
-	kCGLFEglColorMaskIndexedEXT,
-	kCGLFEglEnableIndexedEXT,
-	kCGLFEglDisableIndexedEXT,
-	kCGLFEglIsEnabledIndexedEXT,
-
+	
+	/* EXT_framebuffer_blit and EXT_framebuffer_multisample */
+	kCGLFEglBlitFramebufferEXT,
+	kCGLFEglRenderbufferStorageMultisampleEXT,
+	
 	/* OpenGL 2.1 */
 	kCGLFEglUniformMatrix2x3fv,
 	kCGLFEglUniformMatrix3x2fv,
@@ -828,10 +758,12 @@ typedef enum
 	kCGLFEglUniformMatrix4x2fv,
 	kCGLFEglUniformMatrix3x4fv,
 	kCGLFEglUniformMatrix4x3fv,
-
-	/* EXT_framebuffer_blit and EXT_framebuffer_multisample */
-	kCGLFEglBlitFramebufferEXT,
-	kCGLFEglRenderbufferStorageMultisampleEXT,
+	
+	/* OpenGL ES 2.0 */
+	kCGLFEglShaderBinaryOES,
+	kCGLFEglGetShaderPrecisionFormatOES,
+	kCGLFEglReleaseShaderCompilerOES,
+	kCGLFEglGetRenderbufferStorageFormatOES,
 
 	kCGLFENumFunctions
 } CGLProfilerFunctionEnum;

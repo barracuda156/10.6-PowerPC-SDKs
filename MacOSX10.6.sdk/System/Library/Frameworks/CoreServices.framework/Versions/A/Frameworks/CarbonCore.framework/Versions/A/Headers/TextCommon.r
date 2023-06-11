@@ -3,9 +3,9 @@
  
      Contains:   TextEncoding-related types and constants, and prototypes for related functions
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
-     Copyright:  © 1995-2008 Apple Inc. All rights reserved.
+     Copyright:  © 1995-2008 by Apple Computer, Inc., all rights reserved.
  
      Bugs?:      For bug reports, consult the following page on
                  the World Wide Web:
@@ -189,13 +189,12 @@
 #define kTextEncodingNextStepLatin 		0x0B01				/*  NextStep Latin encoding */
 #define kTextEncodingNextStepJapanese 	0x0B02				/*  NextStep Japanese encoding (variant of EUC-JP) */
 
-#define kTextEncodingEBCDIC_LatinCore 	0x0C01				/*  Common base subset of EBCDIC Latin encodings */
+#define kTextEncodingEBCDIC_US 			0x0C01				/*  basic EBCDIC-US */
 #define kTextEncodingEBCDIC_CP037 		0x0C02				/*  code page 037, extended EBCDIC (Latin-1 set) for US,Canada... */
 
 #define kTextEncodingMultiRun 			0x0FFF				/*  Multi-encoding text with external run info */
 #define kTextEncodingUnknown 			0xFFFF				/*  Unknown or unspecified                   */
 
-#define kTextEncodingEBCDIC_US 			0x0C01
 #define kTextEncodingDefaultVariant 	0
 #define kMacRomanDefaultVariant 		0					/*  meta value, maps to 1 or 2 depending on System  */
 #define kMacRomanCurrencySignVariant 	1					/*  Mac OS version < 8.5, 0xDB is CURRENCY SIGN */

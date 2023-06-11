@@ -1,7 +1,7 @@
 /*
 	NSCell.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -11,7 +11,7 @@
 #import <AppKit/NSParagraphStyle.h>
 #import <AppKit/NSApplication.h>
 
-@class NSAttributedString, NSEvent, NSFont, NSFormatter, NSImage, NSMenu, NSText, NSView, NSTextView;
+@class NSAttributedString, NSEvent, NSFont, NSFormatter, NSImage, NSMenu, NSText, NSView;
 
 enum {
     NSAnyType				= 0,
@@ -127,7 +127,7 @@ typedef struct __CFlags {
     unsigned int        invalidFont:1;
     NSLineBreakMode     lineBreakMode:3;
     unsigned int        backgroundStyle:2;
-    unsigned int        singleLineMode:1;
+    unsigned int        reserved1:1;
     unsigned int        actOnMouseDragged:1;
     unsigned int        isLoaded:1;
     unsigned int        truncateLastLine:1;
@@ -306,15 +306,6 @@ typedef struct __CFlags {
 */
 - (NSUserInterfaceLayoutDirection)userInterfaceLayoutDirection AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 - (void)setUserInterfaceLayoutDirection:(NSUserInterfaceLayoutDirection)layoutDirection AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* Returns a custom field editor for editing inside aControlView. This is an override point for NSCell subclasses designed to work with its own custom field editor. This message is sent to the selected cell of aControlView in -[NSWindow fieldEditor:forObject:]. Returning non-nil from this method indicates skipping the standard field editor querying processes including -windowWillReturnFieldEditor:toObject: delegation. The default NSCell implementation returns nil. The field editor returned from this method should have isFieldEditor == YES.
- */
-- (NSTextView *)fieldEditorForView:(NSView *)aControlView AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* Tells the text cell to layout/render its content in single-line. If YES, the cell ignores the return value from -wraps, interprets NSLineBreakByWordWrapping and NSLineBreakByCharWrapping from -lineBreakMode as NSLineBreakByClipping, and configures the field editor to ignore key binding commands that insert paragraph/line separators. Also, the field editor bound to a single line cell filters paragraph/line separator insertion from user actions. Cells in the single line mode use the fixed baseline layout. The text baseline position is determined solely by the control size regardless of content font style/size.
- */
-- (BOOL)usesSingleLineMode AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)setUsesSingleLineMode:(BOOL)flag AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 @end
 
 @interface NSCell(NSKeyboardUI)

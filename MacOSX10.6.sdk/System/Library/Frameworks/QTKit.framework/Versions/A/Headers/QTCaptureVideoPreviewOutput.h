@@ -15,7 +15,7 @@
 
 #import <QTKit/QTCaptureOutput.h>
 #if !__LP64__
-	#include <QuickTime/QuickTime.h>
+#include <QuickTime/QuickTime.h>
 #endif
 
 @class QTCaptureVideoPreviewOutputInternal;
@@ -25,7 +25,11 @@
 
 @interface QTCaptureVideoPreviewOutput : QTCaptureOutput {
 @private
+#if __LP64__
+	int32_t								_delegateProxy;
+#else
 	QTCaptureVideoPreviewOutputInternal	*_internal;
+#endif
 	id									_delegate;
 
 	long								_reserved4;
@@ -42,8 +46,10 @@
 - (id)delegate;
 - (void)setDelegate:(id)delegate;
 
+#if !__LP64__
 // To be overridden by subclasses - do not invoke directly
 - (void)outputVideoFrame:(CVImageBufferRef)videoFrame withSampleBuffer:(QTSampleBuffer *)sampleBuffer fromConnection:(QTCaptureConnection *)connection;
+#endif
 
 @end
 

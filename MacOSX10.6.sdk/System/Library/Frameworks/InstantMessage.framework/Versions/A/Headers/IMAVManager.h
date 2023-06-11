@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreVideo/CVPixelBuffer.h>
 #import <CoreVideo/CVOpenGLBuffer.h>
-#import <IMCore/IMService.h>
+#import <InstantMessage/IMService.h>
 #import <InstantMessage/IMAVControl.h>
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5

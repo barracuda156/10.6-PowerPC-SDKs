@@ -46,7 +46,7 @@ typedef void *cpu_id_t;
 #endif
 
 void PE_enter_debugger(
-	const char *cause);
+	char *cause);
 
 void PE_init_platform(
 	boolean_t vm_initialized, 
@@ -135,7 +135,6 @@ void PE_install_interrupt_handler(
 #define	_FN_KPRINTF
 void kprintf(const char *fmt, ...) __printflike(1,2);
 #endif
-
 
 #if CONFIG_NO_KPRINTF_STRINGS
 #define kprintf(x, ...) do {} while (0)

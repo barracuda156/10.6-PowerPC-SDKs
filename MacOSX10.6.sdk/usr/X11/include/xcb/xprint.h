@@ -65,9 +65,9 @@ typedef enum xcb_x_print_get_doc_t {
 } xcb_x_print_get_doc_t;
 
 typedef enum xcb_x_print_ev_mask_t {
-    XCB_X_PRINT_EV_MASK_NO_EVENT_MASK = 0,
-    XCB_X_PRINT_EV_MASK_PRINT_MASK = (1 << 0),
-    XCB_X_PRINT_EV_MASK_ATTRIBUTE_MASK = (1 << 1)
+    XCB_X_PRINT_EV_MASK_NO_EVENT_MASK = 0x00000000,
+    XCB_X_PRINT_EV_MASK_PRINT_MASK = 0x00000001,
+    XCB_X_PRINT_EV_MASK_ATTRIBUTE_MASK = 0x00000002
 } xcb_x_print_ev_mask_t;
 
 typedef enum xcb_x_print_detail_t {

@@ -51,7 +51,7 @@ APPKIT_EXTERN NSString *NSGlyphInfoAttributeName;
 */
 APPKIT_EXTERN NSString *NSMarkedClauseSegmentAttributeName AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
-/* This defines currently supported values for NSUnderlineStyleAttributeName and NSStrikethroughStyleAttributeName, as of Mac OS X version 10.3.  The style, pattern, and optionally by-word mask are or'd together to produce the value.  The previous constants are still supported, but deprecated (except for NSUnderlineByWordMask); including NSUnderlineStrikethroughMask in the underline style will still produce a strikethrough, but that is deprecated in favor of setting NSStrikethroughStyleAttributeName using the values described here.
+/* This defines currently supported values for NSUnderlineStyleAttributeName and NSStrikethroughAttributeName, as of Mac OS X version 10.3.  The style, pattern, and optionally by-word mask are or'd together to produce the value.  The previous constants are still supported, but deprecated (except for NSUnderlineByWordMask); including NSUnderlineStrikethroughMask in the underline style will still produce a strikethrough, but that is deprecated in favor of setting NSStrikethroughStyleAttributeName using the values described here.
 */
 enum {
     NSUnderlineStyleNone                = 0x00,
@@ -249,10 +249,10 @@ APPKIT_EXTERN NSString *NSFileTypeDocumentOption                AVAILABLE_MAC_OS
 
 /* Methods that were deprecated in Mac OS 10.5. You can now use +textTypes and +textUnfilteredTypes to get arrays of Uniform Type Identifiers (UTIs).
 */
-+ (NSArray *)textFileTypes AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_5;
-+ (NSArray *)textPasteboardTypes AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_5;
-+ (NSArray *)textUnfilteredFileTypes AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_5;
-+ (NSArray *)textUnfilteredPasteboardTypes AVAILABLE_MAC_OS_X_VERSION_10_1_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_5;
++ (NSArray *)textFileTypes;
++ (NSArray *)textPasteboardTypes;
++ (NSArray *)textUnfilteredFileTypes;
++ (NSArray *)textUnfilteredPasteboardTypes;
 
 @end
 

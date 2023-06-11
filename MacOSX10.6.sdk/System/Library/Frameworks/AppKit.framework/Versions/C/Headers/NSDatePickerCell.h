@@ -1,7 +1,7 @@
 /*
 	NSDatePickerCell.h
 	Application Kit
-	Copyright (c) 2004-2008, Apple Inc.
+	Copyright (c) 2004-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -37,7 +37,6 @@ enum {
 };
 
 @class NSCalendar, NSLocale, NSTimeZone;
-@protocol NSDatePickerCellDelegate;
 
 @interface NSDatePickerCell : NSActionCell
 {
@@ -121,13 +120,12 @@ enum {
 
 #pragma mark *** Delegate ***
 
-- (id <NSDatePickerCellDelegate>)delegate;
-- (void)setDelegate:(id <NSDatePickerCellDelegate>)anObject;
+- (id)delegate;
+- (void)setDelegate:(id)anObject;
 
 @end
 
-@protocol NSDatePickerCellDelegate <NSObject>
-@optional
+@interface NSObject (NSDatePickerCellDelegate)
 - (void)datePickerCell:(NSDatePickerCell *)aDatePickerCell validateProposedDateValue:(NSDate **)proposedDateValue timeInterval:(NSTimeInterval *)proposedTimeInterval;
 @end
 

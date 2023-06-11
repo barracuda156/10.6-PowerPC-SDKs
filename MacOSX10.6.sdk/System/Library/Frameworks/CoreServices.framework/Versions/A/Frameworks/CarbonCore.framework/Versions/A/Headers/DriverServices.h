@@ -3,7 +3,7 @@
  
      Contains:   Driver Services Interfaces.
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1985-2008 by Apple Computer, Inc., all rights reserved
  
@@ -53,12 +53,12 @@ extern "C" {
 
 enum {
   durationMicrosecond           = -1L,  /* Microseconds are negative*/
-  durationMillisecond           = 1,    /* Milliseconds are positive*/
-  durationSecond                = 1000, /* 1000 * durationMillisecond*/
-  durationMinute                = 60000, /* 60 * durationSecond,*/
-  durationHour                  = 3600000, /* 60 * durationMinute,*/
-  durationDay                   = 86400000, /* 24 * durationHour,*/
-  durationNoWait                = 0,    /* don't block*/
+  durationMillisecond           = 1L,   /* Milliseconds are positive*/
+  durationSecond                = 1000L, /* 1000 * durationMillisecond*/
+  durationMinute                = 60000L, /* 60 * durationSecond,*/
+  durationHour                  = 3600000L, /* 60 * durationMinute,*/
+  durationDay                   = 86400000L, /* 24 * durationHour,*/
+  durationNoWait                = 0L,   /* don't block*/
   durationForever               = 0x7FFFFFFF /* no time limit*/
 };
 

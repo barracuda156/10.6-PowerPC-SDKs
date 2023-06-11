@@ -4,7 +4,7 @@
 // Author:      Aleksandras Gluchovas
 // Modified by:
 // Created:     9/11/98
-// RCS-ID:      $Id: hintanimpl.h 35650 2005-09-23 12:56:45Z MR $
+// RCS-ID:      $Id: hintanimpl.h,v 1.7 2005/09/23 12:46:57 MR Exp $
 // Copyright:   (c) Aleksandras Gluchovas
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

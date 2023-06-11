@@ -45,17 +45,6 @@
 // table/outline notifications
 #define kAXRowCountChangedNotification			CFSTR("AXRowCountChanged")
 
-// outline notifications
-#define kAXRowExpandedNotification			CFSTR("AXRowExpanded")
-#define kAXRowCollapsedNotification			CFSTR("AXRowCollapsed")
-
-// cell-based table notifications
-#define kAXSelectedCellsChangedNotification		CFSTR("AXSelectedCellsChanged")
-
-// layout area notifications
-#define kAXUnitsChangedNotification			CFSTR("AXUnitsChanged")  
-#define kAXSelectedChildrenMovedNotification		CFSTR("AXSelectedChildrenMoved")
-
 // other notifications
 #define kAXSelectedChildrenChangedNotification		CFSTR("AXSelectedChildrenChanged")
 #define kAXResizedNotification				CFSTR("AXResized")

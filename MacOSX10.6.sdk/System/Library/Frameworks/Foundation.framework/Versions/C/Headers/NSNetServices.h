@@ -1,5 +1,5 @@
 /*	NSNetServices.h
-        Copyright (c) 2002-2008, Apple Inc. All rights reserved.
+        Copyright (c) 2002-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -8,7 +8,6 @@
 #if MAC_OS_X_VERSION_10_2 <= MAC_OS_X_VERSION_MAX_ALLOWED
 
 @class NSArray, NSData, NSDictionary, NSInputStream, NSOutputStream, NSRunLoop, NSString;
-@protocol NSNetServiceDelegate, NSNetServiceBrowserDelegate;
 
 #pragma mark Error constants
 
@@ -84,8 +83,8 @@ If publish: is called on an NSNetService instance initialized with this method, 
 */
 - (id)initWithDomain:(NSString *)domain type:(NSString *)type name:(NSString *)name;
 
-- (id <NSNetServiceDelegate>)delegate;
-- (void)setDelegate:(id <NSNetServiceDelegate>)delegate;
+- (id)delegate;
+- (void)setDelegate:(id)delegate;
 
 /* NSNetService instances may be scheduled on NSRunLoops to operate in different modes, or in other threads. It is generally not necessary to schedule NSNetServices in other threads. NSNetServices are scheduled in the current thread's NSRunLoop in the NSDefaultRunLoopMode when they are created.
 */
@@ -133,7 +132,7 @@ If publish: is called on an NSNetService instance initialized with this method, 
 
 /* Attempts to determine at least one address for the NSNetService instance. For applications linked on or after Mac OS X 10.4 "Tiger", this method calls -resolveWithTimeout: with a value of 5.0. Applications linked prior to Mac OS X 10.4 "Tiger" must call -stop on the instance after an appropriate (short) amount of time to avoid causing unnecessary network traffic.
 */
-- (void)resolve DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
+- (void)resolve;
 
 /* Halts a service which is either publishing or resolving.
 */
@@ -192,8 +191,8 @@ If publish: is called on an NSNetService instance initialized with this method, 
 
 - (id)init;
 
-- (id <NSNetServiceBrowserDelegate>)delegate;
-- (void)setDelegate:(id <NSNetServiceBrowserDelegate>)delegate;
+- (id)delegate;
+- (void)setDelegate:(id)delegate;
 
 /* NSNetServiceBrowser instances may be scheduled on NSRunLoops to operate in different modes, or in other threads. It is generally not necessary to schedule NSNetServiceBrowsers in other threads. NSNetServiceBrowsers are scheduled in the current thread's NSRunLoop in the NSDefaultRunLoopMode when they are created.
 */
@@ -224,8 +223,7 @@ If publish: is called on an NSNetService instance initialized with this method, 
 
 #pragma mark -
 
-@protocol NSNetServiceDelegate <NSObject>
-@optional
+@interface NSObject (NSNetServiceDelegateMethods)
 
 /* Sent to the NSNetService instance's delegate prior to advertising the service on the network. If for some reason the service cannot be published, the delegate will not receive this message, and an error will be delivered to the delegate via the delegate's -netService:didNotPublish: method.
 */
@@ -271,8 +269,7 @@ If publish: is called on an NSNetService instance initialized with this method, 
 
 #pragma mark -
 
-@protocol NSNetServiceBrowserDelegate <NSObject>
-@optional
+@interface NSObject (NSNetServiceBrowserDelegateMethods)
 
 /* Sent to the NSNetServiceBrowser instance's delegate before the instance begins a search. The delegate will not receive this message if the instance is unable to begin a search. Instead, the delegate will receive the -netServiceBrowser:didNotSearch: message.
 */
@@ -318,13 +315,13 @@ If publish: is called on an NSNetService instance initialized with this method, 
 
 This method is deprecated on Mac OS X 10.4 "Tiger" and later; use -TXTRecordData instead.
 */
-- (NSString *)protocolSpecificInformation DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
+- (NSString *)protocolSpecificInformation;
 
 /* Sets the TXT record of the NSNetService instance to be the provided string. It is the caller's responsibility to ensure the string is of the appropriate format with the correct encoding.
 
 This method is deprecated on Mac OS X 10.4 "Tiger" and later; use -setTXTRecordData: instead.
 */
-- (void)setProtocolSpecificInformation:(NSString *)specificInformation DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
+- (void)setProtocolSpecificInformation:(NSString *)specificInformation;
 
 @end
 
@@ -334,7 +331,7 @@ This method is deprecated on Mac OS X 10.4 "Tiger" and later; use -setTXTRecordD
 
 This method is deprecated on Mac OS X 10.4 "Tiger" and later; use -searchForBrowsableDomains or -searchForRegistrationDomains instead.
 */
-- (void)searchForAllDomains DEPRECATED_IN_MAC_OS_X_VERSION_10_4_AND_LATER;
+- (void)searchForAllDomains;
 
 @end
 

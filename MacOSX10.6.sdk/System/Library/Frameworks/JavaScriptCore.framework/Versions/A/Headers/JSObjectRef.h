@@ -1,6 +1,6 @@
+// -*- mode: c++; c-basic-offset: 4 -*-
 /*
  * Copyright (C) 2006, 2007 Apple Inc. All rights reserved.
- * Copyright (C) 2008 Kelvin W Sherlock (ksherlock@gmail.com)
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -30,10 +30,8 @@
 #include <JavaScriptCore/JSBase.h>
 #include <JavaScriptCore/JSValueRef.h>
 
-#ifndef __cplusplus
 #include <stdbool.h>
-#endif
-#include <stddef.h> /* for size_t */
+#include <stddef.h> // for size_t
 
 #ifdef __cplusplus
 extern "C" {
@@ -340,7 +338,7 @@ Standard JavaScript practice calls for storing function objects in prototypes, s
 A NULL callback specifies that the default object callback should substitute, except in the case of hasProperty, where it specifies that getProperty should substitute.
 */
 typedef struct {
-    int                                 version; /* current (and only) version is 0 */
+    int                                 version; // current (and only) version is 0
     JSClassAttributes                   attributes;
 
     const char*                         className;
@@ -428,52 +426,6 @@ JS_EXPORT JSObjectRef JSObjectMakeFunctionWithCallback(JSContextRef ctx, JSStrin
 @discussion The default object constructor takes no arguments and constructs an object of class jsClass with no private data.
 */
 JS_EXPORT JSObjectRef JSObjectMakeConstructor(JSContextRef ctx, JSClassRef jsClass, JSObjectCallAsConstructorCallback callAsConstructor);
-
-/*!
- @function
- @abstract Creates a JavaScript Array object.
- @param ctx The execution context to use.
- @param argumentCount An integer count of the number of arguments in arguments.
- @param arguments A JSValue array of data to populate the Array with. Pass NULL if argumentCount is 0.
- @param exception A pointer to a JSValueRef in which to store an exception, if any. Pass NULL if you do not care to store an exception.
- @result A JSObject that is an Array.
- @discussion The behavior of this function does not exactly match the behavior of the built-in Array constructor. Specifically, if one argument 
- is supplied, this function returns an array with one element.
- */
-JS_EXPORT JSObjectRef JSObjectMakeArray(JSContextRef ctx, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
-
-/*!
- @function
- @abstract Creates a JavaScript Date object, as if by invoking the built-in Date constructor.
- @param ctx The execution context to use.
- @param argumentCount An integer count of the number of arguments in arguments.
- @param arguments A JSValue array of arguments to pass to the Date Constructor. Pass NULL if argumentCount is 0.
- @param exception A pointer to a JSValueRef in which to store an exception, if any. Pass NULL if you do not care to store an exception.
- @result A JSObject that is a Date.
- */
-JS_EXPORT JSObjectRef JSObjectMakeDate(JSContextRef ctx, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
-
-/*!
- @function
- @abstract Creates a JavaScript Error object, as if by invoking the built-in Error constructor.
- @param ctx The execution context to use.
- @param argumentCount An integer count of the number of arguments in arguments.
- @param arguments A JSValue array of arguments to pass to the Error Constructor. Pass NULL if argumentCount is 0.
- @param exception A pointer to a JSValueRef in which to store an exception, if any. Pass NULL if you do not care to store an exception.
- @result A JSObject that is a Error.
- */
-JS_EXPORT JSObjectRef JSObjectMakeError(JSContextRef ctx, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
-
-/*!
- @function
- @abstract Creates a JavaScript RegExp object, as if by invoking the built-in RegExp constructor.
- @param ctx The execution context to use.
- @param argumentCount An integer count of the number of arguments in arguments.
- @param arguments A JSValue array of arguments to pass to the RegExp Constructor. Pass NULL if argumentCount is 0.
- @param exception A pointer to a JSValueRef in which to store an exception, if any. Pass NULL if you do not care to store an exception.
- @result A JSObject that is a RegExp.
- */
-JS_EXPORT JSObjectRef JSObjectMakeRegExp(JSContextRef ctx, size_t argumentCount, const JSValueRef arguments[], JSValueRef* exception);
 
 /*!
 @function
@@ -690,4 +642,4 @@ JS_EXPORT void JSPropertyNameAccumulatorAddName(JSPropertyNameAccumulatorRef acc
 }
 #endif
 
-#endif /* JSObjectRef_h */
+#endif // JSObjectRef_h

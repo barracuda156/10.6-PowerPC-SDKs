@@ -197,11 +197,11 @@ enum {
  *	Result bit flags passed to CFNetServiceBrowserClientCallBack.
  */
 enum {
-  kCFNetServiceFlagMoreComing            = 1,  /* Client will get another callback briefly and shouldn't do costly screen updates (or such).*/
-  kCFNetServiceFlagIsDomain              = 2,  /* If off, the result is a service.*/
-  kCFNetServiceFlagIsDefault             = 4,  /* The result domain is the default domain for the given domain browse type (registration or browse).*/
-  kCFNetServiceFlagIsRegistrationDomain  = 4,  /* Same as the previous but incorrectly named. Kept for compatibility.*/
-  kCFNetServiceFlagRemove                = 8   /* The result item should be removed and not added.*/
+  kCFNetServiceFlagMoreComing   = 1,	/* Client will get another callback briefly and shouldn't do costly screen updates (or such).*/
+  kCFNetServiceFlagIsDomain	 = 2,	/* If off, the result is a service.*/
+  kCFNetServiceFlagIsDefault	= 4,	/* The result domain is the default domain for the given domain browse type (registration or browse).*/
+  kCFNetServiceFlagIsRegistrationDomain = 4, /* Same as the previous but incorrectly named.   Kept for compatibility.*/
+  kCFNetServiceFlagRemove	   = 8	 /* The result item should be removed and not added.*/
 };
 
 

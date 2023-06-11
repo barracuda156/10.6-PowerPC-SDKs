@@ -66,9 +66,8 @@ protected:
     vm_size_t            _capacity;
     vm_offset_t		 _alignment;
     IOOptionBits	 _options;
-private:
-    uintptr_t		 _internalReserved;
-    unsigned             _internalFlags;
+    IOPhysicalAddress *  _physAddrs;
+    unsigned             _physSegCount;
 
 private:
 #ifndef __LP64__

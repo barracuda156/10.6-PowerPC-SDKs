@@ -1163,7 +1163,7 @@
 #define SIZEOF_INTMAX_T 8
 
 /* The size of a `long', as computed by sizeof. */
-#define SIZEOF_LONG 8
+#define SIZEOF_LONG 4
 
 /* The size of a `long long', as computed by sizeof. */
 #define SIZEOF_LONG_LONG 8
@@ -1600,7 +1600,7 @@
 #define NETSNMP_LASTFIELD -1
 
 /* configure options specified */
-#define NETSNMP_CONFIGURE_OPTIONS "'--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--sysconfdir=/etc' '--with-install-prefix=/BinaryCache/net_snmp/net_snmp-119~45/Root' '--with-default-snmp-version=2' '--with-persistent-directory=/var/db/net-snmp' '--with-defaults' '--without-rpm' '--with-sys-contact=postmaster@example.com' '--with-mib-modules=host ucd-snmp/diskio ucd-snmp/loadave ucd-snmp/lmSensorsTables' '--disable-static' '--enable-ipv6' '--disable-embedded-perl' '--without-kmem-usage' 'CFLAGS=-arch ppc -arch i386 -arch x86_64 -g -Os -pipe -DBUILD=119 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/ -arch ppc -arch i386 -arch x86_64 -pipe' 'CXXFLAGS=-arch ppc -arch i386 -arch x86_64 -g -Os -pipe -DBUILD=119 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/ -arch ppc -arch i386 -arch x86_64 -pipe' 'LDFLAGS=-arch ppc -arch i386 -arch x86_64            '"
+#define NETSNMP_CONFIGURE_OPTIONS "'--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--sysconfdir=/etc' '--with-install-prefix=/BinaryCache/net_snmp/net_snmp-118~13/Root' '--with-default-snmp-version=2' '--with-persistent-directory=/var/db/net-snmp' '--with-defaults' '--without-rpm' '--with-sys-contact=postmaster@example.com' '--with-mib-modules=host ucd-snmp/diskio ucd-snmp/loadave ucd-snmp/lmSensorsTables' '--disable-static' '--enable-ipv6' '--disable-embedded-perl' '--without-kmem-usage' 'CFLAGS=-arch ppc -arch i386 -arch x86_64 -g -Os -pipe -DBUILD=118 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/ -arch ppc -arch i386 -arch x86_64 -pipe' 'CXXFLAGS=-arch ppc -arch i386 -arch x86_64 -g -Os -pipe -DBUILD=118 -DMACOSX_DEPLOYMENT_TARGET=10.6 -F/System/Library/PrivateFrameworks/ -F/System/Library/Frameworks/ -arch ppc -arch i386 -arch x86_64 -pipe' 'LDFLAGS=-arch ppc -arch i386 -arch x86_64            '"
 
 /*  Pluggable transports.  */
 

@@ -5,9 +5,6 @@
 
  */
 
-#ifndef QTCAPTUREDEVICE_H  // TODO: FIX BUILD SYSTEM INSTEAD - plus rdar://problem/5947690
-#define QTCAPTUREDEVICE_H
-
 #import <Foundation/Foundation.h>
 #import <QTKit/QTKitDefines.h>
 
@@ -103,7 +100,11 @@ typedef NSInteger QTCaptureDeviceAVCTransportControlsSpeed;
 
 @interface QTCaptureDevice : NSObject <NSCoding> {
 @private
+#if __LP64__
+	int32_t					_proxy;
+#else
 	QTCaptureDeviceInternal	*_internal;
+#endif
 	long					_reserved1;
 	long					_reserved2;
 	long					_reserved3;
@@ -138,5 +139,3 @@ typedef NSInteger QTCaptureDeviceAVCTransportControlsSpeed;
 @end
 
 #endif /* (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_2) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4) */
-
-#endif // QTCAPTUREDEVICE_H

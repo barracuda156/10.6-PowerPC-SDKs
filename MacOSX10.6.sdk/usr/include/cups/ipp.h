@@ -1,5 +1,5 @@
 /*
- * "$Id: ipp.h 7847 2008-08-19 04:22:14Z mike $"
+ * "$Id: ipp.h 6879 2007-08-29 20:26:50Z mike $"
  *
  *   Internet Printing Protocol definitions for the Common UNIX Printing
  *   System (CUPS).
@@ -483,10 +483,6 @@ extern ipp_state_t	ippReadIO(void *src, ipp_iocb_t cb, int blocking,
 extern ipp_state_t	ippWriteIO(void *dst, ipp_iocb_t cb, int blocking,
 			           ipp_t *parent, ipp_t *ipp) _CUPS_API_1_2;
 
-/**** New in CUPS 1.4 ****/
-extern const char	*ippTagString(ipp_tag_t tag) _CUPS_API_1_4;
-extern ipp_tag_t	ippTagValue(const char *name) _CUPS_API_1_4;
-
 
 /*
  * C++ magic...
@@ -498,5 +494,5 @@ extern ipp_tag_t	ippTagValue(const char *name) _CUPS_API_1_4;
 #endif /* !_CUPS_IPP_H_ */
 
 /*
- * End of "$Id: ipp.h 7847 2008-08-19 04:22:14Z mike $".
+ * End of "$Id: ipp.h 6879 2007-08-29 20:26:50Z mike $".
  */

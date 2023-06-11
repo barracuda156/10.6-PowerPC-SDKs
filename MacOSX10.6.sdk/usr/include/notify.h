@@ -28,14 +28,10 @@
 #include <sys/cdefs.h>
 #include <stdint.h>
 #include <mach/message.h>
-#include <Availability.h>
+#include <AvailabilityMacros.h>
 
 /*! @header
  * These routines allow processes to exchange stateless notification events.
- * Processes post notifications to a single system-wide notification server,
- * which then distributes notifications to client processes that have
- * registered to receive those notifications, including processes run by
- * other users.
  *
  * Notifications are associated with names in a namespace shared by all
  * clients of the system.  Clients may post notifications for names, and
@@ -47,7 +43,7 @@
  * required for the desired notification delivery method.  Clients are
  * given an integer token representing the registration.
  *
- * Note that the kernel provides limited queues for mach message and file
+ * Note that the kernel provides limitied queues for mach message and file
  * descriptor messages.  It is important to make sure that clients read
  * mach ports and file descriptors frequently to prevent messages from
  * being lost due to resource limitations.  Clients that use signal-based
@@ -238,7 +234,7 @@ uint32_t notify_cancel(int token);
  * @result Returns status.
  */
 uint32_t notify_set_state(int token, uint64_t state64)
-__OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_2_0);
+AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
 /*!
  * Get the 64-bit integer state value.
@@ -250,7 +246,7 @@ __OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_2_0);
  * @result Returns status.
  */
 uint32_t notify_get_state(int token, uint64_t *state64)
-__OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_2_0);
+AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
 __END_DECLS
 

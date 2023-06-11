@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 1990-2008 by Apple Inc., all rights reserved
  
@@ -1570,7 +1570,7 @@ struct QTSStatHelperRecord {
 typedef struct QTSStatHelperRecord      QTSStatHelperRecord;
 typedef QTSStatHelperRecord *           QTSStatHelper;
 enum {
-  kQTSInvalidStatHelper         = 0
+  kQTSInvalidStatHelper         = 0L
 };
 
 /* flags for QTSStatHelperNextParams */

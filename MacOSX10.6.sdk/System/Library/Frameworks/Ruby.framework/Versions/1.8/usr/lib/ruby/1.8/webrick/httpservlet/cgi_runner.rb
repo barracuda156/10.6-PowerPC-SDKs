@@ -39,9 +39,7 @@ dir = File::dirname(ENV["SCRIPT_FILENAME"])
 Dir::chdir dir
 
 if interpreter = ARGV[0]
-  argv = ARGV.dup
-  argv << ENV["SCRIPT_FILENAME"]
-  exec(*argv)
+  exec(interpreter, ENV["SCRIPT_FILENAME"])
   # NOTREACHED
 end
 exec ENV["SCRIPT_FILENAME"]

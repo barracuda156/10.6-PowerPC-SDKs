@@ -12,7 +12,6 @@
 
 #import <AppKit/AppKit.h>
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 
 @class IKImageBrowserView;
 @class IKImageBrowserCell;
@@ -651,7 +650,3 @@ extern NSString * const IKImageBrowserGroupTitleKey;						/*NSString (for diclos
 extern NSString * const IKImageBrowserGroupStyleKey;						/*NSNumber (see enum above) */
 extern NSString * const IKImageBrowserGroupHeaderLayer;		                /* CALayer */				
 extern NSString * const IKImageBrowserGroupFooterLayer;	                    /* CALayer */
-
-
-
-#endif //MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5

@@ -1,5 +1,5 @@
 /*	CFDateFormatter.h
-	Copyright (c) 2003-2008, Apple Inc. All rights reserved.
+	Copyright (c) 2003-2007, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFDATEFORMATTER__)
@@ -16,10 +16,6 @@ CF_EXTERN_C_BEGIN
 typedef struct __CFDateFormatter *CFDateFormatterRef;
 
 // CFDateFormatters are not thread-safe.  Do not use one from multiple threads!
-
-CF_EXPORT
-CFStringRef CFDateFormatterCreateDateFormatFromTemplate(CFAllocatorRef allocator, CFStringRef tmplate, CFOptionFlags options, CFLocaleRef locale) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-	// no options defined, pass 0 for now
 
 CF_EXPORT
 CFTypeID CFDateFormatterGetTypeID(void) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;

@@ -3,7 +3,7 @@
  
      Contains:   Sound Manager Interfaces.
  
-     Version:    CarbonSound-108~28
+     Version:    CarbonSound-106.5~255
  
      Copyright:  © 1986-2008 by Apple Computer, Inc., all rights reserved
  

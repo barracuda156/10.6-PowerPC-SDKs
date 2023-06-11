@@ -179,7 +179,7 @@ enum {
 */
 extern OSStatus
 ExtAudioFileOpenURL(		CFURLRef					inURL,
-							ExtAudioFileRef *			outExtAudioFile)	__OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_2_1);
+							ExtAudioFileRef *			outExtAudioFile)	__OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_NA);
 
 /*!
 	@function   ExtAudioFileWrapAudioFileID
@@ -204,7 +204,7 @@ extern OSStatus
 ExtAudioFileWrapAudioFileID(AudioFileID					inFileID,
 							Boolean						inForWriting,
 							ExtAudioFileRef *			outExtAudioFile)	
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 /*!
 	@function   ExtAudioFileCreateWithURL
@@ -242,7 +242,7 @@ ExtAudioFileCreateWithURL(	CFURLRef							inURL,
 							const AudioChannelLayout *			inChannelLayout,
                     		UInt32								inFlags,
 							ExtAudioFileRef *					outExtAudioFile)						
-																			__OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_NA);
 																			
 #if !TARGET_OS_IPHONE
 /*!
@@ -257,8 +257,6 @@ ExtAudioFileCreateWithURL(	CFURLRef							inURL,
 
 	@discussion
 				Allocates a new ExtAudioFileRef, for reading an existing audio file.
-				
-				This function is deprecated as of Mac OS 10.6. ExtAudioFileOpenURL is preferred.
 */
 extern OSStatus
 ExtAudioFileOpen(			const struct FSRef *		inFSRef,
@@ -291,8 +289,6 @@ ExtAudioFileOpen(			const struct FSRef *		inFSRef,
 				sample rate in inStreamDesc to be 0, since in all cases, the file's encoding
 				AudioConverter may produce audio at a different sample rate than the source. The
 				file will be created with the audio format actually produced by the encoder.
-
-				This function is deprecated as of Mac OS 10.6. ExtAudioFileCreateWithURL is preferred.
 */
 extern OSStatus
 ExtAudioFileCreateNew(		const struct FSRef *				inParentDir,
@@ -317,7 +313,7 @@ ExtAudioFileCreateNew(		const struct FSRef *				inParentDir,
 */
 extern OSStatus
 ExtAudioFileDispose(		ExtAudioFileRef				inExtAudioFile)		
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 
 //==================================================================================================
@@ -356,7 +352,7 @@ extern OSStatus
 ExtAudioFileRead(			ExtAudioFileRef			inExtAudioFile,
 							UInt32 *				ioNumberFrames,
 							AudioBufferList *		ioData)					
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 /*!
 	@function   ExtAudioFileWrite
@@ -380,7 +376,7 @@ extern OSStatus
 ExtAudioFileWrite(			ExtAudioFileRef			inExtAudioFile,
 							UInt32					inNumberFrames,
 							const AudioBufferList * ioData)					
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 /*!
 	@function   ExtAudioFileWriteAsync
@@ -415,7 +411,7 @@ extern OSStatus
 ExtAudioFileWriteAsync(		ExtAudioFileRef			inExtAudioFile,
 							UInt32					inNumberFrames,
 							const AudioBufferList * ioData)					
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 /*!
 	@function   ExtAudioFileSeek
@@ -440,7 +436,7 @@ ExtAudioFileWriteAsync(		ExtAudioFileRef			inExtAudioFile,
 extern OSStatus
 ExtAudioFileSeek(			ExtAudioFileRef			inExtAudioFile,
 							SInt64					inFrameOffset)			
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 /*!
 	@function   ExtAudioFileTell
@@ -459,7 +455,7 @@ ExtAudioFileSeek(			ExtAudioFileRef			inExtAudioFile,
 extern OSStatus
 ExtAudioFileTell(			ExtAudioFileRef			inExtAudioFile,
 							SInt64 *				outFrameOffset)			
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 //==================================================================================================
 //	Property Access
@@ -488,7 +484,7 @@ ExtAudioFileGetPropertyInfo(ExtAudioFileRef			inExtAudioFile,
 							ExtAudioFilePropertyID	inPropertyID,
 							UInt32 *				outSize,
 							Boolean *				outWritable)			
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 /*!
 	@function   ExtAudioFileGetProperty
@@ -512,7 +508,7 @@ ExtAudioFileGetProperty(	ExtAudioFileRef			inExtAudioFile,
 							ExtAudioFilePropertyID	inPropertyID,
 							UInt32 *				ioPropertyDataSize,
 							void *					outPropertyData)		
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 /*!
 	@function   ExtAudioFileSetProperty
@@ -535,7 +531,7 @@ ExtAudioFileSetProperty(	ExtAudioFileRef			inExtAudioFile,
 							ExtAudioFilePropertyID	inPropertyID,
 							UInt32					inPropertyDataSize,
 							const void *			inPropertyData)			
-																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_2_1);
+																			__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
 
 
 

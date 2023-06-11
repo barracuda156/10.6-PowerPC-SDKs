@@ -54,13 +54,13 @@ CFTypeID SecCodeGetTypeID(void);
 	is considered until revoked.
 
 	@param flags Optional flags. Pass kSecCSDefaultFlags for standard behavior.
-	@param self Upon successful return, contains a SecCodeRef representing the caller.
 	
 	@result Upon success, noErr. Upon error, an OSStatus value documented in
 	CSCommon.h or certain other Security framework headers.
  */
 OSStatus SecCodeCopySelf(SecCSFlags flags, SecCodeRef *self);
-
+	
+	
 
 /*!
 	@function SecCodeCopyStaticCode
@@ -121,20 +121,20 @@ OSStatus SecCodeCopyHost(SecCodeRef guest, SecCSFlags flags, SecCodeRef *host);
 	on the system that acts as a Code Signing host. As a special case, passing
 	NULL indicates that the Code Signing root of trust should be used as a starting
 	point. Currently, that is the system kernel.
-	@param attributes A CFDictionary containing zero or more attribute selector
+	@param attributes A CFDictionary containing one or more attribute selector
 	values. Each selector has a CFString key and associated CFTypeRef value.
-	The key name identifies the attribute being specified; the associated value,
+	The key name identifies the attribute being selected; the associated value,
 	whose type depends on the the key name, selects a particular value or other
 	constraint on that attribute. Each host only supports particular combinations
 	of keys and values,	and errors will be returned if any unsupported set is requested.
 	As a special case, NULL is taken to mean an empty attribute set.
-	Note that some hosts that support hosting chains (guests being hosts)
+	Also note that some hosts that support hosting chains (guests being hosts)
 	may return sub-guests in this call. In other words, do not assume that
-	a SecCodeRef returned by this call is a direct guest of the queried host
+	a SecCodeRef returned by this call is an immediate guest of the queried host
 	(though it will be a proximate guest, i.e. a guest's guest some way down).
 	@param flags Optional flags. Pass kSecCSDefaultFlags for standard behavior.
 	@param guest On successful return, a SecCode object reference identifying
-	the particular guest of the host that owns the attribute value(s) specified.
+	the particular guest of the host that owns the attribute value specified.
 	This argument will not be changed if the call fails (does not return noErr).
 	@result Upon success, noErr. Upon error, an OSStatus value documented in
 	CSCommon.h or certain other Security framework headers. In particular:
@@ -145,16 +145,15 @@ OSStatus SecCodeCopyHost(SecCodeRef guest, SecCSFlags flags, SecCodeRef *host);
 	@error errSecCSNoSuchCode The host has no guest with the attribute value given
 	by attributeValue, even though the value is of a supported type. This may also
 	be returned if the host code does not currently act as a Code Signing host.
-	@error errSecCSNotAHost The specified host cannot, in fact, act as a code
+	@error errSecCSNotAHost The putative host cannot, in fact, act as a code
 	host. (It is missing the kSecCodeSignatureHost option flag in its code
 	signature.)
 	@error errSecCSMultipleGuests The attributes specified do not uniquely identify
 	a guest (the specification is ambiguous).
 */
-extern const CFStringRef kSecGuestAttributeCanonical;
-extern const CFStringRef kSecGuestAttributeHash;
-extern const CFStringRef kSecGuestAttributeMachPort;
 extern const CFStringRef kSecGuestAttributePid;
+extern const CFStringRef kSecGuestAttributeCanonical;
+extern const CFStringRef kSecGuestAttributeMachPort;
 
 OSStatus SecCodeCopyGuestWithAttributes(SecCodeRef host,
 	CFDictionaryRef attributes,	SecCSFlags flags, SecCodeRef *guest);
@@ -232,7 +231,7 @@ OSStatus SecCodeCopyPath(SecStaticCodeRef staticCode, SecCSFlags flags,
 	@param requirement On successful return, contains a copy of a SecRequirement
 	object representing the code's Designated Requirement. On error, unchanged.
 	@result On success, noErr. On error, an OSStatus value
-		documented in CSCommon.h or certain other Security framework headers.
+	documented in CSCommon.h or certain other Security framework headers.
 */
 OSStatus SecCodeCopyDesignatedRequirement(SecStaticCodeRef code, SecCSFlags flags,
 	SecRequirementRef *requirement);
@@ -255,8 +254,6 @@ OSStatus SecCodeCopyDesignatedRequirement(SecStaticCodeRef code, SecCSFlags flag
 	
 	@param code The Code or StaticCode object to be interrogated. For a Code
 		argument, its StaticCode is processed as per SecCodeCopyStaticCode.
-		Note that dynamic information (kSecCSDynamicInformation) cannot be obtained
-		for a StaticCode argument.
 	@param flags Optional flags. Use any or all of the kSecCS*Information flags
 		to select what information to return. A generic set of entries is returned
 		regardless; you may specify kSecCSDefaultFlags for just those.
@@ -265,14 +262,8 @@ OSStatus SecCodeCopyDesignatedRequirement(SecStaticCodeRef code, SecCSFlags flag
 		the flags passed. Regardless of flags, the kSecCodeInfoIdentifier key is
 		always present if the code is signed, and always absent if the code is
 		unsigned.
-		Note that some of the objects returned are (retained) "live" API objects
-		used by the code signing infrastructure. Making changes to these objects
-		is unsupported and may cause subsequent code signing operations on the
-		affected code to behave in undefined ways.
 	@result On success, noErr. On error, an OSStatus value
 		documented in CSCommon.h or certain other Security framework headers.
-		
-	Flags:
 	
 	@constant kSecCSSigningInformation Return cryptographic signing information,
 		including the certificate chain and CMS data (if any). For ad-hoc signed
@@ -288,65 +279,6 @@ OSStatus SecCodeCopyDesignatedRequirement(SecStaticCodeRef code, SecCSFlags flag
 		contents making up the signed code on disk. It is not generally advisable to
 		make use of this information, but some utilities (such as software-update
 		tools) may find it useful.
-	
-	Dictionary keys:
-
-	@constant kSecCodeInfoCertificates A CFArray of SecCertificates identifying the
-		certificate chain of the signing certificate as seen by the system. Absent
-		for ad-hoc signed code. May be partial or absent in error cases.
-	@constant kSecCodeInfoChangedFiles A CFArray of CFURLs identifying all files in
-		the code that may have been modified by the process of signing it. (In other
-		words, files not in this list will not have been touched by the signing operation.)
-	@constant kSecCodeInfoCMS A CFData containing the CMS cryptographic object that
-		secures the code signature. Empty for ad-hoc signed code.
-	@constant kSecCodeInfoDesignatedRequirement A SecRequirement describing the
-		actual Designated Requirement of the code.
-	@constant kSecCodeInfoEntitlements A CFData containing the embedded entitlement
-		blob of the code, if any.
-	@constant kSecCodeInfoFormat A CFString characterizing the type and format of
-		the code. Suitable for display to a (knowledeable) user.
-	@constant kSecCodeInfoIdentifier A CFString with the actual signing identifier
-		sealed into the signature. Absent for unsigned code.
-	@constant kSecCodeInfoImplicitDesignatedRequirement A SecRequirement describing
-		the designated requirement that the system did generate, or would have generated,
-		for the code. If the Designated Requirement was implicitly generated, this is
-		the same object as kSecCodeInfoDesignatedRequirement; this can be used to test
-		for an explicit Designated Requirement.
-	@constant kSecCodeInfoMainExecutable A CFURL identifying the main executable file
-		of the code. For single files, that is the file itself. For bundles, it is the
-		main executable as identified by its Info.plist.
-	@constant kSecCodeInfoPList A retained CFDictionary referring to the secured Info.plist
-		as seen by code signing. Absent if no Info.plist is known to the code signing
-		subsystem. Note that this is not the same dictionary as the one CFBundle would
-		give you (CFBundle is free to add entries to the on-disk plist).
-	@constant kSecCodeInfoRequirements A CFString describing the internal requirements
-		of the code in canonical syntax.
-	@constant kSecCodeInfoRequirementsData A CFData containing the internal requirements
-		of the code as a binary blob.
-	@constant kSecCodeInfoSource A CFString describing the source of the code signature
-		used for the code object. The values are meant to be shown in informational
-		displays; do not rely on the precise value returned.
-	@constant kSecCodeInfoStatus A CFNumber containing the dynamic status word of the
-		(running) code. This is a snapshot at the time the API is executed and may be
-		out of date by the time you examine it. Do note however that most of the bits
-		are sticky and thus some values are permanently reliable. Be careful.
-	@constant kSecCodeInfoTime A CFDate describing the signing date (securely) embedded
-		in the code signature. Note that a signer is able to omit this date or pre-date
-		it. Nobody certifies that this was really the date the code was signed; however,
-		you do know that this is the date the signer wanted you to see.
-		Ad-hoc signatures have no CMS and thus never have secured signing dates.
-	@constant kSecCodeInfoTrust The (retained) SecTrust object the system uses to
-		evaluate the validity of the code's signature. You may use the SecTrust API
-		to extract detailed information, particularly for reasons why certificate
-		validation may have failed. This object may continue to be used for further
-		evaluations of this code; if you make any changes to it, behavior is undefined.
-	@constant kSecCodeInfoUnique A CFData binary identifier that uniquely identifies
-		the static code in question. It can be used to recognize this particular code
-		(and none other) now or in the future. Compare to kSecCodeInfoIdentifier, which
-		remains stable across (developer-approved) updates.
-		This is currently the SHA-1 hash of the code's CodeDirectory. However, future
-		versions of the system may use a different algorithm for newly signed code.
-		Already-signed code not change the reported value in this case.
  */
 enum {
 	kSecCSInternalInformation = 1 << 0,
@@ -369,11 +301,9 @@ extern const CFStringRef kSecCodeInfoMainExecutable; /* generic */
 extern const CFStringRef kSecCodeInfoPList;			/* generic */
 extern const CFStringRef kSecCodeInfoRequirements;	/* Requirement */
 extern const CFStringRef kSecCodeInfoRequirementData; /* Requirement */
-extern const CFStringRef kSecCodeInfoSource;		/* generic */
 extern const CFStringRef kSecCodeInfoStatus;		/* Dynamic */
 extern const CFStringRef kSecCodeInfoTime;			/* Signing */
 extern const CFStringRef kSecCodeInfoTrust;			/* Signing */
-extern const CFStringRef kSecCodeInfoUnique;		/* generic */
 
 OSStatus SecCodeCopySigningInformation(SecStaticCodeRef code, SecCSFlags flags,
 	CFDictionaryRef *information);

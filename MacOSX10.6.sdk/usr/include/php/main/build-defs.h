@@ -18,7 +18,7 @@
 
 /* $Id: build-defs.h.in,v 1.15.2.2.2.2 2007/07/15 15:10:04 jani Exp $ */
 
-#define CONFIGURE_COMMAND " './configure'  '--prefix=/usr' '--mandir=/usr/share' '--with-apxs2=/usr/sbin/apxs' '--with-ldap=/usr' '--with-ldap-sasl=/usr' '--with-pcre-regex=/usr' '--with-kerberos=/usr' '--with-gd' '--with-jpeg-dir=/BinaryCache/apache_mod_php/apache_mod_php-48~7/Root/usr/local' '--with-png-dir=/BinaryCache/apache_mod_php/apache_mod_php-48~7/Root/usr/local' '--enable-cli' '--with-zlib-dir=/usr' '--enable-exif' '--enable-ftp' '--enable-mbstring' '--enable-mbregex' '--enable-sockets' '--with-iodbc=/usr' '--with-curl=/usr' '--with-config-file-path=/etc' '--sysconfdir=' '--with-mysql-sock=/var/mysql' '--with-mysqli=/usr/bin/mysql_config' '--with-mysql=/usr' '--with-openssl' '--with-xmlrpc' '--with-xsl=/usr' '--with-snmp=/usr' '--with-pdo-mysql=/usr/bin/mysql_config' '--without-pear'"
+#define CONFIGURE_COMMAND " '/SourceCache/apache_mod_php/apache_mod_php-45/php/configure'  '--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--with-apxs2=/usr/sbin/apxs' '--with-ldap=/usr' '--with-ldap-sasl=/usr' '--without-pcre' '--with-pcre-dir=/usr' '--with-kerberos=/usr' '--enable-cli' '--with-zlib-dir=/usr' '--enable-trans-sid' '--with-xml' '--enable-exif' '--enable-ftp' '--enable-mbstring' '--enable-mbregex' '--enable-dbx' '--enable-sockets' '--with-iodbc=/usr' '--with-curl=/usr' '--with-config-file-path=/etc' '--sysconfdir=/private/etc' '--with-mysql-sock=/var/mysql' '--with-mysqli=/usr/bin/mysql_config' '--with-mysql=/usr' '--with-openssl' '--with-xmlrpc' '--with-xsl=/usr' '--without-pear'"
 #define PHP_ADA_INCLUDE		""
 #define PHP_ADA_LFLAGS		""
 #define PHP_ADA_LIBS		""
@@ -82,7 +82,7 @@
 #define PHP_BINDIR              "/usr/bin"
 #define PHP_LIBDIR              "/usr/lib/php"
 #define PHP_DATADIR             "/usr/share/php"
-#define PHP_SYSCONFDIR          ""
+#define PHP_SYSCONFDIR          "/private/etc"
 #define PHP_LOCALSTATEDIR       "/usr/var"
 #define PHP_CONFIG_FILE_PATH    "/etc"
 #define PHP_CONFIG_FILE_SCAN_DIR    ""

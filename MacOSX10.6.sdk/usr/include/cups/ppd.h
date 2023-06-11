@@ -1,5 +1,5 @@
 /*
- * "$Id: ppd.h 7791 2008-07-24 00:55:30Z mike $"
+ * "$Id: ppd.h 6649 2007-07-11 21:46:42Z mike $"
  *
  *   PostScript Printer Description definitions for the Common UNIX Printing
  *   System (CUPS).
@@ -306,8 +306,8 @@ typedef struct ppd_file_s		/**** PPD File ****/
   ppd_const_t	*consts;		/* UI/Non-UI constraints */
   int		num_fonts;		/* Number of pre-loaded fonts */
   char		**fonts;		/* Pre-loaded fonts */
-  int		num_profiles;		/* Number of sRGB color profiles @deprecated@ */
-  ppd_profile_t	*profiles;		/* sRGB color profiles @deprecated@ */
+  int		num_profiles;		/* Number of sRGB color profiles */
+  ppd_profile_t	*profiles;		/* sRGB color profiles */
   int		num_filters;		/* Number of filters */
   char		**filters;		/* Filter strings... */
 
@@ -328,9 +328,6 @@ typedef struct ppd_file_s		/**** PPD File ****/
 
   /**** New in CUPS 1.3 ****/
   cups_array_t	*marked;		/* Marked choices @since CUPS 1.3@ @private@ */
-
-  /**** New in CUPS 1.4 ****/
-  cups_array_t	*cups_uiconstraints;	/* cupsUIConstraints @since CUPS 1.4@ @private@ */
 } ppd_file_t;
 
 
@@ -402,16 +399,8 @@ extern const char	*ppdLocalizeIPPReason(ppd_file_t *ppd,
 					      size_t bufsize) _CUPS_API_1_3;
 
 /**** New in CUPS 1.4 ****/
-extern int		ppdInstallableConflict(ppd_file_t *ppd,
-			                       const char *option,
-					       const char *choice);
-extern ppd_attr_t	*ppdLocalizeAttr(ppd_file_t *ppd, const char *keyword,
-			                 const char *spec);
 extern const char	*ppdLocalizeMarkerName(ppd_file_t *ppd,
 			                       const char *name) _CUPS_API_1_4;
-extern int		ppdPageSizeLimits(ppd_file_t *ppd,
-			                  ppd_size_t *minimum,
-					  ppd_size_t *maximum) _CUPS_API_1_4;
 
 
 /*
@@ -424,5 +413,5 @@ extern int		ppdPageSizeLimits(ppd_file_t *ppd,
 #endif /* !_CUPS_PPD_H_ */
 
 /*
- * End of "$Id: ppd.h 7791 2008-07-24 00:55:30Z mike $".
+ * End of "$Id: ppd.h 6649 2007-07-11 21:46:42Z mike $".
  */

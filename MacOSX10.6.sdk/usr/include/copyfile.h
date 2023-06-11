@@ -74,7 +74,6 @@ typedef int (*copyfile_callback_t)(int, int, copyfile_state_t, const char *, con
 #define COPYFILE_STATE_QUARANTINE	5
 #define	COPYFILE_STATE_STATUS_CB	6
 #define	COPYFILE_STATE_STATUS_CTX	7
-#define	COPYFILE_STATE_COPIED		8
 
 #define	COPYFILE_DISABLE_VAR	"COPYFILE_DISABLE"
 
@@ -107,12 +106,10 @@ typedef int (*copyfile_callback_t)(int, int, copyfile_state_t, const char *, con
 #define	COPYFILE_RECURSE_FILE	1
 #define	COPYFILE_RECURSE_DIR	2
 #define	COPYFILE_RECURSE_DIR_CLEANUP	3
-#define	COPYFILE_COPY_DATA	4
 
-#define	COPYFILE_START		1
-#define	COPYFILE_FINISH		2
-#define	COPYFILE_ERR		3
-#define	COPYFILE_PROGRESS	4
+#define	COPYFILE_START	1
+#define	COPYFILE_FINISH	2
+#define	COPYFILE_ERR	3
 
 #define	COPYFILE_CONTINUE	0
 #define	COPYFILE_SKIP	1

@@ -63,7 +63,8 @@ typedef IOOptionBits IODirection;
  */
 enum {
     kIOMemoryDirectionMask	= 0x00000007,
-
+    kIOMemoryAutoPrepare	= 0x00000008,	// Shared with Buffer MD
+    
     kIOMemoryTypeVirtual	= 0x00000010,
     kIOMemoryTypePhysical	= 0x00000020,
     kIOMemoryTypeUPL		= 0x00000030,

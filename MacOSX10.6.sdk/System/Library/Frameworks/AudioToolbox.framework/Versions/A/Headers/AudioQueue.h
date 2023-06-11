@@ -105,8 +105,6 @@ extern "C" {
 	@constant	kAudioQueueErr_Permissions			You do not have the required permissions to call 
 													the function
 	@constant	kAudioQueueErr_InvalidPropertyValue	The specified property value is invalid.
-	@constant	kAudioQueueErr_PrimeTimedOut		During Prime, the queue's AudioConverter failed to
-	                                                convert the requested number of sample frames.
 */
 enum {
     kAudioQueueErr_InvalidBuffer        = -66687,
@@ -121,8 +119,7 @@ enum {
     kAudioQueueErr_InvalidRunState      = -66678,
     kAudioQueueErr_InvalidQueueType     = -66677,
 	kAudioQueueErr_Permissions			= -66676,
-	kAudioQueueErr_InvalidPropertyValue	= -66675,
-	kAudioQueueErr_PrimeTimedOut		= -66674
+	kAudioQueueErr_InvalidPropertyValue	= -66675
 };
 
 

@@ -1,5 +1,5 @@
 /*	NSLocale.h
-	Copyright (c) 2003-2008, Apple Inc. All rights reserved.
+	Copyright (c) 2003-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -47,10 +47,6 @@
 + (NSString *)localeIdentifierFromComponents:(NSDictionary *)dict;
 
 + (NSString *)canonicalLocaleIdentifierFromString:(NSString *)string;
-+ (NSString *)canonicalLanguageIdentifierFromString:(NSString *)string;
-
-+ (NSString *)localeIdentifierFromWindowsLocaleCode:(uint32_t)lcid AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-+ (uint32_t)windowsLocaleCodeFromLocaleIdentifier:(NSString *)localeIdentifier AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 @end
 
@@ -72,7 +68,6 @@ FOUNDATION_EXPORT NSString * const NSLocaleDecimalSeparator AVAILABLE_MAC_OS_X_V
 FOUNDATION_EXPORT NSString * const NSLocaleGroupingSeparator AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSString
 FOUNDATION_EXPORT NSString * const NSLocaleCurrencySymbol AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;      // NSString
 FOUNDATION_EXPORT NSString * const NSLocaleCurrencyCode AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSString
-FOUNDATION_EXPORT NSString * const NSLocaleCollatorIdentifier AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;  // NSString value
 
 // Values for NSCalendar identifiers (not the NSLocaleCalendar property key)
 FOUNDATION_EXPORT NSString * const NSGregorianCalendar AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;

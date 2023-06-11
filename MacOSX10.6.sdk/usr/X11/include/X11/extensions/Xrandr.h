@@ -119,12 +119,10 @@ typedef struct {
 /* internal representation is private to the library */
 typedef struct _XRRScreenConfiguration XRRScreenConfiguration;	
 
-Bool XRRQueryExtension (Display *dpy,
-			int *event_base_return,
-			int *error_base_return);
+Bool XRRQueryExtension (Display *dpy, int *event_basep, int *error_basep);
 Status XRRQueryVersion (Display *dpy,
-			    int     *major_version_return,
-			    int     *minor_version_return);
+			    int     *major_versionp,
+			    int     *minor_versionp);
 
 XRRScreenConfiguration *XRRGetScreenInfo (Display *dpy,
 					  Window window);
@@ -179,6 +177,8 @@ int XRRRootToScreen(Display *dpy, Window root);
  */
 
 
+XRRScreenConfiguration *XRRScreenConfig(Display *dpy, int screen);
+XRRScreenConfiguration *XRRConfig(Screen *screen);
 void XRRSelectInput(Display *dpy, Window window, int mask);
 
 /* 

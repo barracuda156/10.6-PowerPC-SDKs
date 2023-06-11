@@ -332,11 +332,7 @@ IOReturn IOFindValueForName(const char *string,
     @param reason A C-string to describe why the debugger is being entered. */
  
 void Debugger(const char * reason);
-#if __LP64__
-#define IOPanic(reason) panic("%s", reason)
-#else
-void IOPanic(const char *reason) __attribute__((deprecated));
-#endif
+void IOPanic(const char *reason);
 
 struct OSDictionary * IOBSDNameMatching( const char * name );
 struct OSDictionary * IOOFPathMatching( const char * path, char * buf, int maxLen );

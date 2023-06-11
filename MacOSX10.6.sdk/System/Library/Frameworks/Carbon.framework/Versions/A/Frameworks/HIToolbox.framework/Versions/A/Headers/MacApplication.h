@@ -3,7 +3,7 @@
  
      Contains:   Application-level APIs
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 2000-2008 by Apple Inc., all rights reserved.
  
@@ -72,11 +72,6 @@ extern const float kHIToolboxVersionNumber                           AVAILABLE_M
 #define kHIToolboxVersionNumber10_4_6         (225)
 #define kHIToolboxVersionNumber10_4_7         (226)
 #define kHIToolboxVersionNumber10_4_9         (227)
-#define kHIToolboxVersionNumber10_5               (343)
-#define kHIToolboxVersionNumber10_5_1         (343.1)
-#define kHIToolboxVersionNumber10_5_2           (352.5)
-#define kHIToolboxVersionNumber10_5_3           (352.10)
-#define kHIToolboxVersionNumber10_5_5          (352.11)
 
 
 /*

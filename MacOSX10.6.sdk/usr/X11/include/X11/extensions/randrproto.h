@@ -376,11 +376,7 @@ typedef struct {
     Atom	type B32;
     CARD32	longOffset B32;
     CARD32	longLength B32;
-#ifdef __cplusplus
-    BOOL	_delete;
-#else
     BOOL	delete;
-#endif
     BOOL	pending;
     CARD16	pad1 B16;
 } xRRGetOutputPropertyReq;
@@ -568,8 +564,8 @@ typedef struct {
     CARD8 type;				/* always evBase + ScreenChangeNotify */
     CARD8 rotation;			/* new rotation */
     CARD16 sequenceNumber B16;
-    Time timestamp B32;			/* time screen was changed */
-    Time configTimestamp B32;		/* time config data was changed */
+    Time timestamp B32; B32;			/* time screen was changed */
+    Time configTimestamp B32; B32;		/* time config data was changed */
     Window root B32;			/* root window */
     Window window B32;			/* window requesting notification */
     SizeID sizeID B16;			/* new size ID */

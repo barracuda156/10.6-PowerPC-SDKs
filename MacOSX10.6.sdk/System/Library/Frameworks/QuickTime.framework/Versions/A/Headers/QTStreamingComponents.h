@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 1990-2008 by Apple Inc., all rights reserved
  
@@ -63,7 +63,7 @@ enum {
 /* flags for sourcer data */
 enum {
   kQTSSourcerDataFlag_SyncSample = 0x00000001,
-  kQTSPushDataSourcerFlag_SampleTimeIsValid = (int)0x80000000
+  kQTSPushDataSourcerFlag_SampleTimeIsValid = (long)0x80000000
 };
 
 

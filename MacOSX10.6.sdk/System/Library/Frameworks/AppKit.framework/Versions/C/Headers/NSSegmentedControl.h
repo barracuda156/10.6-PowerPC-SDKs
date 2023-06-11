@@ -1,7 +1,7 @@
 /*
 	NSSegmentedControl.h
 	Application Kit
-	Copyright (c) 2003-2008, Apple Inc.
+	Copyright (c) 2003-2007, Apple Inc.
 	All rights reserved.
 */
 

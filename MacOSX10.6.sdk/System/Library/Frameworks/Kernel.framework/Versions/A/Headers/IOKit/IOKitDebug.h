@@ -57,7 +57,7 @@ private:
 			UInt32 value, const char * name );
 };
 
-#endif /* __cplusplus */
+#endif	__cplusplus
 
 enum {
 // loggage
@@ -78,7 +78,6 @@ enum {
     kIOLogMemory 	= 0x00004000ULL,
     kIOLogKextMemory 	= 0x00008000ULL,
     kOSLogRegistryMods  = 0x00010000ULL,	// Log attempts to modify registry collections
-    kIOLogPMRootDomain  = 0x00020000ULL,
 
 // debug aids - change behaviour
     kIONoFreeObjects 	= 0x00100000ULL,

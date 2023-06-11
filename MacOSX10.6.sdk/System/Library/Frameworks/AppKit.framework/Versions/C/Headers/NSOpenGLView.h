@@ -1,7 +1,7 @@
 /*
         NSOpenGLView.h
         Application Kit
-        Copyright (c) 2000-2008, Apple Inc.
+        Copyright (c) 2000-2007, Apple Inc.
         All rights reserved.
 */
 

@@ -17,7 +17,6 @@ These primitives should perform the change then call edited:range:changeInLength
 
 @class NSLayoutManager;
 @class NSMutableArray;
-@protocol NSTextStorageDelegate;
 
 /* These values are or'ed together in notifications to indicate what got changed.
 */
@@ -75,16 +74,15 @@ enum {
 
 /* Set/get the delegate
 */
-- (void)setDelegate:(id <NSTextStorageDelegate>)delegate;
-- (id <NSTextStorageDelegate>)delegate;
+- (void)setDelegate:(id)delegate;
+- (id)delegate;
 
 @end
 
 
 /****  NSTextStorage delegate methods ****/
 
-@protocol NSTextStorageDelegate <NSObject>
-@optional
+@interface NSObject (NSTextStorageDelegate)
 
 /* These methods are sent during processEditing:. The receiver can use the callback methods editedMask, editedRange, and changeInLength to see what has changed. Although these methods can change the contents of the text storage, it's best if only the delegate did this.
 */

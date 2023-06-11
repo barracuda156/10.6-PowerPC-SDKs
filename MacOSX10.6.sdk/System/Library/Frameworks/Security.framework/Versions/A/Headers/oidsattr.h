@@ -162,17 +162,10 @@ extern const CSSM_OID
 	CSSMOID_PKCS12_secretBag,
 	CSSMOID_PKCS12_safeContentsBag,
 	
-/* RFC 2798 (LDAP) */
-	CSSMOID_UserID,
-
-/* RFC 1275 (X.500) */
-	CSSMOID_DomainComponent,
-	
 /* Kerberos PKINIT CMS ContentInfo types */
 	CSSMOID_KERBv5_PKINIT_AUTH_DATA,
 	CSSMOID_KERBv5_PKINIT_DH_KEY_DATA,
 	CSSMOID_KERBv5_PKINIT_RKEY_DATA;
-
 
 
 #endif	/* _CDSA_OIDSATTR_H_*/

@@ -4,7 +4,7 @@
 // Author:      Robert Roebling, Vadim Zeitlin
 // Modified by:
 // Created:     28.12.00
-// RCS-ID:      $Id: filename.h 49563 2007-10-31 20:46:21Z VZ $
+// RCS-ID:      $Id: filename.h,v 1.71 2006/10/23 17:46:56 JS Exp $
 // Copyright:   (c) 2000 Robert Roebling
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -29,11 +29,11 @@
 #include "wx/intl.h"
 
 #if wxUSE_FILE
-class WXDLLIMPEXP_FWD_BASE wxFile;
+class WXDLLIMPEXP_BASE wxFile;
 #endif
 
 #if wxUSE_FFILE
-class WXDLLIMPEXP_FWD_BASE wxFFile;
+class WXDLLIMPEXP_BASE wxFFile;
 #endif
 
 // ----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ enum
 };
 
 // error code of wxFileName::GetSize()
-extern WXDLLIMPEXP_DATA_BASE(wxULongLong) wxInvalidSize;
+extern wxULongLong wxInvalidSize;
 
 
 

@@ -1,5 +1,5 @@
 /*	CFSocket.h
-	Copyright (c) 1999-2008, Apple Inc.  All rights reserved.
+	Copyright (c) 1999-2007, Apple Inc.  All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFSOCKET__)
@@ -133,9 +133,6 @@ enum {
     kCFSocketAutomaticallyReenableAcceptCallBack = 2,
     kCFSocketAutomaticallyReenableDataCallBack = 3,
     kCFSocketAutomaticallyReenableWriteCallBack = 8,
-#if MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED
-    kCFSocketLeaveErrors = 64,
-#endif
     kCFSocketCloseOnInvalidate = 128
 };
 #endif

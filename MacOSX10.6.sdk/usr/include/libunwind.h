@@ -1,6 +1,6 @@
 /* -*- mode: C++; c-basic-offset: 4; -*- 
  *
- * Copyright (c) 2008 Apple Inc. All rights reserved.
+ * Copyright (c) 2008 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
@@ -54,10 +54,10 @@ enum {
 };
 
 
-struct unw_context_t { uint64_t data[128]; };
+struct unw_context_t { uint64_t data[32]; };
 typedef struct unw_context_t     unw_context_t;
 
-struct unw_cursor_t { uint64_t data[140]; };
+struct unw_cursor_t { uint64_t data[48]; };
 typedef struct unw_cursor_t      unw_cursor_t;
 
 typedef struct unw_addr_space*   unw_addr_space_t;
@@ -95,9 +95,9 @@ extern int         unw_set_reg(unw_cursor_t*, unw_regnum_t, unw_word_t)         
 extern int         unw_set_fpreg(unw_cursor_t*, unw_regnum_t, unw_fpreg_t)      __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
 extern int         unw_resume(unw_cursor_t*)                                    __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
 
-extern const char* unw_regname(unw_cursor_t*, unw_regnum_t)                     __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
+extern const char* unw_regname(unw_regnum_t)                                    __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
 extern int         unw_get_proc_info(unw_cursor_t*, unw_proc_info_t*)           __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
-extern int         unw_is_fpreg(unw_cursor_t*, unw_regnum_t)                    __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
+extern int         unw_is_fpreg(unw_regnum_t)                                   __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
 extern int         unw_is_signal_frame(unw_cursor_t*)                           __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
 extern int         unw_get_proc_name(unw_cursor_t*, char*, size_t, unw_word_t*) __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA);
 //extern int       unw_get_save_loc(unw_cursor_t*, int, unw_save_loc_t*);
@@ -241,56 +241,8 @@ enum {
     UNW_PPC_F29 = 61,
     UNW_PPC_F30 = 62,
     UNW_PPC_F31 = 63,
-    UNW_PPC_MQ  = 64,
     UNW_PPC_LR  = 65,
-    UNW_PPC_CTR = 66,
-    UNW_PPC_AP  = 67,
-	UNW_PPC_CR0 = 68,
-    UNW_PPC_CR1 = 69,
-	UNW_PPC_CR2 = 70,
-	UNW_PPC_CR3 = 71,
-	UNW_PPC_CR4 = 72,
-	UNW_PPC_CR5 = 73,
-	UNW_PPC_CR6 = 74,
-	UNW_PPC_CR7 = 75,
-	UNW_PPC_XER = 76,
-	UNW_PPC_V0  = 77,
-    UNW_PPC_V1  = 78,
-    UNW_PPC_V2  = 79,
-    UNW_PPC_V3  = 80,
-    UNW_PPC_V4  = 81,
-    UNW_PPC_V5  = 82,
-    UNW_PPC_V6  = 83,
-    UNW_PPC_V7  = 84,
-    UNW_PPC_V8  = 85,
-    UNW_PPC_V9  = 86,
-    UNW_PPC_V10 = 87,
-    UNW_PPC_V11 = 88,
-    UNW_PPC_V12 = 89,
-    UNW_PPC_V13 = 90,
-    UNW_PPC_V14 = 91,
-    UNW_PPC_V15 = 92,
-    UNW_PPC_V16 = 93,
-    UNW_PPC_V17 = 94,
-    UNW_PPC_V18 = 95,
-    UNW_PPC_V19 = 96,
-    UNW_PPC_V20 = 97,
-    UNW_PPC_V21 = 98,
-    UNW_PPC_V22 = 99,
-    UNW_PPC_V23 = 100,
-    UNW_PPC_V24 = 101,
-    UNW_PPC_V25 = 102,
-    UNW_PPC_V26 = 103,
-    UNW_PPC_V27 = 104,
-    UNW_PPC_V28 = 105,
-    UNW_PPC_V29 = 106,
-    UNW_PPC_V30 = 107,
-    UNW_PPC_V31 = 108,
-    UNW_PPC_VRSAVE  = 109,
-    UNW_PPC_VSCR    = 110,
-    UNW_PPC_SPE_ACC = 111,
-    UNW_PPC_SPEFSCR = 112
-	
+    UNW_PPC_IO  = 126
 };
 
 

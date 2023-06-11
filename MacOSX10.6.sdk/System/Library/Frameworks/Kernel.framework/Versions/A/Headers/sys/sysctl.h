@@ -408,7 +408,7 @@ SYSCTL_DECL(_user);
 #define	KERN_SUGID_COREDUMP	52	/* int: whether to dump SUGID cores */
 #define	KERN_PROCDELAYTERM	53	/* int: set/reset current proc for delayed termination during shutdown */
 #define KERN_SHREG_PRIVATIZABLE	54	/* int: can shared regions be privatized ? */
-                             /* 55 was KERN_PROC_LOW_PRI_IO... now deprecated */
+#define	KERN_PROC_LOW_PRI_IO	55	/* int: set/reset current proc for low priority I/O */
 #define	KERN_LOW_PRI_WINDOW	56	/* int: set/reset throttle window - milliseconds */
 #define	KERN_LOW_PRI_DELAY	57	/* int: set/reset throttle delay - milliseconds */
 #define	KERN_POSIX		58	/* node: posix tunables */

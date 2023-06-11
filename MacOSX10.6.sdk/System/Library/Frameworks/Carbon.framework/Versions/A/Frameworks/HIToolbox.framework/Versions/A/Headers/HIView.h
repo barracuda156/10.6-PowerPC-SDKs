@@ -3,7 +3,7 @@
  
      Contains:   HIView routines
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 2001-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -150,15 +150,7 @@ enum {
  *  
  *  Summary:
  *    View feature flags are generally determined by the view itself,
- *    and are not typically changed by clients of the view. 
- *    
- *    Historical note: This list is similar to the list of Control
- *    Feature Bits in Controls.h. This list is shorter because some of
- *    the Control Manager constants were introduced to enable the
- *    Control Manager to tell whether a CDEF supported a new CDEF
- *    message. This capability is not required by the HIView Manager,
- *    because an HIView that doesn't support a particular Carbon event
- *    will simply ignore it.
+ *    and are not typically changed by clients of the view.
  */
 enum {
 

@@ -147,8 +147,6 @@ extern NSString * const kABPersonFlags             AVAILABLE_MAC_OS_X_VERSION_10
     #define kABShowAsMask                           000007
     #define kABShowAsPerson                         000000
     #define kABShowAsCompany                        000001
-	#define kABShowAsResource                       000002
-	#define kABShowAsRoom                           000003
 
     #define kABNameOrderingMask                     000070
     #define kABDefaultNameOrdering                  000000
@@ -158,8 +156,7 @@ extern NSString * const kABPersonFlags             AVAILABLE_MAC_OS_X_VERSION_10
 extern NSString * const kABPhoneProperty;                  // Generic phone number - kABMultiStringProperty
         extern NSString * const kABPhoneWorkLabel;         // Work phone
         extern NSString * const kABPhoneHomeLabel;         // Home phone
-		extern NSString * const kABPhoneiPhoneLabel;       // iPhone
-		extern NSString * const kABPhoneMobileLabel;       // Cell phone
+        extern NSString * const kABPhoneMobileLabel;       // Cell phone
         extern NSString * const kABPhoneMainLabel;         // Main phone
         extern NSString * const kABPhoneHomeFAXLabel;      // FAX number
         extern NSString * const kABPhoneWorkFAXLabel;      // FAX number

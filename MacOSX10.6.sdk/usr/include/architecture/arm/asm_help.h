@@ -1,24 +1,5 @@
 /*
- * Copyright (c) 2000-2008 Apple Inc. All rights reserved.
- *
- * @APPLE_LICENSE_HEADER_START@
- * 
- * This file contains Original Code and/or Modifications of Original Code
- * as defined in and that are subject to the Apple Public Source License
- * Version 2.0 (the 'License'). You may not use this file except in
- * compliance with the License. Please obtain a copy of the License at
- * http://www.opensource.apple.com/apsl/ and read it before using this
- * file.
- * 
- * The Original Code and all software distributed under the License are
- * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
- * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
- * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
- * Please see the License for the specific language governing rights and
- * limitations under the License.
- * 
- * @APPLE_LICENSE_HEADER_END@
+ * Copyright (c) 2000-2007 Apple Inc. All rights reserved.
  */
 
 #ifndef	_ARCH_ARM_ASM_HELP_H_
@@ -33,6 +14,11 @@
 
 #define	ROUND_TO_STACK(len)				\
 	(((len) + STACK_INCR - 1) / STACK_INCR * STACK_INCR)
+
+#define CALL_MCOUNT
+#define NESTED_FUNCTION_PROLOGUE(localvarsize)
+#define LEAF_FUNCTION_PROLOGUE(localvarsize)
+#define FUNCTION_EPILOGUE
 
 /*
  * Macros for declaring procedures
@@ -70,7 +56,8 @@
 #define	LEAF(name, localvarsize)			\
 	.globl	name					;\
 	ALIGN						;\
-name:
+name:							;\
+	LEAF_FUNCTION_PROLOGUE(localvarsize)
 
 /*
  * X_LEAF -- declare alternate global label for leaf
@@ -84,7 +71,8 @@ name:
  */
 #define	P_LEAF(name, localvarsize)			\
 	ALIGN						;\
-name:
+name:							;\
+	LEAF_FUNCTION_PROLOGUE(localvarsize)
 
 /*
  * LABEL -- declare a global code label
@@ -101,7 +89,8 @@ name:
 #define	NESTED(name, localvarsize)			\
 	.globl	name					;\
 	ALIGN						;\
-name:
+name:							;\
+	NESTED_FUNCTION_PROLOGUE(localvarsize)
 
 /*
  * X_NESTED -- declare alternate global label for nested proc
@@ -115,12 +104,14 @@ name:
  */
 #define	P_NESTED(name, localvarsize)			\
 	ALIGN						;\
-name:
+name:							;\
+	NESTED_FUNCTION_PROLOGUE(localvarsize)
 
 /*
  * END -- mark end of procedure
  */
-#define	END(name)
+#define	END(name)					\
+	FUNCTION_EPILOGUE
 
 /*
  * Storage definition macros
@@ -164,56 +155,6 @@ name:
  */
 #define	P_BSS(name,size)				\
 	.lcomm	name,size
-
-#if defined(__DYNAMIC__)
-#define GET_ADDRESS(reg,var)		\
-	ldr	reg, 4f						;\
-3:	ldr	reg, [pc, reg]				;\
-	b	5f							;\
-4:	.long	6f - (3b + 8)			;\
-5:									;\
-	.non_lazy_symbol_pointer		;\
-6:									;\
-	.indirect_symbol var			;\
-	.long 0							;\
-	.text							;\
-	.align 2
-#else
-#define GET_ADDRESS(reg,var)		\
-	ldr	reg, 3f						;\
-	b	4f							;\
-3:	.long var						;\
-4:
-#endif
-
-#if defined(__DYNAMIC__)
-#define BRANCH_EXTERNAL(var)		\
-	.globl	var						;\
-	GET_ADDRESS(ip, var)			;\
-	bx	ip
-#else
-#define BRANCH_EXTERNAL(var)		;\
-.globl	var							;\
-	b	var
-#endif
-
-#if defined(__DYNAMIC__)
-#define CALL_EXTERNAL(var)			\
-	.globl	var						;\
-	GET_ADDRESS(ip,var)				;\
-	mov	lr, pc						;\
-	bx	ip
-#else
-#define CALL_EXTERNAL(var)			\
-	.globl	var						;\
-	bl	var
-#endif
-
-#define ENTRY_POINT(name)			\
-	.align 2						;\
-	.globl  name					;\
-	.text							;\
-name:
 
 #endif	/* __ASSEMBLER__ */
 

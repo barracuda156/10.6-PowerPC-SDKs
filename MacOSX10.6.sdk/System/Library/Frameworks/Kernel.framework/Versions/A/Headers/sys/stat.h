@@ -333,15 +333,15 @@ struct stat64 __DARWIN_STRUCT_STAT64;
  * of st_mode from a stat structure.  The macro shall evaluate to a non-zero
  * value if the test is true; 0 if the test is false.
  */
-#define	S_ISBLK(m)	(((m) & S_IFMT) == S_IFBLK)	/* block special */
-#define	S_ISCHR(m)	(((m) & S_IFMT) == S_IFCHR)	/* char special */
-#define	S_ISDIR(m)	(((m) & S_IFMT) == S_IFDIR)	/* directory */
-#define	S_ISFIFO(m)	(((m) & S_IFMT) == S_IFIFO)	/* fifo or socket */
-#define	S_ISREG(m)	(((m) & S_IFMT) == S_IFREG)	/* regular file */
-#define	S_ISLNK(m)	(((m) & S_IFMT) == S_IFLNK)	/* symbolic link */
-#define	S_ISSOCK(m)	(((m) & S_IFMT) == S_IFSOCK)	/* socket */
+#define	S_ISBLK(m)	(((m) & 0170000) == 0060000)	/* block special */
+#define	S_ISCHR(m)	(((m) & 0170000) == 0020000)	/* char special */
+#define	S_ISDIR(m)	(((m) & 0170000) == 0040000)	/* directory */
+#define	S_ISFIFO(m)	(((m) & 0170000) == 0010000)	/* fifo or socket */
+#define	S_ISREG(m)	(((m) & 0170000) == 0100000)	/* regular file */
+#define	S_ISLNK(m)	(((m) & 0170000) == 0120000)	/* symbolic link */
+#define	S_ISSOCK(m)	(((m) & 0170000) == 0140000)	/* socket */
 #if !defined(_POSIX_C_SOURCE) || defined(_DARWIN_C_SOURCE)
-#define	S_ISWHT(m)	(((m) & S_IFMT) == S_IFWHT)	/* whiteout */
+#define	S_ISWHT(m)	(((m) & 0170000) == 0160000)	/* whiteout */
 #endif
 
 /*
@@ -414,7 +414,6 @@ struct stat64 __DARWIN_STRUCT_STAT64;
 #define	SF_ARCHIVED	0x00010000	/* file is archived */
 #define	SF_IMMUTABLE	0x00020000	/* file may not be changed */
 #define	SF_APPEND	0x00040000	/* writes to file may only append */
-#define	SF_COMPRESSED	0x00080000	/* file is hfs-compressed */
 /*
  * The following two bits are reserved for FreeBSD.  They are not
  * implemented in Mac OS X.

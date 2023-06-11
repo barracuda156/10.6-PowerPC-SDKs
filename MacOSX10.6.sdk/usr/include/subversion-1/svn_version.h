@@ -57,16 +57,16 @@ extern "C" {
  * Modify when new functionality is added or new interfaces are
  * defined, but all changes are backward compatible.
  */
-#define SVN_VER_MINOR      5
+#define SVN_VER_MINOR      4
 
 /**
  * Patch number.
  *
  * Modify for every released patch.
- *
+ * 
  * @since New in 1.1.
  */
-#define SVN_VER_PATCH      2
+#define SVN_VER_PATCH      4
 
 
 /** @deprecated Provided for backward compatibility with the 1.0 API. */
@@ -83,13 +83,13 @@ extern "C" {
  * from the repository rather than a "blessed" distribution.
  *
  * When rolling a tarball, we automatically replace this text with " (r1234)"
- * (where 1234 is the last revision on the branch prior to the release)
+ * (where 1234 is the last revision on the branch prior to the release) 
  * for final releases; in prereleases, it becomes " (Alpha 1)",
  * " (Beta 1)", etc., as appropriate.
  *
  * Always change this at the same time as SVN_VER_NUMTAG.
  */
-#define SVN_VER_TAG        " (r32768)"
+#define SVN_VER_TAG        " (r25188)"
 
 
 /** Number tag: a string describing the version.
@@ -115,7 +115,7 @@ extern "C" {
  * When rolling a tarball, we automatically replace it with what we
  * guess to be the correct revision number.
  */
-#define SVN_VER_REVISION   32768
+#define SVN_VER_REVISION   25188
 
 
 /* Version strings composed from the above definitions. */

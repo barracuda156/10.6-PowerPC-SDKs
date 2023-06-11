@@ -1,14 +1,13 @@
 /*
 	NSImageRep.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
 #import <Foundation/NSGeometry.h>
 #import <AppKit/AppKitDefines.h>
-#import <AppKit/NSGraphics.h>
 #import <ApplicationServices/ApplicationServices.h>
 
 @class NSArray, NSPasteboard, NSGraphicsContext, NSURL;
@@ -38,12 +37,11 @@ enum {
     int _pixelsHigh;
 }
 
-/* Drawing methods. draw is the only primitive.  
+/* Drawing methods. drawAtPoint: and drawInRect: go through draw after modifying the CTM.
 */
 - (BOOL)draw;
 - (BOOL)drawAtPoint:(NSPoint)point;
 - (BOOL)drawInRect:(NSRect)rect;
-- (BOOL)drawInRect:(NSRect)dstSpacePortionRect fromRect:(NSRect)srcSpacePortionRect operation:(NSCompositingOperation)op fraction:(CGFloat)requestedAlpha respectFlipped:(BOOL)respectContextIsFlipped hints:(NSDictionary *)hints AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 /* Methods to return info about the image. NSImageRep provides storage for all of these; however, it's illegal to set them in some subclasses.
 */

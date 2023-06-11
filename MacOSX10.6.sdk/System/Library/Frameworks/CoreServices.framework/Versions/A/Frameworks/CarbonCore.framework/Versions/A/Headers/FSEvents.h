@@ -3,7 +3,7 @@
  
      Contains:   FSEventStream API
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 2006-2008 by Apple Computer, Inc.  All rights reserved
  
@@ -249,8 +249,7 @@ enum {
    * before creating the stream so that you have a file descriptor for
    * it and can issue an F_GETPATH fcntl() to find the current path.
    */
-  kFSEventStreamCreateFlagWatchRoot = 0x00000004,
-  kFSEventStreamCreateFlagIgnoreSelf = 0x00000008
+  kFSEventStreamCreateFlagWatchRoot = 0x00000004
 };
 
 

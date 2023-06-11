@@ -3,7 +3,7 @@
  
      Contains:   Services to load and share file lists.
  
-     Version:    LaunchServices-318.1~4
+     Version:    LaunchServices-305~1
  
      Copyright:  © 2005-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -231,7 +231,7 @@ extern LSSharedFileListItemRef kLSSharedFileListItemLast             AVAILABLE_M
  *  kLSSharedFileListItemHidden
  *  
  *  Discussion:
- *    Is item hidden in UI? Associated property is CFBoolean.
+ *    Is item hidden? Associated property is CFBoolean.
  *  
  *  Availability:
  *    Mac OS X:         in version 10.5 and later in ApplicationServices.framework
@@ -239,19 +239,7 @@ extern LSSharedFileListItemRef kLSSharedFileListItemLast             AVAILABLE_M
  *    Non-Carbon CFM:   not available
  */
 extern CFStringRef kLSSharedFileListItemHidden                       AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-/*
- *  kLSSharedFileListLoginItemHidden
- *  
- *  Discussion:
- *    Should UI hide login item's window? Associated property is
- *    CFBoolean.
- *  
- *  Availability:
- *    Mac OS X:         in version 10.6 and later in ApplicationServices.framework
- *    CarbonLib:        not available
- *    Non-Carbon CFM:   not available
- */
-extern CFStringRef kLSSharedFileListLoginItemHidden                  AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+
 
 /* LSSharedFileListItemResolve flags */
 enum {

@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     15-Feb-2005
-// RCS-ID:      $Id: _datectrl.i 53935 2008-06-02 19:26:45Z RD $
+// RCS-ID:      $Id: _datectrl.i,v 1.2 2006/09/02 19:46:43 RD Exp $
 // Copyright:   (c) 2005 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -81,10 +81,43 @@ enum
 
 MustHaveApp(wxDatePickerCtrl);
 
-class wxDatePickerCtrlBase : public wxControl
+class wxDatePickerCtrl : public wxControl
 {
 public:
-    // ****  ABC
+    %pythonAppend wxDatePickerCtrl         "self._setOORInfo(self)";
+    %pythonAppend wxDatePickerCtrl()       "";
+
+    DocCtorStr(
+        wxDatePickerCtrl(wxWindow *parent,
+                         wxWindowID id=-1,
+                         const wxDateTime& dt = wxDefaultDateTime,
+                         const wxPoint& pos = wxDefaultPosition,
+                         const wxSize& size = wxDefaultSize,
+                         long style = wxDP_DEFAULT | wxDP_SHOWCENTURY,
+                         const wxValidator& validator = wxDefaultValidator,
+                         const wxString& name = wxPyDatePickerCtrlNameStr),
+        "Create a new DatePickerCtrl.", "");
+
+    
+    DocCtorStrName(
+        wxDatePickerCtrl(),
+        "Precreate a DatePickerCtrl for use in 2-phase creation.", "",
+        PreDatePickerCtrl);
+    
+
+    DocDeclStr(
+        bool , Create(wxWindow *parent,
+                      wxWindowID id=-1,
+                      const wxDateTime& dt = wxDefaultDateTime,
+                      const wxPoint& pos = wxDefaultPosition,
+                      const wxSize& size = wxDefaultSize,
+                      long style = wxDP_DEFAULT | wxDP_SHOWCENTURY,
+                      const wxValidator& validator = wxDefaultValidator,
+                      const wxString& name = wxPyDatePickerCtrlNameStr),
+        "Create the GUI parts of the DatePickerCtrl, for use in 2-phase
+creation.", "");
+    
+
 
     DocDeclStr(
         virtual void , SetValue(const wxDateTime& dt),
@@ -142,88 +175,7 @@ If there is no range or there is no upper limit, then the
 };
 
 
-class wxDatePickerCtrl : public wxDatePickerCtrlBase
-{
-public:
-    %pythonAppend wxDatePickerCtrl         "self._setOORInfo(self)";
-    %pythonAppend wxDatePickerCtrl()       "";
 
-    DocCtorStr(
-        wxDatePickerCtrl(wxWindow *parent,
-                         wxWindowID id=-1,
-                         const wxDateTime& dt = wxDefaultDateTime,
-                         const wxPoint& pos = wxDefaultPosition,
-                         const wxSize& size = wxDefaultSize,
-                         long style = wxDP_DEFAULT | wxDP_SHOWCENTURY,
-                         const wxValidator& validator = wxDefaultValidator,
-                         const wxString& name = wxPyDatePickerCtrlNameStr),
-        "Create a new DatePickerCtrl.", "");
-
-    
-    DocCtorStrName(
-        wxDatePickerCtrl(),
-        "Precreate a DatePickerCtrl for use in 2-phase creation.", "",
-        PreDatePickerCtrl);
-    
-
-    DocDeclStr(
-        bool , Create(wxWindow *parent,
-                      wxWindowID id=-1,
-                      const wxDateTime& dt = wxDefaultDateTime,
-                      const wxPoint& pos = wxDefaultPosition,
-                      const wxSize& size = wxDefaultSize,
-                      long style = wxDP_DEFAULT | wxDP_SHOWCENTURY,
-                      const wxValidator& validator = wxDefaultValidator,
-                      const wxString& name = wxPyDatePickerCtrlNameStr),
-        "Create the GUI parts of the DatePickerCtrl, for use in 2-phase
-creation.", "");
-    
-};
-
-
-
-
-MustHaveApp(wxDatePickerCtrlGeneric);
-
-%rename(GenericDatePickerCtrl) wxDatePickerCtrlGeneric;
-
-class wxDatePickerCtrlGeneric : public wxDatePickerCtrl
-{
-public:
-    %pythonAppend wxDatePickerCtrlGeneric         "self._setOORInfo(self)";
-    %pythonAppend wxDatePickerCtrlGeneric()       "";
-
-    DocCtorStr(
-        wxDatePickerCtrlGeneric(wxWindow *parent,
-                         wxWindowID id=-1,
-                         const wxDateTime& dt = wxDefaultDateTime,
-                         const wxPoint& pos = wxDefaultPosition,
-                         const wxSize& size = wxDefaultSize,
-                         long style = wxDP_DEFAULT | wxDP_SHOWCENTURY,
-                         const wxValidator& validator = wxDefaultValidator,
-                         const wxString& name = wxPyDatePickerCtrlNameStr),
-        "Create a new GenericDatePickerCtrl.", "");
-
-    
-    DocCtorStrName(
-        wxDatePickerCtrlGeneric(),
-        "Precreate a GenericDatePickerCtrl for use in 2-phase creation.", "",
-        PreGenericDatePickerCtrl);
-    
-
-    DocDeclStr(
-        bool , Create(wxWindow *parent,
-                      wxWindowID id=-1,
-                      const wxDateTime& dt = wxDefaultDateTime,
-                      const wxPoint& pos = wxDefaultPosition,
-                      const wxSize& size = wxDefaultSize,
-                      long style = wxDP_DEFAULT | wxDP_SHOWCENTURY,
-                      const wxValidator& validator = wxDefaultValidator,
-                      const wxString& name = wxPyDatePickerCtrlNameStr),
-        "Create the GUI parts of the GenericDatePickerCtrl, for use in 2-phase
-creation.", "");
-    
-};
 
 //---------------------------------------------------------------------------
 

@@ -143,6 +143,15 @@ FOUNDATION_EXPORT NSString *const ODFrameworkErrorDomain;
   returnAttributes:(id)inReturnAttributeOrList maximumResults:(NSInteger)inMaximumResults error:(NSError **)outError;
 
 /*!
+    @method     initWithNode: usingPredicate: returnAttributes: maximumResults: error:
+    @abstract   Creates a query with the node using the supplied NSPredicate
+    @discussion Creates a query with the node using the supplied NSPredicate.  outError is optional parameter,
+                nil can be passed if error details are not needed.
+*/
+- (id)initWithNode:(ODNode *)inNode usingPredicate:(NSPredicate *)inPredicate returnAttributes:(id)inReturnAttributeOrList 
+    maximumResults:(NSInteger)inMaximumResults error:(NSError **)outError;
+
+/*!
     @method     resultsAllowingPartial: error:
     @abstract   Returns results from a provided ODQuery synchronously
     @discussion Returns results from a provided ODQuery synchronously.  Passing NO to inAllowPartialResults
@@ -186,7 +195,7 @@ FOUNDATION_EXPORT NSString *const ODFrameworkErrorDomain;
     @abstract   Will dispose of any results and restart the query.
     @discussion Will dispose of any results and restart the query for subsequent resultsAllowingPartial: calls.  If the query
                 is currently scheduled on a RunLoop, then the delegate will be called with inResults == nil and
-                [inError code] == kODErrorQuerySynchronize and [inError domain] == ODFrameworkErrorDomain, signifying that
+                -[inError code] == kODErrorQuerySynchronize and -[inError domain] == ODFrameworkErrorDomain, signifying that
                 all existing results should be thrown away in preparation for new results.
 */
 - (void)synchronize;
@@ -201,8 +210,8 @@ FOUNDATION_EXPORT NSString *const ODFrameworkErrorDomain;
     @discussion  The delegate method called as results are returned from an NSRunLoop-based query.  These results are only partial
                  and delegate is called repeatedly as results are available.  The incoming result must be retained or copied.  The 
                  array will be released by the NSRunLoop upon return.  Incoming results do not include previous results,
-                 only the most resent results are returned.  inResults can be nil if an error occurs or the query is complete.  If 
-                 inResults and inError are nil then the query has completed.
+                 only the most resent results are returned.  inResults can be NULL if an error occurs or the query is complete.  If 
+                 inResults and inError are NULL then the query has completed.
 */
 @interface NSObject(ODQueryDelegate)
 - (void)results:(NSArray*)inResults forQuery:(ODQuery *)inQuery error:(NSError *)inError;
@@ -348,7 +357,7 @@ FOUNDATION_EXPORT NSString *const ODFrameworkErrorDomain;
     @method     nodeDetails: error:
     @abstract   Returns a dictionary of information about the instance of ODNode
     @discussion Returns a dictionary of information about the instance of ODNode.  Details such as Trust information
-                \@"dsAttrTypeStandard:TrustInformation" or other Node details can be retrieved.  outError is optional parameter,
+                @"dsAttrTypeStandard:TrustInformation" or other Node details can be retrieved.  outError is optional parameter,
                 nil can be passed if error details are not needed.
                 
 */
@@ -486,7 +495,7 @@ FOUNDATION_EXPORT NSString *const ODFrameworkErrorDomain;
     @method     passwordPolicyAndReturnError:
     @abstract   Returns a dictionary containing the password policy for the record if available.
     @discussion Returns a dictionary containing the password policy for the record if available.  If no policy for record
-                nil will be returned.  outError is optional parameter, nil can be passed if error details are not needed.
+                NULL will be returned.  outError is optional parameter, nil can be passed if error details are not needed.
 */
 - (NSDictionary *)passwordPolicyAndReturnError:(NSError **)outError;
 - (NSDictionary *)passwordPolicy:(NSError **)outError DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
@@ -508,7 +517,7 @@ FOUNDATION_EXPORT NSString *const ODFrameworkErrorDomain;
                 so an error code of kODErrorCredentialsMethodNotSupported may be returned.  outError is optional 
                 parameter, nil can be passed if error details are not needed.
 */
-- (BOOL)verifyExtendedWithAuthenticationType:(ODAuthenticationType)inType authenticationItems:(NSArray *)inItems 
+- (BOOL)verifyExtendedWithAuthenticationType:(NSString *)inType authenticationItems:(NSArray *)inItems 
                                continueItems:(NSArray **)outItems context:(id *)outContext error:(NSError **)outError;
 
 /*!

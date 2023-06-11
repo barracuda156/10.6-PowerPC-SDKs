@@ -1,28 +1,32 @@
 /*	NSObjCRuntime.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #include <TargetConditionals.h>
 
-#if defined(__cplusplus)
-#define FOUNDATION_EXTERN extern "C"
-#else
-#define FOUNDATION_EXTERN extern
+#if TARGET_OS_WINDOWS
+    #undef FOUNDATION_EXPORT
+    #if defined(NSBUILDINGFOUNDATION)
+	#define FOUNDATION_EXPORT __declspec(dllexport) extern
+    #else
+	#define FOUNDATION_EXPORT __declspec(dllimport) extern
+    #endif
+    #if !defined(FOUNDATION_IMPORT)
+	#define FOUNDATION_IMPORT __declspec(dllimport) extern
+    #endif
 #endif
 
-#if TARGET_OS_WIN32
+#if defined(__cplusplus)
+    #define FOUNDATION_EXPORT extern "C"
+    #define FOUNDATION_IMPORT extern "C"
+#endif
 
-    #if defined(NSBUILDINGFOUNDATION)
-        #define FOUNDATION_EXPORT FOUNDATION_EXTERN __declspec(dllexport)
-    #else
-        #define FOUNDATION_EXPORT FOUNDATION_EXTERN __declspec(dllimport)
-    #endif
+#if !defined(FOUNDATION_EXPORT)
+    #define FOUNDATION_EXPORT extern
+#endif
 
-    #define FOUNDATION_IMPORT FOUNDATION_EXTERN __declspec(dllimport)
-
-#else
-    #define FOUNDATION_EXPORT  FOUNDATION_EXTERN
-    #define FOUNDATION_IMPORT FOUNDATION_EXTERN
+#if !defined(FOUNDATION_IMPORT)
+    #define FOUNDATION_IMPORT extern
 #endif
 
 #if !defined(NS_INLINE)
@@ -32,7 +36,7 @@
         #define NS_INLINE static inline
     #elif defined(_MSC_VER)
         #define NS_INLINE static __inline
-    #elif TARGET_OS_WIN32
+    #elif TARGET_OS_WINDOWS
         #define NS_INLINE static __inline__
     #endif
 #endif
@@ -46,7 +50,7 @@
 #endif
 
 #if !defined(NS_REQUIRES_NIL_TERMINATION)
-    #if TARGET_OS_WIN32
+    #if TARGET_OS_WINDOWS
         #define NS_REQUIRES_NIL_TERMINATION
     #else
         #if defined(__APPLE_CC__) && (__APPLE_CC__ >= 5549)
@@ -58,7 +62,7 @@
 #endif
 
 #if !defined(NS_BLOCKS_AVAILABLE)
-    #if __BLOCKS__ && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED && (TARGET_OS_MAC || TARGET_OS_EMBEDDED)
+    #if __BLOCKS__ && MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED && !defined(__cplusplus)
         #define NS_BLOCKS_AVAILABLE 1
     #else
         #define NS_BLOCKS_AVAILABLE 0
@@ -74,7 +78,6 @@
 
 FOUNDATION_EXPORT double NSFoundationVersionNumber;
 
-#if TARGET_OS_MAC
 #define NSFoundationVersionNumber10_0	397.40
 #define NSFoundationVersionNumber10_1	425.00
 #define NSFoundationVersionNumber10_1_1	425.00
@@ -115,14 +118,7 @@ FOUNDATION_EXPORT double NSFoundationVersionNumber;
 #define NSFoundationVersionNumber10_4_11	567.36
 #define NSFoundationVersionNumber10_5	677.00
 #define NSFoundationVersionNumber10_5_1	677.10
-#define NSFoundationVersionNumber10_5_2 677.15
-#define NSFoundationVersionNumber10_5_3 677.19
-#define NSFoundationVersionNumber10_5_4 677.19
-#endif
 
-#if TARGET_OS_IPHONE
-#define NSFoundationVersionNumber_iPhoneOS_2_0	678.24
-#endif
 
 #if __LP64__ || TARGET_OS_EMBEDDED || TARGET_OS_IPHONE || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
 typedef long NSInteger;

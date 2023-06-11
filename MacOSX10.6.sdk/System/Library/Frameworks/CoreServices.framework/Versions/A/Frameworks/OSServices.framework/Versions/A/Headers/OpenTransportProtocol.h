@@ -3,7 +3,7 @@
  
      Contains:   Definitions likely to be used by low-level protocol stack implementation.
  
-     Version:    OpenTransport-109~49
+     Version:    OpenTransport-108~1
  
      Copyright:  © 1993-2008 by Apple Computer, Inc. and Mentat Inc., all rights reserved.
  

@@ -26,6 +26,8 @@
 #ifndef __WebKitAvailability__
 #define __WebKitAvailability__
 
+#import <AvailabilityMacros.h>
+
 /* The structure of this header is based on AvailabilityMacros.h.  The major difference is that the availability
    macros are defined in terms of WebKit version numbers rather than Mac OS X system version numbers, as WebKit
    releases span multiple versions of Mac OS X.
@@ -40,31 +42,6 @@
 #define WEBKIT_VERSION_3_1    0x0310
 #define WEBKIT_VERSION_LATEST 0x9999
 
-#ifdef __APPLE__
-#import <AvailabilityMacros.h>
-#else
-// For non-Mac platforms, require the newest version.
-#define WEBKIT_VERSION_MIN_REQUIRED WEBKIT_VERSION_LATEST
-/*
- * only certain compilers support __attribute__((deprecated))
- */
-#if defined(__GNUC__) && ((__GNUC__ >= 4) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 1)))
-    #define DEPRECATED_ATTRIBUTE __attribute__((deprecated))
-#else
-    #define DEPRECATED_ATTRIBUTE
-#endif
-#endif
-
-/* The versions of GCC that shipped with Xcode prior to 3.0 (GCC build number < 5400) did not support attributes on methods
-   declared in a category.  If we are building with one of these versions, we need to omit the attribute.  We achieve this
-   by wrapping the annotation in WEBKIT_CATEGORY_METHOD_ANNOTATION, which will remove the annotation when an old version
-   of GCC is in use and will otherwise expand to the annotation.
-*/
-#if defined(__APPLE_CC__) && __APPLE_CC__ < 5400
-    #define WEBKIT_CATEGORY_METHOD_ANNOTATION(ANNOTATION)
-#else
-    #define WEBKIT_CATEGORY_METHOD_ANNOTATION(ANNOTATION) ANNOTATION
-#endif
 
 
 /* If minimum WebKit version is not specified, assume the version that shipped with the target Mac OS X version */

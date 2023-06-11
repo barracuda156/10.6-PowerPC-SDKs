@@ -333,15 +333,6 @@ public:
 };
 
 
-/*!
-@class IOExtendedLBA
-
-@discussion
-If 48-bit LBAs are supported, IOExtendedLBA is used to represent a 48-bit LBA.
-The driver examines the ATA identify data to determine if 48-bit addressing is
-supported.
-*/
-
 class IOExtendedLBA : public OSObject
 {
 	OSDeclareDefaultStructors( IOExtendedLBA )
@@ -351,90 +342,31 @@ class IOExtendedLBA : public OSObject
 	
 	// terminology as established in ATA/ATAPI-6. 
 	// for the extended LBA address
-	
-	/*!@function setLBALow16
-	@abstract convenience method that sets the lower 16 bits of a 48-bit LBA
-	*/
 	virtual void setLBALow16( UInt16 lbaLow);
-	
-	/*!@function getLBALow16
-	@abstract convenience method that gets the lower 16 bits of a 48-bit LBA
-	*/
 	virtual UInt16 getLBALow16 (void);
-
-	/*!@function setLBAMid16
-	@abstract convenience method that sets the middle 16 bits of a 48-bit LBA
-	*/
+	
 	virtual void setLBAMid16 (UInt16 lbaMid);
-
-	/*!@function getLBAMid16
-	@abstract convenience method that gets the middle 16 bits of a 48-bit LBA
-	*/
 	virtual UInt16 getLBAMid16( void );
 	
-	/*!@function setLBAHigh16
-	@abstract convenience method that sets the high 16 bits of a 48-bit LBA
-	*/
 	virtual void setLBAHigh16( UInt16 lbaHigh );
-	
-	/*!@function getLBAHigh16
-	@abstract convenience method that gets the high 16 bits of a 48-bit LBA
-	*/
 	virtual UInt16 getLBAHigh16( void );
-
-	/*!@function setSectorCount16
-	@abstract  Taskfile access. Registers are named in accordance with ATA Standards conventions
-	*/
-	virtual void setSectorCount16( UInt16 sectorCount );
 	
-	/*!@function getSectorCount16
-	@abstract  Taskfile access. Registers are named in accordance with ATA Standards conventions
-	*/
+	virtual void setSectorCount16( UInt16 sectorCount );
 	virtual UInt16 getSectorCount16( void );
 	
-	/*!@function setFeatures16
-	@abstract  Taskfile access. Registers are named in accordance with ATA Standards conventions
-	*/
 	virtual void setFeatures16( UInt16 features );
-	
-	/*!@function getFeatures16
-	@abstract  Taskfile access. Registers are named in accordance with ATA Standards conventions
-	*/
 	virtual UInt16 getFeatures16( void );
 
-	/*!@function setDevice
-	@abstract  Taskfile access. Registers are named in accordance with ATA Standards conventions
-	*/
 	virtual void setDevice( UInt8 inDevice );
-
-	/*!@function getDevice
-	@abstract  Taskfile access. Registers are named in accordance with ATA Standards conventions
-	*/
 	virtual UInt8 getDevice( void );
 
-	/*!@function setCommand
-	@abstract  Taskfile access. Registers are named in accordance with ATA Standards conventions
-	*/
 	virtual void setCommand( UInt8 inCommand );
-
-	/*!@function getCommand
-	@abstract  Taskfile access. Registers are named in accordance with ATA Standards conventions
-	*/
 	virtual UInt8 getCommand( void );
 
-	/*!@function setExtendedLBA
-	@abstract convenience method that sets the taskfile registers into a 48-bit LBA address, along with sector count, and unit selected and LBA bit set
-	*/
-	virtual void setExtendedLBA( UInt32 inLBAHi, UInt32 inLBALo, ataUnitID inUnit, UInt16 extendedCount, UInt8 extendedCommand);
 	
-	/*!@function getExtendedLBA
-	@abstract convenience method that gets a 48-bit LBA
-	*/
+	virtual void setExtendedLBA( UInt32 inLBAHi, UInt32 inLBALo, ataUnitID inUnit, UInt16 extendedCount, UInt8 extendedCommand);
 	virtual void getExtendedLBA(  UInt32* outLBAHi, UInt32* outLBALo );
 
-	/*!@function zeroData
-	@abstract convenience method that zeros out the lba, sector count, features, device, and command member variables
-	*/
 	virtual void zeroData(void);
 	
 

@@ -1,6 +1,6 @@
 /*	
     NSURLConnection.h
-    Copyright (C) 2003-2008, Apple Inc. All rights reserved.    
+    Copyright (C) 2003-2007, Apple Inc. All rights reserved.    
     
     Public header file.
 */

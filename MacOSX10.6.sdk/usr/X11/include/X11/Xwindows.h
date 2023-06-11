@@ -66,7 +66,7 @@ The Open Group.
 #define RT_CURSOR       ((RESTYPE)5)
 #endif
 
-#define sleep(x) Sleep((x) * 1000)
+#define sleep(x) Sleep(1000*x)
 
 #if defined(WIN32) && (!defined(PATH_MAX) || PATH_MAX < 1024)
 #undef PATH_MAX

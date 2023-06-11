@@ -3,7 +3,7 @@
  
      Contains:   Script Manager interfaces
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1986-2008 by Apple Inc., all rights reserved
  

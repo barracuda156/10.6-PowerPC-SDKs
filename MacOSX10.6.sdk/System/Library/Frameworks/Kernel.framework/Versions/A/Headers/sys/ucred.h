@@ -78,7 +78,6 @@
 struct label;
 
 #ifdef __APPLE_API_UNSTABLE
-#include <sys/queue.h>
 
 /*
  * In-kernel credential structure.
@@ -102,11 +101,6 @@ struct ucred {
 	gid_t	cr_rgid;		/* real group id */
 	gid_t	cr_svgid;		/* saved group id */
 	uid_t	cr_gmuid;		/* UID for group membership purposes */
-	/*
-	 * XXXss - cr_au will be replaced with cr_audit below.
-	 * cr_au is here to keep kexts from breaking. It seems to
-	 * be currently used by the ucred hashing as well.
-	 */
 	struct auditinfo cr_au;		/* user auditing data */
 	struct label	*cr_label;	/* MAC label */
 
@@ -116,7 +110,6 @@ struct ucred {
 	 * added after the label, you must change
 	 * kauth_cred_find().
 	 */
-	struct auditinfo_addr cr_audit;	/* real user auditing data */
 };
 #ifndef _KAUTH_CRED_T
 #define	_KAUTH_CRED_T

@@ -108,10 +108,10 @@ typedef struct xcb_sync_systemcounter_iterator_t {
  * @brief xcb_sync_trigger_t
  **/
 typedef struct xcb_sync_trigger_t {
-    xcb_sync_counter_t counter; /**<  */
-    uint32_t           wait_type; /**<  */
-    xcb_sync_int64_t   wait_value; /**<  */
-    uint32_t           test_type; /**<  */
+    xcb_sync_counter_t   counter; /**<  */
+    xcb_sync_valuetype_t wait_type; /**<  */
+    xcb_sync_int64_t     wait_value; /**<  */
+    xcb_sync_testtype_t  test_type; /**<  */
 } xcb_sync_trigger_t;
 
 /**
@@ -397,14 +397,14 @@ typedef struct xcb_sync_query_alarm_request_t {
  * @brief xcb_sync_query_alarm_reply_t
  **/
 typedef struct xcb_sync_query_alarm_reply_t {
-    uint8_t            response_type; /**<  */
-    uint8_t            pad0; /**<  */
-    uint16_t           sequence; /**<  */
-    uint32_t           length; /**<  */
-    xcb_sync_trigger_t trigger; /**<  */
-    xcb_sync_int64_t   delta; /**<  */
-    uint8_t            events; /**<  */
-    uint8_t            state; /**<  */
+    uint8_t               response_type; /**<  */
+    uint8_t               pad0; /**<  */
+    uint16_t              sequence; /**<  */
+    uint32_t              length; /**<  */
+    xcb_sync_trigger_t    trigger; /**<  */
+    xcb_sync_int64_t      delta; /**<  */
+    uint8_t               events; /**<  */
+    xcb_sync_alarmstate_t state; /**<  */
 } xcb_sync_query_alarm_reply_t;
 
 /** Opcode for xcb_sync_set_priority. */

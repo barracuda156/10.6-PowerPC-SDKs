@@ -113,7 +113,6 @@
 #define HAVE_FSYNC 1
 #define HAVE_GETCWD 1
 #define HAVE_TRUNCATE 1
-#define HAVE_FTRUNCATE 1
 #define HAVE_TIMES 1
 #define HAVE_UTIMES 1
 #define HAVE_FCNTL 1
@@ -154,11 +153,9 @@
 #define HAVE_FCHMOD 1
 #define HAVE_MKTIME 1
 #define HAVE_TIMEGM 1
-#define HAVE_GETTIMEOFDAY 1
 #define HAVE_COSH 1
 #define HAVE_SINH 1
 #define HAVE_TANH 1
-#define HAVE_ROUND 1
 #define HAVE_SETUID 1
 #define HAVE_SETGID 1
 #define HAVE_SETENV 1
@@ -167,8 +164,6 @@
 #define HAVE_TM_ZONE 1
 #define HAVE_STRUCT_TM_TM_GMTOFF 1
 #define HAVE_DAYLIGHT 1
-#define HAVE_VAR_TIMEZONE 1
-#define TYPEOF_VAR_TIMEZONE long
 #define NEGATIVE_TIME_T 1
 #define POSIX_SIGNAL 1
 #define GETPGRP_VOID 1

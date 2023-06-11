@@ -1,7 +1,7 @@
 /*
 	NSImage.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -13,7 +13,6 @@
 #import <ApplicationServices/ApplicationServices.h>
 
 @class NSArray, NSColor, NSImageRep, NSPasteboard, NSGraphicsContext, NSURL;
-@protocol NSImageDelegate;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_2
 
@@ -52,14 +51,15 @@ typedef NSUInteger NSImageCacheMode;
 	unsigned int useEPSOnResolutionMismatch:1;
 	unsigned int colorMatchPreferred:1;
 	unsigned int multipleResolutionMatching:1;
-	unsigned int focusedWhilePrinting:1;
+	unsigned int reserved3:1;
 	unsigned int archiveByName:1;
 	unsigned int unboundedCacheDepth:1;
         unsigned int flipped:1;
         unsigned int aliased:1;
 	unsigned int dirtied:1;
         unsigned int cacheMode:2;
-        unsigned int sampleMode:3;
+        unsigned int sampleMode:2;
+        unsigned int focusedWhilePrinting:1;
         unsigned int reserved2:1;
         unsigned int isTemplate:1;
         unsigned int failedToExpand:1;
@@ -88,6 +88,14 @@ typedef NSUInteger NSImageCacheMode;
 - (NSSize)size;
 - (BOOL)setName:(NSString *)string;
 - (NSString *)name;
+- (void)setScalesWhenResized:(BOOL)flag;
+- (BOOL)scalesWhenResized;
+- (void)setDataRetained:(BOOL)flag;
+- (BOOL)isDataRetained;
+- (void)setCachedSeparately:(BOOL)flag;
+- (BOOL)isCachedSeparately;
+- (void)setCacheDepthMatchesImageDepth:(BOOL)flag;
+- (BOOL)cacheDepthMatchesImageDepth;
 - (void)setBackgroundColor:(NSColor *)aColor;
 - (NSColor *)backgroundColor;
 - (void)setUsesEPSOnResolutionMismatch:(BOOL)flag;
@@ -96,9 +104,14 @@ typedef NSUInteger NSImageCacheMode;
 - (BOOL)prefersColorMatch;
 - (void)setMatchesOnMultipleResolution:(BOOL)flag;
 - (BOOL)matchesOnMultipleResolution;
+- (void)dissolveToPoint:(NSPoint)point fraction:(CGFloat)aFloat;
+- (void)dissolveToPoint:(NSPoint)point fromRect:(NSRect)rect fraction:(CGFloat)aFloat;
+- (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op;
+- (void)compositeToPoint:(NSPoint)point fromRect:(NSRect)rect operation:(NSCompositingOperation)op;
+- (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
+- (void)compositeToPoint:(NSPoint)point fromRect:(NSRect)rect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
 - (void)drawAtPoint:(NSPoint)point fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
 - (void)drawInRect:(NSRect)rect fromRect:(NSRect)fromRect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
-- (void)drawInRect:(NSRect)dstSpacePortionRect fromRect:(NSRect)srcSpacePortionRect operation:(NSCompositingOperation)op fraction:(CGFloat)requestedAlpha respectFlipped:(BOOL)respectContextIsFlipped hints:(NSDictionary *)hints AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 - (BOOL)drawRepresentation:(NSImageRep *)imageRep inRect:(NSRect)rect;
 - (void)recache;
 - (NSData *)TIFFRepresentation;
@@ -111,14 +124,14 @@ typedef NSUInteger NSImageCacheMode;
 
 - (BOOL)isValid;
 - (void)lockFocus;
-- (void)lockFocusFlipped:(BOOL)flipped AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (void)lockFocusOnRepresentation:(NSImageRep *)imageRepresentation;
 - (void)unlockFocus;
 
 // use -[NSImage bestRepresentationForRect:context:hints:] instead.  Any deviceDescription dictionary is also a valid hints dictionary.
 - (NSImageRep *)bestRepresentationForDevice:(NSDictionary *)deviceDescription AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
 
-- (void)setDelegate:(id <NSImageDelegate>)anObject;
-- (id <NSImageDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 
 /* These return union of all the types registered with NSImageRep.
 */
@@ -133,6 +146,9 @@ typedef NSUInteger NSImageCacheMode;
 #endif
 
 + (BOOL)canInitWithPasteboard:(NSPasteboard *)pasteboard;
+
+- (void)setFlipped:(BOOL)flag;
+- (BOOL)isFlipped;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_2
 - (void)cancelIncrementalLoad;
@@ -200,18 +216,13 @@ typedef NSUInteger NSImageCacheMode;
  */
 - (NSImageRep *)bestRepresentationForRect:(NSRect)rect context:(NSGraphicsContext *)referenceContext hints:(NSDictionary *)hints AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-/* Answers the question, "If you were to draw the image in the passed destination rect in the passed context respecting the passed flippedness with the passed hints, would the test rect in the context intersect a non-transparent portion of the image?"
- */
-- (BOOL)hitTestRect:(NSRect)testRectDestSpace withImageDestinationRect:(NSRect)imageRectDestSpace context:(NSGraphicsContext *)context hints:(NSDictionary *)hints flipped:(BOOL)flipped AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; 
 
 @end
 
 APPKIT_EXTERN NSString *const NSImageHintCTM AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; // value is NSAffineTransform
 APPKIT_EXTERN NSString *const NSImageHintInterpolation AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; // value is NSNumber with NSImageInterpolation enum value
 
-@protocol NSImageDelegate <NSObject>
-@optional
-
+@interface NSObject(NSImageDelegate)
 - (NSImage *)imageDidNotDraw:(id)sender inRect:(NSRect)aRect;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_2
@@ -224,37 +235,8 @@ APPKIT_EXTERN NSString *const NSImageHintInterpolation AVAILABLE_MAC_OS_X_VERSIO
 
 @interface NSBundle(NSBundleImageExtension)
 - (NSString *)pathForImageResource:(NSString *)name;	/* May return nil if no file found */
-- (NSURL *)URLForImageResource:(NSString *)name AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; /* May return nil if no file found */
 @end
 
-@interface NSImage (NSDeprecated)
-
-// the concept of flippedness for NSImage is deprecated.  Please see the AppKit 10.6 release notes for a discussion of why, and for how to replace existing usage.
-- (void)setFlipped:(BOOL)flag;
-- (BOOL)isFlipped;
-
-// these methods have surprising semantics.  Prefer to use the 'draw' methods (and note the new draw method taking respectContextIsFlipped as a parameter).  Please see the AppKit 10.6 release notes for exactly what's going on.
-- (void)dissolveToPoint:(NSPoint)point fraction:(CGFloat)aFloat;
-- (void)dissolveToPoint:(NSPoint)point fromRect:(NSRect)rect fraction:(CGFloat)aFloat;
-- (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op;
-- (void)compositeToPoint:(NSPoint)point fromRect:(NSRect)rect operation:(NSCompositingOperation)op;
-- (void)compositeToPoint:(NSPoint)point operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
-- (void)compositeToPoint:(NSPoint)point fromRect:(NSRect)rect operation:(NSCompositingOperation)op fraction:(CGFloat)delta;
-
-// this method doesn't do what people expect.  See AppKit 10.6 release notes.  Briefly, you can replace invocation of this method with code that locks focus on the image and then draws the rep in the image.
-- (void)lockFocusOnRepresentation:(NSImageRep *)imageRepresentation;
-
-// these methods have to do with NSImage's caching behavior.  You should be able to remove use of these methods without any replacement.  See 10.6 AppKit release notes for details.
-- (void)setScalesWhenResized:(BOOL)flag;
-- (BOOL)scalesWhenResized;
-- (void)setDataRetained:(BOOL)flag;
-- (BOOL)isDataRetained;
-- (void)setCachedSeparately:(BOOL)flag;
-- (BOOL)isCachedSeparately;
-- (void)setCacheDepthMatchesImageDepth:(BOOL)flag;
-- (BOOL)cacheDepthMatchesImageDepth;
-
-@end
 
 #pragma mark -
 #pragma mark Standard Images

@@ -53,4 +53,4 @@ CG_EXTERN CGPDFObjectType CGPDFObjectGetType(CGPDFObjectRef object)
 CG_EXTERN bool CGPDFObjectGetValue(CGPDFObjectRef object, CGPDFObjectType type,
     void *value) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
-#endif /* CGPDFOBJECT_H_ */
+#endif	/* CGPDFOBJECT_H_ */

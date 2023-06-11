@@ -51,7 +51,6 @@ extern const OSSymbol * gIODisplayParametersTheatreModeWindowKey;
 
 extern const OSSymbol *	gIODisplayParametersCommitKey;
 extern const OSSymbol *	gIODisplayParametersDefaultKey;
-extern const OSSymbol *	gIODisplayParametersFlushKey;
 
 enum {
     kIODisplayNumPowerStates = 4,

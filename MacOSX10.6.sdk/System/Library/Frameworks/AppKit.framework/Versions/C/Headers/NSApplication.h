@@ -15,8 +15,6 @@
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 @class NSDockTile;
 #endif
-@protocol NSApplicationDelegate;
-
 /* The version of the AppKit framework */
 APPKIT_EXTERN const double NSAppKitVersionNumber;
 
@@ -37,7 +35,7 @@ APPKIT_EXTERN const double NSAppKitVersionNumber;
 #define NSAppKitVersionNumber10_4_7 824.41
 #define NSAppKitVersionNumber10_5 949
 #define NSAppKitVersionNumber10_5_2 949.27
-#define NSAppKitVersionNumber10_5_3 949.33
+#define NSAppKitVersionNumber10_5_3 949.32
 
 
 /* Modes passed to NSRunLoop */
@@ -104,7 +102,8 @@ typedef struct NSThreadPrivate _NSThreadPrivate;
         unsigned int	    _hiddenOnLaunch:1;
         unsigned int	    _openStatus:2;
 	unsigned int	    _batchOrdering:1;
-	unsigned int        _reserved:6;
+	unsigned int	    _disabledSuddenTerminationForSendEvent:1;
+	unsigned int        _reserved:5;
     }                   _appFlags;
     id                  _mainMenu;
     id                  _appIcon;
@@ -114,8 +113,8 @@ typedef struct NSThreadPrivate _NSThreadPrivate;
 }
 
 + (NSApplication *)sharedApplication;
-- (void)setDelegate:(id <NSApplicationDelegate>)anObject;
-- (id <NSApplicationDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 - (NSGraphicsContext*)context;
 - (void)hide:(id)sender;
 - (void)unhide:(id)sender;
@@ -167,6 +166,17 @@ typedef NSUInteger NSRequestUserAttentionType;
 - (void)endSheet:(NSWindow *)sheet;
 - (void)endSheet:(NSWindow *)sheet returnCode:(NSInteger)returnCode;
 
+/*
+** runModalForWindow:relativeToWindow: is deprecated.  
+** Please use beginSheet:modalForWindow:modalDelegate:didEndSelector:contextInfo:
+*/
+- (NSInteger)runModalForWindow:(NSWindow *)theWindow relativeToWindow:(NSWindow *)docWindow;
+
+/* 
+** beginModalSessionForWindow:relativeToWindow: is deprecated.
+** Please use beginSheet:modalForWindow:modalDelegate:didEndSelector:contextInfo:
+*/
+- (NSModalSession)beginModalSessionForWindow:(NSWindow *)theWindow relativeToWindow:(NSWindow *)docWindow;
 - (NSEvent *)nextEventMatchingMask:(NSUInteger)mask untilDate:(NSDate *)expiration inMode:(NSString *)mode dequeue:(BOOL)deqFlag;
 - (void)discardEventsMatchingMask:(NSUInteger)mask beforeEvent:(NSEvent *)lastEvent;
 - (void)postEvent:(NSEvent *)event atStart:(BOOL)flag;
@@ -181,12 +191,6 @@ typedef NSUInteger NSRequestUserAttentionType;
 
 - (void)setMainMenu:(NSMenu *)aMenu;
 - (NSMenu *)mainMenu;
-
-/* Set or get the Help menu for the app.  If a non-nil menu is set as the Help menu, Spotlight for Help will be installed in it; otherwise AppKit will install Spotlight for Help into a menu of its choosing (and that menu is not returned from -helpMenu).  If you wish to completely suppress Spotlight for Help, you can set a menu that does not appear in the menu bar.  NSApplicaton retains its Help menu and releases it when a different menu is set.
- 
- */
-- (void)setHelpMenu:(NSMenu *)helpMenu AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (NSMenu *)helpMenu AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 - (void)setApplicationIconImage:(NSImage *)image;
 - (NSImage *)applicationIconImage;
@@ -250,6 +254,23 @@ typedef NSUInteger NSApplicationDelegateReply;
 - (BOOL)isFullKeyboardAccessEnabled AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 @end
 
+@interface NSObject(NSApplicationNotifications)
+- (void)applicationWillFinishLaunching:(NSNotification *)notification;
+- (void)applicationDidFinishLaunching:(NSNotification *)notification;
+- (void)applicationWillHide:(NSNotification *)notification;
+- (void)applicationDidHide:(NSNotification *)notification;
+- (void)applicationWillUnhide:(NSNotification *)notification;
+- (void)applicationDidUnhide:(NSNotification *)notification;
+- (void)applicationWillBecomeActive:(NSNotification *)notification;
+- (void)applicationDidBecomeActive:(NSNotification *)notification;
+- (void)applicationWillResignActive:(NSNotification *)notification;
+- (void)applicationDidResignActive:(NSNotification *)notification;
+- (void)applicationWillUpdate:(NSNotification *)notification;
+- (void)applicationDidUpdate:(NSNotification *)notification;
+- (void)applicationWillTerminate:(NSNotification *)notification;
+- (void)applicationDidChangeScreenParameters:(NSNotification *)notification;
+@end
+
 // return values for -applicationShouldTerminate:
 enum {
         NSTerminateCancel = 0,
@@ -269,8 +290,7 @@ enum {
 typedef NSUInteger NSApplicationPrintReply;
 #endif
 
-@protocol NSApplicationDelegate <NSObject>
-@optional
+@interface NSObject(NSApplicationDelegate)
 /* 
     Allowable return values are:
         NSTerminateNow - it is ok to proceed with termination
@@ -291,30 +311,16 @@ typedef NSUInteger NSApplicationPrintReply;
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4
 - (NSApplicationPrintReply)application:(NSApplication *)application printFiles:(NSArray *)fileNames withSettings:(NSDictionary *)printSettings showPrintPanels:(BOOL)showPrintPanels;
 #endif
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
+// -application:printFiles: is now deprecated. Implement application:printFiles:withSettings:showPrintPanels: in your application delegate instead.
+- (void)application:(NSApplication *)sender printFiles:(NSArray *)filenames;
+#endif
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender;
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag;
 - (NSMenu *)applicationDockMenu:(NSApplication *)sender;
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4
 - (NSError *)application:(NSApplication *)application willPresentError:(NSError *)error;
 #endif
-
-/* Notifications:
- */
-- (void)applicationWillFinishLaunching:(NSNotification *)notification;
-- (void)applicationDidFinishLaunching:(NSNotification *)notification;
-- (void)applicationWillHide:(NSNotification *)notification;
-- (void)applicationDidHide:(NSNotification *)notification;
-- (void)applicationWillUnhide:(NSNotification *)notification;
-- (void)applicationDidUnhide:(NSNotification *)notification;
-- (void)applicationWillBecomeActive:(NSNotification *)notification;
-- (void)applicationDidBecomeActive:(NSNotification *)notification;
-- (void)applicationWillResignActive:(NSNotification *)notification;
-- (void)applicationDidResignActive:(NSNotification *)notification;
-- (void)applicationWillUpdate:(NSNotification *)notification;
-- (void)applicationDidUpdate:(NSNotification *)notification;
-- (void)applicationWillTerminate:(NSNotification *)notification;
-- (void)applicationDidChangeScreenParameters:(NSNotification *)notification;
-
 @end
 
 @interface NSApplication(NSServicesMenu)
@@ -415,22 +421,3 @@ APPKIT_EXTERN NSString *NSApplicationWillUpdateNotification;
 APPKIT_EXTERN NSString *NSApplicationWillTerminateNotification;
 APPKIT_EXTERN NSString *NSApplicationDidChangeScreenParametersNotification;
 
-/* Depcrecated Methods */
-@interface NSApplication (NSDeprecated)
-
-/*
- ** runModalForWindow:relativeToWindow: was deprecated in Mac OS 10.0.  
- ** Please use beginSheet:modalForWindow:modalDelegate:didEndSelector:contextInfo:
- */
-- (NSInteger)runModalForWindow:(NSWindow *)theWindow relativeToWindow:(NSWindow *)docWindow DEPRECATED_IN_MAC_OS_X_VERSION_10_0_AND_LATER;
-
-/* 
- ** beginModalSessionForWindow:relativeToWindow: was deprecated in Mac OS 10.0.
- ** Please use beginSheet:modalForWindow:modalDelegate:didEndSelector:contextInfo:
- */
-- (NSModalSession)beginModalSessionForWindow:(NSWindow *)theWindow relativeToWindow:(NSWindow *)docWindow DEPRECATED_IN_MAC_OS_X_VERSION_10_0_AND_LATER;
-
-// -application:printFiles: was deprecated in Mac OS 10.4. Implement application:printFiles:withSettings:showPrintPanels: in your application delegate instead.
-- (void)application:(NSApplication *)sender printFiles:(NSArray *)filenames AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_4;
-
-@end

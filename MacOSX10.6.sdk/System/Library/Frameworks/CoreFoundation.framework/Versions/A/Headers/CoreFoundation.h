@@ -1,5 +1,5 @@
 /*	CoreFoundation.h
-	Copyright (c) 1998-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1998-2007, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_COREFOUNDATION__)
@@ -71,10 +71,6 @@
 #ifndef CF_OPEN_SOURCE
 #include <CoreFoundation/CFAttributedString.h>
 #include <CoreFoundation/CFNotificationCenter.h>
-#endif
-
-#if (TARGET_OS_MAC || TARGET_OS_WIN32)
-#include <CoreFoundation/CFURLEnumerator.h>
 #endif
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)

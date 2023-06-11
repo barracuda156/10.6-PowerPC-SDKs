@@ -25,9 +25,6 @@
 /*
  *
  *	$Log: IOUSBHubPolicyMaker.h,v $
- *	Revision 1.7.72.3  2008/07/23 17:43:32  nano
- *	<rdar://problem/5939357> IOUSBHIDDriver, IOHIDEventService missing HeaderDoc class declarations
- *	
  *	Revision 1.7.72.2  2008/04/22 22:38:01  nano
  *	Bring in changes from Foxhound-320.2.9
  *	
@@ -130,10 +127,6 @@ enum {
 
 #define kIOUSBHubPowerStateStable	-1
 
-/*!
- @class IOUSBHubPolicyMaker
- @abstract Super class for Hub drivers to incorporate common Power Management code.
- */
 class IOUSBHubPolicyMaker : public IOService
 {
 	OSDeclareAbstractStructors(IOUSBHubPolicyMaker)

@@ -3,7 +3,7 @@
  
      Contains:   Text Utilities Interfaces.
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1985-2008 Apple Inc. All rights reserved.
  
@@ -108,22 +108,22 @@ typedef NBreakTable *                   NBreakTablePtr;
 /* The following functions are new names that work on 68k and PowerPC*/
 
 /*
- *  Munger()   *** DEPRECATED ***
- *  
- *  Deprecated:
- *    Use CFStringFindAndReplace or CFDataFind plus CFDataReplaceBytes
- *    (or strstr plus memmove), depending on usage; see discussion.
+ *  Munger()
  *  
  *  Discussion:
- *    For text operations performed with Munger, use
- *    CFStringFindAndReplace instead. 
+ *    This function is no longer recommended and will soon be formally
+ *    deprecated.  
  *    
- *    For operations on arbitrary bytes performed with Munger, use
- *    CFDataFind plus CFDataReplaceBytes instead (Another option is to
- *    use strstr plus memmove).
+ *    For operations that Munger performed on text, please instead use
+ *    CFStringFindAndReplace.  
+ *    
+ *    For operations that Munger performed on arbitrary bytes, one
+ *    alternative is to use memmove and strstr. Another option may be
+ *    CFDataReplaceBytes in combination with a possible future CFData
+ *    function to provide searching.
  *  
  *  Availability:
- *    Mac OS X:         in version 10.0 and later in CoreServices.framework but deprecated in 10.6
+ *    Mac OS X:         in version 10.0 and later in CoreServices.framework
  *    CarbonLib:        in CarbonLib 1.0 and later
  *    Non-Carbon CFM:   in InterfaceLib 7.1 and later
  */
@@ -134,7 +134,7 @@ Munger(
   const void *  ptr1,
   long          len1,
   const void *  ptr2,
-  long          len2)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+  long          len2)                                         AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 #if !__LP64__

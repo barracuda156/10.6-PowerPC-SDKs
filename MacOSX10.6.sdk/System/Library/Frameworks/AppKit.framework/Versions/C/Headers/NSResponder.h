@@ -1,7 +1,7 @@
 /*
         NSResponder.h
         Application Kit
-        Copyright (c) 1994-2008, Apple Inc.
+        Copyright (c) 1994-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -116,17 +116,6 @@
 - (void)moveUpAndModifySelection:(id)sender;
 - (void)moveDownAndModifySelection:(id)sender;
 
-- (void)moveToBeginningOfLineAndModifySelection:(id)sender;
-- (void)moveToEndOfLineAndModifySelection:(id)sender;
-- (void)moveToBeginningOfParagraphAndModifySelection:(id)sender;
-- (void)moveToEndOfParagraphAndModifySelection:(id)sender;
-- (void)moveToEndOfDocumentAndModifySelection:(id)sender;
-- (void)moveToBeginningOfDocumentAndModifySelection:(id)sender;
-- (void)pageDownAndModifySelection:(id)sender;
-- (void)pageUpAndModifySelection:(id)sender;
-- (void)moveParagraphForwardAndModifySelection:(id)sender;
-- (void)moveParagraphBackwardAndModifySelection:(id)sender;
-
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
 - (void)moveWordRight:(id)sender;
 - (void)moveWordLeft:(id)sender;
@@ -136,20 +125,10 @@
 - (void)moveWordLeftAndModifySelection:(id)sender;
 #endif
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-- (void)moveToLeftEndOfLine:(id)sender;
-- (void)moveToRightEndOfLine:(id)sender;
-- (void)moveToLeftEndOfLineAndModifySelection:(id)sender;
-- (void)moveToRightEndOfLineAndModifySelection:(id)sender;
-#endif
-
 - (void)scrollPageUp:(id)sender;
 - (void)scrollPageDown:(id)sender;
 - (void)scrollLineUp:(id)sender;
 - (void)scrollLineDown:(id)sender;
-
-- (void)scrollToBeginningOfDocument:(id)sender;
-- (void)scrollToEndOfDocument:(id)sender;
 
     /* Graphical Element transposition */
 
@@ -176,10 +155,6 @@
 - (void)insertLineBreak:(id)sender;
 - (void)insertContainerBreak:(id)sender;
 #endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4 */
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-- (void)insertSingleQuoteIgnoringSubstitution:(id)sender;
-- (void)insertDoubleQuoteIgnoringSubstitution:(id)sender;
-#endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 */
 
     /* Case changes */
 

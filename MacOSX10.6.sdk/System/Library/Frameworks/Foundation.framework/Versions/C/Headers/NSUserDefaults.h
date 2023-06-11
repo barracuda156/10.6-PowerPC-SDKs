@@ -1,5 +1,5 @@
 /*	NSUserDefaults.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -70,7 +70,7 @@ FOUNDATION_EXPORT NSString * const NSRegistrationDomain;
 
 FOUNDATION_EXPORT NSString * const NSUserDefaultsDidChangeNotification;
 
-#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || TARGET_OS_WIN32
+#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 /* The following keys and their values are deprecated in Mac OS X 10.5 "Leopard". Developers should use NSLocale, NSDateFormatter and NSNumberFormatter to retrieve the values formerly returned by these keys.
  */
 FOUNDATION_EXPORT NSString * const NSWeekDayNameArray DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;

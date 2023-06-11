@@ -1,7 +1,7 @@
 /*
 	NSSpeechSynthesizer.h
 	Application Kit
-	Copyright (c) 2003-2008, Apple Inc.
+	Copyright (c) 2003-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -10,7 +10,7 @@
 #import <Foundation/NSRange.h>
 
 @class NSArray, NSDictionary, NSString, NSURL, NSError;
-@protocol NSSpeechSynthesizerDelegate;
+
 
 APPKIT_EXTERN NSString *const NSVoiceName AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 APPKIT_EXTERN NSString *const NSVoiceIdentifier AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
@@ -59,8 +59,8 @@ typedef NSUInteger NSSpeechBoundary;
 - (void)continueSpeaking;
 #endif
 
-- (id <NSSpeechSynthesizerDelegate>)delegate;
-- (void)setDelegate:(id <NSSpeechSynthesizerDelegate>)anObject;
+- (id)delegate;
+- (void)setDelegate:(id)anObject;
 - (NSString *)voice;
 - (BOOL)setVoice:(NSString *)voice;
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
@@ -87,8 +87,8 @@ typedef NSUInteger NSSpeechBoundary;
 
 @end
 
-@protocol NSSpeechSynthesizerDelegate <NSObject>
-@optional
+@interface NSObject (NSSpeechSynthesizerDelegate)
+
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender didFinishSpeaking:(BOOL)finishedSpeaking;
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender willSpeakWord:(NSRange)characterRange ofString:(NSString *)string;
 - (void)speechSynthesizer:(NSSpeechSynthesizer *)sender willSpeakPhoneme:(short)phonemeOpcode;

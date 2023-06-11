@@ -37,7 +37,7 @@
 #define VMX_INUSE		2 /* VT is being exclusively used already */
 
 /* SPI */
-int host_vmxon(boolean_t exclusive);
+int host_vmxon(int exclusive);
 void host_vmxoff(void);
 
 #endif

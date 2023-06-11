@@ -5,16 +5,14 @@
 // Modified by:
 // Created:
 // Copyright:   (c) Julian Smart
-// RCS-ID:      $Id: minifram.h 49299 2007-10-21 18:07:29Z PC $
+// RCS-ID:      $Id: minifram.h,v 1.12 2006/11/04 13:01:30 VZ Exp $
 // Licence:     wxWindows Licence
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef _WX_MINIFRAM_H_BASE_
-#define _WX_MINIFRAM_H_BASE_
+#define _WX_MINIFRAMH_BASE_
 
 #include "wx/defs.h"
-
-#if wxUSE_MINIFRAME
 
 #if defined(__WXPALMOS__)
 #include "wx/palmos/minifram.h"
@@ -39,5 +37,5 @@
 typedef wxFrame wxMiniFrame;
 #endif
 
-#endif // wxUSE_MINIFRAME
-#endif // _WX_MINIFRAM_H_BASE_
+#endif
+    // _WX_MINIFRAM_H_BASE_

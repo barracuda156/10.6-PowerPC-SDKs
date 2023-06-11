@@ -3,7 +3,7 @@
  
      Contains:   Multiprocessing interfaces
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1995-2008 DayStar Digital, Inc.
  
@@ -250,7 +250,7 @@ typedef UInt32                          MPTaskStateKind;
 typedef UInt32                          MPPageSizeClass;
 
 enum {
-  kDurationImmediate            = 0,
+  kDurationImmediate            = 0L,
   kDurationForever              = 0x7FFFFFFF,
   kDurationMillisecond          = 1,
   kDurationMicrosecond          = -1

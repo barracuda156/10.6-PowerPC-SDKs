@@ -23,8 +23,16 @@ module WEBrick
       ret = path.dup
 
       ret.gsub!(%r{/+}o, '/')                    # //      => /
-      while ret.sub!(%r'/\.(?:/|\Z)', '/'); end  # /.      => /
-      while ret.sub!(%r'/(?!\.\./)[^/]+/\.\.(?:/|\Z)', '/'); end # /foo/.. => /foo
+      while ret.sub!(%r{/\.(/|\Z)}o, '/'); end   # /.      => /
+      begin                                      # /foo/.. => /foo
+        match = ret.sub!(%r{/([^/]+)/\.\.(/|\Z)}o){
+          if $1 == ".."
+            raise "abnormal path `#{path}'"
+          else
+            "/"
+          end
+        }
+      end while match
 
       raise "abnormal path `#{path}'" if %r{/\.\.(/|\Z)} =~ ret
       ret
@@ -146,8 +154,8 @@ module WEBrick
     module_function :parse_header
 
     def split_header_value(str)
-      str.scan(%r'\G((?:"(?:\\.|[^"])+?"|[^",]+)+)
-                    (?:,\s*|\Z)'xn).flatten
+      str.scan(/((?:"(?:\\.|[^"])+?"|[^",]+)+)
+                (?:,\s*|\Z)/xn).collect{|v| v[0] }
     end
     module_function :split_header_value
 

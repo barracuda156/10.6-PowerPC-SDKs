@@ -1,5 +1,5 @@
 /*	CFBinaryHeap.h
-	Copyright (c) 1998-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1998-2007, Apple Inc. All rights reserved.
 */
 /*!
         @header CFBinaryHeap

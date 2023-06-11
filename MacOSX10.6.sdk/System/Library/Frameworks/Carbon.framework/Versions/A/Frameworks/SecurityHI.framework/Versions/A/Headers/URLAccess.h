@@ -3,7 +3,7 @@
  
      Contains:   URL Access Interfaces.
  
-     Version:    SecurityHI-33640~231
+     Version:    SecurityHI-33640~60
  
      Copyright:  © 1994-2008 by Apple Computer, Inc., all rights reserved
  
@@ -55,7 +55,7 @@ enum {
   kURLResumeDownloadFlag        = 1 << 13, /* The passed in file is partially downloaded, attempt to resume*/
                                         /* it.  Currently works for HTTP only.  If no FSSpec passed in,*/
                                         /* this flag will be ignored. Overriden by kURLReplaceExistingFlag. */
-  kURLReservedFlag              = (unsigned int)(1 << 31) /* reserved for Apple internal use*/
+  kURLReservedFlag              = (unsigned long)(1 << 31) /* reserved for Apple internal use*/
 };
 
 typedef UInt32 URLState;
@@ -108,7 +108,7 @@ enum {
   kURLPropertyChangedEventMask  = 1 << (kURLPropertyChangedEvent - 1),
   kURLAllBufferEventsMask       = kURLDataAvailableEventMask + kURLTransactionCompleteEventMask,
   kURLAllNonBufferEventsMask    = kURLInitiatedEventMask + kURLDownloadingMask + kURLUploadingMask + kURLAbortInitiatedMask + kURLCompletedEventMask + kURLErrorOccurredEventMask + kURLPercentEventMask + kURLPeriodicEventMask + kURLPropertyChangedEventMask,
-  kURLAllEventsMask             = (int)0xFFFFFFFF
+  kURLAllEventsMask             = (long)0xFFFFFFFF
 };
 
 

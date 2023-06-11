@@ -60,8 +60,7 @@ enum {
     id <NSTextAttachmentCell>_cell;
     struct {
         unsigned int cellWasExplicitlySet:1;
-        unsigned int ignoresOrientation:1;
-        unsigned int :30;
+        unsigned int :31;
     } _flags;
 }
 

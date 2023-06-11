@@ -3,7 +3,7 @@
  
      Contains:   Types & prototypes for locale functions
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1998-2008 by Apple Computer, Inc., all rights reserved.
  

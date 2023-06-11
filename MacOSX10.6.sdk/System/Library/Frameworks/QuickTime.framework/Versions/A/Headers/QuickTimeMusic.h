@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 1990-2008 by Apple Inc., all rights reserved
  
@@ -58,8 +58,8 @@ enum {
   kaiSampleDataQUIDType         = 'quid',
   kaiInstInfoType               = 'iinf',
   kaiPictType                   = 'pict',
-  kaiWriterType                 = (int)0xA9777274/*'©wrt' */,
-  kaiCopyrightType              = (int)0xA9637079/*'©cpy' */,
+  kaiWriterType                 = (long)0xA9777274/*'©wrt' */,
+  kaiCopyrightType              = (long)0xA9637079/*'©cpy' */,
   kaiOtherStrType               = 'str ',
   kaiInstrumentRefType          = 'iref',
   kaiInstGMQualityType          = 'qual',
@@ -417,7 +417,7 @@ enum {
 
 enum {
   kControllerMaximum            = 0x00007FFF, /* +01111111.11111111 */
-  kControllerMinimum            = (int)0xFFFF8000 /* -10000000.00000000 */
+  kControllerMinimum            = (long)0xFFFF8000 /* -10000000.00000000 */
 };
 
 struct SynthesizerDescription {
@@ -2739,8 +2739,8 @@ enum {
   kGeneralEventType             = 0x0000000F, /* 4-bits */
   kXEventLengthBits             = 0x00000002, /* 2 bits: indicates 8-byte event record */
   kGeneralEventLengthBits       = 0x00000003, /* 2 bits: indicates variable length event record */
-  kEventLen                     = 1,    /* length of events in long words */
-  kXEventLen                    = 2,
+  kEventLen                     = 1L,   /* length of events in long words */
+  kXEventLen                    = 2L,
   kRestEventLen                 = kEventLen, /* length of events in long words */
   kNoteEventLen                 = kEventLen,
   kControlEventLen              = kEventLen,

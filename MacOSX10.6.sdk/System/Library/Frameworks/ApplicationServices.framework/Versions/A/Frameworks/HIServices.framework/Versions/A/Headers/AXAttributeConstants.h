@@ -576,7 +576,7 @@
 /*
 	kAXOrientationAttribute
 	
-	An indication of whether an element is drawn and/or interacted with in a
+	An indiciation of whether an element is drawn and/or interacted with in a
 	vertical or horizontal manner. Elements such as scroll bars and sliders offer
 	the kAXOrientationAttribute.
 	
@@ -1114,6 +1114,7 @@
 #define kAXVisibleColumnsAttribute			CFSTR("AXVisibleColumns")
 #define kAXSelectedColumnsAttribute			CFSTR("AXSelectedColumns")
 #define kAXSortDirectionAttribute			CFSTR("AXSortDirection")
+#define kAXColumnHeaderUIElementsAttribute 		CFSTR("AXColumnHeaderUIElements")
 
 // row/column attributes
 #define kAXIndexAttribute				CFSTR("AXIndex")
@@ -1129,11 +1130,11 @@
 #define kAXMatteContentUIElementAttribute		CFSTR("AXMatteContentUIElement")
 
 // ruler attributes
-#define kAXMarkerUIElementsAttribute			CFSTR("AXMarkerUIElements")
-#define kAXUnitsAttribute				CFSTR("AXUnits")
+#define kAXMarkerUIElementsAttribute		CFSTR("AXMarkerUIElements")
+#define kAXUnitsAttribute					CFSTR("AXUnits")
 #define kAXUnitDescriptionAttribute			CFSTR("AXUnitDescription")
 #define kAXMarkerTypeAttribute				CFSTR("AXMarkerType")
-#define kAXMarkerTypeDescriptionAttribute		CFSTR("AXMarkerTypeDescription")
+#define kAXMarkerTypeDescriptionAttribute	CFSTR("AXMarkerTypeDescription")
 
 // Dock attributes
 #define kAXIsApplicationRunningAttribute		CFSTR("AXIsApplicationRunning")
@@ -1153,23 +1154,6 @@
 // level indicator attributes
 #define kAXWarningValueAttribute			CFSTR("AXWarningValue")
 #define kAXCriticalValueAttribute			CFSTR("AXCriticalValue")
-
-// cell-based table attributes
-#define kAXSelectedCellsAttribute			CFSTR("AXSelectedCells")
-#define kAXVisibleCellsAttribute			CFSTR("AXVisibleCells")
-#define kAXRowHeaderUIElementsAttribute			CFSTR("AXRowHeaderUIElements")
-#define kAXColumnHeaderUIElementsAttribute		CFSTR("AXColumnHeaderUIElements")
-
-// cell attributes
-#define kAXRowIndexRangeAttribute			CFSTR("AXRowIndexRange")
-#define kAXColumnIndexRangeAttribute			CFSTR("AXColumnIndexRange")
-
-// layout area attributes
-#define kAXHorizontalUnitsAttribute			CFSTR("AXHorizontalUnits")
-#define kAXVerticalUnitsAttribute			CFSTR("AXVerticalUnits")
-#define kAXHorizontalUnitDescriptionAttribute		CFSTR("AXHorizontalUnitDescription")
-#define kAXVerticalUnitDescriptionAttribute		CFSTR("AXVerticalUnitDescription")
-#define kAXHandlesAttribute				CFSTR("AXHandles")
 
 // obsolete/unknown attributes
 #define kAXTextAttribute				CFSTR("AXText")
@@ -1193,14 +1177,6 @@
 #define kAXAttributedStringForRangeParameterizedAttribute CFSTR("AXAttributedStringForRange")
 #define kAXStyleRangeForIndexParameterizedAttribute	CFSTR("AXStyleRangeForIndex")
 
-// cell-based table parameterized attributes
-#define kAXCellForColumnAndRowParameterizedAttribute		CFSTR("AXCellForColumnAndRow")
-
-// layout area parameterized attributes
-#define kAXLayoutPointForScreenPointParameterizedAttribute	CFSTR("AXLayoutPointForScreenPoint")
-#define kAXLayoutSizeForScreenSizeParameterizedAttribute	CFSTR("AXLayoutSizeForScreenSize")
-#define kAXScreenPointForLayoutPointParameterizedAttribute	CFSTR("AXScreenPointForLayoutPoint")
-#define kAXScreenSizeForLayoutSizeParameterizedAttribute	CFSTR("AXScreenSizeForLayoutSize")
 
 #endif // __AXATTRIBUTECONSTANTS__
 

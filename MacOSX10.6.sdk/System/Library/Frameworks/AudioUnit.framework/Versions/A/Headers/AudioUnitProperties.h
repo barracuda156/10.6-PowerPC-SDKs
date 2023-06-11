@@ -629,8 +629,7 @@ enum
 	kAudioUnitProperty_ElementName					= 30,
 	kAudioUnitProperty_SupportedChannelLayoutTags	= 32,
 	kAudioUnitProperty_PresentPreset				= 36,
-	kAudioUnitProperty_ShouldAllocateBuffer			= 51,
-	kAudioUnitProperty_FrequencyResponse			= 52
+	kAudioUnitProperty_ShouldAllocateBuffer			= 51
 
 #if !TARGET_OS_IPHONE
 	,
@@ -767,36 +766,6 @@ enum {
 	kRenderQuality_Low								= 0x20,
 	kRenderQuality_Min								= 0
 };
-
-
-/*!
-	@enum			kNumberOfResponseFrequencies
-	@abstract		The maximum number of frequency response bins for kAudioUnitProperty_FrequencyResponse.
-	@discussion		An array of AudioUnitFrequencyResponseBin are passed in to kAudioUnitProperty_FrequencyResponse
-					with the mFrequency field filled in. The array is returned with the mMagnitude fields filled in.
-					If fewer than kNumberOfResponseFrequencies are needed, then the first unused bin should be marked with 
-					a negative frequency.
-*/
-enum {
-	kNumberOfResponseFrequencies = 1024
-};
-
-/*!
-	@struct			AudioUnitFrequencyResponseBin
-	@abstract		Structure used to get the magnitude of the frequency response at a particular frequency via kAudioUnitProperty_FrequencyResponse. 
-	@discussion		An array of AudioUnitFrequencyResponseBin are passed in to kAudioUnitProperty_FrequencyResponse
-					with the mFrequency field filled in. The array is returned with the mMagnitude fields filled in.
-					If fewer than kNumberOfResponseFrequencies are needed, then the first unused bin should be marked with 
-					a negative frequency.
-*/
-typedef struct AudioUnitFrequencyResponseBin
-{
-	Float64		mFrequency;
-	Float64		mMagnitude;
-} AudioUnitFrequencyResponseBin;
-
-
-
 
 #if !TARGET_OS_IPHONE
 /*!
@@ -1916,7 +1885,7 @@ typedef struct AudioUnitMeterClipping
 } AudioUnitMeterClipping;
 
 //=====================================================================================================================
-#pragma mark - _3DMixer
+#pragma mark - 3DMixer
 /*!
     @enum           Apple Mixer Property IDs
     @abstract       The collection of property IDs for Apple mixers

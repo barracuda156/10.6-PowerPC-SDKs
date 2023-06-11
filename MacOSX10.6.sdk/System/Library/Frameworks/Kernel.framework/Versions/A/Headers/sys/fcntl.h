@@ -338,15 +338,10 @@ struct flock {
  * advisory file read data type -
  * information passed by user to system
  */
-
-#pragma pack(4) /* prevent structure padding in kernel */
-
 struct radvisory {
        off_t   ra_offset;
        int     ra_count;
 };
-
-#pragma pack()
 
 /*
  * detached code signatures data type -

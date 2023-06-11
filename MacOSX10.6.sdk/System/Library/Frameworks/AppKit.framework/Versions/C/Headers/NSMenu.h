@@ -1,9 +1,9 @@
 /*
  NSMenu.h
  Application Kit
- Copyright (c) 1996-2008, Apple Inc.
+ Copyright (c) 1996-2007, Apple Inc.
  All rights reserved.
-*/
+ */
 
 #import <Foundation/NSObject.h>
 #import <Foundation/NSGeometry.h>
@@ -13,7 +13,6 @@
 @class NSEvent, NSView, NSFont;
 @class NSMenu;
 @class NSMutableArray, NSArray;
-@protocol NSMenuDelegate;
 
 @interface NSMenu : NSObject <NSCopying, NSCoding>
 {
@@ -26,7 +25,8 @@
     struct __mFlags {
         unsigned int noAutoenable:1;
         unsigned int menuChangedMessagesDisabled:1;
-        unsigned int RESERVED1:2;
+        unsigned int needsMenuChangedMessage:1;
+        unsigned int suppressAutoenable:1;
         unsigned int disabled:1;
         unsigned int ownedByPopUp:1;
 	unsigned int delegateNeedsUpdate:1;
@@ -37,8 +37,7 @@
 	unsigned int isContextualMenu:1;
         unsigned int forbidCMPlugins:1;
         unsigned int allowsDifferentSelection:1;
-        unsigned int populateForKEMatching:1;
-        unsigned int RESERVED:17;
+        unsigned int RESERVED:18;
     } _mFlags;
     NSString *_name;
 }
@@ -128,8 +127,8 @@
 - (void)performActionForItemAtIndex:(NSInteger)index;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
-- (void)setDelegate:(id <NSMenuDelegate>)anObject;
-- (id <NSMenuDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 #endif
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4
@@ -178,8 +177,7 @@
 @end
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
-@protocol NSMenuDelegate <NSObject>
-@optional
+@interface NSObject(NSMenuDelegate)
 - (void)menuNeedsUpdate:(NSMenu*)menu;
 - (NSInteger)numberOfItemsInMenu:(NSMenu*)menu;
 - (BOOL)menu:(NSMenu*)menu updateItem:(NSMenuItem*)item atIndex:(NSInteger)index shouldCancel:(BOOL)shouldCancel;

@@ -41,6 +41,16 @@
 
 _GLIBCXX_BEGIN_NAMESPACE(__gnu_cxx)
 
+/* APPLE LOCAL begin temp llvm hack 5856660 */
+#if defined(__llvm__) && defined(__POWERPC__)
+  static inline _Atomic_word
+  __exchange_and_add(volatile _Atomic_word* __mem, int __val) 
+  { _Atomic_word tmp = *__mem; *__mem = tmp + __val; return tmp; }
+
+  static inline void
+  __atomic_add(volatile _Atomic_word* __mem, int __val) 
+  { _Atomic_word tmp = *__mem; *__mem = tmp +  __val; }
+#else
   // Functions for portable atomic access.
   // To abstract locking primatives across all thread policies, use:
   // __exchange_and_add_dispatch
@@ -62,6 +72,8 @@ _GLIBCXX_BEGIN_NAMESPACE(__gnu_cxx)
   __attribute__ ((__unused__))
   __atomic_add(volatile _Atomic_word*, int);
 #endif
+#endif
+/* APPLE LOCAL end temp llvm hack 5856660 */
 
   static inline _Atomic_word
   __exchange_and_add_single(_Atomic_word* __mem, int __val)

@@ -2,7 +2,7 @@
  *
  *  isqlext.h
  *
- *  $Id: isqlext.h 30070 2004-10-22 19:11:07Z KH $
+ *  $Id: isqlext.h,v 1.6 2004/10/22 19:11:06 KH Exp $
  *
  *  iODBC defines (ext)
  *

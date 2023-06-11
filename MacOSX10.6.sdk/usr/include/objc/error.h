@@ -43,7 +43,7 @@
 #define _OBJC_ERROR_H_
 
 #include <setjmp.h>
-#include <objc/objc-api.h>
+#import <objc/objc-api.h>
 
 
 typedef struct _NXHandler {	/* a node in the handler chain */

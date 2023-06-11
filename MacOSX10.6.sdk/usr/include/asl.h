@@ -33,33 +33,8 @@ typedef struct __aslclient *aslclient;
 typedef struct __aslmsg *aslmsg;
 typedef struct __aslresponse *aslresponse;
 
-/*! @header
- * These routines provide an interface to the Apple System Log facility.
- * The API allows client applications to create flexible, structured messages
- * and send them to the syslogd server.  Messages received by the server are
- * saved in a data store, subject to input filtering constraints.
- * This API also permits clients to create queries and search the message
- * data store for matching messages.
- */
-
 /*
- * NOTE FOR HeaderDoc
- *
- * These are added to allow headerdoc2html to process 
- * the prototypes of asl_log and asl_vlog correctly.
- * The "-p" option to headerdoc2html is required.
- */
-#ifndef __DARWIN_LDBL_COMPAT2
-/*! @parseOnly */
-#define __DARWIN_LDBL_COMPAT2(a)
-#endif
-#ifndef __printflike
-/*! @parseOnly */
-#define __printflike(a,b)
-#endif
-
-/*! @defineblock Log Message Priority Levels
- * Log levels of the message.
+ * Log levels of the message
  */
 #define ASL_LEVEL_EMERG   0
 #define ASL_LEVEL_ALERT   1
@@ -69,10 +44,9 @@ typedef struct __aslresponse *aslresponse;
 #define ASL_LEVEL_NOTICE  5
 #define ASL_LEVEL_INFO    6
 #define ASL_LEVEL_DEBUG   7
-/*! @/defineblock */
 
-/*! @defineblock Log Message Priority Level Strings
- * Strings corresponding to log levels.
+/*
+ * Corresponding level strings
  */
 #define ASL_STRING_EMERG	"Emergency"
 #define ASL_STRING_ALERT	"Alert"
@@ -82,10 +56,9 @@ typedef struct __aslresponse *aslresponse;
 #define ASL_STRING_NOTICE   "Notice"
 #define ASL_STRING_INFO		"Info"
 #define ASL_STRING_DEBUG	"Debug"
-/*! @/defineblock */
 
-/*! @defineblock Attribute Matching
- * Attribute value comparison operations.
+/*
+ * Attribute value comparison operations
  */
 #define ASL_QUERY_OP_CASEFOLD      0x0010
 #define ASL_QUERY_OP_PREFIX		   0x0020
@@ -101,13 +74,13 @@ typedef struct __aslresponse *aslresponse;
 #define ASL_QUERY_OP_LESS_EQUAL    0x0005
 #define ASL_QUERY_OP_NOT_EQUAL     0x0006
 #define ASL_QUERY_OP_TRUE          0x0007
-/*! @/defineblock */
 
-/*! @defineblock Message Attributes
- *
- * These attributes are known by ASL, and are generally
- * associated with all log messages.
- * Additional attributes may be added as desired.
+/* 
+ * Attributes of all messages.
+ * The following attributes are attached to log messages,
+ * and are preserved in the order listed.
+ * Additional attributes may be added as desired, and are
+ * appended in the order that they are defined.
  */
 #define ASL_KEY_TIME        "Time"          /* Timestamp.  Set automatically */
 #define ASL_KEY_TIME_NSEC   "TimeNanoSec"   /* Nanosecond time. */
@@ -126,19 +99,18 @@ typedef struct __aslresponse *aslresponse;
 #define ASL_KEY_SESSION     "Session"       /* Session (set by the launchd). */
 #define ASL_KEY_REF_PID     "RefPID"        /* Reference PID for messages proxied by launchd */
 #define ASL_KEY_REF_PROC    "RefProc"       /* Reference process for messages proxied by launchd */
-/*! @/defineblock */
 
-/*! @defineblock aslmsg Types
- * Message type argument passed to asl_new().
+/* 
+ * Message Types
  */
 #define ASL_TYPE_MSG    0
 #define ASL_TYPE_QUERY  1
-/*! @/defineblock */
 
-/*! @defineblock Filter Masks
- * Used in client-side filtering, which determines which
- * messages are sent by the client to the syslogd server.
- */
+/* Macros to create bitmasks for filter settings - see asl_set_filter */
+#define	ASL_FILTER_MASK(level) (1 << (level))
+#define	ASL_FILTER_MASK_UPTO(level) ((1 << ((level) + 1)) - 1)
+
+/* Individual filter masks */
 #define ASL_FILTER_MASK_EMERG   0x01
 #define ASL_FILTER_MASK_ALERT   0x02
 #define ASL_FILTER_MASK_CRIT    0x04
@@ -147,28 +119,16 @@ typedef struct __aslresponse *aslresponse;
 #define ASL_FILTER_MASK_NOTICE  0x20
 #define ASL_FILTER_MASK_INFO    0x40
 #define ASL_FILTER_MASK_DEBUG   0x80
-/*! @/defineblock */
 
-/*! @defineblock Filter Mask Macros
- * Macros to create bitmasks for filter settings - see asl_set_filter().
- */
-#define	ASL_FILTER_MASK(level) (1 << (level))
-#define	ASL_FILTER_MASK_UPTO(level) ((1 << ((level) + 1)) - 1)
-/*! @/defineblock */
-
-/*! @defineblock Client Creation Options
- * Options for asl_open().
- */
+/* Options to asl_open */
 #define ASL_OPT_STDERR		0x00000001
 #define ASL_OPT_NO_DELAY    0x00000002
 #define ASL_OPT_NO_REMOTE   0x00000004
-/*! @/defineblock */
 
 __BEGIN_DECLS
 
-/*!
- * Initialize a connection to the ASL server.
- *
+/*
+ * asl_open: initialize a syslog connection
  * This call is optional in most cases.  The library will perform any
  * necessary initializations on the fly.  A call to asl_open() is required
  * if optional settings must be made before messages are sent to the server.
@@ -178,59 +138,32 @@ __BEGIN_DECLS
  * messages are not sent to the server by default.
  * 
  * Options (defined above) may be set using the opts parameter. They are:
- *
  *   ASL_OPT_STDERR    - adds stderr as an output file descriptor
- *
  *   ASL_OPT_NO_DELAY  - connects to the server immediately
- *
  *   ASL_OPT_NO_REMOTE - disables the remote-control mechanism for adjusting
  *                       filter levers for processes using e.g. syslog -c ...
- *
- * @param ident
- *    (input) Sender name
- * @param facility
- *    (input) Facility name
- * @param opts
- *    (input) Options (see asl_open Options)
- * @result Returns an ASL client handle
  */
 aslclient asl_open(const char *ident, const char *facility, uint32_t opts);
 
-/*!
- * Shuts down a connection to the server.
- *
- * @param asl
- *    (input) An ASL client handle
+/*
+ * Shuts down the current connection to the server.
  */
 void asl_close(aslclient asl);
 
-/*!
- * Write log messages to the given file descriptor.
- *
+/*
+ * asl_add_file: write log messages to the given file descriptor
  * Log messages will be written to this file as well as to the server.
- *
- * @param asl
- *    (input) An ASL client handle
- * @param fd
- *    (input) A file descriptor
- * @result Returns 0 on success, non-zero on failure
-*/
+ */
 int asl_add_log_file(aslclient asl, int fd);
 
-/*!
- * Stop writing log messages to the given file descriptor.
+/*
+ * asl_remove_file: stop writing log messages to the given file descriptor
  * The file descripter is not closed by this routine.
- *
- * @param asl
- *    (input) An ASL client handle
- * @param fd
- *    (input) A file descriptor
- * @result Returns 0 on success, non-zero on failure
  */
 int asl_remove_log_file(aslclient asl, int fd);
 
-/*!
- * Set a filter for messages being sent to the server.
+/*
+ * Set a filter for messages being sent to the server
  * The filter is a bitmask representing priorities.  The ASL_FILTER_MASK
  * macro may be used to convert a priority level into a bitmask for that
  * level.  The ASL_FILTER_MASK_UPTO macro creates a bitmask for all
@@ -240,83 +173,55 @@ int asl_remove_log_file(aslclient asl, int fd);
  * sent to any file descripters added with asl_add_log_file().
  * The default setting is ASL_FILTER_MASK_UPTO(ASL_LEVEL_NOTICE).
  * Returns the previous filter value.
- *
- * @param asl
- *    (input) An ASL client handle
- * @param f
- *    (input) A filter value
- * @result Returns the previous filter value
  */
 int asl_set_filter(aslclient asl, int f);
 
 /*
- * Examine attribute keys.
- *
- * @param msg
- *    (input) An ASL message
- * @param n
- *    (input) An index value
- * @result Returns the key of the nth attribute in a message (beginning at zero),
- * or NULL if n is greater than the largest message index.
+ * asl_key: examine attribute keys
+ * returns the key of the nth attribute in a message (beginning at zero)
+ * returns NULL if the message has fewer attributes
  */
 const char *asl_key(aslmsg msg, uint32_t n);
 
-/*!
- * Create a new log message or query message.
- *
- * @param type
- *    (input) Message type (see aslmsg Types)
- * @result Returns a newly allocated asmsg of the specified type
+/*
+ * asl_new: create a new log message.
  */
 aslmsg asl_new(uint32_t type);
 
-/*!
- * Set or re-set a message attribute.
- *
- * @param msg
- *    (input) An aslmsg
- * @param key
- *    (input) Attribute key 
- * @param value
- *    (input) Attribute value
- * @result returns 0 for success, non-zero for failure
+/*
+ * asl_set: set attributes of a message 
+ * msg:  an aslmsg
+ * key:  attribute key 
+ * value:  attribute value
+ * returns 0 for success, non-zero for failure
  */
 int asl_set(aslmsg msg, const char *key, const char *value);
 
-/*!
- * Remove a message attribute.
- *
- * @param msg
- *    (input) An aslmsg
- * @param key
- *    (input) Attribute key 
+/*
+ * asl_unset: remove attributes of a message 
+ * msg:  an aslmsg
+ * key:  attribute key 
  * returns 0 for success, non-zero for failure
  */
 int asl_unset(aslmsg msg, const char *key);
 
-/*!
- * Get the value of a message attribute.
- *
- * @param msg
- *    (input) An aslmsg
- * @param key
- *    (input) Attribute key 
- * @result Returns the attribute value, or NULL if the message does not contain the key
+/*
+ * asl_get: get attribute values from a message 
+ * msg:  an aslmsg
+ * key:  attribute key 
+ * returns the attribute value
+ * returns NULL if the message does not contain the key
  */
 const char *asl_get(aslmsg msg, const char *key);
 
-/*!
- * Log a message with a particular log level.
- *
- * @param asl
- *    (input) An ASL client handle
- * @param msg
- *    (input) An aslmsg (default attributes will be supplied if msg is NULL)
- * @param level
- *    (input) Log level (ASL_LEVEL_DEBUG to ASL_LEVEL_EMERG)
- * @param format
- *    (input) A printf() - style format string followed by a list of arguments
- * @result Returns 0 for success, non-zero for failure
+/*
+ * asl_log: log a message with a particular log level 
+ * msg:  an aslmsg
+ *       msg may be NULL, in which case a new message will be
+ *       created and sent using default attributes.
+ * level: the log level
+ * format: A formating string followed by a list of arguments, like printf()
+ * returns 0 for success, non-zero for failure
  */
 #ifdef __DARWIN_LDBL_COMPAT2
 int asl_log(aslclient asl, aslmsg msg, int level, const char *format, ...) __DARWIN_LDBL_COMPAT2(asl_log) __printflike(4, 5);
@@ -324,21 +229,15 @@ int asl_log(aslclient asl, aslmsg msg, int level, const char *format, ...) __DAR
 int asl_log(aslclient asl, aslmsg msg, int level, const char *format, ...) __printflike(4, 5);
 #endif
 
-/*!
- * Log a message with a particular log level.
- * Similar to asl_log, but takes a va_list argument.
- *
- * @param asl
- *    (input) An ASL client handle
- * @param msg
- *    (input) An aslmsg (default attributes will be supplied if msg is NULL)
- * @param level
- *    (input) Log level (ASL_LEVEL_DEBUG to ASL_LEVEL_EMERG)
- * @param format
- *    (input) A printf() - style format string followed by a list of arguments
- * @param ap
- *    (input) A va_list containing the values for the format string
- * @result Returns 0 for success, non-zero for failure
+/*
+ * asl_vlog: Similar to asl_log, but taking a va_list instead of a list of
+ * arguments.
+ * msg:  an aslmsg
+ *       msg may be NULL, in which case a new message will be
+ *       created and sent using default attributes.
+ * level: the log level of the associated message
+ * format: A formating string followed by a list of arguments, like vprintf()
+ * returns 0 for success, non-zero for failure
  */
 #ifdef __DARWIN_LDBL_COMPAT2
 int asl_vlog(aslclient asl, aslmsg msg, int level, const char *format, va_list ap) __DARWIN_LDBL_COMPAT2(asl_vlog) __printflike(4, 0);
@@ -346,71 +245,56 @@ int asl_vlog(aslclient asl, aslmsg msg, int level, const char *format, va_list a
 int asl_vlog(aslclient asl, aslmsg msg, int level, const char *format, va_list ap) __printflike(4, 0);
 #endif
 
-/*!
- * Log a message.
- *
+/*
+ * asl_send: send a message 
  * This routine may be used instead of asl_log() or asl_vlog() if asl_set() 
  * has been used to set all of a message's attributes.
- *
- * @param asl
- *    (input) An ASL client handle
- * @param msg
- *    (input) An aslmsg
- * @result Returns 0 for success, non-zero for failure
+ * msg:  an aslmsg
+ * returns 0 for success, non-zero for failure
  */
 int asl_send(aslclient asl, aslmsg msg);
 
-/*!
- * Free a message.  Frees all the attribute keys and values.
- *
- * @param msg
- *    (input) An aslmsg to free
+/*
+ * asl_free: free a message 
+ * msg:  an aslmsg to free
  */
 void asl_free(aslmsg msg);
 
-/*!
- * Set arbitrary parameters of a query.
- * This is similar to asl_set, but allows richer query operations.
+/*
+ * asl_set_query: set arbitrary parameters of a query
+ * Similar to als_set, but allows richer query operations.
  * See ASL_QUERY_OP_* above.
- *
- * @param msg
- *    (input) An aslmsg
- * @param key
- *    (input) Attribute key 
- * @param value
- *    (input) Attribute value
- * @param op
- *    (input) An operation (ASL_QUERY_OP_*)
- * @result Returns 0 for success, non-zero for failure
+ * msg:  an aslmsg
+ * key:  attribute key 
+ * value:  attribute value
+ * op:  an operation from the set above.
+ * returns 0 for success, non-zero for failure
  */
 int asl_set_query(aslmsg msg, const char *key, const char *value, uint32_t op);
 
-/*!
- * Search for messages matching the criteria described by the aslmsg.
- * The caller should set the attributes to match using asl_set_query() or asl_set().
- * The operatoin ASL_QUERY_OP_EQUAL is used for attributes set with asl_set().
- *
- * @param msg
- *    (input) An aslmsg to match
- * @result Returns a set of messages accessable using aslresponse_next(),
+/*
+ * asl_search: Search for messages matching the criteria described
+ * by the aslmsg .  The caller should set the attributes to match using
+ * asl_set_query() or asl_set().  The operatoin ASL_QUERY_OP_EQUAL is
+ * used for attributes set with asl_set().
+ * a:  an aslmsg
+ * returns: a set of messages that can be iterated over using aslresp_next(),
+ * and the values can be retrieved using aslresp_get.
  */
 aslresponse asl_search(aslclient asl, aslmsg msg);
 
-/*!
- * Iterate over responses returned from asl_search().
- *
- * @param r
- *    (input) An aslresponse returned by asl_search()
- * @result Returns the next message (an aslmsg) in the response, or NULL when there are no more messages
+/*
+ * aslresponse_next: Iterate over responses returned from asl_search()
+ * a: a response returned from asl_search();
+ * returns: The next log message (an aslmsg) or NULL on failure
  */
 aslmsg aslresponse_next(aslresponse r);
 
-/*!
- * Free a response returned from asl_search().
- * @param r
- *    (input) An aslresponse returned by asl_search()
+/*
+ * aslresponse_free: Free a response returned from asl_search() 
+ * a: a response returned from asl_search()
  */
-void aslresponse_free(aslresponse r);
+void aslresponse_free(aslresponse a);
 
 __END_DECLS
 

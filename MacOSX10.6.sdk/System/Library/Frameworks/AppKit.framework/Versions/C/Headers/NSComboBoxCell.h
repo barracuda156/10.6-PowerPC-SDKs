@@ -1,14 +1,13 @@
 /*
 	NSComboBoxCell.h
 	Application Kit
-	Copyright (c) 1996-2008, Apple Inc.
+	Copyright (c) 1996-2007, Apple Inc.
 	All rights reserved.
 */
 
 #import <AppKit/NSTextFieldCell.h>
 
 @class NSButtonCell, NSTableView, NSMutableArray;
-@protocol NSComboBoxCellDataSource;
 
 @interface NSComboBoxCell : NSTextFieldCell   {
     /*All instance variables are private*/
@@ -67,8 +66,8 @@
 - (NSString *)completedString:(NSString *)string;
 
 /* These two methods can only be used when usesDataSource is YES */
-- (id <NSComboBoxCellDataSource>)dataSource;
-- (void)setDataSource:(id <NSComboBoxCellDataSource>)aSource; 
+- (id)dataSource;
+- (void)setDataSource:(id)aSource; 
 
 /* These methods can only be used when usesDataSource is NO */
 - (void)addItemWithObjectValue:(id)object;
@@ -85,12 +84,9 @@
 
 @end
 
-@protocol NSComboBoxCellDataSource <NSObject>
-@optional
-/* These two methods are required when not using bindings */
+@interface NSObject (NSComboBoxCellDataSource)
 - (NSInteger)numberOfItemsInComboBoxCell:(NSComboBoxCell *)comboBoxCell;
 - (id)comboBoxCell:(NSComboBoxCell *)aComboBoxCell objectValueForItemAtIndex:(NSInteger)index;
-
 - (NSUInteger)comboBoxCell:(NSComboBoxCell *)aComboBoxCell indexOfItemWithStringValue:(NSString *)string;
 - (NSString *)comboBoxCell:(NSComboBoxCell *)aComboBoxCell completedString:(NSString *)uncompletedString; 
 @end

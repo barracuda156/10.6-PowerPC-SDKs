@@ -1,9 +1,10 @@
 /*
-	Copyright:  (c) 1999-2008 Apple Inc. All rights reserved.
+	Copyright:  (c) 1999-2005 by Apple Computer, Inc., all rights reserved.
 */
 
 #ifndef __glext_h_
 #define __glext_h_
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -114,8 +115,6 @@ extern "C" {
 #define GL_EXT_bindable_uniform		        1
 #define GL_EXT_texture_integer		        1
 #define GL_EXT_gpu_shader4  		        1
-#define GL_EXT_draw_buffers2                1
-#define GL_EXT_framebuffer_sRGB  		    1
 #define GL_APPLE_flush_buffer_range         1
 #define GL_APPLE_specular_vector            1
 #define GL_APPLE_transform_hint             1
@@ -134,7 +133,6 @@ extern "C" {
 #define GL_APPLE_aux_depth_stencil          1
 #define GL_APPLE_row_bytes                  1
 #define GL_APPLE_object_purgeable           1
-#define GL_APPLE_rgb_422                    1
 #define GL_ATI_point_cull_mode              1
 #define GL_ATI_texture_mirror_once          1
 #define GL_ATI_pn_triangles                 1
@@ -168,7 +166,6 @@ extern "C" {
 #define GL_SGIS_texture_edge_clamp          1
 #define GL_SGIS_generate_mipmap             1
 #define GL_SGIS_texture_lod                 1
-#define GL_NV_conditional_render            1
 
 #ifdef GL_MAJOR_BUILD_VERSION
 #define GL_EXT_422_pixels                   0
@@ -1732,11 +1729,6 @@ typedef long GLsizeiptrARB;
 #define GL_MAX_PROGRAM_TEXEL_OFFSET_EXT                       0x8905
 #endif
 
-#if GL_EXT_framebuffer_sRGB
-#define GL_FRAMEBUFFER_SRGB_EXT                 0x8DB9
-#define GL_FRAMEBUFFER_SRGB_CAPABLE_EXT         0x8DBA
-#endif
-
 #if GL_APPLE_vertex_array_range
 #define GL_VERTEX_ARRAY_RANGE_APPLE             0x851D
 #define GL_VERTEX_ARRAY_RANGE_LENGTH_APPLE      0x851E
@@ -1780,13 +1772,6 @@ typedef long GLsizeiptrARB;
 
 #if GL_APPLE_ycbcr_422
 #define GL_YCBCR_422_APPLE                 0x85B9
-#endif
-
-#if GL_APPLE_rgb_422
-#define GL_RGB_422_APPLE                   0x8A1F
-#endif
-	
-#if GL_APPLE_ycbcr_422 || GL_APPLE_rgb_422
 #define GL_UNSIGNED_SHORT_8_8_APPLE        0x85BA
 #define GL_UNSIGNED_SHORT_8_8_REV_APPLE    0x85BB
 #endif
@@ -1858,7 +1843,7 @@ typedef long GLsizeiptrARB;
 #define GL_UNDEFINED_APPLE					0x8A1C
 #define GL_PURGEABLE_APPLE					0x8A1D
 #endif
-	
+
 #if GL_ATI_blend_weighted_minmax
 #define GL_MIN_WEIGHTED_ATI               0x877D
 #define GL_MAX_WEIGHTED_ATI               0x877E
@@ -2347,13 +2332,6 @@ typedef long GLsizeiptrARB;
 #define GL_MAX_PROGRAM_IF_DEPTH_NV                       0x88F6
 #define GL_MAX_PROGRAM_LOOP_DEPTH_NV                     0x88F7
 #define GL_MAX_PROGRAM_LOOP_COUNT_NV                     0x88F8
-#endif
-
-#if GL_NV_conditional_render
-#define GL_QUERY_WAIT_NV                                 0x8E13
-#define GL_QUERY_NO_WAIT_NV                              0x8E14
-#define GL_QUERY_BY_REGION_WAIT_NV                       0x8E15
-#define GL_QUERY_BY_REGION_NO_WAIT_NV                    0x8E16
 #endif
 
 #if GL_PGI_vertex_hints
@@ -4015,6 +3993,8 @@ typedef void (* glBeginTransformFeedbackEXTProcPtr) (GLenum primitiveMode);
 typedef void (* glEndTransformFeedbackEXTProcPtr) (void);
 typedef void (* glTransformFeedbackVaryingsEXTProcPtr) (GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode);
 typedef void (* glGetTransformFeedbackVaryingEXTProcPtr) (GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name);
+typedef void (* glGetIntegerIndexedvEXTProcPtr) (GLenum param, GLint index, GLint *values); 
+typedef void (* glGetBooleanIndexedvEXTProcPtr) (GLenum param, GLint index, GLboolean *values);
 #else
 extern void glBindBufferRangeEXT(GLenum target, GLuint index, GLuint buffer, GLintptr offset, GLsizeiptr size);
 extern void glBindBufferOffsetEXT(GLenum target, GLuint index, GLuint buffer, GLintptr offset);
@@ -4023,18 +4003,10 @@ extern void glBeginTransformFeedbackEXT(GLenum primitiveMode);
 extern void glEndTransformFeedbackEXT(void);
 extern void glTransformFeedbackVaryingsEXT(GLuint program, GLsizei count, const GLchar **varyings, GLenum bufferMode);
 extern void glGetTransformFeedbackVaryingEXT(GLuint program, GLuint index, GLsizei bufSize, GLsizei *length, GLsizei *size, GLenum *type, GLchar *name);
-#endif
-#endif /* GL_EXT_transform_feedback */
-
-#if GL_EXT_transform_feedback || GL_EXT_draw_buffers2
-#ifdef GL_GLEXT_FUNCTION_POINTERS
-typedef void (* glGetIntegerIndexedvEXTProcPtr) (GLenum param, GLint index, GLint *values); 
-typedef void (* glGetBooleanIndexedvEXTProcPtr) (GLenum param, GLint index, GLboolean *values);
-#else
 extern void glGetIntegerIndexedvEXT(GLenum param, GLuint index, GLint *values); 
 extern void glGetBooleanIndexedvEXT(GLenum param, GLuint index, GLboolean *values);
 #endif
-#endif /* GL_EXT_transform_feedback || GL_EXT_draw_buffers2 */
+#endif /* GL_EXT_transform_feedback */
 
 #if GL_EXT_bindable_uniform
 #ifdef GL_GLEXT_FUNCTION_POINTERS
@@ -4139,20 +4111,6 @@ extern void glBindFragDataLocationEXT(GLuint program, GLuint colorNumber, const 
 extern GLint glGetFragDataLocationEXT(GLuint program, const GLchar *name);
 #endif
 #endif /* GL_EXT_gpu_shader4 */
-
-#if GL_EXT_draw_buffers2
-#ifdef GL_GLEXT_FUNCTION_POINTERS
-typedef void (* glColorMaskIndexedEXTProcPtr) (GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
-typedef void (* glEnableIndexedEXTProcPtr) (GLenum target, GLuint index);
-typedef void (* glDisableIndexedEXTProcPtr) (GLenum target, GLuint index);
-typedef GLboolean (* glIsEnabledIndexedEXTProcPtr) (GLenum target, GLuint index);
-#else
-extern void glColorMaskIndexedEXT(GLuint index, GLboolean r, GLboolean g, GLboolean b, GLboolean a);
-extern void glEnableIndexedEXT(GLenum target, GLuint index);
-extern void glDisableIndexedEXT(GLenum target, GLuint index);
-extern GLboolean glIsEnabledIndexedEXT(GLenum target, GLuint index);
-#endif /* GL_GLEXT_FUNCTION_POINTERS */
-#endif
 
 #if GL_APPLE_texture_range
 #ifdef GL_GLEXT_FUNCTION_POINTERS
@@ -5025,15 +4983,6 @@ typedef void (* glTbufferMask3DFXProcPtr) (GLuint);
 #else
 extern void glTbufferMask3DFX (GLuint);
 #endif /* GL_GLEXT_FUNCTION_POINTERS */
-#endif
-
-    
-#ifdef GL_GLEXT_FUNCTION_POINTERS
-typedef void (* glBeginConditionalRenderNVProcPtr) (GLuint id, GLenum mode);
-typedef void (* glEndConditionalRenderNVProcPtr) ();
-#else
-extern void glBeginConditionalRenderNV (GLuint id, GLenum mode);
-extern void glEndConditionalRenderNV (void);
 #endif
 
 #ifdef __cplusplus

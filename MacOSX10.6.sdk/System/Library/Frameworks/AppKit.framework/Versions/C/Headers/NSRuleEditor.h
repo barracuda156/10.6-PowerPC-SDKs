@@ -1,7 +1,7 @@
 /*
         NSRuleEditor.h
 	Application Kit
-	Copyright (c) 2006-2008, Apple Inc.
+	Copyright (c) 2006-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -35,7 +35,6 @@ NSRuleEditor exposes one binding, "rows."  The "rows" binding may be bound to an
 */
 
 @class NSMutableArray, NSIndexSet, NSView, NSPredicate, NSString, NSViewAnimation, NSTimer;
-@protocol NSRuleEditorDelegate;
 
 enum {
     NSRuleEditorNestingModeSingle,	    /* Only a single row is allowed.  Plus/minus buttons will not be shown */
@@ -114,8 +113,8 @@ typedef NSUInteger NSRuleEditorRowType;
 /* -- Configuring NSRuleEditor -- */
 
 /* Clients can call this method to set and get the delegate for the NSRuleEditor.  NSRuleEditor requires a delegate that implements the required NSRuleEditorDelegateMethods methods to function. */
-- (void)setDelegate:(id <NSRuleEditorDelegate>)delegate;
-- (id <NSRuleEditorDelegate>)delegate;
+- (void)setDelegate:delegate;
+- (id)delegate;
 
 /* Clients can call this to automatically set a formatting dictionary based on the strings file with the given name.  Setting a formatting strings file searches the main bundle, and the bundle containing this nib, for a (possibly localized) strings file resource with the given name, loads it, and sets it as the formatting dictionary.  The resulting dictionary can be obtained with -[NSRuleEditor formattingDictionary].  If you set the formatting dictionary explicitly with -[NSRuleEditor setFormattingDictionary:], then it sets the current formattingStringsFilename to nil */
 - (void)setFormattingStringsFilename:(NSString *)stringsFilename;
@@ -226,9 +225,7 @@ typedef NSUInteger NSRuleEditorRowType;
 @end
 
 
-@protocol NSRuleEditorDelegate <NSObject>
-
-@required
+@interface NSObject (NSRuleEditorDelegateMethods)
 
 /* -- Required delegate methods -- */
 
@@ -240,8 +237,6 @@ typedef NSUInteger NSRuleEditorRowType;
 
 /* When called, you should return a value for the given criterion.  The value should be an instance of NSString, NSView, or NSMenuItem.  If the value is an NSView or NSMenuItem, you must ensure it is unique for every invocation of this method; that is, do not return a particular instance of NSView or NSMenuItem more than once.  Implementation of this method is required. */
 - (id)ruleEditor:(NSRuleEditor *)editor displayValueForCriterion:(id)criterion inRow:(NSInteger)row;
-
-@optional
 
 /* -- Optional delegate methods -- */
 

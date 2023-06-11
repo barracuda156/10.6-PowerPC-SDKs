@@ -40,16 +40,12 @@ extern "C" {
 /** The longest the "K <number>" line can be in one of our hashdump files. */
 #define SVN_KEYLINE_MAXLEN 100
 
-/**
- * @defgroup svn_hash_support Hash table serialization support
- * @{
- */
 
 /*----------------------------------------------------*/
 
 /** Reading/writing hashtables to disk
  *
- * @defgroup svn_hash_read_write Reading and writing hashtables to disk
+ * @defgroup svn_hash_read_write reading and writing hashtables to disk
  * @{
  */
 
@@ -84,7 +80,7 @@ svn_error_t *svn_hash_read2(apr_hash_t *hash,
  *
  * @since New in 1.1.
  */
-svn_error_t *svn_hash_write2(apr_hash_t *hash,
+svn_error_t *svn_hash_write2(apr_hash_t *hash, 
                              svn_stream_t *stream,
                              const char *terminator,
                              apr_pool_t *pool);
@@ -123,7 +119,7 @@ svn_error_t *svn_hash_write_incremental(apr_hash_t *hash,
  *
  * @deprecated Provided for backward compatibility with the 1.0 API.
  */
-svn_error_t *svn_hash_read(apr_hash_t *hash,
+svn_error_t *svn_hash_read(apr_hash_t *hash, 
                            apr_file_t *srcfile,
                            apr_pool_t *pool);
 
@@ -133,7 +129,7 @@ svn_error_t *svn_hash_read(apr_hash_t *hash,
  *
  * @deprecated Provided for backward compatibility with the 1.0 API.
  */
-svn_error_t *svn_hash_write(apr_hash_t *hash,
+svn_error_t *svn_hash_write(apr_hash_t *hash, 
                             apr_file_t *destfile,
                             apr_pool_t *pool);
 
@@ -142,7 +138,7 @@ svn_error_t *svn_hash_write(apr_hash_t *hash,
 
 /** Taking the "diff" of two hash tables.
  *
- * @defgroup svn_hash_diff Taking the diff of two hash tables.
+ * @defgroup svn_hash_diff taking the diff of two hash tables.
  * @{
  */
 
@@ -174,12 +170,12 @@ typedef svn_error_t *(*svn_hash_diff_func_t)
  * @c svn_hash_diff_key_status indicating which table(s) the key appears
  * in, and @a diff_func_baton.
  *
- * Process all keys of @a hash_a first, then all remaining keys of @a hash_b.
+ * Process all keys of @a hash_a first, then all remaining keys of @a hash_b. 
  *
  * If @a diff_func returns error, return that error immediately, without
  * applying @a diff_func to anything else.
  *
- * @a hash_a or @a hash_b or both may be NULL; treat a null table as though
+ * @a hash_a or @a hash_b or both may be null; treat a null table as though
  * empty.
  *
  * Use @a pool for temporary allocation.
@@ -189,49 +185,6 @@ svn_error_t *svn_hash_diff(apr_hash_t *hash_a,
                            svn_hash_diff_func_t diff_func,
                            void *diff_func_baton,
                            apr_pool_t *pool);
-
-/** @} */
-
-
-/**
- * @defgroup svn_hash_misc Miscellaneous hash APIs
- * @{
- */
-
-/**
- * Return the keys to @a hash in @a *array.  The keys are assumed to be
- * (const char *).  The keys are in no particular order.
- *
- * @a *array itself is allocated in @a pool; however, the keys are not
- * copied from the hash.
- *
- * @since New in 1.5.
- */
-svn_error_t *svn_hash_keys(apr_array_header_t **array,
-                           apr_hash_t *hash,
-                           apr_pool_t *pool);
-
-/**
- * Set @a *hash to a new hash whose keys come from the items in @a keys
- * (an array of <tt>const char *</tt> items), and whose values are
- * match their corresponding key.  Use @a pool for all allocations
- * (including @a *hash, its keys, and its values).
- *
- * @since New in 1.5.
- */
-svn_error_t *svn_hash_from_cstring_keys(apr_hash_t **hash,
-                                        const apr_array_header_t *keys,
-                                        apr_pool_t *pool);
-
-/**
- * Clear any key/value pairs in the hash table.  A wrapper for a
- * apr_hash_clear(), which isn't available until APR 1.3.0.
- *
- * @since New in 1.5.
- */
-svn_error_t *svn_hash__clear(apr_hash_t *hash);
-
-/** @} */
 
 /** @} */
 

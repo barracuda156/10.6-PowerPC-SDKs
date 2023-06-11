@@ -5,7 +5,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: statusbr.h 41035 2006-09-06 17:36:22Z PC $
+// RCS-ID:      $Id: statusbr.h,v 1.10 2006/09/06 17:36:17 PC Exp $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////

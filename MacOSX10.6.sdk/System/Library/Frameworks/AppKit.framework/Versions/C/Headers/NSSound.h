@@ -1,7 +1,7 @@
 /*
         NSSound.h
 	Application Kit
-	Copyright (c) 1997-2008, Apple Inc.
+	Copyright (c) 1997-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -10,7 +10,6 @@
 #import <Foundation/NSDate.h>
 
 @class NSData, NSURL, NSPasteboard;
-@protocol NSSoundDelegate;
 
 APPKIT_EXTERN NSString * const NSSoundPboardType;
 
@@ -55,8 +54,8 @@ APPKIT_EXTERN NSString * const NSSoundPboardType;
 - (BOOL)stop;
 - (BOOL)isPlaying;
 
-- (id <NSSoundDelegate>)delegate;
-- (void)setDelegate:(id <NSSoundDelegate>)aDelegate;
+- (id)delegate;
+- (void)setDelegate:(id)aDelegate;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 
@@ -104,17 +103,16 @@ APPKIT_EXTERN NSString * const NSSoundPboardType;
 
 @end
 
-@interface NSSound (NSDeprecated)
+@interface NSSound(NSDeprecated)
 
 /* Methods that were deprecated in Mac OS 10.5. You can now use +soundUnfilteredTypes to get an array of Uniform Type Identifiers (UTIs).
 */
-+ (NSArray *)soundUnfilteredFileTypes DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-+ (NSArray *)soundUnfilteredPasteboardTypes DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
++ (NSArray *)soundUnfilteredFileTypes;
++ (NSArray *)soundUnfilteredPasteboardTypes;
 
 @end
 
-@protocol NSSoundDelegate <NSObject>
-@optional
+@interface NSObject (NSSoundDelegateMethods)
 
 - (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)aBool;
 

@@ -1,15 +1,13 @@
 /*
 	NSTextField.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
 #import <AppKit/NSControl.h>
 #import <AppKit/NSTextFieldCell.h>
 #import <AppKit/NSUserInterfaceValidation.h>
-
-@protocol NSTextFieldDelegate;
 
 @interface NSTextField : NSControl <NSUserInterfaceValidations>
 {
@@ -33,8 +31,8 @@
 - (BOOL)isSelectable;
 - (void)setSelectable:(BOOL)flag;
 - (void)selectText:(id)sender;
-- (id <NSTextFieldDelegate>)delegate;
-- (void)setDelegate:(id <NSTextFieldDelegate>)anObject;
+- (id)delegate;
+- (void)setDelegate:(id)anObject;
 - (BOOL)textShouldBeginEditing:(NSText *)textObject;
 - (BOOL)textShouldEndEditing:(NSText *)textObject;
 - (void)textDidBeginEditing:(NSNotification *)notification;
@@ -58,5 +56,3 @@
 - (BOOL)importsGraphics;
 - (void)setImportsGraphics:(BOOL)flag;
 @end
-
-@protocol NSTextFieldDelegate <NSControlTextEditingDelegate> @end

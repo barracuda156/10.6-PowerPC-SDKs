@@ -1,7 +1,7 @@
 /*
 	NSPrintInfo.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -181,18 +181,34 @@ APPKIT_EXTERN NSString *NSPrintHeaderAndFooter AVAILABLE_MAC_OS_X_VERSION_10_4_A
 
 /* A method that was deprecated in Mac OS 10.2. +[NSPrintInfo setDefaultPrinter:] does nothing.
 */
-+ (void)setDefaultPrinter:(NSPrinter *)printer DEPRECATED_IN_MAC_OS_X_VERSION_10_2_AND_LATER;
++ (void)setDefaultPrinter:(NSPrinter *)printer;
 
 /* A method that was deprecated in Mac OS 10.2. NSPrintInfo's implementation of this method recognizes only a small fixed set of paper names, and does not take the details of any particular printer into account. You should use -[NSPrinter pageSizeForPaper:] instead.
 */
-+ (NSSize)sizeForPaperName:(NSString *)name DEPRECATED_IN_MAC_OS_X_VERSION_10_2_AND_LATER;
++ (NSSize)sizeForPaperName:(NSString *)name;
 
 @end
 
 /* Keys for attributes that were deprecated in Mac OS 10.2. NSPrintInfo does not recognizes these attributes. For backward binary compatibility, -[NSPrintInfo setUpPrintOperationDefaultValues] does however set default values for the NSPrintJobFeatures (an empty dictionary) and NSPrintPagesPerSheet (1) attributes.
 */
-APPKIT_EXTERN NSString *NSPrintFormName DEPRECATED_IN_MAC_OS_X_VERSION_10_2_AND_LATER;
-APPKIT_EXTERN NSString *NSPrintJobFeatures DEPRECATED_IN_MAC_OS_X_VERSION_10_2_AND_LATER;
-APPKIT_EXTERN NSString *NSPrintManualFeed DEPRECATED_IN_MAC_OS_X_VERSION_10_2_AND_LATER;
-APPKIT_EXTERN NSString *NSPrintPagesPerSheet DEPRECATED_IN_MAC_OS_X_VERSION_10_2_AND_LATER;
-APPKIT_EXTERN NSString *NSPrintPaperFeed DEPRECATED_IN_MAC_OS_X_VERSION_10_2_AND_LATER;
+APPKIT_EXTERN NSString *NSPrintFormName;
+APPKIT_EXTERN NSString *NSPrintJobFeatures;
+APPKIT_EXTERN NSString *NSPrintManualFeed;
+APPKIT_EXTERN NSString *NSPrintPagesPerSheet;
+APPKIT_EXTERN NSString *NSPrintPaperFeed;
+
+/* Keys for attributes that were deprecated in Mac OS X Public Beta. NSPrintInfo does not recognizes these attributes.
+*/
+APPKIT_EXTERN NSString *NSPrintFaxCoverSheetName;
+APPKIT_EXTERN NSString *NSPrintFaxHighResolution;
+APPKIT_EXTERN NSString *NSPrintFaxModem;
+APPKIT_EXTERN NSString *NSPrintFaxReceiverNames;
+APPKIT_EXTERN NSString *NSPrintFaxReceiverNumbers;
+APPKIT_EXTERN NSString *NSPrintFaxReturnReceipt;
+APPKIT_EXTERN NSString *NSPrintFaxSendTime;
+APPKIT_EXTERN NSString *NSPrintFaxTrimPageEnds;
+APPKIT_EXTERN NSString *NSPrintFaxUseCoverSheet;
+
+/* A job disposition that was deprecated in Mac OS X Public Beta. NSPrintInfo treats this job disposition as synonymous with NSPrintSpoolJob.
+*/
+APPKIT_EXTERN NSString *NSPrintFaxJob;

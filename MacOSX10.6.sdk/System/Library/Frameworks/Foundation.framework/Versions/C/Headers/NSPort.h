@@ -1,5 +1,5 @@
 /*	NSPort.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -9,7 +9,6 @@ typedef int NSSocketNativeHandle;
 @class NSRunLoop, NSMutableArray, NSDate;
 @class NSConnection, NSPortMessage;
 @class NSData;
-@protocol NSPortDelegate, NSMachPortDelegate;
 
 FOUNDATION_EXPORT NSString * const NSPortDidBecomeInvalidNotification;
 
@@ -27,8 +26,8 @@ FOUNDATION_EXPORT NSString * const NSPortDidBecomeInvalidNotification;
 - (void)invalidate;
 - (BOOL)isValid;
 
-- (void)setDelegate:(id <NSPortDelegate>)anObject;
-- (id <NSPortDelegate>)delegate;
+- (void)setDelegate:(id)anId;
+- (id)delegate;
 
 // These two methods should be implemented by subclasses
 // to setup monitoring of the port when added to a run loop,
@@ -63,8 +62,7 @@ FOUNDATION_EXPORT NSString * const NSPortDidBecomeInvalidNotification;
 
 @end
 
-@protocol NSPortDelegate <NSObject>
-@optional
+@interface NSObject (NSPortDelegateMethods)
 
 - (void)handlePortMessage:(NSPortMessage *)message;
 	// This is the delegate method that subclasses should send
@@ -84,9 +82,6 @@ FOUNDATION_EXPORT NSString * const NSPortDidBecomeInvalidNotification;
 
 + (NSPort *)portWithMachPort:(uint32_t)machPort;
 - (id)initWithMachPort:(uint32_t)machPort;	// designated initializer
-
-- (void)setDelegate:(id <NSMachPortDelegate>)anObject;
-- (id <NSMachPortDelegate>)delegate;
 
 #if MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED
 enum {
@@ -109,8 +104,7 @@ enum {
 
 @end
 
-@protocol NSMachPortDelegate <NSPortDelegate>
-@optional
+@interface NSObject (NSMachPortDelegateMethods)
 
 // Delegates are sent this if they respond, otherwise they
 // are sent handlePortMessage:; argument is the raw Mach message
@@ -145,7 +139,7 @@ enum {
     id _delegate;
     id _lock;
     NSUInteger _maxSize;
-    NSUInteger _useCount;
+    NSUInteger _maxSockets;
     NSUInteger _reserved;
 }
 

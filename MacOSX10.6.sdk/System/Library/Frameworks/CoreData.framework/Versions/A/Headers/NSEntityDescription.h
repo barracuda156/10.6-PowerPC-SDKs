@@ -41,11 +41,10 @@
         unsigned int _isImmutable:1;
         unsigned int _isFlattened:1;
         unsigned int _skipValidation:1;
-        unsigned int _hasPropertiesIndexedBySpotlight:1;
-        unsigned int _hasPropertiesStoredInTruthFile:1;
-        unsigned int _reservedEntityDescription:25;
+        unsigned int _hasPropertiesWithTruthSupport:1;
+        unsigned int _reservedEntityDescription:26;
     } _entityDescriptionFlags;
-    id _reserved2;
+    NSMutableDictionary *_mappings;
     NSMutableDictionary *_userInfo;
     id _flattenedSubentities;
     id** _kvcPropertyAccessors;

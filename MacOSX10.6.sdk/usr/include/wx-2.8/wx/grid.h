@@ -5,7 +5,7 @@
 // Modified by:
 // Created:
 // Copyright:   (c) Julian Smart
-// RCS-ID:      $Id: grid.h 33948 2005-05-04 18:57:50Z JS $
+// RCS-ID:      $Id: grid.h,v 1.4 2005/05/04 18:51:58 JS Exp $
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

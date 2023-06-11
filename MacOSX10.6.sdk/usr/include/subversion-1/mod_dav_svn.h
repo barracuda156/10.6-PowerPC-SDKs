@@ -1,7 +1,8 @@
-/**
- * @copyright
+/*
+ * mod_dav_svn.h: public header for the DAV/SVN Apache module
+ *
  * ====================================================================
- * Copyright (c) 2000-2007 CollabNet.  All rights reserved.
+ * Copyright (c) 2000-2004 CollabNet.  All rights reserved.
  *
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
@@ -13,10 +14,6 @@
  * individuals.  For exact contribution history, see the revision
  * history and logs, available at http://subversion.tigris.org/.
  * ====================================================================
- * @endcopyright
- *
- * @file mod_dav_svn.h
- * @brief Subversion's backend for Apache's mod_dav module
  */
 
 

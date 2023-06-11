@@ -3,7 +3,7 @@
  
      Contains:   Open Scripting Architecture Client Interfaces.
  
-     Version:    OSA-126~1
+     Version:    OSA-123~1
  
      Copyright:  © 1992-2008 by Apple Computer, Inc., all rights reserved
  
@@ -710,7 +710,7 @@ OSAScriptError(
         These error numbers may be either system error numbers, or error numbers
         that are scripting component specific.
         Required desiredTypes:  
-            typeSInt32
+            typeSInt16
     */
 enum {
   kOSAErrorNumber               = keyErrorNumber

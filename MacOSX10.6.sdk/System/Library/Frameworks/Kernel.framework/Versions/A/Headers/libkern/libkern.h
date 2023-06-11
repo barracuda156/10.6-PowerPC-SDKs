@@ -159,7 +159,6 @@ int	sprintf(char *bufp, const char *, ...) __deprecated;
 int	sscanf(const char *, char const *, ...) __scanflike(2,3);
 int	printf(const char *, ...) __printflike(1,2);
 
-
 #if CONFIG_NO_PRINTF_STRINGS
 #define printf(x, ...)  do {} while (0)
 #endif

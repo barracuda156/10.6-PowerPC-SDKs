@@ -4,7 +4,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:
-// RCS-ID:      $Id: progdlg.h 41089 2006-09-09 13:36:54Z RR $
+// RCS-ID:      $Id: progdlg.h,v 1.4 2006/09/09 13:36:37 RR Exp $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows Licence
 /////////////////////////////////////////////////////////////////////////////

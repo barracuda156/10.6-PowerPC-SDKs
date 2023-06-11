@@ -24,8 +24,7 @@
 #ifndef __OBJC_EXCEPTION_H_
 #define __OBJC_EXCEPTION_H_
 
-#include <objc/objc.h>
-#include <stdint.h>
+#import <objc/objc.h>
 
 #if !__OBJC2__
 

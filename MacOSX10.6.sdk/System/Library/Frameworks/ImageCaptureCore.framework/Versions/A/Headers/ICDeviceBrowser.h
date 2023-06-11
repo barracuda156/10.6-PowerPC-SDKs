@@ -49,11 +49,10 @@ extern NSString *const ICDeviceTypeScanner;
 - (void)deviceBrowser:(ICDeviceBrowser*)browser didAddDevice:(ICDevice*)device moreComing:(BOOL)moreComing;
 
 /*! 
-  @method deviceBrowser:didRemoveDevice:moreGoing:
+  @method deviceBrowser:didRemoveDevice:
   @abstract This message is sent to the delegate to inform that a device has been removed.
-  @discussion If several devices are removed at the same time, then this message is sent once for each device with the value of 'moreGoing' set to YES in each message except the last one. 
 */
-- (void)deviceBrowser:(ICDeviceBrowser*)browser didRemoveDevice:(ICDevice*)device moreGoing:(BOOL)moreGoing;
+- (void)deviceBrowser:(ICDeviceBrowser*)browser didRemoveDevice:(ICDevice*)device;
 
 @optional
 
@@ -70,13 +69,6 @@ extern NSString *const ICDeviceTypeScanner;
   @discusson Any Image Capture client application can choose to share the device over the network using the sharing or webSharing facility in Image Capture.
 */
 - (void)deviceBrowser:(ICDeviceBrowser*)browser deviceDidChangeSharingState:(ICDevice*)device;
-
-/*! 
-  @method deviceBrowser:requestsSelectDevice:
-  @abstract This message is sent when an event that occurred on the device that may be of interest to the client application.
-  @discussion In Mac OS X 10.6, this message is sent when a button is pressed on a device and the current application is the target for that button press. In the case of the button-press event, if a session is open on the device, this message will not be sent to the browser delegate, instead the message 'device:didReceiveButtonPress:' is sent to the device delegate.
-*/
-- (void)deviceBrowser:(ICDeviceBrowser*)browser requestsSelectDevice:(ICDevice*)device;
 
 @end
 
@@ -111,9 +103,9 @@ extern NSString *const ICDeviceTypeScanner;
 
 /*! 
   @method sharedDeviceBrowser
-  @abstract This is the designated initializer.
+  @abstract This returns a per-process instance of ICDeviceBrowser.
 */
-- (id)init;
++ (id)sharedDeviceBrowser;
 
 /*! 
   @method start:

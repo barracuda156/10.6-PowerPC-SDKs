@@ -24,16 +24,13 @@
 #ifndef _OBJC_RUNTIME_H
 #define _OBJC_RUNTIME_H
 
-#include <objc/objc.h>
-#include <stdarg.h>
-#include <stdint.h>
-#include <stddef.h>
-#include <AvailabilityMacros.h>
-#include <TargetConditionals.h>
+#import <objc/objc.h>
 
-#if TARGET_OS_MAC
-#include <sys/types.h>
-#endif
+#import <sys/types.h>
+#import <stdarg.h>
+#import <stdint.h>
+#import <stddef.h>
+#import <AvailabilityMacros.h>
 
 
 /* Types */

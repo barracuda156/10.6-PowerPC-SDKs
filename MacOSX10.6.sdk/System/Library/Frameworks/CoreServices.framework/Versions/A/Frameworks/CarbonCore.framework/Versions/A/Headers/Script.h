@@ -3,7 +3,7 @@
  
      Contains:   Script Manager interfaces
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1986-2008 by Apple Inc., all rights reserved
  
@@ -603,7 +603,7 @@ enum {
 
 enum {
                                         /* TransliterateText source mask - general */
-  smMaskAll                     = (int)0xFFFFFFFF, /*Convert all text*/
+  smMaskAll                     = (long)0xFFFFFFFF, /*Convert all text*/
                                         /* TransliterateText source masks */
   smMaskAscii                   = 0x00000001, /*2^smTransAscii*/
   smMaskNative                  = 0x00000002, /*2^smTransNative*/
@@ -1214,27 +1214,12 @@ SetScriptVariable(
  *  GetSysDirection()   *** DEPRECATED ***
  *  
  *  Deprecated:
- *    The preferred replacement is +[NSParagraphStyle
- *    defaultWritingDirectionForLanguage:]. If you cannot use that, you
- *    may instead call CFLocaleGetLanguageCharacterDirection for the UI
- *    language in which the application is running. See discussion.
+ *    use AppleTextDirection in CFPreference instead.
  *  
  *  Discussion:
- *    Although GetSysDirection ostensibly provided an overall system
- *    direction, it was patched by the Language Manager in Classic Mac
- *    OS to provide a direction appropriate for the application that
- *    was running. This is similar to the desired behavior in Mac OS X,
- *    in which an application is normally interested in the text
- *    direction associated with the user-interface language in which it
- *    is running (e.g. the first language in the array returned by
- *    CFBundleCopyPreferredLocalizationsFromArray when given the
- *    application's bundle localizations). 
- *    
- *    Calling +[NSParagraphStyle defaultWritingDirectionForLanguage:]
- *    is the preferred way to determine this. If that is not possible
- *    for your application, then an alternative is to call
- *    CFLocaleGetLanguageCharacterDirection for the application's
- *    user-interface language (determined as described above).
+ *    We need to make sure we want to make this preference public
+ *    first. Note that it may be absent in which case LTR should be
+ *    assumed
  *  
  *  Availability:
  *    Mac OS X:         in version 10.0 and later in CoreServices.framework [32-bit only] but deprecated in 10.4

@@ -1,7 +1,7 @@
 /*
     NSPathControl.h
     Application Kit
-    Copyright (c) 2005-2008, Apple Inc.
+    Copyright (c) 2005-2007, Apple Inc.
     All rights reserved.
 */
 
@@ -14,7 +14,6 @@
 #import <AppKit/NSDragging.h>
 
 @class NSMutableArray, NSPathComponentCell, NSOpenPanel;
-@protocol NSPathControlDelegate;
 
 /* 
     NSPathControl
@@ -58,8 +57,8 @@
 
 /* Gets and sets the delegate for this control. The delegate is not retained.
 */
-- (id <NSPathControlDelegate>)delegate;
-- (void)setDelegate:(id <NSPathControlDelegate>)delegate;
+- (id)delegate;
+- (void)setDelegate:(id)delegate;
 
 /* Configures the default value returned from -draggingSourceOperationMaskForLocal:. An 'isLocal' value of YES indicates that 'mask' applies when the destination object is in the same application. An 'isLocal' value of NO indicates that 'mask' applies when the destination object in a destination object outside the receiver's application. By default, -draggingSourceOperationMaskForLocal: returns NSDragOperationEvery when 'isLocal' is YES, and NSDragOperationNone when 'isLocal' is NO.
 

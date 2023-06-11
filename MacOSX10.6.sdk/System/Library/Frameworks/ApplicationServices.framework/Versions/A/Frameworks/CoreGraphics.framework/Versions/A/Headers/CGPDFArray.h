@@ -79,4 +79,4 @@ CG_EXTERN bool CGPDFArrayGetDictionary(CGPDFArrayRef array, size_t index,
 CG_EXTERN bool CGPDFArrayGetStream(CGPDFArrayRef array, size_t index,
     CGPDFStreamRef *value) CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
-#endif /* CGPDFARRAY_H_ */
+#endif	/* CGPDFARRAY_H_ */

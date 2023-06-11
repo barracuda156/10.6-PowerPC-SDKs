@@ -270,9 +270,6 @@ typedef struct
 #if defined(__LP64__)
   mach_msg_size_t       	size;
 #endif
-#if defined(KERNEL) && !defined(__LP64__)
-  uint32_t          pad_end;
-#endif
 } mach_msg_ool_descriptor_t;
 
 typedef struct
@@ -307,9 +304,6 @@ typedef struct
   mach_msg_descriptor_type_t	type : 8;
 #if defined(__LP64__)
   mach_msg_size_t		count;
-#endif
-#if defined(KERNEL) && !defined(__LP64__)
-  uint32_t          pad_end;
 #endif
 } mach_msg_ool_ports_descriptor_t;
 

@@ -222,20 +222,6 @@ typedef OSStatus
 								UInt32					inData2,
 								UInt32					inOffsetSampleFrame);
 
-typedef OSStatus
-(*MusicDeviceStartNoteProc)(	void *					inComponentStorage,
-						MusicDeviceInstrumentID			inInstrument,
-						MusicDeviceGroupID				inGroupID,
-						NoteInstanceID *				outNoteInstanceID,
-						UInt32							inOffsetSampleFrame,
-						const MusicDeviceNoteParams *	inParams);
-
-typedef OSStatus
-(*MusicDeviceStopNoteProc)(	void *						inComponentStorage,
-						MusicDeviceGroupID				inGroupID,
-						NoteInstanceID					inNoteInstanceID,
-						UInt32							inOffsetSampleFrame);
-
 #if !__LP64__
 	#if PRAGMA_STRUCT_ALIGN
 		#pragma options align=reset

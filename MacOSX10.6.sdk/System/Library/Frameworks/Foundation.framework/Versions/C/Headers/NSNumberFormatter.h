@@ -1,5 +1,5 @@
 /*	NSNumberFormatter.h
-	Copyright (c) 1996-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1996-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSFormatter.h>
@@ -41,9 +41,7 @@ typedef NSUInteger NSNumberFormatterStyle;
 
 enum {
     NSNumberFormatterBehaviorDefault = 0,
-#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
     NSNumberFormatterBehavior10_0 = 1000,
-#endif
     NSNumberFormatterBehavior10_4 = 1040,
 };
 typedef NSUInteger NSNumberFormatterBehavior;

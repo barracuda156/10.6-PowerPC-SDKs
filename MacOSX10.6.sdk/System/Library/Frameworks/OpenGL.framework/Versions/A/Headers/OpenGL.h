@@ -1,5 +1,5 @@
 /*
-	Copyright:	(c) 1999-2008 Apple Inc. All rights reserved.
+	Copyright:	(c) 1999 by Apple Computer, Inc., all rights reserved.
 */
 
 #ifndef _OPENGL_H

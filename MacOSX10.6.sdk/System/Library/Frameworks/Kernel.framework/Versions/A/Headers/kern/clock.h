@@ -79,8 +79,15 @@ extern void			clock_get_system_nanotime(
 extern void				clock_timebase_info(
 							mach_timebase_info_t	info);
 
+#ifndef	__LP64__
+
 extern void				clock_get_uptime(
 							uint64_t		*result);
+
+#else	/* __LP64__ */
+
+
+#endif	/* __LP64__ */
 
 extern void				clock_interval_to_deadline(
 							uint32_t		interval,

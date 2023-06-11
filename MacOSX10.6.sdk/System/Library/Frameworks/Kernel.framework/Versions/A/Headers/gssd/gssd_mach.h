@@ -62,10 +62,9 @@ kern_return_t mach_gss_init_sec_context
 	string_t princ_namestr,
 	string_t svc_namestr,
 	uint32_t flags,
-	uint32_t gssd_flags,
-	gss_ctx *context,
-	gss_cred *cred_handle,
-	uint32_t *ret_flags,
+	gssd_verifier *verifier,
+	uint32_t *context,
+	uint32_t *cred_handle,
 	byte_buffer *key,
 	mach_msg_type_number_t *keyCnt,
 	byte_buffer *outtoken,
@@ -86,10 +85,10 @@ kern_return_t mach_gss_accept_sec_context
 	byte_buffer intoken,
 	mach_msg_type_number_t intokenCnt,
 	string_t svc_namestr,
-	uint32_t gssd_flags,
-	gss_ctx *context,
-	gss_cred *cred_handle,
-	uint32_t *flags,
+	uint32_t flags,
+	gssd_verifier *verifier,
+	uint32_t *context,
+	uint32_t *cred_handle,
 	uint32_t *uid,
 	gid_list gids,
 	mach_msg_type_number_t *gidsCnt,
@@ -155,9 +154,9 @@ __END_DECLS
 		mach_msg_type_number_t svc_namestrCnt;
 		char svc_namestr[1024];
 		uint32_t flags;
-		uint32_t gssd_flags;
-		gss_ctx context;
-		gss_cred cred_handle;
+		gssd_verifier verifier;
+		uint32_t context;
+		uint32_t cred_handle;
 	} __Request__mach_gss_init_sec_context_t;
 #ifdef  __MigPackStructs
 #pragma pack()
@@ -177,9 +176,10 @@ __END_DECLS
 		mach_msg_type_number_t svc_namestrOffset; /* MiG doesn't use it */
 		mach_msg_type_number_t svc_namestrCnt;
 		char svc_namestr[1024];
-		uint32_t gssd_flags;
-		gss_ctx context;
-		gss_cred cred_handle;
+		uint32_t flags;
+		gssd_verifier verifier;
+		uint32_t context;
+		uint32_t cred_handle;
 	} __Request__mach_gss_accept_sec_context_t;
 #ifdef  __MigPackStructs
 #pragma pack()
@@ -232,9 +232,9 @@ union __RequestUnion__gssd_mach_subsystem {
 		mach_msg_ool_descriptor_t outtoken;
 		/* end of the kernel processed data */
 		NDR_record_t NDR;
-		gss_ctx context;
-		gss_cred cred_handle;
-		uint32_t ret_flags;
+		gssd_verifier verifier;
+		uint32_t context;
+		uint32_t cred_handle;
 		mach_msg_type_number_t keyCnt;
 		mach_msg_type_number_t outtokenCnt;
 		uint32_t major_stat;
@@ -255,9 +255,9 @@ union __RequestUnion__gssd_mach_subsystem {
 		mach_msg_ool_descriptor_t outtoken;
 		/* end of the kernel processed data */
 		NDR_record_t NDR;
-		gss_ctx context;
-		gss_cred cred_handle;
-		uint32_t flags;
+		gssd_verifier verifier;
+		uint32_t context;
+		uint32_t cred_handle;
 		uint32_t uid;
 		mach_msg_type_number_t gidsCnt;
 		uint32_t gids[16];

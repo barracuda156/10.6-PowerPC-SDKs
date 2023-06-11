@@ -13,7 +13,6 @@
 #define NSAppKitVersionNumberWithColumnResizingBrowser      685.0
 
 @class NSMatrix, NSScroller, NSMutableArray, NSIndexSet;
-@protocol NSBrowserDelegate;
 
 typedef struct __Brflags {
 #ifdef __BIG_ENDIAN__
@@ -143,8 +142,8 @@ typedef NSUInteger NSBrowserDropOperation;
 - (void)setCellClass:(Class)factoryId;
 - (void)setCellPrototype:(NSCell *)aCell;
 - (id)cellPrototype;
-- (void)setDelegate:(id <NSBrowserDelegate>)anObject;
-- (id <NSBrowserDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 - (void)setReusesColumns:(BOOL)flag;
 - (BOOL)reusesColumns;
 
@@ -174,15 +173,11 @@ typedef NSUInteger NSBrowserDropOperation;
 - (void)setSendsActionOnArrowKeys:(BOOL)flag;
 - (BOOL)sendsActionOnArrowKeys;
 
-/* Returns the item at the given index path. This method can only be used if the delegate implements the item data source methods. The indexPath must be displayable in the browser.
+/* Returns the item at the given index path. This method can only be used if the delegate implements the item data source methods.
  */
 - (id)itemAtIndexPath:(NSIndexPath *)indexPath AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-/* Returns the item located at 'row' in 'column'.
- */
-- (id)itemAtRow:(NSInteger)row column:(NSInteger)column AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* Returns the index path of the given item. This method may return nil if the item can not be displayed in the browser, or accessed via -itemAtIndexPath. This method can only be used if the delegate implements the item data source methods.
+/* Returns the index path of the given item. This method may return nil if the item has never been displayed in the browser, or accessed via -itemAtIndexPath. This method can only be used if the delegate implements the item data source methods.
  */
 - (NSIndexPath *)indexPathForItem:(id)item AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
@@ -325,16 +320,6 @@ typedef NSUInteger NSBrowserDropOperation;
 - (void)setWidth:(CGFloat)columnWidth ofColumn:(NSInteger)columnIndex AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 - (CGFloat)widthOfColumn:(NSInteger)column AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
-/* Get and set the rowHeight. The value must be greater than 0. Calling -setRowHeight: with a non-pixel aligning (fractional) value will be forced to a pixel aligning (integral) value. For variable row height browsers (ones that have the delegate implement -browser:heightOfRow:column:), -rowHeight will be used to draw alternating rows past the last row in each browser column. The default value is 17.0. Note: The rowHeight methods are only valid when using the "item delegate methods" introduced in MacOS 10.6. (see NSObject(NSBrowserDelegate)). An exception is thrown if using the older "matrix delegate methods" 
- */
-- (void)setRowHeight:(CGFloat)height AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (CGFloat)rowHeight AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* If the delegate implements -browser:heightOfRow:column:, this method immediately re-tiles the browser columns using row heights it provides.
-*/
-- (void)noteHeightOfRowsWithIndexesChanged:(NSIndexSet *)indexSet inColumn:(NSInteger)columnIndex AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
 /* Persistently sets the default width for new columns which don't otherwise have initial width from either defaults or the delegate. This method replaces -setWidth:ofColumn: with a columnIndex of -1. 
  */
 - (void)setDefaultColumnWidth:(CGFloat)columnWidth AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
@@ -393,8 +378,7 @@ APPKIT_EXTERN NSString *NSBrowserColumnConfigurationDidChangeNotification AVAILA
 #pragma mark -
 #pragma mark **** Delegate methods ****
 
-@protocol NSBrowserDelegate <NSObject>
-@optional
+@interface NSObject(NSBrowserDelegate)
 
 /* As of Mac OS X 10.6, browser has two different mechanisms for populating columns. You may implement either the matrix or item delegate methods listed below. Many newer features of the browser are only available if you implement the item delegate methods. */
 
@@ -427,11 +411,6 @@ APPKIT_EXTERN NSString *NSBrowserColumnConfigurationDidChangeNotification AVAILA
 /* Return the object value passed to the cell displaying item.
  */
 - (id)browser:(NSBrowser *)browser objectValueForItem:(id)item AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* Optional - Variable Row Heights
-    Implement this method to support varying row heights per column.  The height returned by this method should not include intercell spacing and must be greater than zero.  NSBrowser may cache the values this method returns.  So if you would like to change a row's height make sure to invalidate the row height by calling -noteHeightOfRowsWithIndexesChanged:inColumn:.
-*/
-- (CGFloat)browser:(NSBrowser *)browser heightOfRow:(NSInteger)row column:(NSInteger)columnIndex AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 #pragma mark -
 
@@ -564,14 +543,6 @@ APPKIT_EXTERN NSString *NSBrowserColumnConfigurationDidChangeNotification AVAILA
     Implement this method to provide a header view for columns. Return nil to omit the header view. The controller's representedObject will be set to the column's item. This method is only called if the delegate implements the item data source methods.
  */
 - (NSViewController *)browser:(NSBrowser *)browser headerViewControllerForItem:(id)item AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* Optional - Notification when the lastColumn changes.
- */
-- (void)browser:(NSBrowser *)browser didChangeLastColumn:(NSInteger)oldLastColumn toColumn:(NSInteger)column;
-
-/* Optional - Return a set of new indexes to select when the user changes the selection with the keyboard or mouse. This method may be called multiple times with one new index added to the existing selection to find out if a particular index can be selected when the user is extending the selection with the keyboard or mouse. Note that 'proposedSelectionIndexes' will contain the entire newly suggested selection, and you can return the exsiting selection to avoid changing the selection. This method only works for item-based NSBrowsers.
- */
-- (NSIndexSet *)browser:(NSBrowser *)browser selectionIndexesForProposedSelection:(NSIndexSet *)proposedSelectionIndexes inColumn:(NSInteger)column AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 @end
 

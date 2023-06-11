@@ -457,45 +457,19 @@ public:
                                             IOStorageCompletion *completion); /* 10.5.0 */
 #endif /* !__LP64__ */
 
-    /*!
-     * @function requestIdle
-     * @abstract
-     * Request that the device enter an idle state.
-     * @discussion
-     * Request that the device enter an idle state.  The device will exit this state on the
-     * next read or write request, or as it sees necessary.  One example is for a DVD drive
-     * to spin down when it enters such an idle state, and spin up on the next read request
-     * from the system.
-     */
-    virtual IOReturn	requestIdle(void); /* 10.6.0 */
-
-    /*!
-     * @function doDiscard
-     * @abstract
-     * Delete unused data blocks from the media.
-     * @param block
-     * The starting block number of the operation.
-     * @param nblks
-     * The integral number of blocks to be deleted.
-     */
-
-    virtual IOReturn doDiscard(UInt64 block, UInt64 nblks); /* 10.6.0 */
-
 #ifdef __LP64__
     OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  0);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  1);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  2);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  3);
-    OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  4);
-    OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  5);
 #else /* !__LP64__ */
     OSMetaClassDeclareReservedUsed(IOBlockStorageDevice,  0);
     OSMetaClassDeclareReservedUsed(IOBlockStorageDevice,  1);
     OSMetaClassDeclareReservedUsed(IOBlockStorageDevice,  2);
     OSMetaClassDeclareReservedUsed(IOBlockStorageDevice,  3);
-    OSMetaClassDeclareReservedUsed(IOBlockStorageDevice,  4);
-    OSMetaClassDeclareReservedUsed(IOBlockStorageDevice,  5);
 #endif /* !__LP64__ */
+    OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  4);
+    OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  5);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  6);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  7);
     OSMetaClassDeclareReservedUnused(IOBlockStorageDevice,  8);

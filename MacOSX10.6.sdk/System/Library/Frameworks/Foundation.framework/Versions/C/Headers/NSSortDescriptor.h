@@ -1,12 +1,11 @@
 /*
 	NSSortDescriptor.h
 	Foundation
-	Copyright (c) 2002-2008, Apple Inc.
+	Copyright (c) 2002-2007, Apple Inc.
 	All rights reserved.
 */
 
 #import <Foundation/NSArray.h>
-#import <Foundation/NSSet.h>
 
 #if MAC_OS_X_VERSION_10_3 <= MAC_OS_X_VERSION_MAX_ALLOWED
 
@@ -38,12 +37,6 @@
 
 - (NSComparisonResult)compareObject:(id)object1 toObject:(id)object2;    // primitive - override this method if you want to perform comparisons differently (not key based for example)
 - (id)reversedSortDescriptor;    // primitive - override this method to return a sort descriptor instance with reversed sort order
-
-@end
-
-@interface NSSet (NSSortDescriptorSorting)
-
-- (NSArray *)sortedArrayUsingDescriptors:(NSArray *)sortDescriptors AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;    // returns a new array by sorting the objects of the receiver
 
 @end
 

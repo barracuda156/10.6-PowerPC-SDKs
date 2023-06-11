@@ -1,7 +1,7 @@
 /*
 	NSWorkspace.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -10,21 +10,21 @@
 #import <Foundation/NSAppleEventDescriptor.h>
 #import <AppKit/AppKitDefines.h>
 
-@class NSArray, NSError, NSImage, NSView, NSNotificationCenter, NSURL, NSScreen, NSRunningApplication;
+@class NSArray, NSError, NSImage, NSView, NSNotificationCenter, NSURL, NSScreen;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
 typedef NSUInteger NSWorkspaceLaunchOptions;
 enum {
-     NSWorkspaceLaunchAndPrint =                 0x00000002,
+     NSWorkspaceLaunchAndPrint = 0x00000002,
      NSWorkspaceLaunchInhibitingBackgroundOnly = 0x00000080,
-     NSWorkspaceLaunchWithoutAddingToRecents   = 0x00000100,
-     NSWorkspaceLaunchWithoutActivation        = 0x00000200,
-     NSWorkspaceLaunchAsync                    = 0x00010000,
-     NSWorkspaceLaunchAllowingClassicStartup   = 0x00020000,
-     NSWorkspaceLaunchPreferringClassic        = 0x00040000,
-     NSWorkspaceLaunchNewInstance              = 0x00080000,
-     NSWorkspaceLaunchAndHide                  = 0x00100000,
-     NSWorkspaceLaunchAndHideOthers            = 0x00200000,
+     NSWorkspaceLaunchWithoutAddingToRecents = 0x00000100,
+     NSWorkspaceLaunchWithoutActivation = 0x00000200,
+     NSWorkspaceLaunchAsync = 0x00010000,
+     NSWorkspaceLaunchAllowingClassicStartup = 0x00020000,
+     NSWorkspaceLaunchPreferringClassic = 0x00040000,
+     NSWorkspaceLaunchNewInstance = 0x00080000,
+     NSWorkspaceLaunchAndHide = 0x00100000,
+     NSWorkspaceLaunchAndHideOthers = 0x00200000,
      // NSWorkspaceLaunchAndDisplayFailures
      NSWorkspaceLaunchDefault = NSWorkspaceLaunchAsync | 
 NSWorkspaceLaunchAllowingClassicStartup
@@ -71,23 +71,14 @@ enum {
 /* Launches an application.  The appName may be a full path to the app, or the name alone, with or without the .app extension. */
 - (BOOL)launchApplication:(NSString *)appName;
 
-/* Launches the app at the given URL.  If the app is successfully launched, a reference to the new running app is returned.  If the app is already running, and NSWorkspaceLaunchNewInstance is not specified, then a reference to the existing app is returned.  If the app could not be launched, nil is returned and an NSError is returned by reference.
-
-  The configuration dictionary can be used to pass additional options to the app.  Possible keys are listed later in this file (search for NSWorkspaceLaunchConfiguration). The configuration dictionary may be nil, in which case default behavior applies.
-*/
-- (NSRunningApplication *)launchApplicationAtURL:(NSURL *)url options:(NSWorkspaceLaunchOptions)options configuration:(NSDictionary *)configuration error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
 /* This currently does the same thing as launchApplication:.  Its use is discouraged. */
 - (BOOL)launchApplication:(NSString *)appName showIcon:(BOOL)showIcon autolaunch:(BOOL)autolaunch;
 
-/* Get the full path for a given application name, which may or may not have the .app extension.  This indicates the application that will be opened by methods such as launchApplication:.  If the application could not be found, returns nil. */
+/* Get the full path for a given application name, which may or may not have the .app extension.  This indicuates the application that will be opened by methods such as launchApplication:.  If the application could not be found, returns nil. */
 - (NSString *)fullPathForApplication:(NSString *)appName;
 
 /* Activate the Finder and open a window selecting the file at the given path.  If fullPath is nil, this will instead open the directory specified by rootFullPath, and not select any file. */
 - (BOOL)selectFile:(NSString *)fullPath inFileViewerRootedAtPath:(NSString *)rootFullPath;
-
-/* Activate the Finder, and open one or more windows selecting the files at the given fileURLs. */
-- (void)activateFileViewerSelectingURLs:(NSArray *)fileURLs AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 /* Displays a Spotlight search results window in Finder for the specified query string. Finder becomes the active application, if possible. The user can further refine the search via the Finder UI. Returns YES if the communication with Finder was successful.
  */
@@ -118,10 +109,10 @@ enum {
 #endif
 
 /* Get the array of file labels as NSStrings.  The file label index for a particular file is available as a property on the URL.  You may listen for NSWorkspaceDidChangeFileLabelsNotification to be notified when these change. */
-- (NSArray *)fileLabels AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (NSArray *)fileLabels;
 
 /* Get the corresponding array of file label colors.  This array has the same number of elements as fileLabels, and the color at a given index corresponds to the label at the same index . You may listen for NSWorkspaceDidChangeFileLabelsNotification to be notified when these change. */
-- (NSArray *)fileLabelColors AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (NSArray *)fileLabelColors;
 
 /* Gets information about the filesystem.  fullPath is the path to any file or directory on the filesystem, including the filesystem's mount point.  The returned values have the following significance:
    - isRemovable: whether the filesytem is backed by removable media, such as a CD or floppy disk.
@@ -151,12 +142,6 @@ enum {
 
 /* Get the mount paths of all volumes backed by removable media, such as DVDs. */
 - (NSArray *)mountedRemovableMedia;
-
-/* Get the URL for the application with the given identifier.  This uses various heuristics in case multiple apps have the same bundle ID.  This returns nil if no app has the bundle identifier.*/
-- (NSURL *)URLForApplicationWithBundleIdentifier:(NSString *)bundleIdentifier AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/* Returns the URL to the default application that would be used to open the given URL, as if the file were double clicked in the Finder (for file URLs).  This returns nil if no app can open it, or if the file does not exist. */
-- (NSURL *)URLForApplicationToOpenURL:(NSURL *)url AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
 /* Get the path for the application with the given identifier.  This uses various heuristics in case multiple apps have the same bundle ID. */
@@ -232,8 +217,6 @@ Use this method instead of merely comparing UTIs for equality.
 @interface NSWorkspace (NSDesktopImages)
 
 /* Sets the desktop image for the given screen to the image at the given URL.  The URL must be a file URL and may not be nil.  The options dictionary may contain any of the NSWorkspaceDesktopImage keys, which control how the image is scaled on the screen.  This returns YES if the image was successfully set; otherwise, NO is returned and an error is returned by reference.
-
-  You should normally NOT present a user interface for picking the options.  Instead, just choose appropriate defaults and allow the user to adjust them in the System Preference Pane.
  */
 - (BOOL)setDesktopImageURL:(NSURL *)url forScreen:(NSScreen *)screen options:(NSDictionary *)options error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
@@ -268,9 +251,9 @@ APPKIT_EXTERN NSString * const NSWorkspaceDesktopImageFillColorKey AVAILABLE_MAC
  */
 APPKIT_EXTERN NSString * const NSWorkspaceApplicationKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-APPKIT_EXTERN NSString * NSWorkspaceWillLaunchApplicationNotification;	//	see above
-APPKIT_EXTERN NSString * NSWorkspaceDidLaunchApplicationNotification;	//	see above
-APPKIT_EXTERN NSString * NSWorkspaceDidTerminateApplicationNotification;	//	see above
+APPKIT_EXTERN NSString * const NSWorkspaceWillLaunchApplicationNotification;	//	see above
+APPKIT_EXTERN NSString * const NSWorkspaceDidLaunchApplicationNotification;	//	see above
+APPKIT_EXTERN NSString * const NSWorkspaceDidTerminateApplicationNotification;	//	see above
 APPKIT_EXTERN NSString * const NSWorkspaceDidHideApplicationNotification AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 APPKIT_EXTERN NSString * const NSWorkspaceDidUnhideApplicationNotification AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 APPKIT_EXTERN NSString * const NSWorkspaceDidActivateApplicationNotification AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
@@ -289,9 +272,9 @@ APPKIT_EXTERN NSString * const NSWorkspaceVolumeURLKey AVAILABLE_MAC_OS_X_VERSIO
 APPKIT_EXTERN NSString * const NSWorkspaceVolumeOldLocalizedNameKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; //NSString containing the old user-visible name of the volume
 APPKIT_EXTERN NSString * const NSWorkspaceVolumeOldURLKey AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;  //NSURL containing the old mount path of the volume
 
-APPKIT_EXTERN NSString * NSWorkspaceDidMountNotification;		//	@"NSDevicePath"
-APPKIT_EXTERN NSString * NSWorkspaceDidUnmountNotification;		//	@"NSDevicePath"
-APPKIT_EXTERN NSString * NSWorkspaceWillUnmountNotification;		//	@"NSDevicePath"
+APPKIT_EXTERN NSString * const NSWorkspaceDidMountNotification;		//	@"NSDevicePath"
+APPKIT_EXTERN NSString * const NSWorkspaceDidUnmountNotification;		//	@"NSDevicePath"
+APPKIT_EXTERN NSString * const NSWorkspaceWillUnmountNotification;		//	@"NSDevicePath"
 
 /* NSWorkspaceDidRenameVolumeNotification is posted when a volume changes its name and/or mount path.  These typically change simultaneously, in which case only one notification is posted.
  */
@@ -301,65 +284,56 @@ APPKIT_EXTERN NSString * const NSWorkspaceDidRenameVolumeNotification AVAILABLE_
 /* Power notifications */
 APPKIT_EXTERN NSString * const NSWorkspaceWillPowerOffNotification;
 
-APPKIT_EXTERN NSString * NSWorkspaceWillSleepNotification	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-APPKIT_EXTERN NSString * NSWorkspaceDidWakeNotification	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+APPKIT_EXTERN NSString * const NSWorkspaceWillSleepNotification	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+APPKIT_EXTERN NSString * const NSWorkspaceDidWakeNotification	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 APPKIT_EXTERN NSString * const NSWorkspaceScreensDidSleepNotification	AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 APPKIT_EXTERN NSString * const NSWorkspaceScreensDidWakeNotification	AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 /* Session notifications */
-APPKIT_EXTERN NSString * NSWorkspaceSessionDidBecomeActiveNotification	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
-APPKIT_EXTERN NSString * NSWorkspaceSessionDidResignActiveNotification	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+APPKIT_EXTERN NSString * const NSWorkspaceSessionDidBecomeActiveNotification	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+APPKIT_EXTERN NSString * const NSWorkspaceSessionDidResignActiveNotification	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 
 /* Miscellaneous notifications */
 
-APPKIT_EXTERN NSString * NSWorkspaceDidPerformFileOperationNotification;	//	@"NSOperationNumber"
+APPKIT_EXTERN NSString * const NSWorkspaceDidPerformFileOperationNotification;	//	@"NSOperationNumber"
 
 /* NSWorkspaceDidChangeFileLabelsNotification is posted when the user changes a file label color name or the color itself.  The notification object is always NSWorkspace, and there is no user info.
  */
 APPKIT_EXTERN NSString * const NSWorkspaceDidChangeFileLabelsNotification AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-APPKIT_EXTERN NSString * const NSWorkspaceActiveSpaceDidChangeNotification AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-
-/* The following keys can be used in the configuration dictionary of the launchApplicationAtURL: method.  Each key is optional, and if omitted, default behavior is applied. */
-
-APPKIT_EXTERN NSString * const NSWorkspaceLaunchConfigurationAppleEvent AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; //the first NSAppleEventDescriptor to send to the new app.  If an instance of the app is already running, this is sent to that app.
-APPKIT_EXTERN NSString * const NSWorkspaceLaunchConfigurationArguments AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; //an NSArray of NSStrings, passed to the new app in the argv parameter.  Ignored if a new instance is not launched.
-APPKIT_EXTERN NSString * const NSWorkspaceLaunchConfigurationEnvironment AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; //an NSDictionary, mapping NSStrings to NSStrings, containing environment variables to set for the new app.  Ignored if a new instance is not launched.
-APPKIT_EXTERN NSString * const NSWorkspaceLaunchConfigurationArchitecture AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; //an NSNumber containing an NSBundleExecutableArchitecture (from NSBundle.h).  Ignored if a new instance is not launched.
 
 /* Possible values for operation in performFileOperation:... 
 */
-APPKIT_EXTERN NSString * NSWorkspaceMoveOperation;
-APPKIT_EXTERN NSString * NSWorkspaceCopyOperation;
-APPKIT_EXTERN NSString * NSWorkspaceLinkOperation;
-APPKIT_EXTERN NSString * NSWorkspaceCompressOperation;
-APPKIT_EXTERN NSString * NSWorkspaceDecompressOperation;
-APPKIT_EXTERN NSString * NSWorkspaceEncryptOperation;
-APPKIT_EXTERN NSString * NSWorkspaceDecryptOperation;
-APPKIT_EXTERN NSString * NSWorkspaceDestroyOperation;
-APPKIT_EXTERN NSString * NSWorkspaceRecycleOperation;
-APPKIT_EXTERN NSString * NSWorkspaceDuplicateOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceMoveOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceCopyOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceLinkOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceCompressOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceDecompressOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceEncryptOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceDecryptOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceDestroyOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceRecycleOperation;
+APPKIT_EXTERN NSString * const NSWorkspaceDuplicateOperation;
 
 
 /* Everything remaining in this header is deprecated and should not be used. */
 
 @interface NSWorkspace (NSDeprecated)
-- (BOOL)openTempFile:(NSString *)fullPath DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)findApplications DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)noteUserDefaultsChanged DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)slideImage:(NSImage *)image from:(NSPoint)fromPoint to:(NSPoint)toPoint DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)checkForRemovableMedia DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)noteFileSystemChanged DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (BOOL)fileSystemChanged DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (BOOL)userDefaultsChanged DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (NSArray *)mountNewRemovableMedia DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (BOOL)openTempFile:(NSString *)fullPath AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+- (void)findApplications AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+- (void)noteUserDefaultsChanged AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+- (void)slideImage:(NSImage *)image from:(NSPoint)fromPoint to:(NSPoint)toPoint AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+- (void)checkForRemovableMedia AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+- (void)noteFileSystemChanged AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+- (BOOL)fileSystemChanged AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+- (BOOL)userDefaultsChanged AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+- (NSArray *)mountNewRemovableMedia AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
 @end
 
-APPKIT_EXTERN NSString *NSPlainFileType DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-APPKIT_EXTERN NSString *NSDirectoryFileType DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-APPKIT_EXTERN NSString *NSApplicationFileType DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-APPKIT_EXTERN NSString *NSFilesystemFileType DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
-APPKIT_EXTERN NSString *NSShellCommandFileType DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER;
+APPKIT_EXTERN NSString *NSPlainFileType AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+APPKIT_EXTERN NSString *NSDirectoryFileType AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+APPKIT_EXTERN NSString *NSApplicationFileType AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+APPKIT_EXTERN NSString *NSFilesystemFileType AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+APPKIT_EXTERN NSString *NSShellCommandFileType AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;

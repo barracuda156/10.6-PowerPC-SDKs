@@ -1,7 +1,7 @@
 /*
         NSMenuItem.h
         Application Kit
-        Copyright (c) 1996-2008, Apple Inc.
+        Copyright (c) 1996-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -14,7 +14,7 @@
 @class NSImage, NSAttributedString, NSView;
 
 // This protocol is deprecated.  Use the NSMenuItem class in your code.
-DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER @protocol NSMenuItem;
+@protocol NSMenuItem;
 
 @interface NSMenuItem : NSObject <NSCopying, NSCoding, NSValidatedUserInterfaceItem>
 {
@@ -40,8 +40,7 @@ DEPRECATED_IN_MAC_OS_X_VERSION_10_6_AND_LATER @protocol NSMenuItem;
         unsigned int hidden:1;
         unsigned int alternate:1;
         unsigned int indent:4;
-        unsigned int keShareMode:3;
-        unsigned int RESERVED1:13;
+        unsigned int changed:16;
         unsigned int highlighted:1;
         unsigned int limitedView:1;
         unsigned int nextItemIsAlternate:1;

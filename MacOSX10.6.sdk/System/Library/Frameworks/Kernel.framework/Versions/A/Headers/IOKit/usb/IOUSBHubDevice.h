@@ -25,18 +25,8 @@
 /*
  *
  *	$Log: IOUSBHubDevice.h,v $
- *	Revision 1.6.102.3  2008/06/16 22:02:16  nano
- *	Bring in changes from Foxound 320.2.19
- *	
-
  *	Revision 1.6.102.2  2008/04/22 22:38:01  nano
  *	Bring in changes from Foxhound-320.2.9
- *	
- *	Revision 1.8.62.2  2008/06/06 21:08:44  nano
- *	Enable dynamic allocation of power for M89, so we don't reserve it if there isn't a high power device attached
- *	
- *	Revision 1.8.62.1  2008/06/06 04:14:32  nano
- *	Fix SleepCurrent allocation so it will work with hub devices and root hub devices as well as consolidating it across all controllers
  *	
  *	Revision 1.8  2008/04/17 16:56:57  nano
  *	Bring in branches for rdar://5867990 & rdar://5768343
@@ -141,9 +131,6 @@ private:
 		UInt32					_maxPortCurrent;				// maximum current in milliamps per downstream port
 		UInt32					_totalExtraCurrent;				// total amount of current above the spec'ed current per port available (during normal operation)
 		UInt32					_totalSleepCurrent;				// total amount of current that can be drawn during sleep
-		UInt32					_canRequestExtraPower;			// If 0, this hub does not support requesting extra power from its parent, non-zero:  how much power we need to request in order to give out _extraPowerForPorts
-		UInt32					_extraPowerForPorts;			// Of the power requested from our parent, how much can we parcel out -- the rest is consumed by voltage drop thru the cable
-		UInt32					_extraPowerAllocated;			// Amount of power that we actually got from our parent
 	};
     ExpansionData			*_expansionData;
 	
@@ -214,12 +201,8 @@ public:
     OSMetaClassDeclareReservedUsed(IOUSBHubDevice,  2);
 	virtual void			ReturnSleepPower(UInt32 returnedPower);
 
-    OSMetaClassDeclareReservedUsed(IOUSBHubDevice,  3);
-	virtual void			SetSleepCurrent(UInt32 sleepCurrent);
-	
-    OSMetaClassDeclareReservedUsed(IOUSBHubDevice,  4);
-	virtual	UInt32			GetSleepCurrent();
-	
+    OSMetaClassDeclareReservedUnused(IOUSBHubDevice,  3);
+    OSMetaClassDeclareReservedUnused(IOUSBHubDevice,  4);
     OSMetaClassDeclareReservedUnused(IOUSBHubDevice,  5);
     OSMetaClassDeclareReservedUnused(IOUSBHubDevice,  6);
     OSMetaClassDeclareReservedUnused(IOUSBHubDevice,  7);

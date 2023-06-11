@@ -482,7 +482,7 @@ Example:
 @/textblock
 </pre>
 */
-#define kIOPropertyPhysicalBlockSizeKey		"Physical Block Size"
+#define kIOPropertyPhysicalBlockSizeKey	"Physical Block Size"
 
 
 /*!
@@ -513,34 +513,7 @@ Example:
 @/textblock
 </pre>
 */
-#define kIOPropertyLogicalBlockSizeKey		"Logical Block Size"
+#define kIOPropertyLogicalBlockSizeKey	"Logical Block Size"
 
-
-/*!
-@defined kIOPropertyTargetDiskModeKey
-@discussion This key is used to indicate the device is another computer in Target Disk Mode.
-
-Requirement: Optional.
-
-Example:
-<pre>
-@textblock
-<dict>
-	<key>Device Characteristics</key>
-	<dict>
-		<key>Vendor Name</key>
-		<string>AAPL</string>
-		<key>Product Name</key>
-		<string>FireWire Target</string>
-		<key>Product Revision Level</key>
-		<string>0000</string>
-		<key>Target Disk Mode</key>
-		<true/>
-	</dict>
-</dict>
-@/textblock
-</pre>
-*/
-#define kIOPropertyTargetDiskModeKey		"Target Disk Mode"
 
 #endif	/* _IOKIT_IO_STORAGE_DEVICE_CHARACTERISTICS_H_ */

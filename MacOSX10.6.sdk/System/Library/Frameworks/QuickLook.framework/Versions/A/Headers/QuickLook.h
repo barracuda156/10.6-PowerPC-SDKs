@@ -15,4 +15,9 @@
 #include <QuickLook/QLGenerator.h>
 #include <QuickLook/QLThumbnailImage.h>
 
+#ifdef __OBJC__
+#import <QuickLook/QLPreviewItem.h>
+#import <QuickLook/QLPreviewPanel.h>
+#endif
+
 #endif /* __QUICKLOOK_QUICKLOOK__ */

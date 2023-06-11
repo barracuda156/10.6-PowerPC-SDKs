@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2000-2008 Apple Inc. All rights reserved.
+ * Copyright (c) 2000-2007 Apple Inc. All rights reserved.
  *
  * @APPLE_OSREFERENCE_LICENSE_HEADER_START@
  * 
@@ -61,10 +61,9 @@ struct mca_state;
  * Data structures embedded in per-cpu data:
  */
 typedef struct rtclock_timer {
-	queue_head_t	queue;
-	uint64_t		deadline;
-	boolean_t		is_set;
-	boolean_t		has_expired;
+	uint64_t	deadline;
+	boolean_t	is_set;
+	boolean_t	has_expired;
 } rtclock_timer_t;
 
 
@@ -160,6 +159,7 @@ typedef struct cpu_data
 	int			cpu_subtype;
 	int			cpu_threadtype;
 	int			cpu_running;
+	uint64_t		rtclock_intr_deadline;
 	rtclock_timer_t		rtclock_timer;
 	boolean_t		cpu_is64bit;
 	task_map_t		cpu_task_map;

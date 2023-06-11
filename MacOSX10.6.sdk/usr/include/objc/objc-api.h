@@ -26,7 +26,6 @@
 #define _OBJC_OBJC_API_H_
 
 #include <AvailabilityMacros.h>
-#include <TargetConditionals.h>
 
 /*
  * OBJC_API_VERSION 0 or undef: Tiger and earlier API only
@@ -49,36 +48,16 @@
 #   endif
 #endif
 
-#if !defined(OBJC_EXTERN)
-#   if defined(__cplusplus)
-#       define OBJC_EXTERN extern "C" 
-#   else
-#       define OBJC_EXTERN extern
-#   endif
-#endif
-
 #if !defined(OBJC_EXPORT)
-#   if TARGET_OS_WIN32
-#       if defined(BUILDING_OBJC)
-#           define OBJC_EXPORT OBJC_EXTERN __declspec(dllexport)
-#       else
-#           define OBJC_EXPORT OBJC_EXTERN __declspec(dllimport)
-#       endif
+#   if defined(__cplusplus)
+#       define OBJC_EXPORT extern "C" 
 #   else
-#       define OBJC_EXPORT OBJC_EXTERN
+#       define OBJC_EXPORT extern
 #   endif
 #endif
 
 #if !defined(OBJC_IMPORT)
 #   define OBJC_IMPORT extern
-#endif
-
-#ifndef __DARWIN_NULL
-#define __DARWIN_NULL NULL
-#endif
-
-#if !defined(OBJC_INLINE)
-#   define OBJC_INLINE __inline
 #endif
 
 #endif

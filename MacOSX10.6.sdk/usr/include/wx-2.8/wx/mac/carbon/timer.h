@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: timer.h 41020 2006-09-05 20:47:48Z VZ $
+// RCS-ID:      $Id: timer.h,v 1.6 2006/09/05 20:45:53 VZ Exp $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 //
-// "$Id: ppdc.h 836 2008-07-03 05:50:57Z msweet $"
+// "$Id: ppdc.h 786 2008-05-21 01:51:48Z msweet $"
 //
 //   Definitions for the CUPS PPD Compiler.
 //
@@ -413,7 +413,7 @@ class ppdcFile				//// File
   const char	*filename;		// Filename
   int		line;			// Line in file
 
-  ppdcFile(const char *f, cups_file_t *ffp = (cups_file_t *)0);
+  ppdcFile(const char *f);
   ~ppdcFile();
 
   int		get();
@@ -439,7 +439,7 @@ class ppdcSource			//// Source File
 		cond_stack[101];	// #if state stack
 
 
-  ppdcSource(const char *f = 0, cups_file_t *ffp = (cups_file_t *)0);
+  ppdcSource(const char *f = 0);
   ~ppdcSource();
 
   static void	add_include(const char *d);
@@ -478,7 +478,7 @@ class ppdcSource			//// Source File
   ppdcVariable	*get_variable(ppdcFile *fp);
   int		import_ppd(const char *f);
   int		quotef(cups_file_t *fp, const char *format, ...);
-  void		read_file(const char *f, cups_file_t *ffp = (cups_file_t *)0);
+  void		read_file(const char *f);
   void		scan_file(ppdcFile *fp, ppdcDriver *td = 0, bool inc = false);
   ppdcVariable	*set_variable(const char *name, const char *value);
   int		write_file(const char *f);
@@ -488,5 +488,5 @@ class ppdcSource			//// Source File
 #endif // !_PPDC_H_
 
 //
-// End of "$Id: ppdc.h 836 2008-07-03 05:50:57Z msweet $".
+// End of "$Id: ppdc.h 786 2008-05-21 01:51:48Z msweet $".
 //

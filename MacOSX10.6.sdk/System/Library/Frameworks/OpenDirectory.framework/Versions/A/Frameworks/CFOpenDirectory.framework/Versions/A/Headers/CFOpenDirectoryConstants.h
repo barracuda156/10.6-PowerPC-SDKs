@@ -1565,7 +1565,7 @@ const ODAttributeType kODAttributeTypeEMailAddress;
 	@abstract   Attribute that defines a record's custom email addresses.
 	@discussion Attribute that defines a record's custom email addresses.
 				found in user records (kODRecordTypeUsers). 
-				Example: home:johndoe\@mymail.com
+				Example: home:johndoe@mymail.com
 */
 CF_EXPORT
 const ODAttributeType kODAttributeTypeEMailContacts;

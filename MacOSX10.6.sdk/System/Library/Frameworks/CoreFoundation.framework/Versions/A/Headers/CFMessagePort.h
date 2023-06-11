@@ -1,5 +1,5 @@
 /*	CFMessagePort.h
-	Copyright (c) 1998-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1998-2007, Apple Inc. All rights reserved.
 */
 
 #if !defined(__COREFOUNDATION_CFMESSAGEPORT__)
@@ -18,8 +18,7 @@ enum {
     kCFMessagePortSendTimeout = -1,
     kCFMessagePortReceiveTimeout = -2,
     kCFMessagePortIsInvalid = -3,
-    kCFMessagePortTransportError = -4,
-    kCFMessagePortBecameInvalidError = -5
+    kCFMessagePortTransportError = -4
 };
 
 typedef struct {

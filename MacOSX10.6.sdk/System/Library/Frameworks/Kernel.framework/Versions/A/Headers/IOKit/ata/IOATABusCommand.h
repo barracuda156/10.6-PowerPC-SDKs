@@ -32,9 +32,7 @@
 #include <IOKit/IOTypes.h>
 #include "IOATATypes.h"
 #include "IOATACommand.h"
-
-
-class IOSyncer;
+#include <IOKit/IOSyncer.h>
 
 
 /*!

@@ -1,6 +1,6 @@
 /*
  *  NSPointerArray.h
- *  Copyright (c) 2005-2008, Apple Inc. All rights reserved.
+ *  Copyright (c) 2005-2007, Apple Inc.. All rights reserved.
  *
  */
  

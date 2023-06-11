@@ -1,5 +1,5 @@
 /*	NSPathUtilities.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSString.h>
@@ -55,10 +55,10 @@ FOUNDATION_EXPORT NSString *NSOpenStepRootDirectory(void);
 enum {
     NSApplicationDirectory = 1,		// supported applications (Applications)
     NSDemoApplicationDirectory,		// unsupported applications, demonstration versions (Demos)
-    NSDeveloperApplicationDirectory,	// developer applications (Developer/Applications). DEPRECATED - there is no one single Developer directory.
+    NSDeveloperApplicationDirectory,	// developer applications (Developer/Applications)
     NSAdminApplicationDirectory,	// system and network administration applications (Administration)
     NSLibraryDirectory, 		// various user-visible documentation, support, and configuration files, resources (Library)
-    NSDeveloperDirectory,		// developer resources (Developer) DEPRECATED - there is no one single Developer directory.
+    NSDeveloperDirectory,		// developer resources (Developer)
     NSUserDirectory,			// user home directories (Users)
     NSDocumentationDirectory,		// documentation (Documentation)
 #if MAC_OS_X_VERSION_10_2 <= MAC_OS_X_VERSION_MAX_ALLOWED

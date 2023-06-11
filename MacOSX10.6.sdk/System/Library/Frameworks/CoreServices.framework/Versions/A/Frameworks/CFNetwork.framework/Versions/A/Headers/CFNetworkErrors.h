@@ -71,134 +71,51 @@ CFN_EXPORT const CFStringRef kCFErrorDomainWinSock					   __OSX_AVAILABLE_STARTI
  *  CFNetworkErrors
  *  
  *  Discussion:
- *	The list of all public error codes returned under the error domain
+ *	The list of all error codes returned under the error domain
  *	kCFErrorDomainCFNetwork
  */
 enum CFNetworkErrors {
-  kCFHostErrorHostNotFound = 1,
-  kCFHostErrorUnknown = 2, // Query the kCFGetAddrInfoFailureKey to get the value returned from getaddrinfo; lookup in netdb.h
-  // SOCKS errors; in all cases you may query kCFSOCKSStatusCodeKey to recover the status code returned by the server
+  kCFHostErrorHostNotFound	  = 1,
+  kCFHostErrorUnknown		   = 2,	/* Query the kCFGetAddrInfoFailureKey to get the value returned from getaddrinfo; lookup in netdb.h*/
+										/* SOCKS errors; in all cases you may query kCFSOCKSStatusCodeKey to recover the status code returned by the server*/
   kCFSOCKSErrorUnknownClientVersion = 100,
-  kCFSOCKSErrorUnsupportedServerVersion = 101, // Query the kCFSOCKSVersionKey to find the version requested by the server
-  // SOCKS4-specific errors
-  kCFSOCKS4ErrorRequestFailed = 110,  // request rejected or failed by the server
-  kCFSOCKS4ErrorIdentdFailed = 111,  // request rejected because SOCKS server cannot connect to identd on the client
-  kCFSOCKS4ErrorIdConflict = 112,  // request rejected because the client program and identd report different user-ids
-  kCFSOCKS4ErrorUnknownStatusCode = 113,
-  // SOCKS5-specific errors
-  kCFSOCKS5ErrorBadState = 120,
+  kCFSOCKSErrorUnsupportedServerVersion = 101, /* Query the kCFSOCKSVersionKey to find the version requested by the server*/
+										/* SOCKS4-specific errors*/
+  kCFSOCKS4ErrorRequestFailed   = 110,  /* request rejected or failed by the server*/
+  kCFSOCKS4ErrorIdentdFailed	= 111,  /* request rejected because SOCKS server cannot connect to identd on the client*/
+  kCFSOCKS4ErrorIdConflict	  = 112,  /* request rejected because the client program and identd report different user-ids*/
+  kCFSOCKS4ErrorUnknownStatusCode = 113, /* SOCKS5-specific errors*/
+  kCFSOCKS5ErrorBadState		= 120,
   kCFSOCKS5ErrorBadResponseAddr = 121,
-  kCFSOCKS5ErrorBadCredentials = 122,
-  kCFSOCKS5ErrorUnsupportedNegotiationMethod = 123, // query kCFSOCKSNegotiationMethodKey to find the method requested
-  kCFSOCKS5ErrorNoAcceptableMethod = 124,
-  // FTP errors; query the kCFFTPStatusCodeKey to get the status code returned by the server
-  kCFFTPErrorUnexpectedStatusCode = 200,
-  // HTTP errors
+  kCFSOCKS5ErrorBadCredentials  = 122,
+  kCFSOCKS5ErrorUnsupportedNegotiationMethod = 123, /* query kCFSOCKSNegotiationMethodKey to find the method requested*/
+  kCFSOCKS5ErrorNoAcceptableMethod = 124, /* Errors originating from CFNetServices*/
+  kCFNetServiceErrorUnknown	 = -72000L,
+  kCFNetServiceErrorCollision   = -72001L,
+  kCFNetServiceErrorNotFound	= -72002L,
+  kCFNetServiceErrorInProgress  = -72003L,
+  kCFNetServiceErrorBadArgument = -72004L,
+  kCFNetServiceErrorCancel	  = -72005L,
+  kCFNetServiceErrorInvalid	 = -72006L,
+  kCFNetServiceErrorTimeout	 = -72007L,
+  kCFNetServiceErrorDNSServiceFailure = -73000L, /* An error from DNS discovery; look at kCFDNSServiceFailureKey to get the error number and interpret using dns_sd.h*/
+										/* FTP errors; query the kCFFTPStatusCodeKey to get the status code returned by the server*/
+  kCFFTPErrorUnexpectedStatusCode = 200, /* HTTP errors*/
   kCFErrorHTTPAuthenticationTypeUnsupported = 300,
-  kCFErrorHTTPBadCredentials = 301,
-  kCFErrorHTTPConnectionLost = 302,
-  kCFErrorHTTPParseFailure = 303,
+  kCFErrorHTTPBadCredentials	= 301,
+  kCFErrorHTTPConnectionLost	= 302,
+  kCFErrorHTTPParseFailure	  = 303,
   kCFErrorHTTPRedirectionLoopDetected = 304,
-  kCFErrorHTTPBadURL = 305,
+  kCFErrorHTTPBadURL			= 305,
   kCFErrorHTTPProxyConnectionFailure = 306,
   kCFErrorHTTPBadProxyCredentials = 307,
-  kCFErrorPACFileError = 308,
-  kCFErrorPACFileAuth = 309,
-	
-  // Error codes for CFURLConnection and CFURLProtocol
-  kCFURLErrorUnknown = -998,
-  kCFURLErrorCancelled = -999,
-  kCFURLErrorBadURL = -1000,
-  kCFURLErrorTimedOut = -1001,
-  kCFURLErrorUnsupportedURL = -1002,
-  kCFURLErrorCannotFindHost = -1003,
-  kCFURLErrorCannotConnectToHost = -1004,
-  kCFURLErrorNetworkConnectionLost = -1005,
-  kCFURLErrorDNSLookupFailed = -1006,
-  kCFURLErrorHTTPTooManyRedirects = -1007,
-  kCFURLErrorResourceUnavailable = -1008,
-  kCFURLErrorNotConnectedToInternet = -1009,
-  kCFURLErrorRedirectToNonExistentLocation = -1010,
-  kCFURLErrorBadServerResponse = -1011,
-  kCFURLErrorUserCancelledAuthentication = -1012,
-  kCFURLErrorUserAuthenticationRequired = -1013,
-  kCFURLErrorZeroByteResource = -1014,
-  kCFURLErrorCannotDecodeRawData = -1015,
-  kCFURLErrorCannotDecodeContentData = -1016,
-  kCFURLErrorCannotParseResponse = -1017,
-  kCFURLErrorInternationalRoamingOff = -1018,
-  kCFURLErrorCallIsActive = -1019,
-  kCFURLErrorDataNotAllowed = -1020,
-  kCFURLErrorFileDoesNotExist = -1100,
-  kCFURLErrorFileIsDirectory = -1101,
-  kCFURLErrorNoPermissionsToReadFile = -1102,
-  kCFURLErrorDataLengthExceedsMaximum = -1103,
-  // SSL errors
-  kCFURLErrorSecureConnectionFailed = -1200,
-  kCFURLErrorServerCertificateHasBadDate = -1201,
-  kCFURLErrorServerCertificateUntrusted = -1202,
-  kCFURLErrorServerCertificateHasUnknownRoot = -1203,
-  kCFURLErrorServerCertificateNotYetValid = -1204,
-  kCFURLErrorClientCertificateRejected = -1205,
-  kCFURLErrorClientCertificateRequired = -1206,
-  kCFURLErrorCannotLoadFromNetwork = -2000,
-  // Download and file I/O errors
-  kCFURLErrorCannotCreateFile = -3000,
-  kCFURLErrorCannotOpenFile = -3001,
-  kCFURLErrorCannotCloseFile = -3002,
-  kCFURLErrorCannotWriteToFile = -3003,
-  kCFURLErrorCannotRemoveFile = -3004,
-  kCFURLErrorCannotMoveFile = -3005,
-  kCFURLErrorDownloadDecodingFailedMidStream = -3006,
-  kCFURLErrorDownloadDecodingFailedToComplete = -3007,
-	
-  // Cookie errors
-  kCFHTTPCookieCannotParseCookieFile = -4000,
-
-  // Errors originating from CFNetServices
-  kCFNetServiceErrorUnknown = -72000L,
-  kCFNetServiceErrorCollision = -72001L,
-  kCFNetServiceErrorNotFound = -72002L,
-  kCFNetServiceErrorInProgress = -72003L,
-  kCFNetServiceErrorBadArgument = -72004L,
-  kCFNetServiceErrorCancel = -72005L,
-  kCFNetServiceErrorInvalid = -72006L,
-  kCFNetServiceErrorTimeout = -72007L,
-  kCFNetServiceErrorDNSServiceFailure = -73000L // An error from DNS discovery; look at kCFDNSServiceFailureKey to get the error number and interpret using dns_sd.h	
+  kCFErrorPACFileError		  = 308,
+  kCFErrorPACFileAuth		   = 309
 };
 typedef enum CFNetworkErrors CFNetworkErrors;
 
 
 /* Keys used by CFNetwork to pass additional error information back to the user within CFError's userInfo dictionary */
-/*
- *  kCFURLErrorFailingURLErrorKey
- *  
- *  Discussion:
- *	When an NSURLConnection or NSURLDownload error occurs, this key's
- *  value is set to the URL which caused a load to fail
- *  
- *  Availability:
- *	Mac OS X:		 in version 10.6 and later in CoreServices.framework
- *	CarbonLib:		not available
- *	Non-Carbon CFM:   not available
- */
-CFN_EXPORT const CFStringRef kCFURLErrorFailingURLErrorKey				__OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_NA);
-
-/*
- *  kCFURLErrorFailingURLStringErrorKey
- *  
- *  Discussion:
- *	When an NSURLConnection or NSURLDownload error occurs, this key's
- *  value is set to the CFString value of the URL which caused a load
- *  to fail
- *  
- *  Availability:
- *	Mac OS X:		 in version 10.6 and later in CoreServices.framework
- *	CarbonLib:		not available
- *	Non-Carbon CFM:   not available
- */
-CFN_EXPORT const CFStringRef kCFURLErrorFailingURLStringErrorKey		__OSX_AVAILABLE_STARTING(__MAC_10_5,__IPHONE_NA);
-
 /*
  *  kCFGetAddrInfoFailureKey
  *  
@@ -291,7 +208,6 @@ CFN_EXPORT const CFStringRef kCFFTPStatusCodeKey						 __OSX_AVAILABLE_STARTING(
 #if PRAGMA_ENUM_ALWAYSINT
 	#pragma enumsalwaysint reset
 #endif
-
 
 #ifdef __cplusplus
 }

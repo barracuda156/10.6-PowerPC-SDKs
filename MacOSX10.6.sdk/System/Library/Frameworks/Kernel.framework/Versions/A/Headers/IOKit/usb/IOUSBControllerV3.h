@@ -81,7 +81,7 @@ class IOUSBControllerV3 : public IOUSBControllerV2
 		UInt8							_myBusState;					// kUSBBusStateReset, kUSBBusStateSuspended, kUSBBusStateRunning
 		bool							_wakingFromHibernation;			// True while the Hibernation Wake thread is active
 		bool							_needToAckPowerDown;			// True while we are changing power state due to shutdown/restart
-		bool							_onCardBus;						// OBSOLETE
+		bool							_onCardBus;						// true if this controller is on an ejectable bus
 		bool							_controllerAvailable;			// true if we can talk to the controller
 		SInt32							_powerStateChangingTo;			// a power state that we are in the process of changing to, or -1 if we are stable
 		bool							_poweringDown;					// true is the controller is powering down because of a systemWillPowerDown message

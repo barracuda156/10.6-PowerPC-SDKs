@@ -14,7 +14,7 @@ module Config
     elsif e = ENV['RC_ARCHS']
       e.split.map { |a| "-arch #{a}" }.join(' ')
     else
-      '-arch i386 -arch x86_64'
+      '-arch ppc -arch i386'
     end
   CONFIG = {}
   CONFIG["DESTDIR"] = DESTDIR
@@ -51,7 +51,6 @@ module Config
   CONFIG["libdir"] = "$(exec_prefix)/lib"
   CONFIG["localedir"] = "$(datarootdir)/locale"
   CONFIG["mandir"] = "$(DESTDIR)/usr/share/man"
-  CONFIG["DEFS"] = ""
   CONFIG["ECHO_C"] = "\\\\c"
   CONFIG["ECHO_N"] = ""
   CONFIG["ECHO_T"] = ""
@@ -75,9 +74,9 @@ module Config
   CONFIG["target_vendor"] = "apple"
   CONFIG["target_os"] = "darwin10.0"
   CONFIG["CC"] = "gcc"
-  CONFIG["CFLAGS"] = "#{ARCHFLAGS} -g -Os -pipe -fno-common -DENABLE_DTRACE #{ARCHFLAGS} -pipe  -fno-common  -pipe -fno-common"
-  CONFIG["LDFLAGS"] = "-L. #{ARCHFLAGS} "
-  CONFIG["CPPFLAGS"] = " $(DEFS)"
+  CONFIG["CFLAGS"] = "#{ARCHFLAGS} -Os -pipe -fno-common"
+  CONFIG["LDFLAGS"] = "-L. #{ARCHFLAGS}"
+  CONFIG["CPPFLAGS"] = ""
   CONFIG["OBJEXT"] = "o"
   CONFIG["CPP"] = "gcc -E"
   CONFIG["GREP"] = "/usr/bin/grep"
@@ -113,7 +112,7 @@ module Config
   CONFIG["DLEXT2"] = ""
   CONFIG["LIBEXT"] = "a"
   CONFIG["LINK_SO"] = ""
-  CONFIG["LIBPATHFLAG"] = " -L%s"
+  CONFIG["LIBPATHFLAG"] = " -L\"%s\""
   CONFIG["RPATHFLAG"] = ""
   CONFIG["LIBPATHENV"] = "DYLD_LIBRARY_PATH"
   CONFIG["TRY_LINK"] = ""
@@ -151,7 +150,7 @@ module Config
   CONFIG["arch"] = "universal-darwin10.0"
   CONFIG["sitearch"] = "universal-darwin10.0"
   CONFIG["sitedir"] = "$(DESTDIR)/Library/Ruby/Site"
-  CONFIG["configure_args"] = " '--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--enable-pthread' '--enable-shared' '--prefix=/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr' '--with-sitedir=/Library/Ruby/Site' 'ac_cv_func_getcontext=no' 'ac_cv_func_setcontext=no' 'CFLAGS=#{ARCHFLAGS} -g -Os -pipe -fno-common -DENABLE_DTRACE #{ARCHFLAGS} -pipe' 'LDFLAGS=#{ARCHFLAGS} '"
+  CONFIG["configure_args"] = " '--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--enable-pthread' '--enable-shared' '--prefix=/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr' '--with-sitedir=/Library/Ruby/Site' 'ac_cv_func_getcontext=no' 'ac_cv_func_setcontext=no' 'CFLAGS=    -g -Os -pipe -fno-common -DENABLE_DTRACE     -pipe' 'LDFLAGS=               '"
   CONFIG["NROFF"] = "/usr/bin/nroff"
   CONFIG["MANTYPE"] = "doc"
   CONFIG["ruby_version"] = "$(MAJOR).$(MINOR)"

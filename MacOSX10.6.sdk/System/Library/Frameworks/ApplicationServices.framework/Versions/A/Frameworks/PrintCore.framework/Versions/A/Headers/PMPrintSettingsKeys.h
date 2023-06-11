@@ -33,9 +33,6 @@ extern "C" {
 #define kPMPageSetStr		   	    "page-set"
 #define kPMPageSetKey			    CFSTR(kPMPageSetStr)	/* CFString, even, odd, or all. default is all */
 
-#define kPMMirrorStr		   	    "mirror"
-#define kPMMirrorKey			    CFSTR(kPMMirrorStr)		/* CFString, true or false. default is false */
-
 
 #define kPMPrintSelectionOnlyStr            "com.apple.print.PrintSettings.PMPrintSelectionOnly"
 #define kPMPrintSelectionOnlyKey            CFSTR( kPMPrintSelectionOnlyStr )            /* CFBoolean - True if only current selection should be printed. */

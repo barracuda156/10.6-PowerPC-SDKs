@@ -435,7 +435,7 @@ struct vfsquery {
 #define VQ_ASSIST	0x0040	/* filesystem needs assistance from external program */
 #define VQ_NOTRESPLOCK	0x0080	/* server lockd down */
 #define VQ_UPDATE	0x0100	/* filesystem information has changed */
-#define VQ_VERYLOWDISK	0x0200	/* file system has *very* little disk space left */
+#define VQ_FLAG0200	0x0200	/* placeholder */
 #define VQ_FLAG0400	0x0400	/* placeholder */
 #define VQ_FLAG0800	0x0800	/* placeholder */
 #define VQ_FLAG1000	0x1000	/* placeholder */
@@ -785,16 +785,6 @@ int	vfs_isreload(mount_t);
   @return Nonzero if a request has been made to forcibly unmount, else 0.
   */
 int	vfs_isforce(mount_t);
-
-/*!
-  @function vfs_isunmount
-  @abstract Determine if an unmount is in progress.
-  @discussion This is an unsynchronized snapshot of the mount state.  It should only be called
-  if the mount is known to be valid, e.g. there are known to be live files on that volume.
-  @param mp Mount to test.
-  @return Nonzero if an unmount is in progress, else zero.
-  */
-int 	vfs_isunmount(mount_t mp);
 
 /*!
   @function vfs_isrdonly

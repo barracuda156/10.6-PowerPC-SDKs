@@ -121,7 +121,6 @@ struct kauth_identity_extlookup {
 #define KAUTH_EXTLOOKUP_REGISTER	(0)
 #define KAUTH_EXTLOOKUP_RESULT		(1<<0)
 #define KAUTH_EXTLOOKUP_WORKER		(1<<1)
-#define	KAUTH_EXTLOOKUP_DEREGISTER	(1<<2)
 
 
 

@@ -104,6 +104,7 @@ struct image_params {
 	struct label	*ip_execlabelp;		/* label of the executable */
 	struct label	*ip_scriptlabelp;	/* label of the script */
 	unsigned int	ip_csflags;		/* code signing flags */
+	int		ip_no_trans;		/* allow suid/sgid transition?*/
 	void		*ip_px_sa;
 	void		*ip_px_sfa;
 	void		*ip_px_spa;

@@ -54,24 +54,22 @@
 //
 enum
 {
-    kErrataCMDDisableTestMode			= (1 << 0),		// turn off UHCI test mode
-    kErrataOnlySinglePageTransfers		= (1 << 1),		// Don't cross page boundaries in a single transfer
-    kErrataRetryBufferUnderruns			= (1 << 2),		// Don't cross page boundaries in a single transfer
-    kErrataLSHSOpti						= (1 << 3),		// Don't cross page boundaries in a single transfer
-    kErrataDisableOvercurrent			= (1 << 4),		// Always set the NOCP bit in rhDescriptorA register
-    kErrataLucentSuspendResume			= (1 << 5),		// Don't allow port suspend at the root hub
-    kErrataNeedsWatchdogTimer			= (1 << 6),		// Use Watchdog timer to reset confused controllers
-    kErrataNeedsPortPowerOff			= (1 << 7),		// Power off the ports and back on again to clear weird status.
-    kErrataAgereEHCIAsyncSched			= (1 << 8),		// needs workaround for Async Sched bug
-    kErrataNECOHCIIsochWraparound		= (1 << 9),		// needs workaround for NEC isoch buffer wraparound problem
-	kErrataNECIncompleteWrite			= (1 << 10),	// needs workaround for NEC bits not sticking (errata IBB-2UE-00030 Jun 23 2005)
-	kErrataICH6PowerSequencing			= (1 << 11),	// needs special power sequencing for early Transition machines
-	kErrataICH7ISTBuffer				= (1 << 12),	// buffer for Isochronous Scheduling Threshold
-	kErrataUHCISupportsOvercurrent		= (1 << 13),	// UHCI controller supports overcurrent detection
-	kErrataNeedsOvercurrentDebounce		= (1 << 14),	// The overcurrent indicator should be debounced by 10ms
-	kErrataSupportsPortResumeEnable		= (1 << 15),	// UHCI has resume enable bits at config address 0xC4
-	kErrataNoCSonSplitIsoch				= (1 << 16),	// Don't issue complete splits on split isoch transactions
-	kErrataOHCINoGlobalSuspendOnSleep	= (1 << 17)		// when sleeping, do not put the OHCI controller in SUSPEND state. just leave it Operational with suspended downstream ports
+    kErrataCMDDisableTestMode		= (1 << 0),		// turn off UHCI test mode
+    kErrataOnlySinglePageTransfers	= (1 << 1),		// Don't cross page boundaries in a single transfer
+    kErrataRetryBufferUnderruns		= (1 << 2),		// Don't cross page boundaries in a single transfer
+    kErrataLSHSOpti					= (1 << 3),		// Don't cross page boundaries in a single transfer
+    kErrataDisableOvercurrent		= (1 << 4),		// Always set the NOCP bit in rhDescriptorA register
+    kErrataLucentSuspendResume		= (1 << 5),		// Don't allow port suspend at the root hub
+    kErrataNeedsWatchdogTimer		= (1 << 6),		// Use Watchdog timer to reset confused controllers
+    kErrataNeedsPortPowerOff		= (1 << 7),		// Power off the ports and back on again to clear weird status.
+    kErrataAgereEHCIAsyncSched		= (1 << 8),		// needs workaround for Async Sched bug
+    kErrataNECOHCIIsochWraparound	= (1 << 9),		// needs workaround for NEC isoch buffer wraparound problem
+	kErrataNECIncompleteWrite		= (1 << 10),	// needs workaround for NEC bits not sticking (errata IBB-2UE-00030 Jun 23 2005)
+	kErrataICH6PowerSequencing		= (1 << 11),	// needs special power sequencing for early Transition machines
+	kErrataICH7ISTBuffer			= (1 << 12),	// buffer for Isochronous Scheduling Threshold
+	kErrataUHCISupportsOvercurrent	= (1 << 13),	// UHCI controller supports overcurrent detection
+	kErrataNeedsOvercurrentDebounce = (1 << 14),	// The overcurrent indicator should be debounced by 10ms
+	kErrataSupportsPortResumeEnable = (1 << 15)		// UHCI has resume enable bits at config address 0xC4
 };
 
 enum
@@ -168,12 +166,12 @@ protected:
         IOTimerEventSource	*watchdogUSBTimer;
         bool				_terminating;
         bool				_watchdogTimerActive;
-        bool				_pcCardEjected;						// Obsolete
+        bool				_pcCardEjected;
         UInt32				_busNumber;
         UInt32				_currentSizeOfCommandPool;
         UInt32				_currentSizeOfIsocCommandPool;
         UInt8				_controllerSpeed;					// Controller speed, passed down for splits
-        thread_call_t		_terminatePCCardThread;				// Obsolete
+        thread_call_t		_terminatePCCardThread;
         bool				_addressPending[128];
 		SInt32				_activeIsochTransfers;				// isochronous transfers in the queue
 		IOService			*_provider;							// common name for our provider
@@ -290,7 +288,6 @@ protected:
                                                     
     static void			WatchdogTimer(OSObject *target, IOTimerEventSource *sender);
 
-	// Obsolete
     static void 		TerminatePCCard(OSObject *target);
 
     static IOReturn		ProtectedDevZeroLock(OSObject *target, void* lock, void *, void *, void*);
@@ -533,6 +530,7 @@ protected:
 public:
 
     static IOUSBLog		*_log;
+	static const char *		USBErrorToString(IOReturn status);
 	
     IOCommandGate *		GetCommandGate(void);
 

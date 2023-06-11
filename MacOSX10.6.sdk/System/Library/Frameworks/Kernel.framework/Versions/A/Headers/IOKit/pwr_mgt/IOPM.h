@@ -361,9 +361,8 @@ enum {
 #define kIOPMPSHealthConfidenceKey                  "HealthConfidence"
 #define kIOPMPSCapacityEstimatedKey	                "CapacityEstimated"
 #define kIOPMPSBatteryChargeStatusKey               "ChargeStatus"
-#define kIOPMPSBatteryTemperatureKey                "Temperature"
 
-// kIOPMPSBatteryChargeStatusKey may have one of the following values, or may have
+// kIOPMBatteryChargeStatusKey may have one of the following values, or may have
 // no value. If kIOPMBatteryChargeStatusKey has a NULL value (or no value) associated with it
 // then charge is proceeding normally. If one of these battery charge status reasons is listed,
 // then the charge may have been interrupted.
@@ -499,9 +498,6 @@ enum {
 // Used by sleep cycling debug tools
 #define kIOPMSettingDebugWakeRelativeKey            "WakeRelativeToSleep"
 #define kIOPMSettingDebugPowerRelativeKey           "PowerRelativeToShutdown"
-
-// Maintenance wake calendar.
-#define kIOPMSettingMaintenanceWakeCalendarKey      "MaintenanceWakeCalendarDate"
 
 struct IOPMCalendarStruct {
     UInt32      year;

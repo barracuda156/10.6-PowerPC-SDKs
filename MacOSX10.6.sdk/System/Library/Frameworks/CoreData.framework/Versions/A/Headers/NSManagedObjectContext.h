@@ -119,7 +119,7 @@ COREDATA_EXTERN id NSRollbackMergePolicy;
   void *_reserved2;
 }
 
-/* coordinator which provides model and handles persistency (multiple contexts can share a coordinator) */
+// coordinator which provides model and handles persistency (multiple contexts can share a coordinator)
 - (void)setPersistentStoreCoordinator:(NSPersistentStoreCoordinator *)coordinator;
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator;
 
@@ -127,14 +127,11 @@ COREDATA_EXTERN id NSRollbackMergePolicy;
 - (NSUndoManager *)undoManager;
 - (BOOL)hasChanges;
 
-/* returns the object for the specified ID if it is registered in the context already or nil. It never performs I/O. */
+// returns the object for the specified ID if it is registered in the context already or nil
 - (NSManagedObject *)objectRegisteredForID:(NSManagedObjectID *)objectID;    
 
-/* returns the object for the specified ID if it is already registered, otherwise it creates a fault corresponding to that objectID.  It never returns nil, and never performs I/O.  The object specified by objectID is assumed to exist, and if that assumption is wrong the fault may throw an exception when used. */
+// returns the object for the specified ID (the object does not already need to be registered in the context, it might be fetched or returned as a fault) - the object is assumed to exist as described by the ID
 - (NSManagedObject *)objectWithID:(NSManagedObjectID *)objectID;    
-
-/* returns the object for the specified ID if it is already registered in the context, or faults the object into the context.  It might perform I/O if the data is uncached.  If the object cannot be fetched, or does not exist, or cannot be faulted, it returns nil.  Unlike -objectWithID: it never returns a fault.  */
-- (NSManagedObject*)existingObjectWithID:(NSManagedObjectID*)objectID error:(NSError**)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 // method to fetch objects from the persistent stores into the context (fetch request defines the entity and predicate as well as a sort order for the objects); context will match the results from persistent stores with current changes in the context (so inserted objects are returned even if they are not persisted yet); to fetch a single object with an ID if it is not guaranteed to exist and thus -objectWithObjectID: cannot be used, one would create a predicate like [NSComparisonPredicate predicateWithLeftExpression:[NSExpression expressionForKeyPath:@"objectID"] rightExpression:[NSExpression expressionForConstantValue:<object id>] modifier:NSPredicateModifierDirect type:NSEqualToPredicateOperatorType options:0]
 - (NSArray *)executeFetchRequest:(NSFetchRequest *)request error:(NSError **)error;    

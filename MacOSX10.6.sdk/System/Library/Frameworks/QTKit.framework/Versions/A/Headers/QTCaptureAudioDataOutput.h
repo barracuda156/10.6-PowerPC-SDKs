@@ -12,7 +12,7 @@
 #import <QTKit/QTCaptureOutput.h>
 #import <QTKit/QTKitDefines.h>
 
-#if (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4)
+#if (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4)
 
 @class QTCaptureAudioDataOutputInternal;
 
@@ -32,7 +32,12 @@
 */
 @interface QTCaptureAudioDataOutput : QTCaptureOutput {
 @private
+#if __LP64__
+	int32_t								_delegateProxy;
+#endif
+#if !__LP64__
 	QTCaptureAudioDataOutputInternal	*_internal;
+#endif	
 	id									_delegate;
 
 	long								_reserved4;
@@ -52,6 +57,8 @@
 */
 - (void)setDelegate:(id)delegate;
 
+#if !__LP64__
+
 /*!
     @method outputAudioSampleBuffer:fromConnection:
     @abstract Called whenever the receiver outputs a new audio sample buffer.
@@ -63,6 +70,8 @@
     @param connection The connection from which the audio was received.
 */
 - (void)outputAudioSampleBuffer:(QTSampleBuffer *)sampleBuffer fromConnection:(QTCaptureConnection *)connection;
+
+#endif /* !__LP64__ */
 
 @end
 
@@ -82,6 +91,6 @@
 
 @end
 
-#endif /* (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4) */
+#endif /* (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4) */
 
 #endif	// QTCAPTUREAUDIODATAOUTPUT_H

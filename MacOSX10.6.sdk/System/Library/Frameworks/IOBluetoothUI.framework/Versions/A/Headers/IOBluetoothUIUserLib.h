@@ -35,10 +35,11 @@ typedef uint32_t IOBluetoothServiceBrowserControllerOptions;
 
 enum
 {
-	kIOBluetoothServiceBrowserControllerOptionsNone					= 0L,
-	kIOBluetoothServiceBrowserControllerOptionsAutoStartInquiry		= (1L << 0), // this has been deprecated in 10.5, all panels will AutoStart
-    kIOBluetoothServiceBrowserControllerOptionsDisconnectWhenDone	= (1L << 1)
+	kIOBluetoothServiceBrowserControllerOptionsNone					= (0 << 0L),
+	kIOBluetoothServiceBrowserControllerOptionsAutoStartInquiry		= (1 << 0L), // this has been deprecated in 10.5, all panels will AutoStart
+    kIOBluetoothServiceBrowserControllerOptionsDisconnectWhenDone	= (2 << 0L)
 };
+
 
 enum
 {

@@ -26,7 +26,6 @@
 
 #import <WebKit/DOMElement.h>
 
-
 @class DOMHTMLCollection;
 @class NSString;
 

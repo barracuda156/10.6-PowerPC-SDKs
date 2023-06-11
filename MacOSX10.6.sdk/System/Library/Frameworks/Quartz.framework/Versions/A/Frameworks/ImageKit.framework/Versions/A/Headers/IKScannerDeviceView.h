@@ -5,8 +5,6 @@
 //  Copyright 2008 Apple Inc.. All rights reserved.
 //
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-
 #import <Cocoa/Cocoa.h>
 #import <ImageCaptureCore/ImageCaptureCore.h>
 
@@ -24,13 +22,17 @@
  @abstract This message is sent for each image that gets scanned.
  @discussion Based on the IKScannerDeviceViewTransferMode the downloaded file will be saved on disk using the 'url', or returned in memory as NSData
  */
-- (void)scannerDeviceView: (IKScannerDeviceView *)scannerDeviceView didScanToURL: (NSURL *)url fileData: (NSData *)data error: (NSError *)error;
+- (void)scannerDeviceView: (IKScannerDeviceView *)scannerDeviceView
+             didScanToURL: (NSURL *)url
+                 fileData: (NSData *)data
+                    error: (NSError*)error;
 
 /*! 
  @method scannerDeviceView:didEncounterError:
  @abstract This message is sent every time the scanner device reports an error.
  */
-- (void)scannerDeviceView: (IKScannerDeviceView *)scannerDeviceView didEncounterError: (NSError *)error;
+- (void)scannerDeviceView: (IKScannerDeviceView *)scannerDeviceView
+        didEncounterError: (NSError*)error;
 @end
 
 
@@ -48,8 +50,8 @@ typedef NSInteger IKScannerDeviceViewTransferMode;
 
 enum 
 {
-    IKScannerDeviceViewDisplayModeSimple,
-    IKScannerDeviceViewDisplayModeAdvanced
+        IKScannerDeviceViewDisplayModeSimple,
+        IKScannerDeviceViewDisplayModeAdvanced
 };
 typedef NSInteger IKScannerDeviceViewDisplayMode;
 
@@ -66,85 +68,43 @@ typedef NSInteger IKScannerDeviceViewDisplayMode;
     id _privateData;
 }
 
-/*!
- @property delegate
- @abstract delegate of the IKScannerDeviceView.
- */
-@property (assign) id<IKScannerDeviceViewDelegate> delegate;
+// delegate of the IKScannerDeviceView
+@property (assign)      id<IKScannerDeviceViewDelegate> delegate;
 
-/*!
- @property scannerDevice
- @abstract the scanner device.
- */
-@property (assign) ICScannerDevice * scannerDevice;
+// the scanner device 
+@property (assign)      ICScannerDevice *               scannerDevice;
 
-/*!
- @property mode
- @abstract current display mode.
- */
-@property IKScannerDeviceViewDisplayMode mode;
+// current display mode 
+@property               IKScannerDeviceViewDisplayMode  mode;
 
-/*!
- @property hasDisplayModeSimple
- @abstract support a simple scanning UI.
- */
-@property BOOL hasDisplayModeSimple;
+// support a simple scanning UI 
+@property               BOOL                            hasDisplayModeSimple;
 
-/*!
- @property hasDisplayModeAdvanced
- @abstract support advanced scanning UI.
- */
-@property BOOL  hasDisplayModeAdvanced;
+// support advanced scanning UI 
+@property               BOOL                            hasDisplayModeAdvanced;
     
-/*!
- @property transferMode
- @abstract transfer mode either file based - or - in memory.
- */
-@property IKScannerDeviceViewTransferMode transferMode;
+// transfer mode either file based - or - in memory
+@property               IKScannerDeviceViewTransferMode transferMode;
 
-/*!
- @property scanControlLabel
- @abstract label for the 'Scan' control.
- */
-@property (copy) NSString * scanControlLabel;
+// label for the 'Scan' control
+@property (copy)        NSString *                      scanControlLabel;
 
-/*!
- @property overviewControlLabel
- @abstract label for the 'Overview' control.
- */
-@property (copy) NSString *  overviewControlLabel;
+// label for the 'Overview' control
+@property (copy)        NSString *                      overviewControlLabel;
 
-/*!
- @property displaysDownloadsDirectoryControl
- @abstract show a downloads directory control.
- */
-@property BOOL displaysDownloadsDirectoryControl;
+// show a downloads directory control
+@property               BOOL                            displaysDownloadsDirectoryControl;
 
-/*!
- @property downloadsDirectory
- @abstract downloads directory.
- */
-@property (retain) NSURL * downloadsDirectory;
+// downloads directory
+@property (retain)      NSURL *                         downloadsDirectory;
 
-/*!
- @property documentName
- @abstract document name.
- */
-@property (copy) NSString * documentName;
+// document name
+@property (copy)        NSString *                      documentName;
 
-/*!
- @property displaysPostProcessApplicationControl
- @abstract show a postprocessing application control.
- */
-@property BOOL displaysPostProcessApplicationControl;
+// show a postprocessing application control
+@property               BOOL                            displaysPostProcessApplicationControl;
 
-/*!
- @property postProcessApplication
- @abstract postprocessing application.
- */
-@property (retain) NSURL * postProcessApplication;
+// postprocessing application
+@property (retain)      NSURL *                         postProcessApplication;
 
 @end
-
-#endif
-

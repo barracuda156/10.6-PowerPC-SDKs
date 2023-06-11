@@ -164,43 +164,6 @@ _ptmf2ptf(const OSMetaClassBase *self, void (OSMetaClassBase::*func)(void))
 }
 
 #else /* !APPLE_KEXT_LEGACY_ABI */
-#ifdef __arm__
-typedef long int ptrdiff_t;
-/*
- * Ugly reverse engineered ABI.  Where does it come from?  Nobody knows.
- * <rdar://problem/5641129> gcc 4.2-built ARM kernel panics with multiple inheritance (no, really)
- */
-static inline _ptf_t
-_ptmf2ptf(const OSMetaClassBase *self, void (OSMetaClassBase::*func)(void))
-{
-	struct ptmf_t {
-		_ptf_t fPFN;
-		ptrdiff_t delta;
-	};
-	union {
-		void (OSMetaClassBase::*fIn)(void);
-		struct ptmf_t pTMF;
-	} map;
-
-
-	map.fIn = func;
-
-	if (map.pTMF.delta & 1) {
-		// virtual
-		union {
-			const OSMetaClassBase *fObj;
-			_ptf_t **vtablep;
-		} u;
-		u.fObj = self;
-
-		// Virtual member function so dereference table
-		return *(_ptf_t *)(((uintptr_t)*u.vtablep) + (unsigned int)map.pTMF.fPFN);
-	} else {
-		// Not virtual, i.e. plain member func
-		return map.pTMF.fPFN;
-	} 
-}
-#else /* __arm__ */
 
 // Slightly less arcane and slightly less evil code to do
 // the same for kexts compiled with the standard Itanium C++
@@ -232,8 +195,6 @@ _ptmf2ptf(const OSMetaClassBase *self, void (OSMetaClassBase::*func)(void))
 	return map.fPFN;
     }
 }
-
-#endif /* __arm__ */
 
 #endif /* !APPLE_KEXT_LEGACY_ABI */
 

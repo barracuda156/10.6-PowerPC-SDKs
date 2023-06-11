@@ -35,9 +35,7 @@ extern "C" {
  */
 
 /** 
- * An @c apr_getopt_t error callback function.
- *
- * @a arg is this @c apr_getopt_t's @c errarg member.
+ * defintion of a error function 
  */
 typedef void (apr_getopt_err_fn_t)(void *arg, const char *err, ...);
 
@@ -97,8 +95,8 @@ struct apr_getopt_option_t {
  * @param cont The pool to operate on
  * @param argc The number of arguments to parse
  * @param argv The array of arguments to parse
- * @remark Arguments 3 and 4 are most commonly argc and argv from main(argc, argv)
- * The (*os)->errfn is initialized to fprintf(stderr... but may be overridden.
+ * @remark Arguments 2 and 3 are most commonly argc and argv from main(argc, argv)
+ * The errfn is initialized to fprintf(stderr... but may be overridden.
  */
 APR_DECLARE(apr_status_t) apr_getopt_init(apr_getopt_t **os, apr_pool_t *cont,
                                       int argc, const char * const *argv);

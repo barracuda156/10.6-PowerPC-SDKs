@@ -3,22 +3,14 @@
  
      Contains:   Public interfaces for Apple Type Services components.
  
+     Version:    ATS-242.1~1
+ 
      Copyright:  © 1997-2008 by Apple Inc., all rights reserved.
  
-     Warning:    *** APPLE INTERNAL USE ONLY ***
-                 This file may contain unreleased API's
+     Bugs?:      For bug reports, consult the following page on
+                 the World Wide Web:
  
-     BuildInfo:  Built by:            root
-                 On:                  Wed Sep 24 13:25:46 2008
-                 With Interfacer:     3.0d46   (Mac OS X for PowerPC)
-                 From:                ATSTypes.i
-                     Revision:        1.14
-                     Dated:           2007/04/24 03:44:18
-                     Last change by:  juliog
-                     Last comment:    <rdar://problem/5152407> File based filter for 64bit causes binary
- 
-     Bugs:       Report bugs to Radar component "System Interfaces", "Latest"
-                 List the version information (from above) in the Problem Description.
+                     http://developer.apple.com/bugreporter/
  
 */
 #ifndef __ATSTYPES__

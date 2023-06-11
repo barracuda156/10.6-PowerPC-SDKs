@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 1990-2008 by Apple Inc., all rights reserved
  
@@ -734,18 +734,18 @@ struct QTAltVersionCheckRecord {
 typedef struct QTAltVersionCheckRecord  QTAltVersionCheckRecord;
 /* some helpful constants for DataRateRecord.dataRate */
 enum {
-  kDataRate144ModemRate         = 1400,
-  kDataRate288ModemRate         = 2800,
-  kDataRateISDNRate             = 5600,
-  kDataRateDualISDNRate         = 11200,
-  kDataRate256kbpsRate          = 25600,
-  kDataRate384kbpsRate          = 38400,
-  kDataRate512kbpsRate          = 51200,
-  kDataRate768kbpsRate          = 76800,
-  kDataRate1MbpsRate            = 100000,
-  kDataRateT1Rate               = 150000,
+  kDataRate144ModemRate         = 1400L,
+  kDataRate288ModemRate         = 2800L,
+  kDataRateISDNRate             = 5600L,
+  kDataRateDualISDNRate         = 11200L,
+  kDataRate256kbpsRate          = 25600L,
+  kDataRate384kbpsRate          = 38400L,
+  kDataRate512kbpsRate          = 51200L,
+  kDataRate768kbpsRate          = 76800L,
+  kDataRate1MbpsRate            = 100000L,
+  kDataRateT1Rate               = 150000L,
   kDataRateInfiniteRate         = 0x7FFFFFFF,
-  kDataRateDefaultIfNotSet      = kDataRate512kbpsRate
+  kDataRateDefaultIfNotSet      = kDataRate384kbpsRate
 };
 
 struct QTAltDataRateRecord {

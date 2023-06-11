@@ -3,7 +3,7 @@
  
      Contains:   AppleEvent functions that deal with Events and interacting with user
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 2000-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -262,13 +262,13 @@ enum {
   kAEIgnoreSysPhacHandler       = 0x00000004, /* available only in vers 1.0.1 and greater */
   kAEIgnoreSysEventHandler      = 0x00000008, /* available only in vers 1.0.1 and greater */
   kAEIngoreBuiltInEventHandler  = 0x00000010, /* available only in vers 1.0.1 and greater */
-  kAEDontDisposeOnResume        = (int)0x80000000 /* available only in vers 1.0.1 and greater */
+  kAEDontDisposeOnResume        = (long)0x80000000 /* available only in vers 1.0.1 and greater */
 };
 
 /* Constants for AEResumeTheCurrentEvent */
 enum {
   kAENoDispatch                 = 0,    /* dispatch parameter to AEResumeTheCurrentEvent takes a pointer to a dispatch */
-  kAEUseStandardDispatch        = (int)0xFFFFFFFF /* table, or one of these two constants */
+  kAEUseStandardDispatch        = (long)0xFFFFFFFF /* table, or one of these two constants */
 };
 
 /*

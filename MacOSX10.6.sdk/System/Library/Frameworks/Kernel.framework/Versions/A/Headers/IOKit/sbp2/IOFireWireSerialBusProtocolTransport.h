@@ -21,7 +21,6 @@
  * @APPLE_LICENSE_HEADER_END@
  */
 
-
 /*!
   @header IOFireWireSerialBusProtocolTransport
   Contains the class definition for IOFireWireSerialBusProtocolTransport.
@@ -365,7 +364,7 @@ public:
 	virtual bool start ( IOService * provider );
 	
 	/*!
-	 	@function cleanUp
+	 *	@function cleanUp
 		@abstract cleanUp is called to tear down IOFireWireSerialBusProtocolTransport.
 		@discussion	cleanUp is called when we receive a kIOFWMessageServiceIsRequestingClose
 		message or if we fail our initialization.

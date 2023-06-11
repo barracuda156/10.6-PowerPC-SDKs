@@ -132,7 +132,7 @@
     @result Returns the length (in bytes) of the UUID.
 */
 
-- (NSUInteger)length;
+- (unsigned)length;
 
 /*!
     @method getUUIDWithLength:

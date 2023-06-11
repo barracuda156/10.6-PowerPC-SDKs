@@ -1,7 +1,7 @@
 /*
         NSGraphicsContext.h
         Application Kit
-        Copyright (c) 1997-2008, Apple Inc.
+        Copyright (c) 1997-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -26,15 +26,23 @@ APPKIT_EXTERN NSString *NSGraphicsContextPSFormat;
 APPKIT_EXTERN NSString *NSGraphicsContextPDFFormat;
 
 enum {
-   NSImageInterpolationDefault = 0,
-   NSImageInterpolationNone = 1,
-   NSImageInterpolationLow = 2, /* Low quality, fast interpolation. */
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-   NSImageInterpolationMedium = 4, /* Medium quality, slower than NSImageInterpolationLow. */
-#endif
-   NSImageInterpolationHigh = 3 /* Highest quality, slower than NSImageInterpolationMedium. */
+   NSImageInterpolationDefault,
+   NSImageInterpolationNone,
+   NSImageInterpolationLow,
+   NSImageInterpolationHigh
 };
 typedef NSUInteger NSImageInterpolation;
+
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+enum {
+    NSColorRenderingIntentDefault,
+    NSColorRenderingIntentAbsoluteColorimetric,
+    NSColorRenderingIntentRelativeColorimetric,
+    NSColorRenderingIntentPerceptual,
+    NSColorRenderingIntentSaturation
+};
+typedef NSInteger NSColorRenderingIntent;
+#endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5 */
 
 @interface NSGraphicsContext : NSObject {
 }
@@ -123,7 +131,7 @@ typedef NSUInteger NSImageInterpolation;
 /********* Deprecated API *********/
 // The remaining portion is deprecated on Mac OS X 10.6 and Later.
 #if MAC_OS_X_VERSION_MIN_REQUIRED < MAC_OS_X_VERSION_10_6
-@interface NSGraphicsContext (NSGraphicsContextDeprecated)
+@interface NSGraphicsContext (NSGraphicsContextDeprecate)
 - (id)focusStack;
 - (void)setFocusStack:(id)stack;
 @end

@@ -3,7 +3,7 @@
 // Purpose:     XML resource handler for wxSlider
 // Author:      Bob Mitchell
 // Created:     2000/03/21
-// RCS-ID:      $Id: xh_slidr.h 41590 2006-10-03 14:53:40Z VZ $
+// RCS-ID:      $Id: xh_slidr.h,v 1.9 2006/10/03 14:53:32 VZ Exp $
 // Copyright:   (c) 2000 Bob Mitchell and Verant Interactive
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

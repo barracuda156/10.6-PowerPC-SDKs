@@ -23,9 +23,6 @@
 #ifndef _DYLD_IMAGES_
 #define _DYLD_IMAGES_
 
-#include <stdbool.h>
-#include <mach/mach.h>
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -71,8 +68,6 @@ struct dyld_all_image_infos {
 	const struct mach_header*		dyldImageLoadAddress;
 	/* the following field is only in version 3 (Mac OS X 10.6) and later */
 	void*							jitInfo;
-	/* the following field is only in version 4 (Mac OS X 10.6) and later */
-	mach_port_t						csdlcNotifyPort;
 };
 extern struct dyld_all_image_infos  dyld_all_image_infos;
 

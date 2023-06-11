@@ -1,12 +1,13 @@
 /*	NSXMLDocument.h
-	Copyright (c) 2004-2008, Apple Inc. All rights reserved.
+	Copyright (c) 2004-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSXMLNode.h>
 
 #if MAC_OS_X_VERSION_10_4 <= MAC_OS_X_VERSION_MAX_ALLOWED
 
-@class NSData, NSXMLDTD, NSXMLDocument, NSDictionary, NSArray;
+@class NSData;
+@class NSXMLDTD;
 
 // Input options
 //  NSXMLNodeOptionsNone
@@ -90,9 +91,7 @@ typedef NSUInteger NSXMLDocumentContentKind;
 */
 - (id)initWithRootElement:(NSXMLElement *)element;
 
-#if 0
 #pragma mark --- Properties ---
-#endif
 
 + (Class)replacementClassForClass:(Class)cls;
 
@@ -180,9 +179,7 @@ typedef NSUInteger NSXMLDocumentContentKind;
 */
 - (NSXMLElement *)rootElement; //primitive
 
-#if 0
 #pragma mark --- Children ---
-#endif
 
 /*!
     @method insertChild:atIndex:
@@ -220,9 +217,7 @@ typedef NSUInteger NSXMLDocumentContentKind;
 */
 - (void)replaceChildAtIndex:(NSUInteger)index withNode:(NSXMLNode *)node;
 
-#if 0
 #pragma mark --- Output ---
-#endif
 
 /*!
     @method XMLData
@@ -236,9 +231,7 @@ typedef NSUInteger NSXMLDocumentContentKind;
 */
 - (NSData *)XMLDataWithOptions:(NSUInteger)options;
 
-#if 0
 #pragma mark --- XSLT ---
-#endif
 
 /*!
     @method objectByApplyingXSLT:arguments:error:
@@ -258,9 +251,7 @@ typedef NSUInteger NSXMLDocumentContentKind;
 */
 - (id)objectByApplyingXSLTAtURL:(NSURL *)xsltURL arguments:(NSDictionary *)argument error:(NSError **)error;
 
-#if 0
 #pragma mark --- Validation ---
-#endif
 
 - (BOOL)validateAndReturnError:(NSError **)error;
 

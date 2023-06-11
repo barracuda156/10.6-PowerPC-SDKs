@@ -1,5 +1,5 @@
 /*	NSString.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 typedef unsigned short unichar;
@@ -46,7 +46,7 @@ enum {
     NSISOLatin1StringEncoding = 5,
     NSSymbolStringEncoding = 6,
     NSNonLossyASCIIStringEncoding = 7,
-    NSShiftJISStringEncoding = 8,          /* kCFStringEncodingDOSJapanese */
+    NSShiftJISStringEncoding = 8,
     NSISOLatin2StringEncoding = 9,
     NSUnicodeStringEncoding = 10,
     NSWindowsCP1251StringEncoding = 11,    /* Cyrillic; same as AdobeStandardCyrillic */
@@ -80,11 +80,6 @@ typedef NSUInteger NSStringEncodingConversionOptions;
 
 FOUNDATION_EXPORT NSString * const NSCharacterConversionException;
 
-#if (TARGET_OS_MAC || TARGET_OS_EMBEDDED)
-#define NS_FORMAT_ARG(F,A) __attribute__((format(__NSString__, F, A)))
-#else
-#define NS_FORMAT_ARG(F,A)
-#endif
 
 @interface NSString : NSObject <NSCopying, NSMutableCopying, NSCoding>
 
@@ -112,10 +107,6 @@ FOUNDATION_EXPORT NSString * const NSCharacterConversionException;
 - (NSComparisonResult)localizedCompare:(NSString *)string;
 - (NSComparisonResult)localizedCaseInsensitiveCompare:(NSString *)string;
 
-/* localizedStandardCompare:, added in 10.6, should be used whenever file names or other strings are presented in lists and tables where Finder-like sorting is appropriate.  The exact behavior of this method may be tweaked in future releases, and will be different under different localizations, so clients should not depend on the exact sorting order of the strings.
-*/
-- (NSComparisonResult)localizedStandardCompare:(NSString *)string AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
 - (BOOL)isEqualToString:(NSString *)aString;
 
 - (BOOL)hasPrefix:(NSString *)aString;
@@ -142,7 +133,7 @@ FOUNDATION_EXPORT NSString * const NSCharacterConversionException;
 #endif
 
 - (NSString *)stringByAppendingString:(NSString *)aString;
-- (NSString *)stringByAppendingFormat:(NSString *)format, ... NS_FORMAT_ARG(1,2);
+- (NSString *)stringByAppendingFormat:(NSString *)format, ...;
 
 /* The following convenience methods all skip initial space characters (whitespaceSet) and ignore trailing characters. NSScanner can be used for more "exact" parsing of numbers.
 */
@@ -280,9 +271,9 @@ typedef NSUInteger NSStringEnumerationOptions;
 - (id)initWithCharacters:(const unichar *)characters length:(NSUInteger)length;
 - (id)initWithUTF8String:(const char *)nullTerminatedCString;
 - (id)initWithString:(NSString *)aString;
-- (id)initWithFormat:(NSString *)format, ... NS_FORMAT_ARG(1,2);
+- (id)initWithFormat:(NSString *)format, ...;
 - (id)initWithFormat:(NSString *)format arguments:(va_list)argList;
-- (id)initWithFormat:(NSString *)format locale:(id)locale, ... NS_FORMAT_ARG(1,3);
+- (id)initWithFormat:(NSString *)format locale:(id)locale, ...;
 - (id)initWithFormat:(NSString *)format locale:(id)locale arguments:(va_list)argList;
 - (id)initWithData:(NSData *)data encoding:(NSStringEncoding)encoding;
 - (id)initWithBytes:(const void *)bytes length:(NSUInteger)len encoding:(NSStringEncoding)encoding;
@@ -294,8 +285,8 @@ typedef NSUInteger NSStringEnumerationOptions;
 + (id)stringWithString:(NSString *)string;
 + (id)stringWithCharacters:(const unichar *)characters length:(NSUInteger)length;
 + (id)stringWithUTF8String:(const char *)nullTerminatedCString;
-+ (id)stringWithFormat:(NSString *)format, ... NS_FORMAT_ARG(1,2);
-+ (id)localizedStringWithFormat:(NSString *)format, ... NS_FORMAT_ARG(1,2);
++ (id)stringWithFormat:(NSString *)format, ...;
++ (id)localizedStringWithFormat:(NSString *)format, ...;
 
 #if MAC_OS_X_VERSION_10_4 <= MAC_OS_X_VERSION_MAX_ALLOWED
 - (id)initWithCString:(const char *)nullTerminatedCString encoding:(NSStringEncoding)encoding;
@@ -339,7 +330,7 @@ typedef NSUInteger NSStringEnumerationOptions;
 - (void)insertString:(NSString *)aString atIndex:(NSUInteger)loc;
 - (void)deleteCharactersInRange:(NSRange)range;
 - (void)appendString:(NSString *)aString;
-- (void)appendFormat:(NSString *)format, ... NS_FORMAT_ARG(1,2);
+- (void)appendFormat:(NSString *)format, ...;
 - (void)setString:(NSString *)aString;
 
 /* In addition to these two, NSMutableString responds properly to all NSString creation methods.

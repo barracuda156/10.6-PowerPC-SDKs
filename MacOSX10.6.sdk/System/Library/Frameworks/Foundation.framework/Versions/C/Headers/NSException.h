@@ -1,5 +1,5 @@
 /*	NSException.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -50,7 +50,6 @@ __attribute__((__objc_exception__))
 - (NSDictionary *)userInfo;
 
 - (NSArray *)callStackReturnAddresses AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (NSArray *)callStackSymbols AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 - (void)raise;
 

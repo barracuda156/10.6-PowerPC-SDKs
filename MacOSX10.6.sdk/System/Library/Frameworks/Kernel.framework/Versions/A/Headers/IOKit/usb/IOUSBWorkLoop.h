@@ -26,10 +26,6 @@
 
 #include <IOKit/IOWorkLoop.h>
 
-/*!
- @class IOUSBWorkLoop
- @abstract Subclass of IOWorkloop that allows the USB stack to more finely control sleep and wake.
- */
 class IOUSBWorkLoop : public IOWorkLoop
 {    
     OSDeclareDefaultStructors(IOUSBWorkLoop)

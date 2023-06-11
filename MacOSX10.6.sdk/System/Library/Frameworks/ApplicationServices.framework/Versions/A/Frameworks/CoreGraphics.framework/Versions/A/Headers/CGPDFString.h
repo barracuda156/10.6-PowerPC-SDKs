@@ -34,4 +34,4 @@ CG_EXTERN CFStringRef CGPDFStringCopyTextString(CGPDFStringRef string)
 CG_EXTERN CFDateRef CGPDFStringCopyDate(CGPDFStringRef string)
     CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
-#endif /* CGPDFSTRING_H_ */
+#endif	/* CGPDFSTRING_H_ */

@@ -15,7 +15,6 @@
 
 #import <Cocoa/Cocoa.h>
 #include <AudioUnit/AudioUnit.h>
-#import "AUCustomViewPersistantData.h"
 
 enum {
 	AUViewTitleDisplayFlag			= 1 << 0,
@@ -27,7 +26,7 @@ enum {
 @class AUGenericView
 @abstract  An AUGenericView object retrieves and instantiates a generic user interface view for the given audio unit
 */
-@interface AUGenericView : NSView <AUCustomViewPersistantData> {
+@interface AUGenericView : NSView {
 	__strong void *		_reserved[32];
 }
 

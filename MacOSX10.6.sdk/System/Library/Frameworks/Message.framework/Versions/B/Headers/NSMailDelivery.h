@@ -13,7 +13,7 @@
 #import <Foundation/Foundation.h>
 #import <Message/MessageExport.h>
 
-#if !__LP64__
+#if !TARGET_RT_64_BIT
 // NSMailDelivery is not available in the 64-bit runtime
 
 /*! The <code>NSMailDelivery</code> class enables applications to send

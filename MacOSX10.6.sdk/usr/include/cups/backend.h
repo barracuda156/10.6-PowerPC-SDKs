@@ -1,5 +1,5 @@
 /*
- * "$Id: backend.h 7810 2008-07-29 01:11:15Z mike $"
+ * "$Id: backend.h 6649 2007-07-11 21:46:42Z mike $"
  *
  *   Backend definitions for the Common UNIX Printing System (CUPS).
  *
@@ -48,17 +48,10 @@ typedef enum cups_backend_e cups_backend_t;
  */
 
 extern const char	*cupsBackendDeviceURI(char **argv) _CUPS_API_1_2;
-extern void		cupsBackendReport(const char *device_scheme,
-			                  const char *device_uri,
-			                  const char *device_make_and_model,
-			                  const char *device_info,
-			                  const char *device_id,
-			                  const char *device_location)
-					  _CUPS_API_1_4;
-			                  
+
 
 #endif /* !_CUPS_BACKEND_H_ */
 
 /*
- * End of "$Id: backend.h 7810 2008-07-29 01:11:15Z mike $".
+ * End of "$Id: backend.h 6649 2007-07-11 21:46:42Z mike $".
  */

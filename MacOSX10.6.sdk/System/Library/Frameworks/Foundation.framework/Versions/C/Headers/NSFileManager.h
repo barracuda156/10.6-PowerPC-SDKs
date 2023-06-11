@@ -1,5 +1,5 @@
 /*	NSFileManager.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -68,7 +68,7 @@
  */
 - (BOOL)createSymbolicLinkAtPath:(NSString *)path withDestinationPath:(NSString *)destPath error:(NSError **)error;
 
-/* destinationOfSymbolicLinkAtPath:error: returns an NSString containing the path of the item pointed at by the symlink specified by 'path'. If this method returns 'nil', an NSError will be returned by reference in the 'error' parameter.
+/* destinationOfSymbolicLinkAtPath:error: returns an NSString containing the path of the item pointed at by the symlink specified by 'path'. If this method returns 'nil', an NSError will be returned by reference in the 'error' parameter. This method does not traverse an initial symlink.
  
     This method replaces pathContentOfSymbolicLinkAtPath:
  */
@@ -90,21 +90,21 @@
 - (BOOL)linkItemAtURL:(NSURL *)srcURL toURL:(NSURL *)dstURL error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 - (BOOL)removeItemAtURL:(NSURL *)URL error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-/* The following methods are deprecated on Mac OS X 10.5. Their URL-based and/or error-returning replacements are listed above.
+/* The following methods will be deprecated in the next major release of Mac OS X after Leopard. Their error-returning replacements are listed above.
  */
-- (NSDictionary *)fileAttributesAtPath:(NSString *)path traverseLink:(BOOL)yorn DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (BOOL)changeFileAttributes:(NSDictionary *)attributes atPath:(NSString *)path DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (NSArray *)directoryContentsAtPath:(NSString *)path DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (NSDictionary *)fileSystemAttributesAtPath:(NSString *)path DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (NSString *)pathContentOfSymbolicLinkAtPath:(NSString *)path DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (BOOL)createSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (BOOL)createDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
+- (NSDictionary *)fileAttributesAtPath:(NSString *)path traverseLink:(BOOL)yorn;
+- (BOOL)changeFileAttributes:(NSDictionary *)attributes atPath:(NSString *)path;
+- (NSArray *)directoryContentsAtPath:(NSString *)path;
+- (NSDictionary *)fileSystemAttributesAtPath:(NSString *)path;
+- (NSString *)pathContentOfSymbolicLinkAtPath:(NSString *)path;
+- (BOOL)createSymbolicLinkAtPath:(NSString *)path pathContent:(NSString *)otherpath;
+- (BOOL)createDirectoryAtPath:(NSString *)path attributes:(NSDictionary *)attributes;
 
-#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || TARGET_OS_WIN32
-- (BOOL)linkPath:(NSString *)src toPath:(NSString *)dest handler:(id)handler DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (BOOL)copyPath:(NSString *)src toPath:(NSString *)dest handler:(id)handler DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (BOOL)movePath:(NSString *)src toPath:(NSString *)dest handler:(id)handler DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (BOOL)removeFileAtPath:(NSString *)path handler:(id)handler DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
+#if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
+- (BOOL)linkPath:(NSString *)src toPath:(NSString *)dest handler:(id)handler;
+- (BOOL)copyPath:(NSString *)src toPath:(NSString *)dest handler:(id)handler;
+- (BOOL)movePath:(NSString *)src toPath:(NSString *)dest handler:(id)handler;	
+- (BOOL)removeFileAtPath:(NSString *)path handler:(id)handler;
 #endif
 
 /* Process working directory management. Despite the fact that these are instance methods on NSFileManager, these methods report and change (respectively) the working directory for the entire process. Developers are cautioned that doing so is fraught with peril.
@@ -161,8 +161,8 @@
 /* These delegate methods are for the use of the deprecated handler-taking methods on NSFileManager for copying, moving, linking or deleting files.
  */
 @interface NSObject (NSCopyLinkMoveHandler)
-- (BOOL)fileManager:(NSFileManager *)fm shouldProceedAfterError:(NSDictionary *)errorInfo DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (void)fileManager:(NSFileManager *)fm willProcessPath:(NSString *)path DEPRECATED_IN_MAC_OS_X_VERSION_10_5_AND_LATER;
+- (BOOL)fileManager:(NSFileManager *)fm shouldProceedAfterError:(NSDictionary *)errorInfo;
+- (void)fileManager:(NSFileManager *)fm willProcessPath:(NSString *)path;
 @end
 
 #if MAC_OS_X_VERSION_10_5 <= MAC_OS_X_VERSION_MAX_ALLOWED
@@ -235,6 +235,9 @@
 - (void)skipDescendents;
 @end
 
+#pragma mark -
+#pragma mark File attributes keys
+
 FOUNDATION_EXPORT NSString * const NSFileType;
 FOUNDATION_EXPORT NSString 	* const NSFileTypeDirectory;
 FOUNDATION_EXPORT NSString 	* const NSFileTypeRegular;
@@ -265,6 +268,9 @@ FOUNDATION_EXPORT NSString * const NSFileGroupOwnerAccountID;
 #if MAC_OS_X_VERSION_10_4 <= MAC_OS_X_VERSION_MAX_ALLOWED
 FOUNDATION_EXPORT NSString * const NSFileBusy;
 #endif
+
+#pragma mark -
+#pragma mark Filesystem attributes keys
 
 FOUNDATION_EXPORT NSString * const NSFileSystemSize;
 FOUNDATION_EXPORT NSString * const NSFileSystemFreeSize;

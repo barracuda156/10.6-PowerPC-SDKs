@@ -1,5 +1,5 @@
 /*	NSObject.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObjCRuntime.h>
@@ -126,8 +126,6 @@
 #endif
 
 
-#if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
-
 /***********	Discardable Content		***********/
 
 @protocol NSDiscardableContent
@@ -139,10 +137,9 @@
 @end
 
 @interface NSObject (NSDiscardableContentProxy)
-- (id)autoContentAccessingProxy AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (id)autoContentAccessingProxy;
 @end
 
-#endif
 
 /***********	Object Allocation / Deallocation		*******/
     

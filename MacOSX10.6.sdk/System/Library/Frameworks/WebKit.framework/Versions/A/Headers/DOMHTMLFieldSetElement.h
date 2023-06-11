@@ -26,7 +26,6 @@
 
 #import <WebKit/DOMHTMLElement.h>
 
-
 @class DOMHTMLFormElement;
 
 @interface DOMHTMLFieldSetElement : DOMHTMLElement

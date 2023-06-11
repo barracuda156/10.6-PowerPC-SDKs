@@ -121,7 +121,6 @@ struct kauth_identity_extlookup {
 #define KAUTH_EXTLOOKUP_REGISTER	(0)
 #define KAUTH_EXTLOOKUP_RESULT		(1<<0)
 #define KAUTH_EXTLOOKUP_WORKER		(1<<1)
-#define	KAUTH_EXTLOOKUP_DEREGISTER	(1<<2)
 
 
 /*
@@ -169,9 +168,7 @@ struct kauth_cred {
 	int	kc_nwhtgroups;		/* whiteout group list */
 	gid_t	*kc_whtgroups;
 	
-	/* XXXss - cr_au will be replaced by cr_audit */
 	struct auditinfo cr_au;		/* user auditing data */
-	struct auditinfo_addr cr_audit; /* user auditing data */
 
 	int	kc_nsupplement;		/* entry count in supplemental data pointer array */
 	kauth_cred_supplement_t *kc_supplement;

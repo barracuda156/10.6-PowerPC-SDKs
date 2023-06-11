@@ -3,22 +3,14 @@
  
      Contains:   Scaler streaming data structures and constants for OFA 1.x
  
+     Version:    ATS-242.1~1
+ 
      Copyright:  © 1994-2008 by Apple Inc., all rights reserved.
  
-     Warning:    *** APPLE INTERNAL USE ONLY ***
-                 This file may contain unreleased API's
+     Bugs?:      For bug reports, consult the following page on
+                 the World Wide Web:
  
-     BuildInfo:  Built by:            root
-                 On:                  Wed Sep 24 13:25:46 2008
-                 With Interfacer:     3.0d46   (Mac OS X for PowerPC)
-                 From:                ScalerStreamTypes.i
-                     Revision:        1.5
-                     Dated:           2007/01/15 23:28:27
-                     Last change by:  kurita
-                     Last comment:    <rdar://problem/4916090> updated copyright.
- 
-     Bugs:       Report bugs to Radar component "System Interfaces", "Latest"
-                 List the version information (from above) in the Problem Description.
+                     http://developer.apple.com/bugreporter/
  
 */
 #ifndef __SCALERSTREAMTYPES__
@@ -99,13 +91,13 @@ struct scalerStream {
     struct {
       const unsigned short * encoding;        /* <- Intention is * unsigned short[256] */
       SInt32 *            glyphBits;          /* <->    Bitvector: a bit for each glyph, 1 = desired/supplied */
-      const char *        name;               /* <->    The printer font name to use/used (C string) */
+      char *              name;               /* <->    The printer font name to use/used (C string) */
     }                       font;
 
                                               /* Used to obtain a list of prerequisites from the scaler*/
     struct {
       SInt32              size;               /* ->     Size of the prereq. list in bytes (0 indicates no prerequisites)*/
-      const void *        list;               /* <- Pointer to client block to hold list (nil = list size query only) */
+      void *              list;               /* <- Pointer to client block to hold list (nil = list size query only) */
     }                       prerequisiteQuery;
 
     SInt32              prerequisiteItem;     /* <-     Enumeration value for the prerequisite item to be streamed.*/

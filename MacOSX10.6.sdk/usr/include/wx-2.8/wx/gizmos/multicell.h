@@ -4,7 +4,7 @@
 // Author:      Jonathan Bayer
 // Modified by:
 // Created:
-// RCS-ID:      $Id: multicell.h 38927 2006-04-26 16:27:20Z PC $
+// RCS-ID:      $Id: multicell.h,v 1.12 2006/04/26 16:27:16 PC Exp $
 // Copyright:   (c) Jonathan Bayer
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

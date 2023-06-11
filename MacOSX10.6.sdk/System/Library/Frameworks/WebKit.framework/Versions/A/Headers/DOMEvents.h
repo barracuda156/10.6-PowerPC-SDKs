@@ -42,10 +42,3 @@
 
 @interface DOMNode (DOMEventTarget) <DOMEventTarget>
 @end
-
-// Using ENABLE(SVG) results in a compilation error.
-#ifdef ENABLE_SVG
-#import <WebKit/DOMSVGElementInstance.h>
-@interface DOMSVGElementInstance (DOMEventTarget) <DOMEventTarget>
-@end
-#endif

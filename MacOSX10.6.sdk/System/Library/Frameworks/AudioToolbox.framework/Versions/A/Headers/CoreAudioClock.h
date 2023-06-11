@@ -65,12 +65,10 @@
 					00:00:00:00, corresponding to a timeline position of 0 seconds.
 	@constant	kCAClockProperty_MIDIClockDestinations
 					Type: array of MIDIEndpointRef. When non-empty, the clock will transmit
-					MIDI beat clock to the MIDI endpoints in this list. (As of MacOS X 10.6,
-					the endpoints may be virtual sources. Previously, they had to be destinations.)
+					MIDI beat clock to the MIDI endpoints in this list.
 	@constant	kCAClockProperty_MTCDestinations
 					Type: array of MIDIEndpointRef. When non-empty, the clock will transmit
-					MIDI Time Code to the MIDI endpoints in this list. (As of MacOS X 10.6,
-					the endpoints may be virtual sources. Previously, they had to be destinations.)
+					MIDI Time Code to the MIDI endpoints in this list.
 	@constant	kCAClockProperty_MTCFreewheelTime
 					Type: CAClockSeconds. When the sync mode is MIDI Time Code, this controls
 					how long the reader will keep running after the last MTC message is received
@@ -89,10 +87,6 @@
 					property, the clock retains a reference to the string. When a client gets
 					the property, it receives a borrowed reference (i.e. the client must not
 					release the string).
-	@constant	kCAClockProperty_SendMIDISPP
-					Type: UInt32. Specifies whether MIDI Song Position Pointer messages are
-					sent to the clock's MIDI clock destinations (if any). Available starting
-					in MacOS X 10.6.
 */
 enum {	// typedef UInt32 CAClockPropertyID;
 	kCAClockProperty_InternalTimebase   = 'intb',
@@ -106,8 +100,7 @@ enum {	// typedef UInt32 CAClockPropertyID;
 	kCAClockProperty_MTCFreewheelTime   = 'mtfw',
 	kCAClockProperty_TempoMap			= 'tmpo',
 	kCAClockProperty_MeterTrack			= 'metr',
-	kCAClockProperty_Name				= 'name',
-	kCAClockProperty_SendMIDISPP		= 'mspp'
+	kCAClockProperty_Name				= 'name'
 };
 typedef UInt32					CAClockPropertyID;
 

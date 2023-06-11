@@ -31,8 +31,6 @@ QTKIT_EXTERN NSString * const QTMediaTypeHint								AVAILABLE_MAC_OS_X_VERSION_
 QTKIT_EXTERN NSString * const QTMediaTypeStream								AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
 QTKIT_EXTERN NSString * const QTMediaTypeMuxed								AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 QTKIT_EXTERN NSString * const QTMediaTypeQuartzComposer						AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-QTKIT_EXTERN NSString * const QTMediaTypeSubtitle							AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-QTKIT_EXTERN NSString * const QTMediaTypeClosedCaption						AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 	// media characteristics
 QTKIT_EXTERN NSString * const QTMediaCharacteristicVisual					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;

@@ -14,8 +14,6 @@
 #import <AppKit/AppKit.h>
 
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-
 typedef enum{
 	IKImageStateNoImage=0,
 	IKImageStateInvalid,
@@ -31,7 +29,7 @@ extern NSString *const IKImageBrowserCellPlaceHolderLayer;
 
 @interface IKImageBrowserCell : NSObject
 {
-	id                          _parent;//for binary compatibility with XRay => todo remove
+	id							_parent; //for binary compatibility with Finder => todo remove
 	void* __strong              _ibCellReserved;
 }
 
@@ -140,5 +138,3 @@ extern NSString *const IKImageBrowserCellPlaceHolderLayer;
 
 @end
 
-
-#endif //MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6

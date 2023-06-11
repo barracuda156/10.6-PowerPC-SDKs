@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     25-July-1998
-// RCS-ID:      $Id: _cmndlgs.i 52221 2008-03-01 19:15:14Z RD $
+// RCS-ID:      $Id: _cmndlgs.i,v 1.41.4.1 2007/02/19 21:17:25 RD Exp $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -800,7 +800,7 @@ Window Styles
 
 MustHaveApp(wxProgressDialog);
 
-class wxProgressDialog : public wxDialog {
+class wxProgressDialog : public wxFrame {
 public:
     %pythonAppend wxProgressDialog   "self._setOORInfo(self)"
 

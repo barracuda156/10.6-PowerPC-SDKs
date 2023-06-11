@@ -18,7 +18,9 @@
 
 @interface QTCaptureMovieFileOutput : QTCaptureFileOutput {
 @private
+#if !__LP64__
 	QTCaptureMovieFileOutputInternal		*_internal;
+#endif
 	long									_reserved8;
 }
 

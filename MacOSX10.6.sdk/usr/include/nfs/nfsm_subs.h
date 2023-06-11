@@ -457,17 +457,6 @@ int nfsm_chain_trim_data(struct nfsm_chain *, int, int *);
 		nfsm_chain_add_32((E), (NMC), (SID)->other[2]); \
 	} while (0)
 
-/* add an NFSv4 lock owner structure to an mbuf chain */
-#define nfsm_chain_add_lock_owner4(E, NMC, NMP, NLOP) \
-	do { \
-		nfsm_chain_add_64((E), (NMC), (NMP)->nm_clientid); \
-		nfsm_chain_add_32((E), (NMC), 5*NFSX_UNSIGNED); \
-		nfsm_chain_add_32((E), (NMC), (NLOP)->nlo_name); \
-		nfsm_chain_add_32((E), (NMC), (NLOP)->nlo_pid); \
-		nfsm_chain_add_64((E), (NMC), (NLOP)->nlo_pid_start.tv_sec); \
-		nfsm_chain_add_32((E), (NMC), (NLOP)->nlo_pid_start.tv_usec); \
-	} while (0)
-
 /*
  * macros for dissecting NFS mbuf chains
  */
@@ -500,6 +489,7 @@ int nfsm_chain_trim_data(struct nfsm_chain *, int, int *);
 #define nfsm_chain_get_32(E, NMC, LVAL) \
 	do { \
 		uint32_t __tmp32, *__tmpptr; \
+		(LVAL) = 0; \
 		if (E) break; \
 		if ((NMC)->nmc_left >= NFSX_UNSIGNED) { \
 			__tmpptr = (uint32_t*)(NMC)->nmc_ptr; \
@@ -654,14 +644,12 @@ int nfsm_chain_trim_data(struct nfsm_chain *, int, int *);
 /* get NFSv4 attr bitmap */
 #define nfsm_chain_get_bitmap(E, NMC, B, LEN) \
 	do { \
-		uint32_t __len = 0, __i; \
+		uint32_t __len, __i; \
 		nfsm_chain_get_32((E), (NMC), __len); \
 		if (E) break; \
 		for (__i=0; __i < MIN(__len, (LEN)); __i++) \
 			nfsm_chain_get_32((E), (NMC), (B)[__i]); \
 		if (E) break; \
-		for (; __i < __len; __i++) \
-			nfsm_chain_adv((E), (NMC), NFSX_UNSIGNED); \
 		for (; __i < (LEN); __i++) \
 			(B)[__i] = 0; \
 		(LEN) = __len; \
@@ -678,7 +666,7 @@ int nfsm_chain_trim_data(struct nfsm_chain *, int, int *);
 
 #define nfsm_chain_skip_tag(E, NMC) \
 	do { \
-		uint32_t __val = 0; \
+		uint32_t __val; \
 		nfsm_chain_get_32((E), (NMC), __val); \
 		nfsm_chain_adv((E), (NMC), nfsm_rndup(__val)); \
 	} while (0)

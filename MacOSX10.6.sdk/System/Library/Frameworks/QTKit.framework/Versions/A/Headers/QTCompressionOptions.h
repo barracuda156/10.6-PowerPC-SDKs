@@ -36,15 +36,16 @@
 		@"QTCompressionOptionsVoiceQualityAACAudio";	// For voice recordings
 */
 
-#ifndef QTCOMPRESSIONOPTIONS_H  // TODO: FIX BUILD SYSTEM INSTEAD - plus rdar://problem/5947690
-#define QTCOMPRESSIONOPTIONS_H
-
 @class QTCompressionOptionsInternal;
 
 @interface QTCompressionOptions : NSObject
 {
 @private
+#if __LP64__
+	int32_t							_proxy;
+#else
 	QTCompressionOptionsInternal	*_internal;
+#endif
 	long							_reserved;
 }
 
@@ -64,5 +65,3 @@
 @end
 
 #endif	/* (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_2) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4) */
-
-#endif // QTCOMPRESSIONOPTIONS_H

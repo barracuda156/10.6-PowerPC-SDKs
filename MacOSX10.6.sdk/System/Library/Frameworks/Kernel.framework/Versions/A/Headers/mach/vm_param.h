@@ -95,9 +95,6 @@
 #define atop_64(x) ((uint64_t)(x) >> PAGE_SHIFT)
 #define ptoa_64(x) ((uint64_t)(x) << PAGE_SHIFT)
 
-#define atop_kernel(x) ((vm_address_t)(x) >> PAGE_SHIFT)
-#define ptoa_kernel(x) ((vm_address_t)(x) << PAGE_SHIFT)
-
 /*
  *      While the following block is enabled, the legacy atop and ptoa
  *      macros will behave correctly.  If not, they will generate

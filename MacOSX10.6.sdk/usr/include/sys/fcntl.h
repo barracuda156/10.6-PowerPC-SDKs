@@ -320,13 +320,10 @@ struct flock {
  * advisory file read data type -
  * information passed by user to system
  */
-
-
 struct radvisory {
        off_t   ra_offset;
        int     ra_count;
 };
-
 
 /*
  * detached code signatures data type -

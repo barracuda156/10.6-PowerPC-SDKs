@@ -3,7 +3,7 @@
  
      Contains:   Appearance Manager Interfaces.
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 1994-2008 by Apple Computer, Inc., all rights reserved
  
@@ -473,11 +473,9 @@
 #define kThemePopupButtonMini 			30
 
 #define kThemeBevelButtonInset 			31
-#define kThemePushButtonTextured 		32
-#define kThemePushButtonTexturedSmall 	33
-#define kThemeRoundButtonHelp 			34
 #define kThemePushButtonInset 			32
 #define kThemePushButtonInsetSmall 		33
+#define kThemeRoundButtonHelp 			34
 
 #define kThemeNormalCheckBox 			1
 #define kThemeNormalRadioButton 		2
@@ -663,6 +661,152 @@
 #define kThemePopupTabCenterOnWindow 	1
 #define kThemePopupTabCenterOnOffset 	2
 
+#define kThemeMetricScrollBarWidth 		0
+#define kThemeMetricSmallScrollBarWidth  1
+#define kThemeMetricCheckBoxHeight 		2
+#define kThemeMetricRadioButtonHeight 	3
+#define kThemeMetricEditTextWhitespace 	4
+#define kThemeMetricEditTextFrameOutset  5
+#define kThemeMetricListBoxFrameOutset 	6
+#define kThemeMetricFocusRectOutset 	7
+#define kThemeMetricImageWellThickness 	8
+#define kThemeMetricScrollBarOverlap 	9
+#define kThemeMetricLargeTabHeight 		10
+#define kThemeMetricLargeTabCapsWidth 	11
+#define kThemeMetricTabFrameOverlap 	12
+#define kThemeMetricTabIndentOrStyle 	13
+#define kThemeMetricTabOverlap 			14
+#define kThemeMetricSmallTabHeight 		15
+#define kThemeMetricSmallTabCapsWidth 	16
+#define kThemeMetricPushButtonHeight 	19
+#define kThemeMetricListHeaderHeight 	20
+#define kThemeMetricDisclosureTriangleHeight  25
+#define kThemeMetricDisclosureTriangleWidth  26
+#define kThemeMetricLittleArrowsHeight 	27
+#define kThemeMetricLittleArrowsWidth 	28
+#define kThemeMetricPopupButtonHeight 	30
+#define kThemeMetricSmallPopupButtonHeight  31
+#define kThemeMetricLargeProgressBarThickness  32
+#define kThemeMetricPullDownHeight 		33
+#define kThemeMetricSmallPullDownHeight  34
+#define kThemeMetricResizeControlHeight  38
+#define kThemeMetricSmallResizeControlHeight  39
+#define kThemeMetricHSliderHeight 		41
+#define kThemeMetricHSliderTickHeight 	42
+#define kThemeMetricVSliderWidth 		45
+#define kThemeMetricVSliderTickWidth 	46
+#define kThemeMetricTitleBarControlsHeight  49
+#define kThemeMetricCheckBoxWidth 		50
+#define kThemeMetricRadioButtonWidth 	52
+#define kThemeMetricNormalProgressBarThickness  58
+#define kThemeMetricProgressBarShadowOutset  59
+#define kThemeMetricSmallProgressBarShadowOutset  60
+#define kThemeMetricPrimaryGroupBoxContentInset  61
+#define kThemeMetricSecondaryGroupBoxContentInset  62
+#define kThemeMetricMenuMarkColumnWidth  63
+#define kThemeMetricMenuExcludedMarkColumnWidth  64
+#define kThemeMetricMenuMarkIndent 		65
+#define kThemeMetricMenuTextLeadingEdgeMargin  66
+#define kThemeMetricMenuTextTrailingEdgeMargin  67
+#define kThemeMetricMenuIndentWidth 	68
+#define kThemeMetricMenuIconTrailingEdgeMargin  69
+
+#define kThemeMetricDisclosureButtonHeight  17
+#define kThemeMetricRoundButtonSize 	18
+#define kThemeMetricSmallCheckBoxHeight  21
+#define kThemeMetricDisclosureButtonWidth  22
+#define kThemeMetricSmallDisclosureButtonHeight  23
+#define kThemeMetricSmallDisclosureButtonWidth  24
+#define kThemeMetricPaneSplitterHeight 	29
+#define kThemeMetricSmallPushButtonHeight  35
+#define kThemeMetricSmallRadioButtonHeight  36
+#define kThemeMetricRelevanceIndicatorHeight  37
+#define kThemeMetricLargeRoundButtonSize  40
+#define kThemeMetricSmallHSliderHeight 	43
+#define kThemeMetricSmallHSliderTickHeight  44
+#define kThemeMetricSmallVSliderWidth 	47
+#define kThemeMetricSmallVSliderTickWidth  48
+#define kThemeMetricSmallCheckBoxWidth 	51
+#define kThemeMetricSmallRadioButtonWidth  53
+#define kThemeMetricSmallHSliderMinThumbWidth  54
+#define kThemeMetricSmallVSliderMinThumbHeight  55
+#define kThemeMetricSmallHSliderTickOffset  56
+#define kThemeMetricSmallVSliderTickOffset  57
+
+#define kThemeMetricComboBoxLargeBottomShadowOffset  70
+#define kThemeMetricComboBoxLargeRightShadowOffset  71
+#define kThemeMetricComboBoxSmallBottomShadowOffset  72
+#define kThemeMetricComboBoxSmallRightShadowOffset  73
+#define kThemeMetricComboBoxLargeDisclosureWidth  74
+#define kThemeMetricComboBoxSmallDisclosureWidth  75
+#define kThemeMetricRoundTextFieldContentInsetLeft  76
+#define kThemeMetricRoundTextFieldContentInsetRight  77
+#define kThemeMetricRoundTextFieldContentInsetBottom  78
+#define kThemeMetricRoundTextFieldContentInsetTop  79
+#define kThemeMetricRoundTextFieldContentHeight  80
+#define kThemeMetricComboBoxMiniBottomShadowOffset  81
+#define kThemeMetricComboBoxMiniDisclosureWidth  82
+#define kThemeMetricComboBoxMiniRightShadowOffset  83
+#define kThemeMetricLittleArrowsMiniHeight  84
+#define kThemeMetricLittleArrowsMiniWidth  85
+#define kThemeMetricLittleArrowsSmallHeight  86
+#define kThemeMetricLittleArrowsSmallWidth  87
+#define kThemeMetricMiniCheckBoxHeight 	88
+#define kThemeMetricMiniCheckBoxWidth 	89
+#define kThemeMetricMiniDisclosureButtonHeight  90
+#define kThemeMetricMiniDisclosureButtonWidth  91
+#define kThemeMetricMiniHSliderHeight 	92
+#define kThemeMetricMiniHSliderMinThumbWidth  93
+#define kThemeMetricMiniHSliderTickHeight  94
+#define kThemeMetricMiniHSliderTickOffset  95
+#define kThemeMetricMiniPopupButtonHeight  96
+#define kThemeMetricMiniPullDownHeight 	97
+#define kThemeMetricMiniPushButtonHeight  98
+#define kThemeMetricMiniRadioButtonHeight  99
+#define kThemeMetricMiniRadioButtonWidth  100
+#define kThemeMetricMiniTabCapsWidth 	101
+#define kThemeMetricMiniTabFrameOverlap  102
+#define kThemeMetricMiniTabHeight 		103
+#define kThemeMetricMiniTabOverlap 		104
+#define kThemeMetricMiniVSliderMinThumbHeight  105
+#define kThemeMetricMiniVSliderTickOffset  106
+#define kThemeMetricMiniVSliderTickWidth  107
+#define kThemeMetricMiniVSliderWidth 	108
+#define kThemeMetricRoundTextFieldContentInsetWithIconLeft  109
+#define kThemeMetricRoundTextFieldContentInsetWithIconRight  110
+#define kThemeMetricRoundTextFieldMiniContentHeight  111
+#define kThemeMetricRoundTextFieldMiniContentInsetBottom  112
+#define kThemeMetricRoundTextFieldMiniContentInsetLeft  113
+#define kThemeMetricRoundTextFieldMiniContentInsetRight  114
+#define kThemeMetricRoundTextFieldMiniContentInsetTop  115
+#define kThemeMetricRoundTextFieldMiniContentInsetWithIconLeft  116
+#define kThemeMetricRoundTextFieldMiniContentInsetWithIconRight  117
+#define kThemeMetricRoundTextFieldSmallContentHeight  118
+#define kThemeMetricRoundTextFieldSmallContentInsetBottom  119
+#define kThemeMetricRoundTextFieldSmallContentInsetLeft  120
+#define kThemeMetricRoundTextFieldSmallContentInsetRight  121
+#define kThemeMetricRoundTextFieldSmallContentInsetTop  122
+#define kThemeMetricRoundTextFieldSmallContentInsetWithIconLeft  123
+#define kThemeMetricRoundTextFieldSmallContentInsetWithIconRight  124
+#define kThemeMetricSmallTabFrameOverlap  125
+#define kThemeMetricSmallTabOverlap 	126
+#define kThemeMetricSmallPaneSplitterHeight  127
+
+#define kThemeMetricHSliderTickOffset 	128
+#define kThemeMetricVSliderTickOffset 	129
+#define kThemeMetricSliderMinThumbHeight  130
+#define kThemeMetricSliderMinThumbWidth  131
+#define kThemeMetricScrollBarMinThumbHeight  132
+#define kThemeMetricScrollBarMinThumbWidth  133
+#define kThemeMetricSmallScrollBarMinThumbHeight  134
+#define kThemeMetricSmallScrollBarMinThumbWidth  135
+#define kThemeMetricButtonRoundedHeight  136
+#define kThemeMetricButtonRoundedRecessedHeight  137
+
+#define kThemeMetricSeparatorSize 		138
+#define kThemeMetricTexturedPushButtonHeight  139
+#define kThemeMetricTexturedSmallPushButtonHeight  140
+
 #define appearanceBadBrushIndexErr 		(-30560)			/*  pattern index invalid  */
 #define appearanceProcessRegisteredErr 	(-30561)
 #define appearanceProcessNotRegisteredErr  (-30562)
@@ -743,6 +887,13 @@
 #define kThemeDrawIndicatorOnly 		0x20
 
 #define kThemeBrushPassiveAreaFill 		25
+#define kThemeMetricCheckBoxGlyphHeight  2
+#define kThemeMetricRadioButtonGlyphHeight  3
+#define kThemeMetricDisclosureButtonSize  17
+#define kThemeMetricBestListHeaderHeight  20
+#define kThemeMetricSmallProgressBarThickness  58			/*  obsolete  */
+#define kThemeMetricProgressBarThickness  32				/*  obsolete  */
+
 #define kThemeScrollBar 				0
 #define kThemeSlider 					2
 #define kThemeProgressBar 				3

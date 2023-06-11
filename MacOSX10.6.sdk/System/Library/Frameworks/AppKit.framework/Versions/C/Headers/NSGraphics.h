@@ -1,7 +1,7 @@
 /*
 	NSGraphics.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -64,17 +64,6 @@ enum {
 };
 typedef NSUInteger NSFocusRingType;
 #endif
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-enum {
-    NSColorRenderingIntentDefault, //  = kCGRenderingIntentDefault,
-    NSColorRenderingIntentAbsoluteColorimetric, //  = kCGRenderingIntentAbsoluteColorimetric,
-    NSColorRenderingIntentRelativeColorimetric, //  = kCGRenderingIntentRelativeColorimetric,
-    NSColorRenderingIntentPerceptual, // = kCGRenderingIntentPerceptual,
-    NSColorRenderingIntentSaturation // = kCGRenderingIntentSaturation
-};
-typedef NSInteger NSColorRenderingIntent;  // values interchangeable with CGColorRenderingIntent values
-#endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5 */
 
 /* Predefined colorspace names.
 */
@@ -145,6 +134,10 @@ APPKIT_EXTERN void NSDrawBitmap(NSRect rect, NSInteger width, NSInteger height, 
 APPKIT_EXTERN void NSCopyBits(NSInteger srcGState, NSRect srcRect, NSPoint destPoint);
 APPKIT_EXTERN void NSHighlightRect(NSRect aRect);
 APPKIT_EXTERN void NSBeep(void);
+APPKIT_EXTERN void NSCountWindows(NSInteger *count);
+APPKIT_EXTERN void NSWindowList(NSInteger size, NSInteger list[]);
+APPKIT_EXTERN void NSCountWindowsForContext(NSInteger context, NSInteger *count);
+APPKIT_EXTERN void NSWindowListForContext(NSInteger context, NSInteger size, NSInteger list[]);
 
 /* gets performance stats about window server memory usage */
 APPKIT_EXTERN NSInteger NSGetWindowServerMemory(NSInteger context, NSInteger *virtualMemory, NSInteger *windowBackingMemory, NSString **windowDumpString);
@@ -195,10 +188,3 @@ typedef NSUInteger NSAnimationEffect;
 APPKIT_EXTERN void NSShowAnimationEffect(NSAnimationEffect animationEffect, NSPoint centerLocation, NSSize size, id animationDelegate, SEL didEndSelector, void *contextInfo) AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
 
 #endif
-
-/* NSCountWindows, NSWindowList, NSCountWindowsForContext, and NSWindowListForContext are deprecated on Mac OS 10.6 and later.  Use +[NSWindow windowNumbersWithOptions:] instead */
-APPKIT_EXTERN void NSCountWindows(NSInteger *count);
-APPKIT_EXTERN void NSWindowList(NSInteger size, NSInteger list[]);
-APPKIT_EXTERN void NSCountWindowsForContext(NSInteger context, NSInteger *count);
-APPKIT_EXTERN void NSWindowListForContext(NSInteger context, NSInteger size, NSInteger list[]);
-

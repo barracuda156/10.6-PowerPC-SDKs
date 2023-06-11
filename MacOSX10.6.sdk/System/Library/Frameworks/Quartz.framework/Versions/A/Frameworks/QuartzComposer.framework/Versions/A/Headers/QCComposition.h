@@ -49,16 +49,10 @@ extern NSString* const QCCompositionInputTrackSignalKey; //Boolean port
 extern NSString* const QCCompositionInputPrimaryColorKey; //Color port
 extern NSString* const QCCompositionInputSecondaryColorKey; //Color port
 extern NSString* const QCCompositionInputPaceKey; //Number port (in [0,1] range)
-#ifdef __QUARTZCOMPOSER_CORE3D__
-extern NSString* const QCCompositionInputMeshKey; //Mesh port
-#endif
 
 /* Standard composition output port keys */
 extern NSString* const QCCompositionOutputImageKey; //Image port
 extern NSString* const QCCompositionOutputWebPageURLKey; //String port
-#ifdef __QUARTZCOMPOSER_CORE3D__
-extern NSString* const QCCompositionOutputMeshKey; //Mesh port
-#endif
 
 /* Composition graphic animation protocol (the composition renders a generic graphical animation):
 - QCCompositionInputPrimaryColorKey (optional): The primary color of the animation
@@ -107,13 +101,6 @@ extern NSString* const QCCompositionProtocolRSSVisualizer;
 */
 extern NSString* const QCCompositionProtocolMusicVisualizer;
 
-#ifdef __QUARTZCOMPOSER_CORE3D__
-/* Composition mesh filter protocol (the composition applies an effect to a source image):
-- QCCompositionInputMeshKey: Source image
-- QCCompositionOutputMeshKey: New image with the applied effect
-*/
-extern NSString* const QCCompositionProtocolMeshFilter;
-#endif
 
 /* Opaque composition object */
 @interface QCComposition : NSObject <NSCopying>

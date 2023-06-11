@@ -315,7 +315,7 @@ public:
     /*!
      * @function stop
      * @abstract This is responsible for stopping the device after the system is done with it (or
-     *  if the device is removed from the system).
+        if the device is removed from the system).
      * @discussion The IOAudioDevice implentation of stop() disables the timer services, deactivates 
      *  all of the audio audio engines and audio ports and stops power management of the device.
      *  The audio engine and port deactivation causes all of the audio engines to get stopped and 

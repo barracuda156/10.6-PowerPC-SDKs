@@ -5,7 +5,7 @@
 // Author:      Robin Dunn
 //
 // Created:     18-Sept-1999
-// RCS-ID:      $Id: _sizers.i 54705 2008-07-19 04:46:42Z RD $
+// RCS-ID:      $Id: _sizers.i,v 1.51.4.5 2007/03/19 16:27:05 RD Exp $
 // Copyright:   (c) 2003 by Total Control Software
 // Licence:     wxWindows license
 /////////////////////////////////////////////////////////////////////////////
@@ -110,10 +110,6 @@ calling Align(wx.ALIGN_BOTTOM)", "");
         wxSizerFlags& , FixedMinSize(),
         "Sets the wx.FIXED_MINSIZE flag.", "");
     
-    DocDeclStr(
-        wxSizerFlags& , ReserveSpaceEvenIfHidden(),
-        "Makes the item ignore window's visibility status", "");
-    
 
     
     %extend {
@@ -173,11 +169,6 @@ border size.", "");
 };
 
 //---------------------------------------------------------------------------
-%newgroup
-
-wxLIST_WRAPPER( wxSizerItemList, wxSizerItem );
-
-
 
 DocStr(wxSizerItem,
 "The wx.SizerItem class is used to track the position, size and other
@@ -1182,9 +1173,6 @@ one of the items in a sizer change size, or items are added or
 removed.", "");
 
 
-    wxSize ComputeFittingClientSize(wxWindow *window);
-    wxSize ComputeFittingWindowSize(wxWindow *window);
-
     DocDeclStr(
         wxSize , Fit( wxWindow *window ),
         "Tell the sizer to resize the *window* to match the sizer's minimal
@@ -1235,11 +1223,20 @@ as well.", "");
 
 
 
-    DocStr(GetChildren,
-           "Returns all of the `wx.SizerItem` objects managed by the sizer in a
-list-like object.", "");
-    wxSizerItemList& GetChildren();
+    // wxList& GetChildren();
+    %extend {
+        DocAStr(GetChildren,
+                "GetChildren(self) -> list",
+                "Returns a list of all the `wx.SizerItem` objects managed by the sizer.", "");
+        PyObject* GetChildren() {
+            wxSizerItemList& list = self->GetChildren();
+            return wxPy_ConvertList(&list);
+        }
+    }
 
+
+    // Manage whether individual windows or subsizers are considered
+    // in the layout calculations or not.
 
     %extend {
         DocAStr(Show,
@@ -1271,7 +1268,7 @@ parameter can be either a window, a sizer, or the zero-based index of
 the item.", "");
         bool IsShown(PyObject* item) {
             wxPyBlock_t blocked = wxPyBeginBlockThreads();
-            wxPySizerItemInfo info = wxPySizerItemTypeHelper(item, false, true);
+            wxPySizerItemInfo info = wxPySizerItemTypeHelper(item, false, false);
             wxPyEndBlockThreads(blocked);
             if ( info.window )
                 return self->IsShown(info.window);

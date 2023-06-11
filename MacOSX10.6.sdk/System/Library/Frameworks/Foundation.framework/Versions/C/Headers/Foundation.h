@@ -1,5 +1,5 @@
 /*	Foundation.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 
@@ -40,6 +40,7 @@
 #import <Foundation/NSNull.h>
 #import <Foundation/NSNumberFormatter.h>
 #import <Foundation/NSObject.h>
+#import <Foundation/NSOperation.h>
 #import <Foundation/NSPathUtilities.h>
 #import <Foundation/NSPort.h>
 #import <Foundation/NSProcessInfo.h>
@@ -62,12 +63,6 @@
 
 #import <Foundation/FoundationErrors.h>
 
-#if !(TARGET_OS_WIN32)
-
-#import <Foundation/NSOperation.h>
-
-#endif
-
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || (TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)
 
 #import <Foundation/NSHTTPCookie.h>
@@ -89,11 +84,9 @@
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE)) || TARGET_OS_WIN32
 
-#import <Foundation/NSArchiver.h>
 #import <Foundation/NSConnection.h>
 #import <Foundation/NSDistantObject.h>
 #import <Foundation/NSDistributedNotificationCenter.h>
-#import <Foundation/NSGeometry.h>
 #import <Foundation/NSPortCoder.h>
 #import <Foundation/NSPortMessage.h>
 #import <Foundation/NSPortNameServer.h>
@@ -114,6 +107,7 @@
 #import <Foundation/NSAppleEventDescriptor.h>
 #import <Foundation/NSAppleEventManager.h>
 #import <Foundation/NSAppleScript.h>
+#import <Foundation/NSArchiver.h>
 #import <Foundation/NSAttributedString.h>
 #import <Foundation/NSCache.h>
 #import <Foundation/NSCalendarDate.h>
@@ -123,6 +117,7 @@
 #import <Foundation/NSDistributedLock.h>
 #import <Foundation/NSExpression.h>
 #import <Foundation/NSGarbageCollector.h>
+#import <Foundation/NSGeometry.h>
 #import <Foundation/NSHFSFileTypes.h>
 #import <Foundation/NSHashTable.h>
 #import <Foundation/NSHost.h>

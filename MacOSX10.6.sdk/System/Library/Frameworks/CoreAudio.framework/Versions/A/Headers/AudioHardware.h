@@ -225,22 +225,22 @@ typedef struct AudioObjectPropertyAddress   AudioObjectPropertyAddress;
                         The wildcard value for AudioObjectPropertyScopes.
     @constant       kAudioObjectPropertyElementWildcard
                         The wildcard value for AudioObjectPropertyElements.
-    @constant       kAudioPropertyWildcardPropertyID
-                        A synonym for kAudioObjectPropertySelectorWildcard.
-    @constant       kAudioPropertyWildcardSection
-                        The wildcard value for the isInput argument of AudioDeviceGetPropertyInfo(),
-                        AudioDeviceGetProperty(), and AudioDeviceSetProperty().
-    @constant       kAudioPropertyWildcardChannel
-                        A synonym for kAudioObjectPropertyElementWildcard.
+	@constant		kAudioPropertyWildcardPropertyID
+						A synonym for kAudioObjectPropertySelectorWildcard.
+	@constant		kAudioPropertyWildcardSection
+						The wildcard value for the isInput argument of AudioDeviceGetPropertyInfo(),
+						AudioDeviceGetProperty(), and AudioDeviceSetProperty().
+	@constant		kAudioPropertyWildcardChannel
+						A synonym for kAudioObjectPropertyElementWildcard.
 */
 enum
 {
     kAudioObjectPropertySelectorWildcard    = '****',
     kAudioObjectPropertyScopeWildcard       = '****',
     kAudioObjectPropertyElementWildcard     = 0xFFFFFFFF,
-    kAudioPropertyWildcardPropertyID        = kAudioObjectPropertySelectorWildcard,
-    kAudioPropertyWildcardSection           = 0xFF,
-    kAudioPropertyWildcardChannel           = kAudioObjectPropertyElementWildcard
+	kAudioPropertyWildcardPropertyID		= kAudioObjectPropertySelectorWildcard,
+	kAudioPropertyWildcardSection			= 0xFF,
+	kAudioPropertyWildcardChannel			= kAudioObjectPropertyElementWildcard
 };
 
 //==================================================================================================
@@ -726,7 +726,8 @@ enum
                         exit contains the equivalent scalar value.
     @constant       kAudioLevelControlPropertyDecibelsToScalarTransferFunction
                         A UInt32 whose value indicates the transfer function the HAL uses to convert
-                        between decibel values and scalar values.
+                        between decibel values and scalar values. Constants for some of the values
+                        for this property can be found in <IOKit/audio/IOAudioTypes.h>.
 */
 enum
 {
@@ -736,35 +737,6 @@ enum
     kAudioLevelControlPropertyConvertScalarToDecibels           = 'lcsd',
     kAudioLevelControlPropertyConvertDecibelsToScalar           = 'lcds',
     kAudioLevelControlPropertyDecibelsToScalarTransferFunction  = 'lctf'
-};
-
-/*!
-    @enum           Values for kAudioLevelControlPropertyDecibelsToScalarTransferFunction
-    @abstract       The following constants are the only supported values for a volume control's
-                    transfer function.
-    @discussion     The transfer function implemented in the volume control works by raising the
-                    scalar value to an exponent to map it into the decibel range. The constants
-                    in this enum express the exponent used in the name as a quotient. For example,
-                    kAudioLevelControlTranferFunction3Over4 represents the exponent 0.75.
-*/
-enum
-{
-    kAudioLevelControlTranferFunctionLinear     = 0,
-    kAudioLevelControlTranferFunction1Over3     = 1,
-    kAudioLevelControlTranferFunction1Over2     = 2,
-    kAudioLevelControlTranferFunction3Over4     = 3,
-    kAudioLevelControlTranferFunction3Over2     = 4,
-    kAudioLevelControlTranferFunction2Over1     = 5,
-    kAudioLevelControlTranferFunction3Over1     = 6,
-    kAudioLevelControlTranferFunction4Over1     = 7,
-    kAudioLevelControlTranferFunction5Over1     = 8,
-    kAudioLevelControlTranferFunction6Over1     = 9,
-    kAudioLevelControlTranferFunction7Over1     = 10,
-    kAudioLevelControlTranferFunction8Over1     = 11,
-    kAudioLevelControlTranferFunction9Over1     = 12,
-    kAudioLevelControlTranferFunction10Over1    = 13,
-    kAudioLevelControlTranferFunction11Over1    = 14,
-    kAudioLevelControlTranferFunction12Over1    = 15
 };
 
 /*!
@@ -808,24 +780,12 @@ enum
     @discussion     These properties supplement the regular AudioSelectorControl Properties.
     @constant       kAudioClockSourceControlPropertyItemKind
                         This property returns a UInt32 that identifies the kind of clock source
-                        the item ID refers to. The qualifier contains the ID of the item.
+                        the item ID refers to. The qualifier contains the ID of the item. Values for
+                        this property are defined in <IOAudio/audio/IOAudioTypes.h>.
 */
 enum
 {
     kAudioClockSourceControlPropertyItemKind     = 'clkk'
-};
-
-
-/*!
-    @enum           Constants describing the kind of a clock source
-    @abstract       These values are some of the values that can be returned from the property,
-                    kAudioClockSourceControlPropertyItemKind.
-    @constant       kAudioClockSourceItemKindInternal
-                        This ID represents the AudioDevice's internal clock.
-*/
-enum
-{
-	kAudioClockSourceItemKindInternal   = 'int '
 };
 
 /*!
@@ -984,7 +944,8 @@ enum
     kAudioHardwarePropertyHogModeIsAllowed                  = 'hogr',
     kAudioHardwarePropertyRunLoop                           = 'rnlp',
     kAudioHardwarePropertyPlugInForBundleID                 = 'pibi',
-    kAudioHardwarePropertyUserSessionIsActiveOrHeadless     = 'user'
+	kAudioHardwarePropertyUserSessionIsActiveOrHeadless		= 'user'
+	
 };
 
 /*!
@@ -1016,8 +977,10 @@ enum
                         an AudioControl object that is a subclass of AudioBootChimeVolumeControl.
     @constant       kAudioHardwarePropertyBootChimeVolumeDecibelsToScalarTransferFunction
                         A UInt32 whose value indicates the transfer function the HAL uses to convert
-                        between decibel values and scalar values. This property is implemented by an
-                        AudioControl object that is a subclass of AudioBootChimeVolumeControl.
+                        between decibel values and scalar values. Constants for some of the values
+                        for this property can be found in <IOKit/audio/IOAudioTypes.h>. This
+                        property is implemented by an AudioControl object that is a subclass of
+                        AudioBootChimeVolumeControl.
 */
 enum
 {
@@ -1396,43 +1359,6 @@ enum
     kAudioDeviceStartTimeDontConsultHALFlag     = (1 << 2)
 };
 
-/*!
-    @enum           Transport Type IDs
-    @abstract       Commonly used values for kAudioDevicePropertyTransportType
-    @constant       kAudioDeviceTransportTypeUnknown
-                        The transport type ID returned when a device doesn't provide a transport
-                        type.
-    @constant       kAudioDeviceTransportTypeBuiltIn
-                        The transport type ID for AudioDevices built into the system.
-    @constant       kAudioDeviceTransportTypeAggregate
-                        The transport type ID for aggregate devices.
-    @constant       kAudioDeviceTransportTypeAutoAggregate
-                        The transport type ID for automatically generated aggregate devices.
-    @constant       kAudioDeviceTransportTypeVirtual
-                        The transport type ID for AudioDevices that don't correspond to real audio
-                        hardware.
-    @constant       kAudioDeviceTransportTypePCI
-                        The transport type ID for AudioDevices connected via the PCI bus.
-    @constant       kAudioDeviceTransportTypeUSB
-                        The transport type ID for AudioDevices connected via USB.
-    @constant       kAudioDeviceTransportTypeFireWire
-                        The transport type ID for AudioDevices connected via FireWire.
-    @constant       kAudioDeviceTransportTypeBluetooth
-                        The transport type ID for AudioDevices connected via Bluetooth.
-*/
-enum
-{
-    kAudioDeviceTransportTypeUnknown        = 0,
-    kAudioDeviceTransportTypeBuiltIn        = 'bltn',
-    kAudioDeviceTransportTypeAggregate      = 'grup',
-    kAudioDeviceTransportTypeAutoAggregate  = 'fgrp',
-    kAudioDeviceTransportTypeVirtual        = 'virt',
-    kAudioDeviceTransportTypePCI            = 'pci ',
-    kAudioDeviceTransportTypeUSB            = 'usb ',
-    kAudioDeviceTransportTypeFireWire       = '1394',
-    kAudioDeviceTransportTypeBluetooth      = 'blue'
-};
-
 //==================================================================================================
 #pragma mark    AudioDevice Properties
 
@@ -1470,8 +1396,8 @@ enum
                         responsible for releasing the returned CFObject.
     @constant       kAudioDevicePropertyTransportType
                         A UInt32 whose value indicates how the AudioDevice is connected to the CPU.
-                        Constants for some of the values for this property can be found in the enum
-                        in the AudioDevice constants section of this file.
+                        Constants for some of the values for this property can be found in
+                        <IOKit/audio/IOAudioTypes.h>.
     @constant       kAudioDevicePropertyRelatedDevices
                         An array of AudioDeviceIDs for devices related to the AudioDevice. For
                         IOAudio-based devices, a AudioDevices are related if they share the same
@@ -1520,13 +1446,13 @@ enum
                         available to all processes. If the AudioDevice is in a non-mixable mode,
                         the HAL will automatically take hog mode on behalf of the first process to
                         start an IOProc.
-                        Note that when setting this property, the value passed in is ignored. If
-                        another process owns exclusive access, that remains unchanged. If the
-                        current process owns exclusive access, it is released and made available to
-                        all processes again. If no process has exclusive access (meaning the current
-                        value is -1), this process gains ownership of exclusive access.  On return,
-                        the pid_t pointed to by inPropertyData will contain the new value of the
-                        property.
+						Note that when setting this property, the value passed in is ignored. If
+						another process owns exclusive access, that remains unchanged. If the
+						current process owns exclusive access, it is released and made available to
+						all processes again. If no process has exclusive access (meaning the current
+						value is -1), this process gains ownership of exclusive access.  On return,
+						the pid_t pointed to by inPropertyData will contain the new value of the
+						property.
     @constant       kAudioDevicePropertyLatency
                         A UInt32 containing the number of frames of latency in the AudioDevice. Note
                         that input and output latency may differ. Further, the AudioDevice's
@@ -1670,8 +1596,10 @@ enum
                         AudioControl object that is a subclass of AudioVolumeControl.
     @constant       kAudioDevicePropertyVolumeDecibelsToScalarTransferFunction
                         A UInt32 whose value indicates the transfer function the HAL uses to convert
-                        between decibel values and scalar values. This property is implemented by an
-                        AudioControl object that is a subclass of AudioVolumeControl.
+                        between decibel values and scalar values. Constants for some of the values
+                        for this property can be found in <IOKit/audio/IOAudioTypes.h>. This
+                        property is implemented by an AudioControl object that is a subclass of
+                        AudioVolumeControl.
     @constant       kAudioDevicePropertyStereoPan
                         A Float32 where 0.0 is full left, 1.0 is full right, and 0.5 is center. This
                         property is implemented by an AudioControl object that is a subclass of
@@ -1722,6 +1650,7 @@ enum
                         This property returns a UInt32 that identifies the kind of clock source
                         the item ID refers to using an AudioValueTranslation structure. The input
                         data is the UInt32 containing the item ID and the output data is the UInt32.
+                        Values for this property are defined in <IOAudio/audio/IOAudioTypes.h>. 
     @constant       kAudioDevicePropertyPlayThru
                         A UInt32 where a value of 0 means that play through is off and a value of 1
                         means that it is on. This property is implemented by an AudioControl object
@@ -1765,10 +1694,11 @@ enum
                         kAudioDevicePropertyScopePlayThrough.
     @constant       kAudioDevicePropertyPlayThruVolumeDecibelsToScalarTransferFunction
                         A UInt32 whose value indicates the transfer function the HAL uses to convert
-                        between decibel values and scalar values. This property is implemented by an
-                        AudioControl object that is a subclass of AudioVolumeControl. Further, the
-                        control that implements this property is only available through
-                        kAudioDevicePropertyScopePlayThrough.
+                        between decibel values and scalar values. Constants for some of the values
+                        for this property can be found in <IOKit/audio/IOAudioTypes.h>. This
+                        property is implemented by an AudioControl object that is a subclass of
+                        AudioVolumeControl. Further, the control that implements this property is
+                        only available through kAudioDevicePropertyScopePlayThrough.
     @constant       kAudioDevicePropertyPlayThruStereoPan
                         A Float32 where 0.0 is full left, 1.0 is full right, and 0.5 is center. This
                         property is implemented by an AudioControl object that is a subclass of
@@ -1845,8 +1775,10 @@ enum
                         AudioControl object that is a subclass of AudioLFEVolumeControl.
     @constant       kAudioDevicePropertySubVolumeDecibelsToScalarTransferFunction
                         A UInt32 whose value indicates the transfer function the HAL uses to convert
-                        between decibel values and scalar values. This property is implemented by an
-                        AudioControl object that is a subclass of AudioLFEVolumeControl.
+                        between decibel values and scalar values. Constants for some of the values
+                        for this property can be found in <IOKit/audio/IOAudioTypes.h>. This
+                        property is implemented by an AudioControl object that is a subclass of
+                        AudioLFEVolumeControl.
     @constant       kAudioDevicePropertySubMute
                         A UInt32 where a value of 1 means that mute is enabled making the LFE on
                         that element inaudible. The property is implemented by an AudioControl
@@ -2528,50 +2460,6 @@ enum
     kAudioStreamUnknown = kAudioObjectUnknown
 };
 
-/*!
-    @enum           AudioStream Terminal Types
-    @abstract       Various constants that describe the terminal type of an AudioStream.
-    @constant       kAudioStreamTerminalTypeUnknown
-                        The ID used when the terminal type for the AudioStream is non known.
-    @constant       kAudioStreamTerminalTypeLine
-                        The ID for a terminal type of a line level stream. Note that this applies to
-                        both input streams and output streams
-    @constant       kAudioStreamTerminalTypeDigitalAudioInterface
-                        The ID for a terminal type of stream from/to a digital audio interface as
-                        defined by ISO 60958 (aka SPDIF or AES/EBU). Note that this applies to both
-                        input streams and output streams
-    @constant       kAudioStreamTerminalTypeSpeaker
-                        The ID for a terminal type of a speaker.
-    @constant       kAudioStreamTerminalTypeHeadphones
-                        The ID for a terminal type of headphones.
-    @constant       kAudioStreamTerminalTypeLFESpeaker
-                        The ID for a terminal type of a speaker for low frequency effects.
-    @constant       kAudioStreamTerminalTypeReceiverSpeaker
-                        The ID for a terminal type of a speaker on a telephone handset receiver.
-    @constant       kAudioStreamTerminalTypeMicrophone
-                        The ID for a terminal type of a microphone.
-    @constant       kAudioStreamTerminalTypeHeadsetMicrophone
-                        The ID for a terminal type of a microphone attached to an headset.
-    @constant       kAudioStreamTerminalTypeReceiverMicrophone
-                        The ID for a terminal type of a microhpone on a telephone handset recevier.
-    @constant       kAudioStreamTerminalTypeTTY
-                        The ID for a terminal type of a device providing a TTY signal.
-*/
-enum
-{
-    kAudioStreamTerminalTypeUnknown                 = 0,
-	kAudioStreamTerminalTypeLine                    = 'line',
-    kAudioStreamTerminalTypeDigitalAudioInterface   = 'spdf',
-    kAudioStreamTerminalTypeSpeaker                 = 'spkr',
-    kAudioStreamTerminalTypeHeadphones              = 'hdph',
-    kAudioStreamTerminalTypeLFESpeaker              = 'lfes',
-    kAudioStreamTerminalTypeReceiverSpeaker         = 'rspk',
-	kAudioStreamTerminalTypeMicrophone              = 'micr',
-	kAudioStreamTerminalTypeHeadsetMicrophone       = 'hmic',
-	kAudioStreamTerminalTypeReceiverMicrophone      = 'rmic',
-	kAudioStreamTerminalTypeTTY                     = 'tty_'
-};
-
 //==================================================================================================
 #pragma mark    AudioStream Properties
 
@@ -2590,7 +2478,8 @@ enum
                         and a value of 1 means that it is an input stream.
     @constant       kAudioStreamPropertyTerminalType
                         A UInt32 whose value describes the general kind of functionality attached
-                        to the AudioStream.
+                        to the AudioStream. Constants that describe some of the values of this
+                        property are defined in <IOKit/audio/IOAudioTypes.h>
     @constant       kAudioStreamPropertyStartingChannel
                         A UInt32 that specifies the first element in the owning device that
                         corresponds to element one of this stream.
@@ -2824,10 +2713,18 @@ AudioStreamRemovePropertyListener(  AudioStreamID                   inStream,
     @abstract       Various constants related to AudioAggregateDevices.
     @constant       kAudioAggregateDeviceClassID
                         The AudioClassID that identifies the AudioAggregateDevice class.
+    @constant       kAudioDeviceTransportTypeAggregate
+                        The transport type ID (see kAudioDevicePropertyTransportType) for aggregate
+                        devices.
+    @constant       kAudioDeviceTransportTypeAutoAggregate
+                        The transport type ID (see kAudioDevicePropertyTransportType) for
+                        automatically generated aggregate devices.
 */
 enum
 {
-    kAudioAggregateDeviceClassID            = 'aagg'
+    kAudioAggregateDeviceClassID            = 'aagg',
+    kAudioDeviceTransportTypeAggregate      = 'grup',
+    kAudioDeviceTransportTypeAutoAggregate  = 'fgrp'
 };
 
 /*!

@@ -155,37 +155,8 @@ __private_extern__ int nfs_ticks;
 /*
  * Arguments to mount NFS
  */
-#define NFS_ARGSVERSION	6		/* change when nfs_args changes */
+#define NFS_ARGSVERSION	5		/* change when nfs_args changes */
 struct nfs_args {
-	int		version;	/* args structure version number */
-	struct sockaddr	*addr;		/* file server address */
-	int		addrlen;	/* length of address */
-	int		sotype;		/* Socket type */
-	int		proto;		/* and Protocol */
-	u_char		*fh;		/* File handle to be mounted */
-	int		fhsize;		/* Size, in bytes, of fh */
-	int		flags;		/* flags */
-	int		wsize;		/* write size in bytes */
-	int		rsize;		/* read size in bytes */
-	int		readdirsize;	/* readdir size in bytes */
-	int		timeo;		/* initial timeout in .1 secs */
-	int		retrans;	/* times to retry send */
-	int		maxgrouplist;	/* Max. size of group list */
-	int		readahead;	/* # of blocks to readahead */
-	int		leaseterm;	/* obsolete: Term (sec) of lease */
-	int		deadthresh;	/* obsolete: Retrans threshold */
-	char		*hostname;	/* server's name */
-	/* NFS_ARGSVERSION 3 ends here */
-	int		acregmin;	/* reg file min attr cache timeout */
-	int		acregmax;	/* reg file max attr cache timeout */
-	int		acdirmin;	/* dir min attr cache timeout */
-	int		acdirmax;	/* dir max attr cache timeout */
-	/* NFS_ARGSVERSION 4 ends here */
-	uint32_t	auth;		/* security mechanism flavor */
-	/* NFS_ARGSVERSION 5 ends here */
-	uint32_t	deadtimeout;	/* secs until unresponsive mount considered dead */
-};
-struct nfs_args5 {
 	int		version;	/* args structure version number */
 	struct sockaddr	*addr;		/* file server address */
 	int		addrlen;	/* length of address */
@@ -275,9 +246,9 @@ struct nfs_args3 {
 #define	NFSMNT_NFSV3		0x00000200  /* Use NFS Version 3 protocol */
 #define	NFSMNT_NFSV4		0x00000400  /* Use NFS Version 4 protocol */
 #define	NFSMNT_DUMBTIMR		0x00000800  /* Don't estimate rtt dynamically */
-#define	NFSMNT_DEADTIMEOUT	0x00001000  /* unmount after a period of unresponsiveness */
+// #define	NFSMNT_UNUSED	0x00001000  /* unused */
 #define	NFSMNT_READAHEAD	0x00002000  /* set read ahead */
-#define	NFSMNT_CALLUMNT		0x00004000  /* call MOUNTPROC_UMNT on unmount */
+// #define	NFSMNT_UNUSED	0x00004000  /* unused */
 #define	NFSMNT_RESVPORT		0x00008000  /* Allocate a reserved port */
 #define	NFSMNT_RDIRPLUS		0x00010000  /* Use Readdirplus for V3 */
 #define	NFSMNT_READDIRSIZE	0x00020000  /* Set readdir size */

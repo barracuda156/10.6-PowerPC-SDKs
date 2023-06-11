@@ -36,8 +36,6 @@
 __BEGIN_DECLS
 
 extern void panic(const char *string, ...) __printflike(1,2);
-
-
 #if CONFIG_NO_PANIC_STRINGS
 #define panic_plain(...) (panic)((char *)0)
 #define panic(...)  (panic)((char *)0)

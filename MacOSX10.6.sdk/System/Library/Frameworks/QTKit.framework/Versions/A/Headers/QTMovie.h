@@ -1,7 +1,7 @@
 /*
 	File:		QTMovie.h
 
-	Copyright:	(c)2004-2008 by Apple Inc., all rights reserved.
+	Copyright:	(c)2004-2007 by Apple Inc., all rights reserved.
 
 		
 		Revision 1.88.20.1.2.1.4.1  2008/01/10 23:46:20  cad
@@ -396,7 +396,6 @@
 @class QTMovie;
 @class QTTrack;
 @class QTDataReference;
-@class QTMovieMediaHelper;
 
 	// pasteboard support
 QTKIT_EXTERN NSString * const QTMoviePasteboardType							AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
@@ -452,7 +451,6 @@ QTKIT_EXTERN NSString * const QTMovieFileOffsetAttribute					AVAILABLE_MAC_OS_X_
 QTKIT_EXTERN NSString * const QTMovieResolveDataRefsAttribute				AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSNumber (BOOL)
 QTKIT_EXTERN NSString * const QTMovieAskUnresolvedDataRefsAttribute			AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSNumber (BOOL)
 QTKIT_EXTERN NSString * const QTMovieOpenAsyncOKAttribute					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSNumber (BOOL)
-QTKIT_EXTERN NSString * const QTMovieDontInteractWithUserAttribute			AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSNumber (BOOL)
 
 	// movie instantiation options for movieWithAttributes/initWithAttributes
 QTKIT_EXTERN NSString * const QTMovieFileOffsetAttribute					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSNumber (long long)
@@ -523,6 +521,7 @@ QTKIT_EXTERN NSString * const QTMovieCurrentTimeAttribute					AVAILABLE_MAC_OS_X
 QTKIT_EXTERN NSString * const QTMovieDataSizeAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSNumber (long long)
 QTKIT_EXTERN NSString * const QTMovieDelegateAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSObject
 QTKIT_EXTERN NSString * const QTMovieDisplayNameAttribute					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSString
+QTKIT_EXTERN NSString * const QTMovieDontInteractWithUserAttribute			AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSNumber (BOOL)
 QTKIT_EXTERN NSString * const QTMovieDurationAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSValue (QTTime)
 QTKIT_EXTERN NSString * const QTMovieEditableAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSNumber (BOOL)
 QTKIT_EXTERN NSString * const QTMovieFileNameAttribute						AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;	// NSString
@@ -575,18 +574,6 @@ QTKIT_EXTERN NSString * const QTMovieFrameImageRepresentationsType			AVAILABLE_M
 QTKIT_EXTERN NSString * const QTMovieFrameImageDeinterlaceFields			AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;	// NSNumber (BOOL) (default = YES)
 QTKIT_EXTERN NSString * const QTMovieFrameImageHighQuality					AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;	// NSNumber (BOOL) (default = YES)
 QTKIT_EXTERN NSString * const QTMovieFrameImageSingleField					AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;	// NSNumber (BOOL) (default = YES)
-
-/*!
- @constant		QTMovieFrameImageSessionMode
- @abstract		Indicates that two or more calls to frameImageAtTime:withAttributes:error: will be made on the same QTMovie object.
- @discussion	By adding this key with the associated value that is an NSNumber wrapping the BOOL YES to the dictionary of
-				attributes, an application indicates that it will make more than one call to frameImageAtTime:withAttributes:error: on
-				the same QTMovie object. This knowledge permits QTMovie to cache certain objects and data structures used to generate
-				a frame image, thereby improving performance. When the caller has obtained all the frame images desired from a
-				given QTMovie object, the caller should follow those session calls with a call where this value is NO; this is
-				a signal to QTMovie to dispose of that cached data.
- */
-QTKIT_EXTERN NSString * const QTMovieFrameImageSessionMode					AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;	// NSNumber (BOOL) (default = NO)
 
 	// exceptions
 QTKIT_EXTERN NSString * const QTMovieUneditableException					AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
@@ -647,6 +634,7 @@ typedef NSInteger QTMovieLoadState;
 @interface QTMovie : NSObject <NSCoding, NSCopying>
 {
 @private
+	// these ivars are largely unused; do not access them directly
 #if __LP64__
 	int32_t					_proxy;
 	int32_t					_delegateProxy;
@@ -660,7 +648,9 @@ typedef NSInteger QTMovieLoadState;
 	long					_reserved1;
 	long					_reserved2;
 	long					_reserved3;
-	QTMovieMediaHelper *	_mediaHelper;
+	struct QTMovieAuxData *	_priv;
+	id						_renderHelper;
+	id						_GWorldRenderHelper;
 	long					_flags;
 #if !__LP64__
 	MovieEditState			_editState;
@@ -725,7 +715,7 @@ typedef NSInteger QTMovieLoadState;
 - (void)invalidate;
 #endif
 
-#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7
+#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6
 /*!
 	@method			cancelLoading
 	@abstract		Attempt to cancel the loading of a QTMovie object.
@@ -799,16 +789,6 @@ typedef NSInteger QTMovieLoadState;
 - (void)stepBackward;
 
 @end
-
-#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7
-@interface QTMovie (QTMovie_Stepping)
-
-- (QTTime)frameStartTime:(QTTime)atTime;
-- (QTTime)frameEndTime:(QTTime)atTime;
-- (QTTime)keyframeStartTime:(QTTime)atTime;
-
-@end
-#endif
 
 @interface QTMovie (QTMovie_PlaybackControl)
 

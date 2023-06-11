@@ -5,9 +5,6 @@
  
  */
 
-#ifndef QTFORMATDESCRIPTION_H  // TODO: FIX BUILD SYSTEM INSTEAD - plus rdar://problem/5947690
-#define QTFORMATDESCRIPTION_H
-
 #import <Foundation/Foundation.h>
 #import <QTKit/QTKitDefines.h>
 
@@ -29,7 +26,11 @@ QTKIT_EXTERN NSString * const QTFormatDescriptionVideoEncodedPixelsSizeAttribute
 
 @interface QTFormatDescription : NSObject {
 @private
+#if __LP64__
+	int32_t						_proxy;
+#else
 	QTFormatDescriptionInternal	*_internal;
+#endif	
 	long						_reserved1;
 	long						_reserved2;
 	long						_reserved3;
@@ -39,7 +40,9 @@ QTKIT_EXTERN NSString * const QTFormatDescriptionVideoEncodedPixelsSizeAttribute
 - (UInt32)formatType;		// A four character code representing the format or codec type. Video codec types are defined in <QuickTime/ImageCompression.h>. Audio codec types are define in <CoreAudio/CoreAudioTypes.h>.
 - (NSString *)localizedFormatSummary;
 
+#if !__LP64__
 - (NSData *)quickTimeSampleDescription;	// Contains a QuickTime SampleDescription structure
+#endif
 
 - (NSDictionary *)formatDescriptionAttributes;
 - (id)attributeForKey:(NSString *)key;
@@ -49,5 +52,3 @@ QTKIT_EXTERN NSString * const QTFormatDescriptionVideoEncodedPixelsSizeAttribute
 @end
 
 #endif	/* (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_2) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4) */
-
-#endif // QTFORMATDESCRIPTION_H

@@ -105,23 +105,12 @@
 #define APR_HAVE_SYS_WAIT_H      1
 #define APR_HAVE_TIME_H          1
 #define APR_HAVE_UNISTD_H        1
-#define APR_HAVE_WINDOWS_H       0
-#define APR_HAVE_WINSOCK2_H      0
 
-/** @} */
 /** @} */
 
 /* We don't include our conditional headers within the doxyblocks 
  * or the extern "C" namespace 
  */
-
-#if APR_HAVE_WINDOWS_H
-#include <windows.h>
-#endif
-
-#if APR_HAVE_WINSOCK2_H
-#include <winsock2.h>
-#endif
 
 #if APR_HAVE_SYS_TYPES_H
 #include <sys/types.h>
@@ -224,7 +213,6 @@ extern "C" {
 #define APR_HAVE_STRUCT_RLIMIT  1
 #define APR_HAVE_UNION_SEMUN    1
 #define APR_HAVE_SCTP           0
-#define APR_HAVE_IOVEC          1
 
 /*  APR Feature Macros */
 #define APR_HAS_SHARED_MEMORY     1
@@ -239,11 +227,7 @@ extern "C" {
 #define APR_HAS_UNICODE_FS        0
 #define APR_HAS_PROC_INVOKED      0
 #define APR_HAS_USER              1
-#ifdef __LP64__
 #define APR_HAS_LARGE_FILES       0
-#else
-#define APR_HAS_LARGE_FILES       1
-#endif
 #define APR_HAS_XTHREAD_FILES     0
 #define APR_HAS_OS_UUID           1
 
@@ -277,10 +261,10 @@ typedef  unsigned char           apr_byte_t;
 
 typedef  short           apr_int16_t;
 typedef  unsigned short  apr_uint16_t;
-
+                                               
 typedef  int             apr_int32_t;
 typedef  unsigned int    apr_uint32_t;
-
+                                               
 #ifdef __LP64__
 typedef  long            apr_int64_t;
 #else
@@ -298,16 +282,17 @@ typedef  off_t           apr_off_t;
 typedef  socklen_t       apr_socklen_t;
 typedef  ino_t           apr_ino_t;
 
+/* As we don't want to break users who author for 1.2.x, we can't
+ * present this type until they have included apr_file_info.h
+ * where it was originally declared in release 1.2.0.
+ * Mask it from accedental misuse here.
+ */
+#define apr_ino_t apr_ino_t__requires__apr_file_info_h
+
 #ifdef __LP64__
 #define APR_SIZEOF_VOIDP 8
 #else
 #define APR_SIZEOF_VOIDP 4
-#endif
-
-#if APR_SIZEOF_VOIDP == 8
-typedef  apr_uint64_t            apr_uintptr_t;
-#else
-typedef  apr_uint32_t            apr_uintptr_t;
 #endif
 
 /* Are we big endian? */
@@ -321,84 +306,14 @@ typedef  apr_uint32_t            apr_uintptr_t;
 #define APR_INT64_C(val) INT64_C(val)
 #define APR_UINT64_C(val) UINT64_C(val)
 
-#ifdef INT16_MIN
-#define APR_INT16_MIN   INT16_MIN
-#else
-#define APR_INT16_MIN   (-0x7fff - 1)
-#endif
-
-#ifdef INT16_MAX
-#define APR_INT16_MAX  INT16_MAX
-#else
-#define APR_INT16_MAX   (0x7fff)
-#endif
-
-#ifdef UINT16_MAX
-#define APR_UINT16_MAX  UINT16_MAX
-#else
-#define APR_UINT16_MAX  (0xffff)
-#endif
-
-#ifdef INT32_MIN
-#define APR_INT32_MIN   INT32_MIN
-#else
-#define APR_INT32_MIN   (-0x7fffffff - 1)
-#endif
-
-#ifdef INT32_MAX
-#define APR_INT32_MAX  INT32_MAX
-#else
-#define APR_INT32_MAX  0x7fffffff
-#endif
-
-#ifdef UINT32_MAX
-#define APR_UINT32_MAX  UINT32_MAX
-#else
-#define APR_UINT32_MAX  (0xffffffffU)
-#endif
-
-#ifdef INT64_MIN
-#define APR_INT64_MIN   INT64_MIN
-#else
-#define APR_INT64_MIN   (APR_INT64_C(-0x7fffffffffffffff) - 1)
-#endif
-
-#ifdef INT64_MAX
-#define APR_INT64_MAX   INT64_MAX
-#else
-#define APR_INT64_MAX   APR_INT64_C(0x7fffffffffffffff)
-#endif
-
-#ifdef UINT64_MAX
-#define APR_UINT64_MAX  UINT64_MAX
-#else
-#define APR_UINT64_MAX  APR_UINT64_C(0xffffffffffffffff)
-#endif
-
-#define APR_SIZE_MAX    (~((apr_size_t)0))
-
-
 /* Definitions that APR programs need to work properly. */
-
-/**
- * APR public API wrap for C++ compilers.
- */
-#ifdef __cplusplus
-#define APR_BEGIN_DECLS     extern "C" {
-#define APR_END_DECLS       }
-#else
-#define APR_BEGIN_DECLS
-#define APR_END_DECLS
-#endif
 
 /** 
  * Thread callbacks from APR functions must be declared with APR_THREAD_FUNC, 
  * so that they follow the platform's calling convention.
- * <PRE>
- *
- * void* APR_THREAD_FUNC my_thread_entry_fn(apr_thread_t *thd, void *data);
- *
- * </PRE>
+ * @example
+ */
+/** void* APR_THREAD_FUNC my_thread_entry_fn(apr_thread_t *thd, void *data);
  */
 #define APR_THREAD_FUNC
 
@@ -408,10 +323,9 @@ typedef  apr_uint32_t            apr_uintptr_t;
  * variable arguments must use APR_DECLARE_NONSTD().
  *
  * @remark Both the declaration and implementations must use the same macro.
- *
- * <PRE>
- * APR_DECLARE(rettype) apr_func(args)
- * </PRE>
+ * @example
+ */
+/** APR_DECLARE(rettype) apr_func(args)
  * @see APR_DECLARE_NONSTD @see APR_DECLARE_DATA
  * @remark Note that when APR compiles the library itself, it passes the 
  * symbol -DAPR_DECLARE_EXPORT to the compiler on some platforms (e.g. Win32) 
@@ -430,11 +344,9 @@ typedef  apr_uint32_t            apr_uintptr_t;
  * APR_DECLARE_NONSTD(), as they must follow the C language calling convention.
  * @see APR_DECLARE @see APR_DECLARE_DATA
  * @remark Both the declaration and implementations must use the same macro.
- * <PRE>
- *
- * APR_DECLARE_NONSTD(rettype) apr_func(args, ...);
- *
- * </PRE>
+ * @example
+ */
+/** APR_DECLARE_NONSTD(rettype) apr_func(args, ...);
  */
 #define APR_DECLARE_NONSTD(type)     type
 
@@ -444,13 +356,10 @@ typedef  apr_uint32_t            apr_uintptr_t;
  * @see APR_DECLARE @see APR_DECLARE_NONSTD
  * @remark Note that the declaration and implementations use different forms,
  * but both must include the macro.
- * 
- * <PRE>
- *
- * extern APR_DECLARE_DATA type apr_variable;\n
+ * @example
+ */
+/** extern APR_DECLARE_DATA type apr_variable;\n
  * APR_DECLARE_DATA type apr_variable = value;
- *
- * </PRE>
  */
 #define APR_DECLARE_DATA
 
@@ -500,6 +409,7 @@ typedef  apr_uint32_t            apr_uintptr_t;
 /* Local machine definition for console and log output. */
 #define APR_EOL_STR              "\n"
 
+
 #if APR_HAVE_SYS_WAIT_H
 #ifdef WEXITSTATUS
 #define apr_wait_t       int
@@ -508,8 +418,6 @@ typedef  apr_uint32_t            apr_uintptr_t;
 #define WEXITSTATUS(status)    (int)((status).w_retcode)
 #define WTERMSIG(status)       (int)((status).w_termsig)
 #endif /* !WEXITSTATUS */
-#elif defined(__MINGW32__)
-typedef int apr_wait_t;
 #endif /* HAVE_SYS_WAIT_H */
 
 #if defined(PATH_MAX)
@@ -520,22 +428,7 @@ typedef int apr_wait_t;
 #error no decision has been made on APR_PATH_MAX for your platform
 #endif
 
-#define APR_DSOPATH "DYLD_LIBRARY_PATH"
-
 /** @} */
-
-/* Definitions that only Win32 programs need to compile properly. */
-
-/* XXX These simply don't belong here, perhaps in apr_portable.h
- * based on some APR_HAVE_PID/GID/UID?
- */
-#ifdef __MINGW32__
-#ifndef __GNUC__
-typedef  int         pid_t;
-#endif
-typedef  int         uid_t;
-typedef  int         gid_t;
-#endif
 
 #ifdef __cplusplus
 }

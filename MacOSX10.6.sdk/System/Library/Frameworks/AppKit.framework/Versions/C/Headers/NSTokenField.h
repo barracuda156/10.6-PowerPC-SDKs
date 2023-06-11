@@ -1,7 +1,7 @@
 /*
 	NSTokenField.h
 	Application Kit
-	Copyright (c) 2004-2008, Apple Inc.
+	Copyright (c) 2004-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -9,8 +9,6 @@
 #import <AppKit/NSTextField.h>
 #import <AppKit/NSTokenFieldCell.h>
 #import <Foundation/Foundation.h>
-
-@protocol NSTokenFieldDelegate;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4
 
@@ -25,9 +23,6 @@
     id _reserved6;
     id _reserved7;
 }
-
-- (void)setDelegate:(id <NSTokenFieldDelegate>)anObject;
-- (id <NSTokenFieldDelegate>)delegate;
 
 /* Sets the default token style used for each new token.  However, if the delegate implements tokenField:styleForRepresentedObject:, that return value will be used instead.
 */
@@ -44,10 +39,8 @@
 
 @end
 
-@protocol NSTokenFieldDelegate <NSTextFieldDelegate>
-
-@optional
-
+@interface NSObject (NSTokenFieldDelegate)
+ 
 // Each element in the array should be an NSString or an array of NSStrings.
 // substring is the partial string that is being completed.  tokenIndex is the index of the token being completed.
 // selectedIndex allows you to return by reference an index specifying which of the completions should be selected initially. 

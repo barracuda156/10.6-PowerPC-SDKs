@@ -3,7 +3,7 @@
  
      Contains:   FPCE Floating-Point Definitions and Declarations.
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1987-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -73,7 +73,8 @@ extern "C" {
     /* remainder of this file until #endif  TARGET_RT_MAC_MACHO is*/
     /* ignored. */
 #elif (defined(__MWERKS__) && defined(__cmath__))
-    /* many types were already defined in math.h */
+    /* many
+ types were already defined in math.h */
 #else
 #if TARGET_CPU_PPC || TARGET_CPU_PPC64
 typedef float                           float_t;
@@ -2301,8 +2302,6 @@ extern long double  fminl(long double x, long double y);
 
 
 #endif /* __MWERKS__ */
-#endif  /* TARGET_CPU_PPC || TARGET_CPU_PPC64 */
-
 #ifndef __NOEXTENSIONS__
 /*
  *  relationl()
@@ -2361,6 +2360,8 @@ extern long double  dec2numl(const decimal * d);
 
 
 #endif  /* !defined(__NOEXTENSIONS__) */
+
+#endif  /* TARGET_CPU_PPC || TARGET_CPU_PPC64 */
 
 #ifndef __NOEXTENSIONS__
 /*    

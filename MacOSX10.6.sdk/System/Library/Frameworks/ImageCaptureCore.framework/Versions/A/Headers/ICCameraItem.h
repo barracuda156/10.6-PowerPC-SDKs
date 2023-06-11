@@ -13,12 +13,6 @@
     @abstract ICCameraItem is an abstract class that represents an item in an ICCameraDevice object. ICCameraDevice object creates instances of two concrete subclasses of ICCameraItem: ICCameraFolder and ICCameraFile.
 */
 
-//------------------------------------------------------------------------------------------------------------------------------
-
-#import <ImageCaptureCore/ICCommonConstants.h>
-
-//------------------------------------------------------------------------------------------------------------------------------
-
 @class ICCameraDevice;
 @class ICCameraFolder;
 
@@ -68,13 +62,6 @@
 
 */
 @property(readonly, getter=isLocked)            BOOL            locked;
-
-/*!
-    @property raw
-    @abstract ￼Indicates if the file is a raw image file.
-
-*/
-@property(readonly, getter=isRaw)            BOOL               raw;
 
 /*!
     @property inTemporaryStore
@@ -152,14 +139,6 @@
 
 */
 @property(readonly)   off_t                 fileSize;
-
-/*!
-    @property orientation
-    @abstract ￼Desired orientation of image to use when it is downloaded.
-    @discussion This property is set to ICEXIFOrientation1 initially. If the format of this file supports EXIF orientation tag, then this property will be updated to match the value of that tag, when the thumbnail or metadata for this file is received. 
-
-*/
-@property(readwrite)  ICEXIFOrientationType orientation;
 
 /*!
     @property userData

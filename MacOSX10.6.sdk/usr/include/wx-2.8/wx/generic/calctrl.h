@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     29.12.99
-// RCS-ID:      $Id: calctrl.h 49804 2007-11-10 01:09:42Z VZ $
+// RCS-ID:      $Id: calctrl.h,v 1.33 2006/11/19 20:01:51 VZ Exp $
 // Copyright:   (c) 1999 Vadim Zeitlin <zeitlin@dptmaths.ens-cachan.fr>
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -15,9 +15,9 @@
 #include "wx/control.h"         // the base class
 #include "wx/dcclient.h"        // for wxPaintDC
 
-class WXDLLIMPEXP_FWD_CORE wxComboBox;
-class WXDLLIMPEXP_FWD_CORE wxStaticText;
-class WXDLLIMPEXP_FWD_CORE wxSpinCtrl;
+class WXDLLEXPORT wxComboBox;
+class WXDLLEXPORT wxStaticText;
+class WXDLLEXPORT wxSpinCtrl;
 
 #define wxCalendarNameStr _T("CalendarCtrl")
 

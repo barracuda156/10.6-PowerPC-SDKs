@@ -1,5 +1,5 @@
 /*	NSURL.h
-	Copyright (c) 1997-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1997-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -8,22 +8,17 @@
 #import <Foundation/NSURLHandle.h>
 #endif
 
-#if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
 enum {
-    NSURLBookmarkCreationPreferFileIDResolution = ( 1 << 8 ),  /* At resolution time, this alias will prefer resolving by the embedded fileID to the path */
-    NSURLBookmarkCreationMinimalBookmark = ( 1 << 9 ), /* Creates a bookmark with "less" information, which may be smaller but still be able to resolve in certain ways */
-    NSURLBookmarkCreationSuitableForBookmarkFile = ( 1 << 10 ),	/* include properties required in Finder alias files in created bookmark */
+	NSURLBookmarkCreationPreferFileIDResolution = 0x100,  /* At resolution time, this alias will prefer resolving by the embedded fileID to the path */
+	NSURLBookmarkCreationMinimalBookmark = 0x200, /* Creates a bookmark with "less" information, which may be smaller but still be able to resolve in certain ways */
 };
-
-enum {
-    NSURLBookmarkResolutionWithoutUI = ( 1 << 8 ),		/* don't perform any UI during bookmark resolution */
-    NSURLBookmarkResolutionWithoutMounting = ( 1 << 9 ),	/* don't mount a volume during bookmark resolution */
-};
-#endif
-
 typedef NSUInteger NSURLBookmarkCreationOptions;
+
+enum {
+	NSURLBookmarkResolutionWithoutUI = 0x100,		/* don't perform any UI during bookmark resolution */
+	NSURLBookmarkResolutionWithoutMounting = 0x200,	/* don't mount a volume during bookmark resolution */
+};
 typedef NSUInteger NSURLBookmarkResolutionOptions;
-typedef NSUInteger NSURLBookmarkFileCreationOptions;
 
 @class NSNumber, NSData, NSDictionary;
 
@@ -43,9 +38,9 @@ FOUNDATION_EXPORT NSString *NSURLFileScheme;
 }
         
 // Convenience initializers
-- (id)initWithScheme:(NSString *)scheme host:(NSString *)host path:(NSString *)path;
-- (id)initFileURLWithPath:(NSString *)path isDirectory:(BOOL)isDir AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-- (id)initFileURLWithPath:(NSString *)path;  // Better to use initFileURLWithPath:isDirectory: if you know if the path is a file vs directory, as it saves an i/o.
+- initWithScheme:(NSString *)scheme host:(NSString *)host path:(NSString *)path;
+- initFileURLWithPath:(NSString *)path isDirectory:(BOOL)isDir AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
+- initFileURLWithPath:(NSString *)path;  // Better to use initFileURLWithPath:isDirectory: if you know if the path is a file vs directory, as it saves an i/o.
 
 + (id)fileURLWithPath:(NSString *)path isDirectory:(BOOL) isDir AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 + (id)fileURLWithPath:(NSString *)path; // Better to use fileURLWithPath:isDirectory: if you know if the path is a file vs directory, as it saves an i/o.
@@ -120,42 +115,29 @@ FOUNDATION_EXPORT NSString *NSURLFileScheme;
 */
 - (NSURL *)filePathURL AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-/* Working with Boomarks and alias (bookmark) files 
- */
-
 /* Create a NSData containing a externalizable representation from a given url, which can later be resolved or interrogated for properties */
-- (NSData *)bookmarkDataWithOptions:(NSURLBookmarkCreationOptions)options includingResourceValuesForKeys:(NSArray *)keys relativeToURL:(NSURL *)relativeURL error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (NSData *)bookmarkDataWithOptions:(NSURLBookmarkCreationOptions)options includingResourceValuesForKeys:(NSArray *)keys relativeToURL:( NSURL*)relativeURL error:(NSURL **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 /* Resolve bookmark data into a url; init and factory methods  */
-- (NSURL *)initByResolvingBookmarkData:(NSData *)bookmarkData options:(NSURLBookmarkResolutionOptions)options relativeToURL:(NSURL *)relativeURL bookmarkDataIsStale:(BOOL *)isStale error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+- (NSURL*)initByResolvingBookmarkData:(NSData*)bookmarkData options:(NSURLBookmarkResolutionOptions)options relativeToURL:(NSURL *)relativeURL bookmarkDataIsStale:(BOOL *)isStale error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 + (NSURL *)URLByResolvingBookmarkData:(NSData *)bookmarkData options:(NSURLBookmarkResolutionOptions)options relativeToURL:(NSURL *)relativeURL bookmarkDataIsStale:(BOOL *)isStale error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 /* Property access.  Given a NSData* created with bookmarkDataWithOptions, return a given property or all of the properties in bookmark data */
 + (NSDictionary *)resourceValuesForKeys:(NSArray *)keys fromBookmarkData:(NSData *)bookmarkData AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
-/* Create a bookmark file on disk at bookmarkFileURL which can be resolved back to the file system item represented by bookmarkData, using the given options.
-   If relativeToURL is non-NULL, create a relative url. The bookmark data must have been created with the NSURLBookmarkCreationSuitableForBookmarkFile flag
-   or this routine will fail.  If bookmarkFileURL is a directory then the file will be created in that directory with the name of the item represented
-   by bookmarkData with ".alias" appended.  If bookmarkFileURL is a file then its extension will be changed to ".alias", if not present. */
-+ (BOOL) writeBookmarkData:(NSData *) bookmarkData toURL:(NSURL *)bookmarkFileURL options:(NSURLBookmarkFileCreationOptions)options error:(NSError **)error;
-
-/* Given the url of a file which is a Finder "alias" file, return a NSData with the bookmark data from the file.  If bookmarkFileURL points to an alias file
-   created before SnowLeopard which contains Alias Manager information and no bookmark data, then a NSData will be synthesized which contains
-   a approximation of the alias information in a format which can be used to resolve the bookmark.  If an error prevents reading the data or
-   if it is corrupt, NULL will be returned and error will be filled in if errorRef is non-NULL. */
-+ (NSData *) bookmarkDataWithContentsOfURL:(NSURL *)bookmarkFileURL error:(NSError **)error;
-
 @end
 
+#if MAC_OS_X_VERSION_10_3 <= MAC_OS_X_VERSION_MAX_ALLOWED
 @interface NSString (NSURLUtilities)
 
 /* Adds all percent escapes necessary to convert the receiver in to a legal URL string.  Uses the given encoding to determine the correct percent escapes (returning nil if the given encoding cannot encode a particular character).  See CFURLCreateStringByAddingPercentEscapes in CFURL.h for more complex transformations */
-- (NSString *)stringByAddingPercentEscapesUsingEncoding:(NSStringEncoding)enc AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+- (NSString *)stringByAddingPercentEscapesUsingEncoding:(NSStringEncoding)enc;
 
 /* Replaces all percent escapes with the matching characters as determined by the given encoding.  Returns nil if the transformation is not possible (i.e. the percent escapes give a byte sequence not legal in the given encoding).  See CFURLCreateStringByReplacingPercentEscapes in CFURL.h for more complex transformations */
-- (NSString *)stringByReplacingPercentEscapesUsingEncoding:(NSStringEncoding)enc AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+- (NSString *)stringByReplacingPercentEscapesUsingEncoding:(NSStringEncoding)enc;
 
 @end
+#endif
 
 #if (TARGET_OS_MAC && !(TARGET_OS_EMBEDDED || TARGET_OS_IPHONE))
 // Client informal protocol for use with the deprecated loadResourceDataNotifyingClient: below.  
@@ -221,7 +203,6 @@ FOUNDATION_EXPORT NSString * const NSURLCustomIconKey                  AVAILABLE
 */
 FOUNDATION_EXPORT NSString * const NSURLFileSizeKey                    AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; // File size in bytes; NSNumber
 FOUNDATION_EXPORT NSString * const NSURLFileAllocatedSizeKey           AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; // Total size allocated on disk for the file (number of blocks times block size); NSNumber
-FOUNDATION_EXPORT NSString * const NSURLIsAliasFileKey		       AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER; // true if the item is an alias file, false otherwise ; boolean NSNumber
 
 /* Volume Properties
 

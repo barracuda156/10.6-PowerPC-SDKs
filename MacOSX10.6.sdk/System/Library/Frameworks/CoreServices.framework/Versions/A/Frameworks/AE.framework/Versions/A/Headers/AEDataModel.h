@@ -3,7 +3,7 @@
  
      Contains:   AppleEvent Data Model Interfaces.
  
-     Version:    AppleEvents-464~2
+     Version:    AppleEvents-451~1
  
      Copyright:  © 1996-2008 by Apple Computer, Inc., all rights reserved
  
@@ -129,7 +129,6 @@ enum {
   typeProperty                  = 'prop',
   typeFSRef                     = 'fsrf', /* FSRef */
   typeFileURL                   = 'furl',
-  typeBookmarkData              = 'bmrk',
   typeKeyword                   = 'keyw', /* OSType */
   typeSectionH                  = 'sect',
   typeWildCard                  = '****',
@@ -192,12 +191,7 @@ enum {
   keyMissedKeywordAttr          = 'miss', /* this attribute is read only */
   keyOriginalAddressAttr        = 'from', /* new in 1.0.1 */
   keyAcceptTimeoutAttr          = 'actm', /* new for Mac OS X */
-  keyReplyRequestedAttr         = 'repq', /* Was a reply requested for this event - returned as typeBoolean */
-  keySecureSenderEUID           = 'seid', /* read only, returned as typeInteger.  Will be the euid of the sender of this event. */
-  keySecureSenderEGID           = 'sgid', /* read only, returned as typeInteger.  Will be the egid of the sender of this event. */
-  keySecureSenderUID            = 'uids', /* read only, returned as typeInteger.  Will be the uid of the sender of this event. */
-  keySecureSenderGID            = 'gids', /* read only, returned as typeInteger.  Will be the gid of the sender of this event. */
-  keySecureSenderPID            = 'spid' /* read only, returned as typeInteger.  Will be the pid of the sender of this event. */
+  keyReplyRequestedAttr         = 'repq' /* Was a reply requested for this event - returned as typeBoolean */
 };
 
 /* These bits are specified in the keyXMLDebuggingAttr (an SInt32) */

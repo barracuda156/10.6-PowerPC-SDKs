@@ -98,4 +98,4 @@ CG_EXTERN void CGPDFDictionaryApplyFunction(CGPDFDictionaryRef dict,
     CGPDFDictionaryApplierFunction function, void *info)
     CG_AVAILABLE_STARTING(__MAC_10_3, __IPHONE_2_0);
 
-#endif /* CGPDFDICTIONARY_H_ */
+#endif	/* CGPDFDICTIONARY_H_ */

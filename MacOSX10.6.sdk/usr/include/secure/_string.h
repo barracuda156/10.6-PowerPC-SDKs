@@ -40,9 +40,7 @@
 #undef memmove
 #undef memset
 #undef strcpy
-#if !defined(_POSIX_C_SOURCE) || defined(_DARWIN_C_SOURCE)
 #undef stpcpy
-#endif  /* (!_POSIX_C_SOURCE || _DARWIN_C_SOURCE) */
 #undef strncpy
 #undef strcat
 #undef strncat
@@ -91,7 +89,6 @@ __inline_strcpy_chk (char *__restrict __dest, const char *__restrict __src)
   return __builtin___strcpy_chk (__dest, __src, __darwin_obsz(__dest));
 }
 
-#if !defined(_POSIX_C_SOURCE) || defined(_DARWIN_C_SOURCE)
 #define stpcpy(dest, src)					\
   ((__darwin_obsz0 (dest) != (size_t) -1)				\
    ? __builtin___stpcpy_chk (dest, src, __darwin_obsz (dest))		\
@@ -102,7 +99,6 @@ __inline_stpcpy_chk (char *__dest, const char *__src)
 {
   return __builtin___stpcpy_chk (__dest, __src, __darwin_obsz(__dest));
 }
-#endif  /* (!_POSIX_C_SOURCE || _DARWIN_C_SOURCE) */
 
 #define strncpy(dest, src, len)					\
   ((__darwin_obsz0 (dest) != (size_t) -1)				\
@@ -129,7 +125,7 @@ __inline_strcat_chk (char *__restrict __dest, const char *__restrict __src)
 
 #define strncat(dest, src, len)					\
   ((__darwin_obsz0 (dest) != (size_t) -1)				\
-   ? __builtin___strncat_chk (dest, src, len, __darwin_obsz (dest))	\
+   ? __builtin___strcat_chk (dest, src, __darwin_obsz (dest))		\
    : __inline_strncat_chk (dest, src, len))
 
 static __inline char *

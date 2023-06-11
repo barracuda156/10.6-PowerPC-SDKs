@@ -205,13 +205,6 @@
 
 #define kAXLevelIndicatorRole				CFSTR("AXLevelIndicator")
 
-#define kAXCellRole					CFSTR("AXCell")
-
-#define kAXLayoutAreaRole				CFSTR("AXLayoutArea")
-#define kAXLayoutItemRole				CFSTR("AXLayoutItem")
-#define kAXHandleRole					CFSTR("AXHandle")
-
-
 /*ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ*/
 /* Subroles                                                                                */
 /*ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ*/
@@ -240,8 +233,6 @@
 #define kAXSearchFieldSubrole				CFSTR("AXSearchField")
 #define kAXTimelineSubrole 				CFSTR("AXTimeline")
 #define kAXRatingIndicatorSubrole			CFSTR("AXRatingIndicator")
-#define kAXContentListSubrole 				CFSTR("AXContentList")
-#define kAXDefinitionListSubrole			CFSTR("AXDefinitionList")
 
 // dock subroles
 #define kAXApplicationDockItemSubrole			CFSTR("AXApplicationDockItem")

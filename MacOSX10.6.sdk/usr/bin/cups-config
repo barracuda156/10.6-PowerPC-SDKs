@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# "$Id: cups-config.in 7394 2008-03-21 23:41:43Z mike $"
+# "$Id: cups-config.in 6649 2007-07-11 21:46:42Z mike $"
 # 
 #   CUPS configuration utility.
 #
@@ -34,7 +34,7 @@ INSTALLSTATIC=
 # flags for C++ compiler:
 CFLAGS=""
 LDFLAGS=""
-LIBS="-weak_framework Kerberos -framework CoreFoundation -framework Security -lz -lpthread -lresolv -framework SystemConfiguration -framework CoreFoundation "
+LIBS="-weak_framework Kerberos -framework CoreFoundation -framework Security -lz -lpthread -framework SystemConfiguration -framework CoreFoundation "
 IMGLIBS="  "
 
 # Check for local invocation...
@@ -151,5 +151,5 @@ while test $# -gt 0; do
 done
 
 #
-# End of "$Id: cups-config.in 7394 2008-03-21 23:41:43Z mike $".
+# End of "$Id: cups-config.in 6649 2007-07-11 21:46:42Z mike $".
 #

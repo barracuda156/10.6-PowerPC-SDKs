@@ -33,10 +33,6 @@
 class IOUSBController;
 class IOUSBPipe;
 
-/*!
- @class IOUSBNub
- @abstract Super class for for IOUSBDevice and IOUSBInterface.
- */
 class IOUSBNub : public IOService
 {
     OSDeclareDefaultStructors(IOUSBNub)
@@ -44,12 +40,12 @@ class IOUSBNub : public IOService
 public:
 	
 	// IOKit method
-	virtual void					joinPMtree ( IOService * driver );
+	virtual void	joinPMtree ( IOService * driver );
 
-    virtual bool					USBCompareProperty(OSDictionary   * matching, const char     * key );
+    virtual bool    USBCompareProperty(OSDictionary   * matching, const char     * key );
     
-    bool							IsWildCardMatch( OSDictionary   * matching, const char     * key );
-    bool							USBComparePropertyWithMask( OSDictionary *matching, const char *key, const char * maskKey );
+    bool        IsWildCardMatch( OSDictionary   * matching, const char     * key );
+    bool	    USBComparePropertyWithMask( OSDictionary *matching, const char *key, const char * maskKey );
 };
 
 #ifdef __cplusplus

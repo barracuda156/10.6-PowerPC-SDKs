@@ -1186,8 +1186,6 @@ public:
     /* overrides */
     virtual bool serializeProperties( OSSerialize * s ) const;
 
-    void   requireMaxBusStall(UInt32 ns);
-    void   requireMaxInterruptDelay(uint32_t ns);
 
     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * */
     /* * * * * * * * * * * * Internals * * * * * * * * * * * */
@@ -1512,7 +1510,7 @@ public:
 /*! @function PM_Clamp_Timer_Expired
     @discussion This call is handled internally by power management. It is not intended to be overridden or called by drivers. */
 
-    virtual void PM_Clamp_Timer_Expired( void )
+    virtual void PM_Clamp_Timer_Expired( void );
     APPLE_KEXT_DEPRECATED;
 #endif
 

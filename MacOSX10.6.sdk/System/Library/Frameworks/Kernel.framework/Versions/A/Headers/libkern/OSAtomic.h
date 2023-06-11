@@ -62,7 +62,7 @@ extern SInt64 OSAddAtomic64(SInt64 theAmount, volatile SInt64 *address);
 */
 inline static SInt64 OSIncrementAtomic64(volatile SInt64 *address)
 {
-	return OSAddAtomic64(1LL, address);
+	return OSAddAtomic64(1, address);
 }
 
 /*! @function OSDecrementAtomic64
@@ -71,7 +71,7 @@ inline static SInt64 OSIncrementAtomic64(volatile SInt64 *address)
 */
 inline static SInt64 OSDecrementAtomic64(volatile SInt64 *address)
 {
-	return OSAddAtomic64(-1LL, address);
+	return OSAddAtomic64(-1, address);
 }
 
 #endif  /* defined(__i386__) || defined(__x86_64__) */

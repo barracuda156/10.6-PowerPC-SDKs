@@ -7,15 +7,15 @@ version="5.2.6"
 vernum="50206"
 include_dir="${prefix}/include/php"
 includes="-I$include_dir -I$include_dir/main -I$include_dir/TSRM -I$include_dir/Zend -I$include_dir/ext -I$include_dir/ext/date/lib"
-ldflags=" -L/BinaryCache/apache_mod_php/apache_mod_php-48~7/Root/usr/local/lib -L/usr/lib/mysql"
-libs="-lresolv  -lexslt -liconv -liodbc -lmysqlclient -lldap -llber -liconv -liconv -lpng -lz -ljpeg -lssl -lcrypto -lcurl -lz -lpcre -lssl -lcrypto -lm  -lxml2 -lz -licucore -lm -lgssapi_krb5 -lkrb5 -lk5crypto -lcom_err -lcurl -lssl -lcrypto -lz -lxml2 -lz -licucore -lm -lmysqlclient -lz -lm -liodbc -lmysqlclient -lz -lm -lxml2 -lz -licucore -lm -lnetsnmp -lxml2 -lz -licucore -lm -lxml2 -lz -licucore -lm -lxml2 -lz -licucore -lm -lxml2 -lz -licucore -lm -lxslt -lxml2 -lz -licucore -lm "
+ldflags=" -L/usr/lib/mysql"
+libs="  -lexslt -liconv -liodbc -lmysqlclient -lldap -llber -liconv -liconv -lssl -lcrypto -lcurl -lz -lssl -lcrypto -lm  -lxml2 -lz -licucore -lm -lgssapi_krb5 -lkrb5 -lk5crypto -lcom_err -lcurl -lssl -lcrypto -lz -lxml2 -lz -licucore -lm -lmysqlclient -lz -lm -liodbc -lxml2 -lz -licucore -lm -lxml2 -lz -licucore -lm -lxml2 -lz -licucore -lm -lxml2 -lz -licucore -lm -lxml2 -lz -licucore -lm -lxslt -lxml2 -lz -licucore -lm "
 extension_dir='/usr/lib/php/extensions/no-debug-non-zts-20060613'
 program_prefix=""
 program_suffix=""
 exe_extension=""
 php_cli_binary=NONE
 php_cgi_binary=NONE
-configure_options=" '--prefix=/usr' '--mandir=/usr/share' '--with-apxs2=/usr/sbin/apxs' '--with-ldap=/usr' '--with-ldap-sasl=/usr' '--with-pcre-regex=/usr' '--with-kerberos=/usr' '--with-gd' '--with-jpeg-dir=/BinaryCache/apache_mod_php/apache_mod_php-48~7/Root/usr/local' '--with-png-dir=/BinaryCache/apache_mod_php/apache_mod_php-48~7/Root/usr/local' '--enable-cli' '--with-zlib-dir=/usr' '--enable-exif' '--enable-ftp' '--enable-mbstring' '--enable-mbregex' '--enable-sockets' '--with-iodbc=/usr' '--with-curl=/usr' '--with-config-file-path=/etc' '--sysconfdir=' '--with-mysql-sock=/var/mysql' '--with-mysqli=/usr/bin/mysql_config' '--with-mysql=/usr' '--with-openssl' '--with-xmlrpc' '--with-xsl=/usr' '--with-snmp=/usr' '--with-pdo-mysql=/usr/bin/mysql_config' '--without-pear'"
+configure_options=" '--prefix=/usr' '--mandir=/usr/share/man' '--infodir=/usr/share/info' '--disable-dependency-tracking' '--with-apxs2=/usr/sbin/apxs' '--with-ldap=/usr' '--with-ldap-sasl=/usr' '--without-pcre' '--with-pcre-dir=/usr' '--with-kerberos=/usr' '--enable-cli' '--with-zlib-dir=/usr' '--enable-trans-sid' '--with-xml' '--enable-exif' '--enable-ftp' '--enable-mbstring' '--enable-mbregex' '--enable-dbx' '--enable-sockets' '--with-iodbc=/usr' '--with-curl=/usr' '--with-config-file-path=/etc' '--sysconfdir=/private/etc' '--with-mysql-sock=/var/mysql' '--with-mysqli=/usr/bin/mysql_config' '--with-mysql=/usr' '--with-openssl' '--with-xmlrpc' '--with-xsl=/usr' '--without-pear'"
 php_sapis="cli apache2handler"
 
 # Set php_cli_binary and php_cgi_binary if available

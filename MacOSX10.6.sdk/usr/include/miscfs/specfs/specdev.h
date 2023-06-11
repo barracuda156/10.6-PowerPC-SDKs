@@ -98,7 +98,6 @@ struct specinfo {
  * Flags for specinfo
  */
 #define	SI_MOUNTEDON	0x0001	/* block special device is mounted on */
-#define SI_ALIASED	0x0002  /* multiple active vnodes refer to this device */
 
 /*
  * Special device management

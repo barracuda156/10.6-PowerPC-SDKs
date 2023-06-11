@@ -36,8 +36,6 @@
 @class NSGlyphGenerator;
 @class NSTextBlock;
 
-@protocol NSLayoutManagerDelegate;
-
 /* These glyph attributes are used only inside the glyph generation machinery, but must be shared between components. */
 enum {
     NSGlyphAttributeSoft        = 0,
@@ -208,8 +206,8 @@ typedef NSInteger NSTypesetterBehavior;
 - (void)setTypesetter:(NSTypesetter *)typesetter;
     // By default an NSLayoutManager uses the shared default typesetter.  Setting the typesetter invalidates all glyphs in the NSLayoutManager.  It can't just invalidate layout because the typesetter may have contributed to the actual glyphs as well (e.g. hyphenation).
 
-- (id <NSLayoutManagerDelegate>)delegate;
-- (void)setDelegate:(id <NSLayoutManagerDelegate>)delegate;
+- (id)delegate;
+- (void)setDelegate:(id)delegate;
     // Sets or gets the NSLayoutManager's delegate.
 
 /**************************** Text containers ****************************/
@@ -561,11 +559,6 @@ typedef NSInteger NSTypesetterBehavior;
 - (void)showAttachmentCell:(NSCell *)cell inRect:(NSRect)rect characterIndex:(NSUInteger)attachmentIndex;
    // This is the primitive for actually drawing an attachment cell.  The attachment should be drawn within the given rect.  The character index is provided for those cells that alter their appearance based on their location.
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-- (void)fillBackgroundRectArray:(NSRectArray)rectArray count:(NSUInteger)rectCount forCharacterRange:(NSRange)charRange color:(NSColor *)color;
-   // This is the primitive used by -drawBackgroundForGlyphRange:atPoint: for actually filling rects with a particular background color, whether due to a background color attribute, a selected or marked range highlight, a block decoration, or any other rect fill needed by that method.  As with -showPackedGlyphs:..., the character range and color are merely for informational purposes; the color will already be set in the graphics state.  If for any reason you modify it, you must restore it before returning from this method.  You should never call this method, but you might override it.  The default implementation will simply fill the specified rect array.
-#endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6 */
-
 - (void)drawUnderlineForGlyphRange:(NSRange)glyphRange underlineType:(NSInteger)underlineVal baselineOffset:(CGFloat)baselineOffset lineFragmentRect:(NSRect)lineRect lineFragmentGlyphRange:(NSRange)lineGlyphRange containerOrigin:(NSPoint)containerOrigin;
 - (void)underlineGlyphRange:(NSRange)glyphRange underlineType:(NSInteger)underlineVal lineFragmentRect:(NSRect)lineRect lineFragmentGlyphRange:(NSRange)lineGlyphRange containerOrigin:(NSPoint)containerOrigin;
     // The first of these methods actually draws an appropriate underline for the glyph range given.  The second method potentially breaks the range it is given up into subranges and calls drawUnderline... for ranges that should actually have the underline drawn.  As examples of why there are two methods, consider two situations.  First, in all cases you don't want to underline the leading and trailing whitespace on a line.  The -underlineGlyphRange... method is passed glyph ranges that have underlining turned on, but it will then look for this leading and trailing white space and only pass the ranges that should actually be underlined to -drawUnderline...  Second, if the underlineType: indicates that only words, (i.e., no whitespace), should be underlined, then -underlineGlyphRange... will carve the range it is passed up into words and only pass word ranges to -drawUnderline.
@@ -578,8 +571,8 @@ typedef NSInteger NSTypesetterBehavior;
 
 @end
 
-@protocol NSLayoutManagerDelegate <NSObject>
-@optional
+@interface NSObject (NSLayoutManagerDelegate)
+
 - (void)layoutManagerDidInvalidateLayout:(NSLayoutManager *)sender;
     // This is sent whenever layout or glyphs become invalidated in a layout manager which previously had all layout complete.
 

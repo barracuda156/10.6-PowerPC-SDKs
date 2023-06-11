@@ -40,5 +40,10 @@
 #include <ColorSync/CMMComponent.h>
 #endif
 
+#ifndef __CMSCRIPTINGPLUGIN__
+#include <ColorSync/CMScriptingPlugin.h>
+#endif
+
+
 #endif /* __COLORSYNC__ */
 

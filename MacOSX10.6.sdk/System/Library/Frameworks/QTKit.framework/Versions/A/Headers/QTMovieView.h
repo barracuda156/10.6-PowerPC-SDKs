@@ -129,18 +129,6 @@ QTKIT_EXTERN NSString * const QTMovieViewFillColorBinding					AVAILABLE_MAC_OS_X
 - (CIImage *)view:(QTMovieView *)view willDisplayImage:(CIImage *)image;
 #endif /* (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_2) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4) */
 
-#if (QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6)
-/*!
- @method		menuForEventDelegate:
- @param			An NSEvent object that specifies an event.
- @abstract		Returns an NSMenu object that is the contextual menu for the specified event.
- @discussion	This delegate method can be used instead of subclassing QTMovieView in cases that
-				an application cannot hard link against the QTKit framework.
- */
-
-- (NSMenu *)menuForEventDelegate:(NSEvent *)event;
-#endif
-
 @end
 
 #endif	// QTMOVIEVIEW_H

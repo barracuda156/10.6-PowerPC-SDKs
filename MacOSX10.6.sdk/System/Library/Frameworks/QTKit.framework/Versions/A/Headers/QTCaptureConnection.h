@@ -33,7 +33,11 @@ QTKIT_EXTERN NSString * const QTCaptureConnectionEnabledAudioChannelsAttribute		
 
 @interface QTCaptureConnection : NSObject {
 @private
+#if __LP64__
+	int32_t						_proxy;
+#else
 	QTCaptureConnectionInternal	*_internal;
+#endif
 	long						_reserved1;
 	long						_reserved2;
 	long						_reserved3;

@@ -10,10 +10,10 @@
 #include <OpenGL/CGLDevice.h>
 
 typedef unsigned cl_bitfield;
-typedef struct _CLDevice * cl_device;
+typedef struct _CLDeviceID * cl_device_id;
 typedef struct _CLContext * cl_context;
 typedef struct _CLEvent * cl_event;
-typedef struct _CLGroup * cl_device_group;
+typedef struct _CLDevice * cl_device;
 typedef struct _CLKernel * cl_kernel;
 typedef struct _CLProgram * cl_program;
 typedef struct _CLMem * cl_mem;
@@ -37,18 +37,7 @@ typedef enum cl_error {
   CL_INVALID_OPERATION    = -11,
   CL_INVALID_ATTACHMENT   = -12,
   CL_BUILD_ERROR          = -13,
-  CL_INVALID_OPTIONS      = -14,
-  CL_INVALID_DEVICE_ID    = -15,
-  CL_INVALID_GLOBAL_WORK_DIM  = -16,
-  CL_INVALID_LOCAL_WORK_DIM   = -17,
-  CL_INVALID_WORK_DIM_SIZE    = -18,
-  CL_INVALID_EVENT_WAIT_LIST  = -19,
-  CL_PROFILING_INFO_NOT_AVAILABLE = -20,
-  CL_NO_DEVICE_FOUND    = -21,
-  CL_INVALID_ARG_VALUE  = -22,
-  CL_INVALID_ARG_INDEX  = -23,
-  CL_INVALID_ARG_SIZE   = -24,
-  CL_INVALID_ARG_ASSOCIATED_DATA = -25
+  CL_INVALID_OPTIONS      = -14
 } cl_error;
 
 typedef enum cl_boolean {
@@ -68,6 +57,9 @@ typedef enum cl_device_type {
   // CL_DEVICE_TYPE_GPU - A GPU compute device.
   CL_DEVICE_TYPE_GPU = 1 << 2,
   
+  // CL_DEVICE_TYPE_ACCELERATOR - A dedicated accelerator such as a DSP or FPGA.
+  CL_DEVICE_TYPE_ACCELERATOR = 1 << 3,
+
   // CL_DEVICE_TYPE_ALL - All compute devices available in the system.
   CL_DEVICE_TYPE_ALL = -1
 } cl_device_type;
@@ -75,12 +67,12 @@ typedef enum cl_device_type {
 // 3.1 info types used by the clGetDeviceConfigInfo API
 typedef enum cl_device_config_info {
   CL_DEVICE_TYPE,
-  CL_DEVICE_ID,
   CL_DEVICE_MAX_COMPUTE_UNITS,
-  CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS,
-  CL_DEVICE_MAX_WORK_GROUP_SIZE,
-  CL_DEVICE_SIMD_GROUP_SIZE,
-  CL_DEVICE_MAX_CLOCK_FREQUENCY,
+  CL_DEVICE_MAX_THREAD_DIMENSIONS,
+  CL_DEVICE_MAX_GLOBAL_THREAD_SIZE,
+  CL_DEVICE_MAX_THREAD_GROUP_SIZE,
+  CL_DEVICE_SIMD_THREAD_GROUP_SIZE,
+  CL_DEVICE_CLOCK_FREQUENCY,
   CL_DEVICE_ADDRESS_BITS,
   CL_DEVICE_MAX_READ_IMAGE_ARGS,
   CL_DEVICE_MAX_WRITE_IMAGE_ARGS,
@@ -105,9 +97,7 @@ typedef enum cl_device_config_info {
   CL_DEVICE_MAX_CONSTANT_ARGS,
   CL_DEVICE_LOCAL_MEM_TYPE,
   CL_DEVICE_LOCAL_MEM_SIZE,
-  CL_DEVICE_ERROR_CORRECTION_SUPPORT,
   CL_DEVICE_PROFILING_TIMER_RESOLUTION,
-  CL_DEVICE_EXECUTION_CAPABILITIES
 } cl_device_config_info;
 
 // 3.1 info types used by the clGetDeviceConfigStrings API
@@ -116,7 +106,8 @@ typedef enum cl_device_config_string {
   CL_DEVICE_VENDOR,
   CL_DEVICE_VERSION,
   CL_DRIVER_VERSION,
-  CL_VERSION,
+  CL_API_VERSION,
+  CL_LANGUAGE_VERSION,
   CL_DEVICE_EXTENSIONS
 } cl_device_config_string;
 
@@ -128,40 +119,33 @@ typedef enum cl_fp_config {
   CL_FP_ROUND_TO_ZERO     = 1 << 3,
   CL_FP_ROUND_TO_INF      = 1 << 4,
   CL_FP_FMA               = 1 << 5,
+  CL_FP_PRECISION_IEEE754 = 1 << 6
 } cl_device_fp_config;
 
 // 3.1 bits in CL_DEVICE_GLOBAL_MEM_CACHE_TYPE bitfield 
-typedef enum cl_device_global_mem_cache_type {
+typedef enum cl_global_cache_type {
   CL_NONE,
-  CL_READ_ONLY_CACHE,
-  CL_READ_WRITE_CACHE,
-} cl_device_global_mem_cache_type;
+  CL_READ,
+  CL_READ_WRITE
+} cl_global_cache_type;
 
 // 3.1 bits in CL_DEVICE_LOCAL_MEM_TYPE bitfield
-typedef enum cl_device_local_mem_type {
+typedef enum cl_local_mem_type {
   CL_LOCAL,
   CL_GLOBAL
-} cl_device_local_mem_type;
-
-// 3.1 bits in CL_DEVICE_EXECUTION_CAPABILITIES
-typedef enum cl_device_exec_capabilities {
-  CL_EXEC_DATA_PARALLEL_KERNEL = 1 << 0,
-  CL_EXEC_TASK_PARALLEL_KERNEL = 1 << 1,
-  CL_EXEC_NATIVE_FN_AS_KERNEL  = 1 << 2,
-} cl_device_exec_capabilities;
+} cl_local_mem_type;
 
 // 3.2 info types used by the clGetDeviceGroupInfo API
 typedef enum cl_device_group_info {
   CL_DEVICEGROUP_NUM_INSTANCES,
-  CL_DEVICES,
+  CL_DEVICE_IDS,
 } cl_device_group_info;
 
 // 3.3 context properties
-typedef enum cl_context_property_type {
-  CL_CONTEXT_NULL = 0,
+typedef enum cl_context_properties {
   CL_CONTEXT_EXEC_MODE_ASYNC,
   CL_CONTEXT_PROFILING_ENABLE
-} cl_context_property_type;
+} cl_context_properties;
 
 // 3.3 info types used by the clGetContextInfoAPI
 typedef enum cl_context_info {
@@ -263,7 +247,6 @@ typedef enum cl_image_info {
 } cl_image_info;
 
 typedef enum cl_addressing_mode {
-  CL_ADDRESS_NONE,
   CL_ADDRESS_REPEAT,
   CL_ADDRESS_CLAMP_TO_EDGE,
   CL_ADDRESS_CLAMP,
@@ -285,8 +268,7 @@ typedef enum cl_program_info {
 typedef enum cl_build_status {
   CL_BUILD_SUCCESS,
   CL_BUILD_FAILURE,
-  CL_BUILD_IN_PROGRESS,
-  CL_BUILD_NONE
+  CL_BUILD_IN_PROGRESS
 } cl_build_status;
 
 // 4.3.2 info types used by the clGetKernelInfo API
@@ -298,27 +280,12 @@ typedef enum cl_kernel_info {
   CL_KERNEL_DEVICE
 } cl_kernel_info;
 
-// 4.3.2 info types used by clGetKernelWorkGroupInfo API
-typedef enum cl_kernel_work_group_info {
-  CL_KERNEL_WORK_GROUP_SIZE,
-  CL_KERNEL_COMPILE_WORK_GROUP_SIZE
-} cl_kernel_work_group_info;
-
 // 4.3.2 argument types used by the clGetKernelArgs API
 typedef enum cl_arg_info {
   CL_KERNEL_ARG_NAME,
   CL_KERNEL_ARG_TYPE,
   CL_KERNEL_ARG_VALUE
 } cl_arg_info;
-
-// 4.3.5.2 keys used for clGetEventInfo
-typedef enum cl_event_command {
-  CL_EVENT_COMMAND_EXECUTE_KERNEL,
-  CL_EVENT_COMMAND_EXECUTE_DYLIB,
-  CL_EVENT_COMMAND_READ,
-  CL_EVENT_COMMAND_WRITE,
-  CL_EVENT_COMMAND_COPY
-} cl_event_command;
 
 // 4.3.6 keys used by event status APIs
 typedef enum cl_event_flags {
@@ -338,24 +305,18 @@ typedef enum cl_event_status {
 typedef enum cl_event_info {
   CL_EVENT_CONTEXT,
   CL_EVENT_DEVICE,
-  CL_EVENT_COMMAND,
-  CL_EVENT_DEVICE_ID
+  CL_EVENT_COMMAND
 } cl_event_info;
 
-// 4.3.8 event profiling info
-typedef enum cl_profiling_info {
-  CL_PROFILING_COMMAND_QUEUE,
-  CL_PROFILING_COMMAND_START,
-  CL_PROFILING_COMMAND_END
-} cl_profiling_info;
-
 // 9.1.4 keys used by clGetGLAttachment API
-typedef enum cl_gl_object_type {
-  CL_GL_OBJECT_GL_BUFFER,
-  CL_GL_OBJECT_GL_TEXTURE2D,
-  CL_GL_OBJECT_GL_TEXTURE3D,
-  CL_GL_OBJECT_GL_RENDER_BUFFER
-} cl_gl_object_type;
+typedef enum cl_gl_attachment_type {
+  CL_ATTACHMENT_NONE,
+  CL_ATTACHMENT_GL_BUFFER,
+  CL_ATTACHMENT_GL_TEXTURE,
+  CL_ATTACHMENT_GL_TEXTURE_MIPLEVEL,
+  CL_ATTACHMENT_GL_TEXTURE_TARGET,
+  CL_ATTACHMENT_GL_RENDER_BUFFER,
+} cl_gl_attachment_type;
 
 // cl_local_arg_desc - description of memory allocation for __local arguments
 // when calling compute kernels as "C" functions.
@@ -373,7 +334,7 @@ typedef struct _cl_local_arg_desc {
 // clExecuteKernel.
 typedef struct _cl_exec_desc { 
   cl_context context; 
-  cl_device_group device; 
+  cl_device device; 
   unsigned *global_thread_dim;
   unsigned *local_thread_dim; 
   unsigned thread_dim_size;
@@ -397,14 +358,5 @@ typedef struct _cl_sampler_t {
   bool               normalized_coords;
 } cl_sampler;
 
-typedef struct cl_context_properties {
-  cl_context_property_type type;
-  unsigned value;
-} cl_context_properties;
-
-typedef struct cl_gl_texture_info {
-  unsigned dummy1;
-  unsigned dummy2;
-} cl_gl_texture_info;
-
 #endif  // __OPENCL_TYPES_H
+

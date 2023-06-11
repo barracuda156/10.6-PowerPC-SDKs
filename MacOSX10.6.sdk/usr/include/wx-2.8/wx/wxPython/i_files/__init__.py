@@ -6,7 +6,7 @@
 # Author:       Robin Dunn
 #
 # Created:      8-Aug-1998
-# RCS-ID:       $Id: __init__.py 43499 2006-11-18 21:23:43Z RD $
+# RCS-ID:       $Id: __init__.py,v 1.14 2006/11/18 21:23:43 RD Exp $
 # Copyright:    (c) 1998 by Total Control Software
 # Licence:      wxWindows license
 #----------------------------------------------------------------------------

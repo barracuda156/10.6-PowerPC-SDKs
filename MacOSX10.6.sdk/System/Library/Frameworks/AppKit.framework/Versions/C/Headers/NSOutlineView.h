@@ -1,7 +1,7 @@
 /*
     NSOutlineView.h
     Application Kit
-    Copyright (c) 1997-2008, Apple Inc.
+    Copyright (c) 1997-2007, Apple Inc.
     All rights reserved.
 */
 
@@ -16,7 +16,6 @@
 @class NSMouseTracker;
 @class NSNotification;
 @class NSString;
-@protocol NSOutlineViewDelegate, NSOutlineViewDataSource;
 
 typedef struct __OvFlags {
 #ifdef __BIG_ENDIAN__
@@ -104,12 +103,6 @@ enum { NSOutlineViewDropOnItemIndex = -1 };
     id                   _ovReserved;
 }
 
-- (void)setDelegate:(id <NSOutlineViewDelegate>)anObject;
-- (id <NSOutlineViewDelegate>)delegate;
-
-- (void)setDataSource:(id <NSOutlineViewDataSource>)aSource;
-- (id <NSOutlineViewDataSource>)dataSource;
-
 /* The 'outlineTableColumn' is the column that displays data in a hierarchical fashion, indented one identationlevel per level, decorated with indentation marker (disclosure triangle) on rows that are expandable. A nil 'outlineTableColumn' is silently ignored. On 10.5 and higher, this value is saved in encodeWithCoder: and restored in initWithCoder:.
 */
 - (void)setOutlineTableColumn:(NSTableColumn *)outlineTableColumn;
@@ -195,8 +188,7 @@ enum { NSOutlineViewDropOnItemIndex = -1 };
 
 /* Data Source Note: Specifying nil as the item will refer to the "root" item(s).
 */
-@protocol NSOutlineViewDataSource <NSObject>
-@optional
+@interface NSObject(NSOutlineViewDataSource)
 
 /* Required methods
 */
@@ -237,8 +229,7 @@ enum { NSOutlineViewDropOnItemIndex = -1 };
 
 @end
 
-@protocol NSOutlineViewDelegate <NSControlTextEditingDelegate>
-@optional
+@interface NSObject(NSOutlineViewDelegate)
 
 /* NSOutlineView replacements for NSTableView delegate methods.
 */

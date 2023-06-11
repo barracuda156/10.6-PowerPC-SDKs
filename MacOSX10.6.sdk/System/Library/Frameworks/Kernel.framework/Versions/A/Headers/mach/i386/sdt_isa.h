@@ -36,19 +36,8 @@
 #define DTRACE_STRINGIFY(s) #s
 #define DTRACE_TOSTRING(s) DTRACE_STRINGIFY(s)
 /*
- * For the kernel, set an explicit global label so the symbol can be located
+ * For the kernel, set an explicit global label do the symbol can be located
  */
-#ifdef __x86_64__
-#define DTRACE_LAB(p, n)		\
-   "__dtrace_probeDOLLAR" DTRACE_TOSTRING(__LINE__) DTRACE_STRINGIFY(_##p##___##n)
-
-#define DTRACE_LABEL(p, n)		\
-      ".section __DATA, __data\n\t"	\
-      ".globl " DTRACE_LAB(p, n) "\n\t"	\
-       DTRACE_LAB(p, n) ":" ".quad 1f""\n\t"	\
-       ".text" "\n\t"			\
-	"1:"
-#else
 #define DTRACE_LAB(p, n)		\
    "__dtrace_probe$" DTRACE_TOSTRING(__LINE__) DTRACE_STRINGIFY(_##p##___##n)
 
@@ -58,7 +47,6 @@
        DTRACE_LAB(p, n) ":" ".long 1f""\n\t"	\
        ".text" "\n\t"			\
 	"1:"
-#endif
 
 #ifdef DTRACE_CALL_TEST
 
@@ -78,8 +66,7 @@
 
 #define DTRACE_NOPS			\
 	"nop"			"\n\t"	\
-	"nop"			"\n\t"	\
-	"nop"			"\n\t"	
+	"leal 0(%%esi), %%esi"	"\n\t"	
 
 #define DTRACE_CALL_INSN(p,n)						\
 	"call _dtracetest" DTRACE_STRINGIFY(_##p##_##n)	"\n\t"
@@ -95,7 +82,6 @@
 #define ARGS9_EXTENT	10	
 #define ARGS10_EXTENT	10	
 
-#if 1
 #define DTRACE_CALL0ARGS(provider, name)							\
 	asm volatile (										\
 		      DTRACE_CALL(provider, name)						\
@@ -106,7 +92,7 @@
 		      DTRACE_CALL(provider, name)						\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi"								\
+	              : "memory", "rdi"									\
 	);
 
 #define DTRACE_CALL2ARGS(provider, name)							\
@@ -115,7 +101,7 @@
 		      DTRACE_CALL(provider, name)						\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi", "rsi"							\
+	              : "memory", "rdi", "rsi"								\
 	);
 
 #define DTRACE_CALL3ARGS(provider, name)							\
@@ -125,7 +111,7 @@
 		      DTRACE_CALL(provider, name)						\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi", "rsi", "rdx"						\
+	              : "memory", "rdi", "rsi", "rdx"							\
 	);
 
 #define DTRACE_CALL4ARGS(provider, name)							\
@@ -136,7 +122,7 @@
 		      DTRACE_CALL(provider, name)						\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi", "rsi", "rdx", "rcx"					\
+	              : "memory", "rdi", "rsi", "rdx", "rcx"						\
 	);
 
 #define DTRACE_CALL5ARGS(provider, name)							\
@@ -148,7 +134,7 @@
 		      DTRACE_CALL(provider, name)						\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8"				\
+	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8"					\
 	);
 
 #define DTRACE_CALL6ARGS(provider, name)							\
@@ -161,7 +147,7 @@
 		      DTRACE_CALL(provider, name)						\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8", "r9"			\
+	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8", "r9"					\
 	);
 
 #define DTRACE_CALL7ARGS(provider, name)							\
@@ -178,7 +164,7 @@
 	              "addq\t$0x8,%%rsp"						"\n\t"	\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8", "r9", "rax"			\
+	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8", "r9", "rax"				\
 	);
 
 #define DTRACE_CALL8ARGS(provider, name)							\
@@ -195,7 +181,7 @@
 	              "addq\t$0x10,%%rsp"						"\n\t"	\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8", "r9", "xmm1"		\
+	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8", "r9", "xmm1"				\
 	);
 
 #define DTRACE_CALL9ARGS(provider, name)							\
@@ -217,26 +203,8 @@
 	              "addq\t$0x20,%%rsp"						"\n\t"	\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8", "r9", "xmm1", "xmm2"	\
+	              : "memory", "rdi", "rsi", "rdx", "rcx", "r8", "r9", "xmm1", "xmm2"			\
 	);
-#else
-/*
- * Remove probe points; later we will conver them to C calls that the
- * linker will be able to remove and put in a DOF segment for us
- * because of their magic names.
- */
-#define DTRACE_CALL0ARGS(provider, name)
-#define DTRACE_CALL1ARG(provider, name)
-#define DTRACE_CALL2ARGS(provider, name)
-#define DTRACE_CALL3ARGS(provider, name)
-#define DTRACE_CALL4ARGS(provider, name)
-#define DTRACE_CALL5ARGS(provider, name)
-#define DTRACE_CALL6ARGS(provider, name)
-#define DTRACE_CALL7ARGS(provider, name)
-#define DTRACE_CALL8ARGS(provider, name)
-#define DTRACE_CALL9ARGS(provider, name)
-#define DTRACE_CALL10ARGS(provider, name)
-#endif // WORKAROUND
 
 #endif // __x86_64__
 
@@ -295,7 +263,7 @@
                       "addl\t$0x10,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)		       					\
-	              : "memory", "eax"								\
+	              : "memory", "eax"									\
 	);
 
 #define DTRACE_CALL2ARGS(provider, name)							\
@@ -308,7 +276,7 @@
                       "addl\t$0x10,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"							\
+	              : "memory", "eax", "edx"								\
 	);
 
 #define DTRACE_CALL3ARGS(provider, name)							\
@@ -323,7 +291,7 @@
                       "addl\t$0x10,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"							\
+	              : "memory", "eax", "edx"								\
 	);
 
 #define DTRACE_CALL4ARGS(provider, name)							\
@@ -340,7 +308,7 @@
                       "addl\t$0x10,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"	       						\
+	              : "memory", "eax", "edx"	       							\
 	);
 
 #define DTRACE_CALL5ARGS(provider, name)							\
@@ -359,7 +327,7 @@
                       "addl\t$0x20,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"	       						\
+	              : "memory", "eax", "edx"	       							\
 	);
 
 #define DTRACE_CALL6ARGS(provider, name)							\
@@ -380,7 +348,7 @@
                       "addl\t$0x20,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"	       						\
+	              : "memory", "eax", "edx"	       							\
 	);
 
 #define DTRACE_CALL7ARGS(provider, name)							\
@@ -403,7 +371,7 @@
                       "addl\t$0x20,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"	       						\
+	              : "memory", "eax", "edx"	       							\
 	);
 
 #define DTRACE_CALL8ARGS(provider, name)							\
@@ -428,7 +396,7 @@
                       "addl\t$0x20,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"	       						\
+	              : "memory", "eax", "edx"	       							\
 	);
 
 #define DTRACE_CALL9ARGS(provider, name)							\
@@ -455,7 +423,7 @@
                       "addl\t$0x30,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"	       						\
+	              : "memory", "eax", "edx"	       							\
 	);
 
 #define DTRACE_CALL10ARGS(provider, name)							\
@@ -484,7 +452,7 @@
                       "addl\t$0x30,%%esp"							\
 	              :										\
 	              : "r" (__dtrace_args)							\
-	              : "memory", "eax", "edx"	       						\
+	              : "memory", "eax", "edx"	       							\
 	);
 
 #endif // __i386__

@@ -3,7 +3,7 @@
  
      Contains:   Definition of AIFF file format components.
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1989-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -76,34 +76,28 @@ enum {
   MACE6Type                     = 'MAC6'
 };
 
-/*
-    AIFF.h use to define a type, ID, which causes conflicts with other headers and application which want to use
-    this pretty common name as their own type.  If you were previously relying on this being defined here, you 
-    should either define it yourself or change your references to it into a UInt32.
-    
-    typedef UInt32 ID;
-*/
+typedef UInt32                          ID;
 typedef SInt16                          MarkerIdType;
 struct ChunkHeader {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
 };
 typedef struct ChunkHeader              ChunkHeader;
 struct ContainerChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
-  UInt32              formType;
+  ID                  formType;
 };
 typedef struct ContainerChunk           ContainerChunk;
 struct FormatVersionChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   UInt32              timestamp;
 };
 typedef struct FormatVersionChunk       FormatVersionChunk;
 typedef FormatVersionChunk *            FormatVersionChunkPtr;
 struct CommonChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   SInt16              numChannels;
   UInt32              numSampleFrames;
@@ -113,19 +107,19 @@ struct CommonChunk {
 typedef struct CommonChunk              CommonChunk;
 typedef CommonChunk *                   CommonChunkPtr;
 struct ExtCommonChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   SInt16              numChannels;
   UInt32              numSampleFrames;
   SInt16              sampleSize;
   extended80          sampleRate;
-  UInt32              compressionType;
+  ID                  compressionType;
   char                compressionName[1];     /* variable length array, Pascal string */
 };
 typedef struct ExtCommonChunk           ExtCommonChunk;
 typedef ExtCommonChunk *                ExtCommonChunkPtr;
 struct SoundDataChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   UInt32              offset;
   UInt32              blockSize;
@@ -139,7 +133,7 @@ struct Marker {
 };
 typedef struct Marker                   Marker;
 struct MarkerChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   UInt16              numMarkers;
   Marker              Markers[1];             /* variable length array */
@@ -153,7 +147,7 @@ struct AIFFLoop {
 };
 typedef struct AIFFLoop                 AIFFLoop;
 struct InstrumentChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   UInt8               baseFrequency;
   UInt8               detune;
@@ -168,21 +162,21 @@ struct InstrumentChunk {
 typedef struct InstrumentChunk          InstrumentChunk;
 typedef InstrumentChunk *               InstrumentChunkPtr;
 struct MIDIDataChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   UInt8               MIDIdata[1];            /* variable length array */
 };
 typedef struct MIDIDataChunk            MIDIDataChunk;
 typedef MIDIDataChunk *                 MIDIDataChunkPtr;
 struct AudioRecordingChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   UInt8               AESChannelStatus[24];
 };
 typedef struct AudioRecordingChunk      AudioRecordingChunk;
 typedef AudioRecordingChunk *           AudioRecordingChunkPtr;
 struct ApplicationSpecificChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   OSType              applicationSignature;
   UInt8               data[1];                /* variable length array */
@@ -197,7 +191,7 @@ struct Comment {
 };
 typedef struct Comment                  Comment;
 struct CommentsChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   UInt16              numComments;
   Comment             comments[1];            /* variable length array */
@@ -205,7 +199,7 @@ struct CommentsChunk {
 typedef struct CommentsChunk            CommentsChunk;
 typedef CommentsChunk *                 CommentsChunkPtr;
 struct TextChunk {
-  UInt32              ckID;
+  ID                  ckID;
   SInt32              ckSize;
   char                text[1];                /* variable length array, Pascal string */
 };

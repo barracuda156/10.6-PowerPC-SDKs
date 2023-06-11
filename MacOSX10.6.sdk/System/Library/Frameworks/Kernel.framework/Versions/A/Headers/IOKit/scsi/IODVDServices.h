@@ -204,9 +204,6 @@ public:
 													const UInt8					layer,
 													const UInt8 				agid );
 
-	/* 10.6.0 */
-    virtual IOReturn		requestIdle ( void );
-	
 	/* System Specific */
 	virtual IOReturn 	message ( UInt32 type, IOService * provider, void * argument );
     virtual IOReturn	setProperties ( OSObject * properties );

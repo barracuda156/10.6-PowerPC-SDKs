@@ -3,7 +3,7 @@
  
      Contains:   QuickTime Interfaces.
  
-     Version:    QuickTime 7.5.7
+     Version:    QuickTime 7.6
  
      Copyright:  © 1990-2008 by Apple Inc., all rights reserved
  
@@ -814,7 +814,7 @@ enum {
 
 enum {
   kNoMinimumLongFixed           = 0x7FFFFFFF, /* ignore minimum/maxiumum values*/
-  kNoMaximumLongFixed           = (int)0x80000000,
+  kNoMaximumLongFixed           = (long)0x80000000,
   kNoScaleLongFixed             = 0,    /* don't perform any scaling of value*/
   kNoPrecision                  = (-1)  /* allow as many digits as format*/
 };
@@ -976,7 +976,7 @@ enum {
   kParameterUsagePercent        = 'pcnt',
   kParameterUsageSeconds        = 'secs',
   kParameterUsageMilliseconds   = 'msec',
-  kParameterUsageMicroseconds   = (int)0xB5736563/*'µsec' */,
+  kParameterUsageMicroseconds   = (long)0xB5736563/*'µsec' */,
   kParameterUsage3by3Matrix     = '3by3',
   kParameterUsageCircularDegrees = 'degc',
   kParameterUsageCircularRadians = 'radc'
@@ -993,12 +993,12 @@ enum {
 
 /* atoms that help to fill in data within the info window */
 enum {
-  kParameterInfoLongName        = (int)0xA96E616D/*'©nam' */,
-  kParameterInfoCopyright       = (int)0xA9637079/*'©cpy' */,
-  kParameterInfoDescription     = (int)0xA9696E66/*'©inf' */,
-  kParameterInfoWindowTitle     = (int)0xA9776E74/*'©wnt' */,
-  kParameterInfoPicture         = (int)0xA9706978/*'©pix' */,
-  kParameterInfoManufacturer    = (int)0xA96D616E/*'©man' */,
+  kParameterInfoLongName        = (long)0xA96E616D/*'©nam' */,
+  kParameterInfoCopyright       = (long)0xA9637079/*'©cpy' */,
+  kParameterInfoDescription     = (long)0xA9696E66/*'©inf' */,
+  kParameterInfoWindowTitle     = (long)0xA9776E74/*'©wnt' */,
+  kParameterInfoPicture         = (long)0xA9706978/*'©pix' */,
+  kParameterInfoManufacturer    = (long)0xA96D616E/*'©man' */,
   kParameterInfoIDs             = 1
 };
 
@@ -3217,13 +3217,13 @@ enum {
   kCurveEndAtom                 = 'zero',
   kCurveAntialiasControlAtom    = 'anti',
   kCurveAntialiasOff            = 0,
-  kCurveAntialiasOn             = (int)0xFFFFFFFF,
+  kCurveAntialiasOn             = (long)0xFFFFFFFF,
   kCurveFillTypeAtom            = 'fill',
   kCurvePenThicknessAtom        = 'pent',
   kCurveMiterLimitAtom          = 'mitr',
   kCurveJoinAttributesAtom      = 'join',
   kCurveMinimumDepthAtom        = 'mind',
-  kCurveDepthAlwaysOffscreenMask = (int)0x80000000,
+  kCurveDepthAlwaysOffscreenMask = (long)0x80000000,
   kCurveTransferModeAtom        = 'xfer',
   kCurveGradientAngleAtom       = 'angl',
   kCurveGradientRadiusAtom      = 'radi',

@@ -860,7 +860,7 @@ MD_EXPORT const CFStringRef    kMDItemMusicalInstrumentCategory MD_AVAIL;       
 MD_EXPORT const CFStringRef    kMDItemMusicalInstrumentName MD_AVAIL;            // CFString
 
 MD_EXPORT const CFStringRef    kMDItemCFBundleIdentifier MD_AVAIL_LEOPARD;       // CFString
-MD_EXPORT const CFStringRef    kMDItemSupportFileType AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;          // CFArray of CFStrings
+MD_EXPORT const CFStringRef    kMDItemSupportFileType MD_AVAIL_LEOPARD;          // CFArray of CFStrings
 
 /*!
         @const kMDItemInformation

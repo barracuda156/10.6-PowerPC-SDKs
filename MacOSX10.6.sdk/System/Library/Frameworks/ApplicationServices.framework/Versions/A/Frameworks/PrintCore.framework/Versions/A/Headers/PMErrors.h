@@ -153,7 +153,6 @@ enum {
 	kPMFontNameTooLong				= -9704,		/* font name too long */
 	kPMGeneralCGError				= -9705,		/* CoreGraphics returned error */
 	kPMInvalidState					= -9706,		/* Invalid converter state */
-	kPMUnexpectedImagingError		= -9707,		/* An unexpected imaging error occurred */
 	
 	/* Printer Modules (-9740 to -9779) */
 

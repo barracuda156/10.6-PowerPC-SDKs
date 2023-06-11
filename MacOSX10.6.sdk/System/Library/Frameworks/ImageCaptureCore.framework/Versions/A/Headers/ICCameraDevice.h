@@ -61,13 +61,6 @@ extern NSString *const ICCameraDeviceCanReceiveFile;
 */
 extern NSString *const ICCameraDeviceCanEject;
 
-/*!
-    @const      ICCameraDeviceCanAcceptVendorSpecificCommands
-    @abstract   ICCameraDeviceCanAcceptVendorSpecificCommands
-    @discussion Indicates that the device can accept vendor-specific commands.
-*/
-extern NSString *const ICCameraDeviceCanAcceptVendorSpecificCommands;
-
 //------------------------------------------------------------------------------------------------------------------------------
 // Allowed keys in the options dictionary used when downloading a file from the camera
 
@@ -81,23 +74,16 @@ extern NSString *const ICDownloadsDirectoryURL;
 /*!
     @const      ICSaveAsFilename
     @abstract   ICSaveAsFilename
-    @discussion The value for this key should be an NSString object containing the name to be used for the downloaded file.
+    @discussion The value for this key should be an NSString object holding the name to be used for the downloaded file.
 */
 extern NSString *const ICSaveAsFilename;
 
 /*!
     @const      ICSavedFilename
     @abstract   ICSavedFilename
-    @discussion The value for this key will be an NSString object containing the actual name of the saved file. The options dictionary returned in didDownloadFile:error:options:contextInfo: will have this key. 
+    @discussion The value for this key will be an NSString object holding the actual name of the saved file. The options dictionary returned in didDownloadFile:error:options:contextInfo: will have this key. 
 */
 extern NSString *const ICSavedFilename;
-
-/*!
-    @const      ICSavedAncillaryFiles
-    @abstract   ICSavedAncillaryFiles
-    @discussion The value for this key will be an NSArray object containing names of files associated with the primary file that is downloaded. The options dictionary returned in didDownloadFile:error:options:contextInfo: may have this key.
-*/
-extern NSString *const ICSavedAncillaryFiles;
 
 /*!
     @const      ICOverwrite
@@ -107,11 +93,26 @@ extern NSString *const ICSavedAncillaryFiles;
 extern NSString *const ICOverwrite;
 
 /*!
-    @const      ICDeleteAfterSuccessfulDownload
-    @abstract   ICDeleteAfterSuccessfulDownload
-    @discussion The value for this key should be an NSNumber object representing a boolean value. If this value is YES, the file will be deleted from the device after it is succcessfully downloaded.
+    @const      ICEXIFOrientation
+    @abstract   ICEXIFOrientation
+    @discussion The value for this key should be a NSNumber object whose integer value ranges from 1 to 8. The meaning of this values is defined by the EXIF specification. Here is what the letter F would look like if it were tagged correctly and displayed by a program that ignores the orientation tag (thus showing the stored image):
+
+               1             2             3             4
+
+            8888888       8888888            88       88
+            88                 88            88       88
+            8888             8888          8888       8888
+            88                 88            88       88
+            88                 88       8888888       8888888
+
+               5             6             7             8
+
+            8888888888    88                    88    8888888888
+            88  88        88  88            88  88        88  88
+            88            8888888888    8888888888            88
+
 */
-extern NSString *const ICDeleteAfterSuccessfulDownload;
+extern NSString *const ICEXIFOrientation;
 
 //--------------------------------------------------------------------------------------------------------- Forward Declarations
 
@@ -160,13 +161,6 @@ extern NSString *const ICDeleteAfterSuccessfulDownload;
   @abstract This message is sent when the metadata requested for an item on a device is available.
 */
 - (void)cameraDevice:(ICCameraDevice*)camera didReceiveMetadataForItem:(ICCameraItem*)item;
-
-/*! 
-  @method cameraDevice:didReceiveVendorSpecificNotification:
-  @abstract This message is sent to the delegate to convey a vendor-specific notification from a camera.
-  @discusson <TBD>
-*/
-- (void)cameraDevice:(ICCameraDevice*)camera didReceiveVendorSpecificNotification:(NSDictionary*)notification;
 
 @end
 
@@ -217,12 +211,6 @@ extern NSString *const ICDeleteAfterSuccessfulDownload;
 */
 @property(readonly)   NSArray*      mediaFiles;
 
-/*!
-    @property timeOffset
-    @abstract Indicates the time offset, in seconds, between the camera's clock and the computer's clock￼. This value is positive if the camera's clock is ahead of the computer's clock. This property should be ignored if the camera's capabilities property does not contain ICCameraDeviceCanSyncClock.
-
-*/
-@property(readonly)   NSTimeInterval  timeOffset;
 
 /*! 
   @method filesOfType:
@@ -258,30 +246,30 @@ extern NSString *const ICDeleteAfterSuccessfulDownload;
 /*! 
   @method requestDownloadFile:options:downloadDelegate:didDownloadSelector:contextInfo:
   @abstract Download a file from the camera. Please refer to the top of this header for information about the options.
-  @discussion The downloadDelegate passed must not be nil. When this request is completed, the didDownloadSelector of the downloadDelegate object is called.The didDownloadSelector should have the same signature as: - (void)didDownloadFile:(ICCameraFile*)file error:(NSError*)error options:(NSDictionary*)options contextInfo:(void*)contextInfo. The content of error returned should be examined to determine if the request completed successfully. 
+  @discussion The downloadDelegate passed must not be nil. When this request is completed, the didDownloadSelector of the downloadDelegate object is called. The content of error returned should be examined to determine if the request completed successfully. The didDownloadSelector should have the same signature as: - (void)didDownloadFile:(ICCameraFile*)file error:(NSError*)error options:(NSDictionary*)options contextInfo:(void*)contextInfo.
 */
 - (void)requestDownloadFile:(ICCameraFile*)file options:(NSDictionary*)options downloadDelegate:(id)downloadDelegate didDownloadSelector:(SEL)selector contextInfo:(void*)contextInfo;
 
 /*! 
   @method requestUploadFile:options:uploadDelegate:didUploadSelector:contextInfo:
   @abstract Upload a file at fileURL to the camera. The options dictionary is not used in this version.
-  @discussion The uploadDelegate passed must not be nil. When this request is completed, the didUploadSelector of the uploadDelegate object is called. The didUploadSelector should have the same signature as: - (void)didUploadFile:(NSURL*)fileURL error:(NSError*)error contextInfo:(void*)contextInfo. The content of error returned should be examined to determine if the request completed successfully.
+  @discussion The uploadDelegate passed must not be nil. When this request is completed, the didUploadSelector of the uploadDelegate object is called. The content of error returned should be examined to determine if the request completed successfully. The didUploadSelector should have the same signature as: - (void)didUploadFile:(NSURL*)fileURL error:(NSError*)error contextInfo:(void*)contextInfo.
 */
 - (void)requestUploadFile:(NSURL*)fileURL options:(NSDictionary*)options uploadDelegate:(id)uploadDelegate didUploadSelector:(SEL)selector contextInfo:(void*)contextInfo;
 
 /*! 
-  @method requestReadDataFromFile:atOffset:length:readDelegate:didReadDataSelector:contextInfo:
+  @method requestReadDataFromFile:atOffset:length:delegate:didReadDataSelector:contextInfo:
   @abstract This method asynchronously reads data of a specified length from a specified offset.
-  @discussion The readDelegate passed must not be nil. When this request is completed, the didReadDataSelector of the readDelegate object is called. The didReadDataSelector should have the same signature as: - (void)didReadData:(NSData*)data fromFile:(ICCameraFile*)file error:(NSError*)error contextInfo:(void*)contextInfo. The content of error returned should be examined to determine if the request completed successfully.
+  @discussion The readDelegate passed must not be nil. When this request is completed, the didReadDataSelector of the readDelegate object is called. The content of error returned should be examined to determine if the request completed successfully. The didReadDataSelector should have the same signature as: - (void)didReadData:(NSData*)data fromFile:(ICCameraFile*)file error:(NSError*)error contextInfo:(void*)contextInfo.
 */
 - (void)requestReadDataFromFile:(ICCameraFile*)file atOffset:(off_t)offset length:(off_t)length readDelegate:(id)readDelegate didReadDataSelector:(SEL)selector contextInfo:(void*)contextInfo;
 
 /*! 
-  @method requestSendVendorSpecificCommand:delegate:selector:contextInfo:
-  @abstract This method asynchronously sends a vendor-specific command to the device.
-  @discussion This should be sent only if the 'capabilities' property contains 'ICCameraDeviceCanAcceptVendorSpecificCommands'. All PTP cameras have this capability. The response to this command will be delivered using didSendCommandSelector of sendCommandDelegate. The didSendCommandSelector should have the same signature as: - (void)didSendCommand:(NSData*)commandBuffer response:(NSData*)responseBuffer error:(NSError*)error contextInfo:(void*)contextInfo. The content of error returned should be examined to determine if the request completed successfully.
+  @method requestReadDataFromOffset:length:delegate:didReadDataSelector:contextInfo:
+  @abstract This method asynchronously sends a message to the device.
+  @discussion Image Capture enables client applications that know about the communication protocol used by the device to send messages to the device. The message and the payload are passed between the cient application and the device without as-is.
 */
-- (void)requestSendVendorSpecificCommand:(NSData*)commandBuffer sendCommandDelegate:(id)sendCommandDelegate didSendCommandSelector:(SEL)didSendCommandSelector contextInfo:(void*)contextInfo;
+- (void)requestSendMessage:(NSUInteger)messageType payload:(NSMutableData**)payload messageDelegate:(id)delegate didSendMessageSelector:(SEL)selector contextInfo:(void*)contextInfo;
 
 @end
 

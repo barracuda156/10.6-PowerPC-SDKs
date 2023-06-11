@@ -47,7 +47,7 @@ The Open Group.
 #define ATOM wATOM
 #define BYTE wBYTE
 #define FreeResource wFreeResource
-#include <winsock2.h>
+#include <winsock.h>
 #undef Status
 #define Status int
 #undef BYTE

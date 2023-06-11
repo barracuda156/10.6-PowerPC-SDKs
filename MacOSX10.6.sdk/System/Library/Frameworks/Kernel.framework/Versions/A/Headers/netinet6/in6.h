@@ -420,9 +420,6 @@ extern const struct in6_addr in6addr_linklocal_allrouters;
 #define IPV6_FW_GET		34 /* get entire firewall rule chain */
 #endif /* 1 */
 
-#define IPV6_RECVTCLASS         35 /* bool; recv traffic class values */
-#define IPV6_TCLASS             36 /* int; send traffic class value */
-
 /* to define items, should talk with KAME guys first, for *BSD compatibility */
 
 #define IPV6_RTHDR_LOOSE     0 /* this hop need not be a neighbor. XXX old spec */

@@ -1,6 +1,6 @@
 /*	
     NSURLCredential.h
-    Copyright (C) 2003-2008, Apple Inc. All rights reserved.    
+    Copyright (C) 2003-2007, Apple Inc. All rights reserved.    
     
     Public header file.
 */
@@ -40,7 +40,7 @@ typedef NSUInteger NSURLCredentialPersistence;
 @interface NSURLCredential : NSObject <NSCopying>
 {
     @private
-    __strong NSURLCredentialInternal *_internal;
+    NSURLCredentialInternal *_internal;
 }
 
 /*!

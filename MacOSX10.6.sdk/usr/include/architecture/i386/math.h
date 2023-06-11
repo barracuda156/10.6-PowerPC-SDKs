@@ -361,13 +361,8 @@ extern float  erff( float );
 extern double  erfc( double );
 extern float  erfcf( float );
 
-/*	lgamma and lgammaf are not thread-safe.  The thread-safe variants
- *	lgamma_r and lgammaf_r are available on OS X 10.6 and later.
- *
- *	To use the thread-safe variants, you must define the _REENTRANT symbol.
- */
-extern double  lgamma( double );
-extern float  lgammaf( float );
+extern double  lgamma( double ); /*lgamma is not threadsafe, please use lgamma_r instead */
+extern float  lgammaf( float ); /*lgammaf is not threadsafe, please use lgammaf_r instead */
 
 extern double  tgamma( double );
 extern float  tgammaf( float );
@@ -471,14 +466,7 @@ extern long double powl(long double, long double);
 extern long double sqrtl(long double);
 extern long double erfl(long double);
 extern long double erfcl(long double);
-	
-/*	lgammal is not thread-safe.
- *	The thread-safe variant lgammal_r is available on OS X 10.6 and later.
- *
- *	To use the thread-safe variant, you must define the _REENTRANT symbol.
- */
-extern long double lgammal(long double);
-	
+extern long double lgammal(long double); /*lgammal is not threadsafe, please use lgammal_r instead */
 extern long double tgammal(long double);
 extern long double ceill(long double);
 extern long double floorl(long double);
@@ -630,13 +618,10 @@ extern double drem ( double, double );	/* Legacy API: please use C99 remainder()
  * Reentrant version of lgamma; passes signgam back by reference
  * as the second argument; user must allocate space for signgam.
  */
-	
 #ifdef _REENTRANT
-	#include <AvailabilityMacros.h>
-	// Available on OS X 10.6 and later.
-	extern float  lgammaf_r ( float, int * ) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-	extern double lgamma_r ( double, int * ) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-	extern long double lgammal_r ( long double, int * ) AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+	extern float  lgammaf_r ( float, int * );
+	extern double lgamma_r ( double, int * );
+	extern long double lgammal_r ( long double, int * );
 #endif /* _REENTRANT */
 	
 #endif /* (!_XOPEN_SOURCE || _DARWIN_C_SOURCE) */

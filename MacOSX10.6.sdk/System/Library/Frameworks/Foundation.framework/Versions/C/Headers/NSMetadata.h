@@ -1,5 +1,5 @@
 /*	NSMetadata.h
-	Copyright (c) 2004-2008, Apple Inc. All rights reserved.
+	Copyright (c) 2004-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -9,7 +9,7 @@
 
 @class NSString, NSArray, NSDictionary, NSPredicate;
 @class NSMetadataItem, NSMetadataQueryAttributeValueTuple, NSMetadataQueryResultGroup;
-@protocol NSMetadataQueryDelegate;
+
 
 @interface NSMetadataQuery : NSObject {
 @private
@@ -21,8 +21,8 @@
 
 - (id)init;
 
-- (id <NSMetadataQueryDelegate>)delegate;
-- (void)setDelegate:(id <NSMetadataQueryDelegate>)delegate;
+- (id)delegate;
+- (void)setDelegate:(id)delegate;
 
 - (NSPredicate *)predicate;
 - (void)setPredicate:(NSPredicate *)predicate;
@@ -74,8 +74,7 @@
 
 @end
 
-@protocol NSMetadataQueryDelegate <NSObject>
-@optional
+@interface NSObject (NSMetadataQueryDelegate)
 
 - (id)metadataQuery:(NSMetadataQuery *)query replacementObjectForResultObject:(NSMetadataItem *)result;
 - (id)metadataQuery:(NSMetadataQuery *)query replacementValueForAttribute:(NSString *)attrName value:(id)attrValue;

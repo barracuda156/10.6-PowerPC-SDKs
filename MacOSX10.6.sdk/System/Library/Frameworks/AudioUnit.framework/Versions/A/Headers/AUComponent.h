@@ -21,8 +21,7 @@
 	#include <AudioUnit/AudioComponent.h>
 	#include <CoreAudio/CoreAudioTypes.h>
 #else
-	#include "Components.h"
-	#include <AudioComponent.h>
+	#include <Components.h>
 	#include <CoreAudioTypes.h>
 #endif
 
@@ -61,35 +60,31 @@ typedef AudioComponentInstance AudioUnit;
 enum
 {
 	kAudioUnitType_Output					= 'auou',
-	kAudioUnitSubType_GenericOutput			= 'genr',
-#if !TARGET_OS_IPHONE
 	kAudioUnitSubType_HALOutput				= 'ahal',
 	kAudioUnitSubType_DefaultOutput			= 'def ',
 	kAudioUnitSubType_SystemOutput			= 'sys ',
-#else
+	kAudioUnitSubType_GenericOutput			= 'genr',
+
+	// this audio unit is only available on iPhone OS
+#if TARGET_OS_IPHONE
 	kAudioUnitSubType_RemoteIO				= 'rioc',
 #endif
 
 
 	kAudioUnitType_MusicDevice				= 'aumu',
-#if !TARGET_OS_IPHONE
 	kAudioUnitSubType_DLSSynth				= 'dls ',
-#endif
 
 	kAudioUnitType_MusicEffect				= 'aumf',
 
 	kAudioUnitType_FormatConverter			= 'aufc',
 	kAudioUnitSubType_AUConverter			= 'conv',
-#if !TARGET_OS_IPHONE
-	kAudioUnitSubType_TimePitch				= 'tmpt',
 	kAudioUnitSubType_Varispeed				= 'vari',
 	kAudioUnitSubType_DeferredRenderer		= 'defr',
+	kAudioUnitSubType_TimePitch				= 'tmpt',
 	kAudioUnitSubType_Splitter				= 'splt',
 	kAudioUnitSubType_Merger				= 'merg',
-#endif
 	
 	kAudioUnitType_Effect					= 'aufx',
-#if !TARGET_OS_IPHONE
 	kAudioUnitSubType_Delay					= 'dely',
 	kAudioUnitSubType_LowPassFilter			= 'lpas',
 	kAudioUnitSubType_HighPassFilter		= 'hpas',
@@ -108,37 +103,25 @@ enum
 	kAudioUnitSubType_NetSend				= 'nsnd',
 	kAudioUnitSubType_Distortion			= 'dist',
 	kAudioUnitSubType_RogerBeep				= 'rogr',
-#else
-	kAudioUnitSubType_AUiPodEQ				= 'ipeq',
-	kAudioUnitSubType_AUiPodTime			= 'iptm',
-#endif
 	
 	kAudioUnitType_Mixer					= 'aumx',
-	kAudioUnitSubType_MultiChannelMixer		= 'mcmx',
-#if !TARGET_OS_IPHONE
 	kAudioUnitSubType_StereoMixer			= 'smxr',
 	kAudioUnitSubType_3DMixer				= '3dmx',
 	kAudioUnitSubType_MatrixMixer			= 'mxmx',
-#else
-	kAudioUnitSubType_AU3DMixerEmbedded		= '3dem',
-#endif
+	kAudioUnitSubType_MultiChannelMixer		= 'mcmx',
 
 	kAudioUnitType_Panner					= 'aupn',
-#if !TARGET_OS_IPHONE
 	kAudioUnitSubType_SphericalHeadPanner	= 'sphr',
 	kAudioUnitSubType_VectorPanner			= 'vbas',
 	kAudioUnitSubType_SoundFieldPanner		= 'ambi',
 	kAudioUnitSubType_HRTFPanner			= 'hrtf',
-#endif
 
 	kAudioUnitType_OfflineEffect			= 'auol',
 
 	kAudioUnitType_Generator				= 'augn',
-#if !TARGET_OS_IPHONE
 	kAudioUnitSubType_ScheduledSoundPlayer	= 'sspl',
 	kAudioUnitSubType_AudioFilePlayer		= 'afpl',
 	kAudioUnitSubType_NetReceive			= 'nrcv',
-#endif
 
 	kAudioUnitManufacturer_Apple			= 'appl'
 };

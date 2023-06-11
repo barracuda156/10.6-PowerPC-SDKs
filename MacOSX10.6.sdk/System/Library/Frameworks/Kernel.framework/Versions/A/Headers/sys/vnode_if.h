@@ -1163,9 +1163,6 @@ struct vnop_kqfilt_remove_args {
 extern struct vnodeop_desc vnop_kqfilt_remove_desc;
 
 
-
-
-
 struct label;
 struct vnop_setlabel_args {
 	struct vnodeop_desc *a_desc;
@@ -1252,7 +1249,8 @@ struct vnop_removenamedstream_args {
 /*!
  @function VNOP_REMOVENAMEDSTREAM
  @abstract Delete a named stream associated with a file.
- @discussion  VFS provides a facility for simulating named streams when interacting with filesystems
+ @discussion If this call succeeds, svpp should be returned with an iocount which the caller will drop.
+ VFS provides a facility for simulating named streams when interacting with filesystems
  which do not support them. 
  @param vp The vnode to which the named stream belongs.
  @param svp The named stream's vnode.

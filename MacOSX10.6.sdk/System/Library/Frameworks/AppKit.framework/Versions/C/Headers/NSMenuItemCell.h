@@ -1,7 +1,7 @@
 /*
         NSMenuItemCell.h
         Application Kit
-        Copyright (c) 1997-2008, Apple Inc.
+        Copyright (c) 1997-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -27,8 +27,7 @@
         unsigned int reserved:1;
         unsigned int needsDisplay:1;
         unsigned int keyEquivGlyphWidth:16;
-	unsigned int uniqueAgainstMain:1;
-        unsigned int RESERVED:12;
+        unsigned int RESERVED:13;
     } _micFlags;
 }
 

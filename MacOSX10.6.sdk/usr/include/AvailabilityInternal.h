@@ -1,30 +1,10 @@
 /*
- * Copyright (c) 2007-2008 by Apple Inc.. All rights reserved.
- *
- * @APPLE_LICENSE_HEADER_START@
- * 
- * This file contains Original Code and/or Modifications of Original Code
- * as defined in and that are subject to the Apple Public Source License
- * Version 2.0 (the 'License'). You may not use this file except in
- * compliance with the License. Please obtain a copy of the License at
- * http://www.opensource.apple.com/apsl/ and read it before using this
- * file.
- * 
- * The Original Code and all software distributed under the License are
- * distributed on an 'AS IS' basis, WITHOUT WARRANTY OF ANY KIND, EITHER
- * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
- * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE, QUIET ENJOYMENT OR NON-INFRINGEMENT.
- * Please see the License for the specific language governing rights and
- * limitations under the License.
- * 
- * @APPLE_LICENSE_HEADER_END@
- */
-
-/*
     File:       AvailabilityInternal.h
  
+    Copyright:  (c) 2007-2008 by Apple Inc., all rights reserved.
+
     Contains:   implementation details of __OSX_AVAILABLE_* macros from <Availability.h>
+     
 
 */
 #ifndef __AVAILABILITY_INTERNAL__
@@ -42,6 +22,11 @@
     #ifdef __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__
         // compiler sets __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__ when -miphoneos-version-min is used
         #define __IPHONE_OS_VERSION_MIN_REQUIRED __ENVIRONMENT_IPHONE_OS_VERSION_MIN_REQUIRED__
+    #else
+        // hack until compiler with -miphoneos-version-min is rolled out
+        #if __arm__
+            #define __IPHONE_OS_VERSION_MIN_REQUIRED 20000
+        #endif
     #endif
 #endif
 
@@ -49,39 +34,25 @@
 #ifdef __IPHONE_OS_VERSION_MIN_REQUIRED
     // make sure a default max version is set
     #ifndef __IPHONE_OS_VERSION_MAX_ALLOWED
-        #define __IPHONE_OS_VERSION_MAX_ALLOWED     __IPHONE_2_1
+        #define __IPHONE_OS_VERSION_MAX_ALLOWED    __IPHONE_2_0
     #endif
     // make sure a valid min is set
     #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_2_0
         #undef __IPHONE_OS_VERSION_MIN_REQUIRED
         #define __IPHONE_OS_VERSION_MIN_REQUIRED    __IPHONE_2_0 
     #endif
-    
+
     // set up internal macros
-     #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_2_0
+    #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_2_0
         #define __AVAILABILITY_INTERNAL__IPHONE_2_0          __AVAILABILITY_INTERNAL_UNAVAILABLE
     #elif __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_2_0
         #define __AVAILABILITY_INTERNAL__IPHONE_2_0          __AVAILABILITY_INTERNAL_WEAK_IMPORT
     #else
         #define __AVAILABILITY_INTERNAL__IPHONE_2_0
     #endif
+    #define __AVAILABILITY_INTERNAL__IPHONE_NA                     __AVAILABILITY_INTERNAL_UNAVAILABLE 
     #define __AVAILABILITY_INTERNAL__IPHONE_2_0_DEP__IPHONE_NA     __AVAILABILITY_INTERNAL__IPHONE_2_0
     #define __AVAILABILITY_INTERNAL__IPHONE_2_0_DEP__IPHONE_2_0    __AVAILABILITY_INTERNAL_DEPRECATED
-    #if __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_2_1
-        #define __AVAILABILITY_INTERNAL__IPHONE_2_1                __AVAILABILITY_INTERNAL_UNAVAILABLE
-    #elif __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_2_1
-        #define __AVAILABILITY_INTERNAL__IPHONE_2_1                __AVAILABILITY_INTERNAL_WEAK_IMPORT
-    #else
-        #define __AVAILABILITY_INTERNAL__IPHONE_2_1
-    #endif
-    #define __AVAILABILITY_INTERNAL__IPHONE_2_1_DEP__IPHONE_NA     __AVAILABILITY_INTERNAL__IPHONE_2_1
-    #define __AVAILABILITY_INTERNAL__IPHONE_2_1_DEP__IPHONE_2_1    __AVAILABILITY_INTERNAL_DEPRECATED
-    #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_2_1
-        #define __AVAILABILITY_INTERNAL__IPHONE_2_0_DEP__IPHONE_2_1    
-    #else
-        #define __AVAILABILITY_INTERNAL__IPHONE_2_0_DEP__IPHONE_2_1 __AVAILABILITY_INTERNAL_DEPRECATED
-    #endif
-    #define __AVAILABILITY_INTERNAL__IPHONE_NA                     __AVAILABILITY_INTERNAL_UNAVAILABLE 
     #define __AVAILABILITY_INTERNAL__IPHONE_NA_DEP__IPHONE_NA      __AVAILABILITY_INTERNAL_UNAVAILABLE
     
 #elif defined(__ENVIRONMENT_MAC_OS_X_VERSION_MIN_REQUIRED__)

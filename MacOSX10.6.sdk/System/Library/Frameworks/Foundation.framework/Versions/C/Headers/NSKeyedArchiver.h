@@ -1,5 +1,5 @@
 /*	NSKeyedArchiver.h
-	Copyright (c) 2001-2008, Apple Inc. All rights reserved.
+	Copyright (c) 2001-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSCoder.h>
@@ -11,7 +11,6 @@
 #if MAC_OS_X_VERSION_10_2 <= MAC_OS_X_VERSION_MAX_ALLOWED
 
 @class NSArray, NSMutableData, NSData;
-@protocol NSKeyedArchiverDelegate, NSKeyedUnarchiverDelegate;
 
 FOUNDATION_EXPORT NSString * const NSInvalidArchiveOperationException;
 FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
@@ -34,7 +33,7 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
     NSUInteger _estimatedCount;
     void *_reserved2;
     id _visited;
-    void *  __strong _reserved0;
+    void * __strong _reserved0;
 }
 
 + (NSData *)archivedDataWithRootObject:(id)rootObject;
@@ -42,8 +41,8 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 
 - (id)initForWritingWithMutableData:(NSMutableData *)data;
 
-- (void)setDelegate:(id <NSKeyedArchiverDelegate>)delegate;
-- (id <NSKeyedArchiverDelegate>)delegate;
+- (void)setDelegate:(id)delegate;
+- (id)delegate;
 
 - (void)setOutputFormat:(NSPropertyListFormat)format;
 - (NSPropertyListFormat)outputFormat;
@@ -87,7 +86,7 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
     const uint8_t *_bytes;
     uint64_t _len;
     id _white;
-    void *  __strong _reserved0;
+    void *__strong _reserved0;
 }
 
 + (id)unarchiveObjectWithData:(NSData *)data;
@@ -95,8 +94,8 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 
 - (id)initForReadingWithData:(NSData *)data;
 
-- (void)setDelegate:(id <NSKeyedUnarchiverDelegate>)delegate;
-- (id <NSKeyedUnarchiverDelegate>)delegate;
+- (void)setDelegate:(id)delegate;
+- (id)delegate;
 
 - (void)finishDecoding;
 
@@ -121,8 +120,7 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 
 @end
 
-@protocol NSKeyedArchiverDelegate <NSObject>
-@optional
+@interface NSObject (NSKeyedArchiverDelegate)
 
 // substitution
 - (id)archiver:(NSKeyedArchiver *)archiver willEncodeObject:(id)object;
@@ -157,8 +155,7 @@ FOUNDATION_EXPORT NSString * const NSInvalidUnarchiveOperationException;
 
 @end
 
-@protocol NSKeyedUnarchiverDelegate <NSObject>
-@optional
+@interface NSObject (NSKeyedUnarchiverDelegate)
 
 // error handling
 - (Class)unarchiver:(NSKeyedUnarchiver *)unarchiver cannotDecodeObjectOfClassName:(NSString *)name originalClasses:(NSArray *)classNames;

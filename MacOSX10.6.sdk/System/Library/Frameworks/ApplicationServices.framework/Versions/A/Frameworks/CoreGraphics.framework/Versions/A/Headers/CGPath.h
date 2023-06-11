@@ -74,7 +74,7 @@ CG_EXTERN void CGPathAddQuadCurveToPoint(CGMutablePathRef path,
     const CGAffineTransform *m, CGFloat cpx, CGFloat cpy, CGFloat x, CGFloat y)
     CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
-/* Append a cubic Bézier curve from the current point to `(x,y)' with
+/* Append a cubic Bezier curve from the current point to `(x,y)' with
    control points `(cp1x, cp1y)' and `(cp2x, cp2y)' in `path' and move the
    current point to `(x, y)'. If `m' is non-NULL, then transform all points
    by `m' first. */
@@ -115,14 +115,14 @@ CG_EXTERN void CGPathAddLines(CGMutablePathRef path,
     CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Add an ellipse (an oval) inside `rect' to `path'. The ellipse is
-   approximated by a sequence of Bézier curves. The center of the ellipse is
+   approximated by a sequence of Bezier curves. The center of the ellipse is
    the midpoint of `rect'. If `rect' is square, then the ellipse will be
    circular with radius equal to one-half the width (equivalently, one-half
    the height) of `rect'. If `rect' is rectangular, then the major- and
    minor-axes will be the `width' and `height' of rect. The ellipse forms a
    complete subpath of `path' --- that is, it begins with a "move to" and
    ends with a "close subpath" --- oriented in the clockwise direction. If
-   `m' is non-NULL, then the constructed Bézier curves representing the
+   `m' is non-NULL, then the constructed Bezier curves representing the
    ellipse will be transformed by `m' before they are added to `path'. */
 
 CG_EXTERN void CGPathAddEllipseInRect(CGMutablePathRef path,
@@ -130,12 +130,12 @@ CG_EXTERN void CGPathAddEllipseInRect(CGMutablePathRef path,
     CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
 
 /* Add an arc of a circle to `path', possibly preceded by a straight line
-   segment. The arc is approximated by a sequence of Bézier curves. `(x, y)'
-   is the center of the arc; `radius' is its radius; `startAngle' is the
-   angle to the first endpoint of the arc; `endAngle' is the angle to the
-   second endpoint of the arc; and `clockwise' is true if the arc is to be
-   drawn clockwise, false otherwise. `startAngle' and `endAngle' are
-   measured in radians. If `m' is non-NULL, then the constructed Bézier
+   segment. The arc is approximated by a sequence of cubic Bezier curves.
+   `(x, y)' is the center of the arc; `radius' is its radius; `startAngle'
+   is the angle to the first endpoint of the arc; `endAngle' is the angle to
+   the second endpoint of the arc; and `clockwise' is true if the arc is to
+   be drawn clockwise, false otherwise. `startAngle' and `endAngle' are
+   measured in radians. If `m' is non-NULL, then the constructed Bezier
    curves representing the arc will be transformed by `m' before they are
    added to `path'. */
 
@@ -144,12 +144,12 @@ CG_EXTERN void CGPathAddArc(CGMutablePathRef path, const CGAffineTransform *m,
     bool clockwise) CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
 
 /* Add an arc of a circle to `path', possibly preceded by a straight line
-   segment. The arc is approximated by a sequence of Bézier curves. `radius'
-   is the radius of the arc. The resulting arc is tangent to the line from
-   the current point of `path' to `(x1, y1)', and the line from `(x1, y1)'
-   to `(x2, y2)'. If `m' is non-NULL, then the constructed Bézier curves
-   representing the arc will be transformed by `m' before they are added to
-   `path'. */
+   segment. The arc is approximated by a sequence of cubic Bezier curves.
+   `radius' is the radius of the arc. The resulting arc is tangent to the
+   line from the current point of `path' to `(x1, y1)', and the line from
+   `(x1, y1)' to `(x2, y2)'. If `m' is non-NULL, then the constructed Bezier
+   curves representing the arc will be transformed by `m' before they are
+   added to `path'. */
 
 CG_EXTERN void CGPathAddArcToPoint(CGMutablePathRef path,
     const CGAffineTransform *m, CGFloat x1, CGFloat y1, CGFloat x2, CGFloat y2,
@@ -182,19 +182,11 @@ CG_EXTERN CGPoint CGPathGetCurrentPoint(CGPathRef path)
 
 /* Return the bounding box of `path'. The bounding box is the smallest
    rectangle completely enclosing all points in the path, including control
-   points for Bézier cubic and quadratic curves. If the path is empty, then
-   return `CGRectNull'. */
+   points for Bezier and quadratic curves. If the path is empty, then return
+   `CGRectNull'. */
 
 CG_EXTERN CGRect CGPathGetBoundingBox(CGPathRef path)
     CG_AVAILABLE_STARTING(__MAC_10_2, __IPHONE_2_0);
-
-/* Return the path bounding box of `path'. The path bounding box is the
-   smallest rectangle completely enclosing all points in the path, *not*
-   including control points for Bézier cubic and quadratic curves. If the
-   path is empty, then return `CGRectNull'. */
-
-CG_EXTERN CGRect CGPathGetPathBoundingBox(CGPathRef path)
-  CG_AVAILABLE_STARTING(__MAC_10_6, __IPHONE_NA);
 
 /* Return true if `point' is contained in `path'; false otherwise. A point
    is contained in a path if it is inside the painted region when the path

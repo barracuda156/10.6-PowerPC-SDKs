@@ -21,13 +21,6 @@
  * @APPLE_LICENSE_HEADER_END@
  */
 
-/*!
-    @header		CFOpenDirectoryTypes
-    @abstract   Type definition for OpenDirectory framework types
-    @discussion This header includes definitions for types used by OpenDirectory
-				framework.
-*/
-
 // If NSOpenDirectory.h has already been included, do not redefine the types
 #if !defined( __CFOPENDIRECTORYTYPES_H ) && !defined( __NSOPENDIRECTORY_H )
 #define __CFOPENDIRECTORYTYPES_H

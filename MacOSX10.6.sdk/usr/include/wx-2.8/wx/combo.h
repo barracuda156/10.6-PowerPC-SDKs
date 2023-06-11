@@ -4,7 +4,7 @@
 // Author:      Jaakko Salli
 // Modified by:
 // Created:     Apr-30-2006
-// RCS-ID:      $Id: combo.h 49804 2007-11-10 01:09:42Z VZ $
+// RCS-ID:      $Id: combo.h,v 1.29.4.1 2007/04/16 13:00:58 VZ Exp $
 // Copyright:   (c) Jaakko Salli
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -46,8 +46,8 @@
 #include "wx/renderer.h" // this is needed for wxCONTROL_XXX flags
 #include "wx/bitmap.h" // wxBitmap used by-value
 
-class WXDLLIMPEXP_FWD_CORE wxTextCtrl;
-class WXDLLIMPEXP_FWD_CORE wxComboPopup;
+class WXDLLIMPEXP_CORE wxTextCtrl;
+class WXDLLEXPORT wxComboPopup;
 
 //
 // New window styles for wxComboCtrlBase

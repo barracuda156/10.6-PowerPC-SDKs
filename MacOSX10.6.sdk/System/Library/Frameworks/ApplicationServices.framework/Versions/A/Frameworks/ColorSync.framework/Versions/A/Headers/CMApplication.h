@@ -572,8 +572,7 @@ enum {
 enum {
   cmProfileIterateDataVersion1  = 0x00010000,
   cmProfileIterateDataVersion2  = 0x00020000, /* Added makeAndModel*/
-  cmProfileIterateDataVersion3  = 0x00030000, /* Added MD5 digest*/
-  cmProfileIterateDataVersion4  = 0x00040000  /* Only path based locations*/
+  cmProfileIterateDataVersion3  = 0x00030000 /* Added MD5 digest*/
 };
 
 typedef struct CMProfileIterateData {
@@ -708,7 +707,7 @@ NCWNewLinkProfile(
 	For profileType of "displayRGB", the dictionary
 	should also contain the keys/values:
 	  <PRE>
-	  "targetGamma"    CFNumber(Float)  (e.g. 2.2)  (optional)
+	  "targetGamma"    CFNumber(Float)  (e.g. 1.8)  (optional)
 	  "targetWhite"    CFNumber(SInt32) (e.g. 6500) (optional)
 	  "gammaR"         CFNumber(Float)  (e.g. 2.5)
 	  "gammaG"         CFNumber(Float)  (e.g. 2.5)
@@ -737,7 +736,7 @@ NCWNewLinkProfile(
 	For profileType of "displayID", the dictionary
 	should also contain the keys/values:
 	  <PRE>
-	  "targetGamma"    CFNumber(Float)  (e.g. 2.2)  (optional)
+	  "targetGamma"    CFNumber(Float)  (e.g. 1.8)  (optional)
 	  "targetWhite"    CFNumber(SInt32) (e.g. 6500) (optional)
 	  "displayID       CFNumber(SInt32)
 	  Optionally, the keys/values for "displayRGB" can be

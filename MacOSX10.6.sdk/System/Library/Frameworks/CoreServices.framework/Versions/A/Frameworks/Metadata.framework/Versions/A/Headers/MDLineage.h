@@ -50,7 +50,7 @@ MD_BEGIN_C_DECLS
     @param      allocator The allocator to use to allocate memory for the new object. Pass NULL or kCFAllocatorDefault to use the current default allocator.
     @result     A new, globally unique lineage, or NULL if there was an error.
  */
-MD_EXPORT CFDictionaryRef MDLineageCreate(CFAllocatorRef allocator) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFDictionaryRef MDLineageCreate(CFAllocatorRef allocator) MD_AVAIL_LEOPARD;
 
 
 /*!
@@ -60,7 +60,7 @@ MD_EXPORT CFDictionaryRef MDLineageCreate(CFAllocatorRef allocator) AVAILABLE_MA
     @param      fileURL The URL for a file to copy lineage data from.
     @result     The function will return a CFDictionaryRef containing lineage data.  In the case where there was no lineage data associated with the file, NULL will be returned.  If there was an error, NULL will be returned.
 */
-MD_EXPORT CFDictionaryRef MDLineageCreateFromFile(CFAllocatorRef allocator, CFURLRef fileURL) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFDictionaryRef MDLineageCreateFromFile(CFAllocatorRef allocator, CFURLRef fileURL) MD_AVAIL_LEOPARD;
 
 /*!
  @function 
@@ -70,7 +70,7 @@ MD_EXPORT CFDictionaryRef MDLineageCreateFromFile(CFAllocatorRef allocator, CFUR
  @result     The function will return a CFDictionaryRef containing lineage data.  If there was an error, NULL will be returned.
  */
 
-MD_EXPORT CFDictionaryRef MDLineageCreateBranch(CFAllocatorRef allocator, CFDictionaryRef originalLineage) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFDictionaryRef MDLineageCreateBranch(CFAllocatorRef allocator, CFDictionaryRef originalLineage) MD_AVAIL_LEOPARD;
 
 /*!
     @function 
@@ -79,7 +79,7 @@ MD_EXPORT CFDictionaryRef MDLineageCreateBranch(CFAllocatorRef allocator, CFDict
     @param      fileURL The URL for a file to create branched lineage from.
     @result     The function will return a CFDictionaryRef containing lineage data.  In the case where there was no lineage data associated with the file, NULL will be returned.  If there was an error, NULL will be returned.
 */
-MD_EXPORT CFDictionaryRef MDLineageCreateBranchFromFile(CFAllocatorRef allocator, CFURLRef fileURL) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFDictionaryRef MDLineageCreateBranchFromFile(CFAllocatorRef allocator, CFURLRef fileURL) MD_AVAIL_LEOPARD;
 
 
 /*!
@@ -90,7 +90,7 @@ MD_EXPORT CFDictionaryRef MDLineageCreateBranchFromFile(CFAllocatorRef allocator
     @param      fileURL The URL for a file to write the lineage data onto.
     @result     Returns true if the operation succeeded, and false otherwise.
  */
-MD_EXPORT Boolean MDLineageSetOnFile(CFDictionaryRef lineage, CFURLRef fileURL) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT Boolean MDLineageSetOnFile(CFDictionaryRef lineage, CFURLRef fileURL) MD_AVAIL_LEOPARD;
 
 /*!
     @function 
@@ -98,7 +98,7 @@ MD_EXPORT Boolean MDLineageSetOnFile(CFDictionaryRef lineage, CFURLRef fileURL) 
     @param      fileURL the file to remove all lineage data from.
     @result     Returns true if all lineage data was removed from the file at fileURL, and false otherwise.  If there was no lineage data on the file, the function returns true.
  */
-MD_EXPORT Boolean MDLineageRemoveFromFile(CFURLRef fileURL) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT Boolean MDLineageRemoveFromFile(CFURLRef fileURL) MD_AVAIL_LEOPARD;
 
 /*!
  @function 
@@ -107,7 +107,7 @@ MD_EXPORT Boolean MDLineageRemoveFromFile(CFURLRef fileURL) AVAILABLE_MAC_OS_X_V
  @result     Returns a CFStringRef appropriate for passing to MDQueryCreate, or NULL if an error occurred.
  */
 
-MD_EXPORT CFStringRef MDLineageCreateQueryString(MDItemRef item) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFStringRef MDLineageCreateQueryString(MDItemRef item) MD_AVAIL_LEOPARD;
 
 /*!
  @function 
@@ -117,7 +117,7 @@ MD_EXPORT CFStringRef MDLineageCreateQueryString(MDItemRef item) AVAILABLE_MAC_O
  @result     Returns a CFArrayRef containing the most direct ancestor(s) of item.  An item could have more than one parent if a single most direct ancestor cannot be determined.  NULL is returned if no ancestors can be found in family, or if an error occurred.
  */
 
-MD_EXPORT CFArrayRef MDLineageCopyParents(MDItemRef item, CFArrayRef family) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFArrayRef MDLineageCopyParents(MDItemRef item, CFArrayRef family) MD_AVAIL_LEOPARD;
 
 /*!
  @function 
@@ -127,7 +127,7 @@ MD_EXPORT CFArrayRef MDLineageCopyParents(MDItemRef item, CFArrayRef family) AVA
  @result     Returns a CFArrayRef containing the root ancestor(s) of item.  Note that in some cases there may be multiple items returned in the array.  NULL is returned if no ancestors can be found in family, or if an error occurred.
  */
 
-MD_EXPORT CFArrayRef MDLineageCopyRootAncestors(MDItemRef item, CFArrayRef family) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFArrayRef MDLineageCopyRootAncestors(MDItemRef item, CFArrayRef family) MD_AVAIL_LEOPARD;
 
 /*!
  @function 
@@ -137,7 +137,7 @@ MD_EXPORT CFArrayRef MDLineageCopyRootAncestors(MDItemRef item, CFArrayRef famil
  @result     Returns a CFArrayRef containing the most direct descendents of item.  Note that in some cases there may be multiple items returned in the array.  NULL is returned if no descendants of item can be found in family, or if an error occurred.
  */
 
-MD_EXPORT CFArrayRef MDLineageCopyChildren(MDItemRef item, CFArrayRef family) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFArrayRef MDLineageCopyChildren(MDItemRef item, CFArrayRef family) MD_AVAIL_LEOPARD;
 
 /*!
  @function 
@@ -147,7 +147,7 @@ MD_EXPORT CFArrayRef MDLineageCopyChildren(MDItemRef item, CFArrayRef family) AV
  @result     Returns a CFArrayRef containing the leaf descendants of the item.   NULL is returned if no descendants of item can be found in family, or if an error occurred.
  */
 
-MD_EXPORT CFArrayRef MDLineageCopyLeafDescendants(MDItemRef item, CFArrayRef family) AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
+MD_EXPORT CFArrayRef MDLineageCopyLeafDescendants(MDItemRef item, CFArrayRef family) MD_AVAIL_LEOPARD;
 
 MD_END_C_DECLS
 #endif

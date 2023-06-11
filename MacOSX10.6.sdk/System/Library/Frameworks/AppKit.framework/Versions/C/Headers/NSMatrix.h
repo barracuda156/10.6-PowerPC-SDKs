@@ -1,7 +1,7 @@
 /*
 	NSMatrix.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -9,7 +9,6 @@
 #import <AppKit/NSUserInterfaceValidation.h>
 
 @class NSColor, NSMutableArray;
-@protocol NSMatrixDelegate;
 
 /* Matrix Constants */
 
@@ -191,8 +190,8 @@ typedef struct __MFlags {
 - (BOOL)performKeyEquivalent:(NSEvent *)theEvent;
 - (BOOL)sendAction;
 - (void)sendDoubleAction;
-- (id <NSMatrixDelegate>)delegate;
-- (void)setDelegate:(id <NSMatrixDelegate>)anObject;
+- (id)delegate;
+- (void)setDelegate:(id)anObject;
 - (BOOL)textShouldBeginEditing:(NSText *)textObject;
 - (BOOL)textShouldEndEditing:(NSText *)textObject;
 - (void)textDidBeginEditing:(NSNotification *)notification;
@@ -213,5 +212,4 @@ typedef struct __MFlags {
 - (id)keyCell;
 @end
 
-@protocol NSMatrixDelegate <NSControlTextEditingDelegate> @end
 

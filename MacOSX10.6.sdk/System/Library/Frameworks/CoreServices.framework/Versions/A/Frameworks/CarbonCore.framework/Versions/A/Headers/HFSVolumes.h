@@ -3,7 +3,7 @@
  
      Contains:   On-disk data structures for HFS and HFS Plus volumes.
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1984-2008 by Apple Computer, Inc.  All rights reserved.
  

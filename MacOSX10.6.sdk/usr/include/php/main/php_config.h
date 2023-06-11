@@ -191,7 +191,7 @@
 /* #undef HAVE_CUSERID */
 
 /* Define if you have the fabsf function.  */
-#define HAVE_FABSF 1
+/* #undef HAVE_FABSF */
 
 /* Define if you have the finite function.  */
 #define HAVE_FINITE 1
@@ -200,7 +200,7 @@
 #define HAVE_FLOCK 1
 
 /* Define if you have the floorf function.  */
-#define HAVE_FLOORF 1
+/* #undef HAVE_FLOORF */
 
 /* Define if you have the fork function.  */
 #define HAVE_FORK 1
@@ -389,16 +389,16 @@
 /* #undef HAVE_MREMAP */
 
 /* Define if you have the mysql_commit function.  */
-#define HAVE_MYSQL_COMMIT 1
+/* #undef HAVE_MYSQL_COMMIT */
 
 /* Define if you have the mysql_next_result function.  */
-#define HAVE_MYSQL_NEXT_RESULT 1
+/* #undef HAVE_MYSQL_NEXT_RESULT */
 
 /* Define if you have the mysql_sqlstate function.  */
-#define HAVE_MYSQL_SQLSTATE 1
+/* #undef HAVE_MYSQL_SQLSTATE */
 
 /* Define if you have the mysql_stmt_prepare function.  */
-#define HAVE_MYSQL_STMT_PREPARE 1
+/* #undef HAVE_MYSQL_STMT_PREPARE */
 
 /* Define if you have the nanosleep function.  */
 #define HAVE_NANOSLEEP 1
@@ -1233,10 +1233,10 @@
 /* #undef COMPILE_DL_PCRE */
 
 /*   */
-/* #undef HAVE_BUNDLED_PCRE */
+#define HAVE_BUNDLED_PCRE 1
 
 /*   */
-#define HAVE_PCRE 1
+/* #undef HAVE_PCRE */
 
 /* Whether to build pcre as dynamic module */
 /* #undef COMPILE_DL_PCRE */
@@ -1458,70 +1458,70 @@
 /* #undef HAVE_LIBT1 */
 
 /*   */
-#define HAVE_LIBGD 1
+/* #undef HAVE_LIBGD */
 
 /*   */
-#define HAVE_LIBGD13 1
+/* #undef HAVE_LIBGD13 */
 
 /*   */
-#define HAVE_LIBGD15 1
+/* #undef HAVE_LIBGD15 */
 
 /*   */
-#define HAVE_LIBGD20 1
+/* #undef HAVE_LIBGD20 */
 
 /*   */
-#define HAVE_LIBGD204 1
+/* #undef HAVE_LIBGD204 */
 
 /*   */
-#define HAVE_GD_IMAGESETTILE 1
+/* #undef HAVE_GD_IMAGESETTILE */
 
 /*   */
-#define HAVE_GD_IMAGESETBRUSH 1
+/* #undef HAVE_GD_IMAGESETBRUSH */
 
 /*   */
-#define HAVE_GDIMAGECOLORRESOLVE 1
+/* #undef HAVE_GDIMAGECOLORRESOLVE */
 
 /*   */
-#define HAVE_COLORCLOSESTHWB 1
+/* #undef HAVE_COLORCLOSESTHWB */
 
 /*   */
-#define HAVE_GD_WBMP 1
+/* #undef HAVE_GD_WBMP */
 
 /*   */
-#define HAVE_GD_GD2 1
+/* #undef HAVE_GD_GD2 */
 
 /*   */
-#define HAVE_GD_PNG 1
+/* #undef HAVE_GD_PNG */
 
 /*   */
-#define HAVE_GD_XBM 1
+/* #undef HAVE_GD_XBM */
 
 /*   */
-#define HAVE_GD_BUNDLED 1
+/* #undef HAVE_GD_BUNDLED */
 
 /*   */
-#define HAVE_GD_GIF_READ 1
+/* #undef HAVE_GD_GIF_READ */
 
 /*   */
-#define HAVE_GD_GIF_CREATE 1
+/* #undef HAVE_GD_GIF_CREATE */
 
 /*   */
-#define HAVE_GD_IMAGEELLIPSE 1
+/* #undef HAVE_GD_IMAGEELLIPSE */
 
 /*   */
-#define HAVE_GD_FONTCACHESHUTDOWN 1
+/* #undef HAVE_GD_FONTCACHESHUTDOWN */
 
 /*   */
-#define HAVE_GD_FONTMUTEX 1
+/* #undef HAVE_GD_FONTMUTEX */
 
 /*   */
-#define HAVE_GD_DYNAMIC_CTX_EX 1
+/* #undef HAVE_GD_DYNAMIC_CTX_EX */
 
 /*   */
-#define HAVE_GD_GIF_CTX 1
+/* #undef HAVE_GD_GIF_CTX */
 
 /*   */
-#define HAVE_GD_JPG 1
+/* #undef HAVE_GD_JPG */
 
 /*   */
 /* #undef HAVE_GD_XPM */
@@ -1551,46 +1551,46 @@
 /* #undef HAVE_LIBT1 */
 
 /*   */
-#define HAVE_LIBGD 1
+/* #undef HAVE_LIBGD */
 
 /*   */
-#define HAVE_LIBGD13 1
+/* #undef HAVE_LIBGD13 */
 
 /*   */
-#define HAVE_LIBGD15 1
+/* #undef HAVE_LIBGD15 */
 
 /*   */
-#define HAVE_GD_PNG 1
+/* #undef HAVE_GD_PNG */
 
 /*   */
-#define HAVE_GD_GIF_READ 1
+/* #undef HAVE_GD_GIF_READ */
 
 /*   */
-#define HAVE_GD_GIF_CREATE 1
+/* #undef HAVE_GD_GIF_CREATE */
 
 /*   */
-#define HAVE_GD_WBMP 1
+/* #undef HAVE_GD_WBMP */
 
 /*   */
-#define HAVE_GD_JPG 1
+/* #undef HAVE_GD_JPG */
 
 /*   */
 /* #undef HAVE_GD_XPM */
 
 /*   */
-#define HAVE_GD_GD2 1
+/* #undef HAVE_GD_GD2 */
 
 /*   */
-#define HAVE_LIBGD20 1
+/* #undef HAVE_LIBGD20 */
 
 /*   */
-#define HAVE_GD_IMAGESETTILE 1
+/* #undef HAVE_GD_IMAGESETTILE */
 
 /*   */
-#define HAVE_GD_IMAGEELLIPSE 1
+/* #undef HAVE_GD_IMAGEELLIPSE */
 
 /*   */
-#define HAVE_GD_IMAGESETBRUSH 1
+/* #undef HAVE_GD_IMAGESETBRUSH */
 
 /*   */
 /* #undef HAVE_GD_STRINGTTF */
@@ -1602,31 +1602,31 @@
 /* #undef HAVE_GD_STRINGFTEX */
 
 /*   */
-#define HAVE_COLORCLOSESTHWB 1
+/* #undef HAVE_COLORCLOSESTHWB */
 
 /*   */
-#define HAVE_GDIMAGECOLORRESOLVE 1
+/* #undef HAVE_GDIMAGECOLORRESOLVE */
 
 /*   */
-#define HAVE_GD_GIF_CTX 1
+/* #undef HAVE_GD_GIF_CTX */
 
 /*   */
 /* #undef HAVE_GD_CACHE_CREATE */
 
 /*   */
-#define HAVE_GD_FONTCACHESHUTDOWN 1
+/* #undef HAVE_GD_FONTCACHESHUTDOWN */
 
 /*   */
 /* #undef HAVE_GD_FREEFONTCACHE */
 
 /*   */
-#define HAVE_GD_FONTMUTEX 1
+/* #undef HAVE_GD_FONTMUTEX */
 
 /*   */
-#define HAVE_GD_DYNAMIC_CTX_EX 1
+/* #undef HAVE_GD_DYNAMIC_CTX_EX */
 
 /*   */
-#define HAVE_LIBGD204 1
+/* #undef HAVE_LIBGD204 */
 
 /* Whether to build gd as dynamic module */
 /* #undef COMPILE_DL_GD */
@@ -2164,7 +2164,7 @@
 #define HAVE_MYSQL 1
 
 /*   */
-#define PDO_MYSQL_UNIX_ADDR "/var/mysql/mysql.sock"
+/* #undef PDO_MYSQL_UNIX_ADDR */
 
 /* Whether to build pdo_mysql as dynamic module */
 /* #undef COMPILE_DL_PDO_MYSQL */
@@ -2488,13 +2488,13 @@
 /* #undef COMPILE_DL_SIMPLEXML */
 
 /*   */
-#define HAVE_NET_SNMP 1
+/* #undef HAVE_NET_SNMP */
 
 /*   */
-#define HAVE_SNMP_PARSE_OID 1
+/* #undef HAVE_SNMP_PARSE_OID */
 
 /*   */
-#define HAVE_SNMP 1
+/* #undef HAVE_SNMP */
 
 /*   */
 /* #undef UCD_SNMP_HACK */
@@ -2884,16 +2884,16 @@
 /* #undef PTHREADS */
 
 /* PHP build date */
-#define PHP_BUILD_DATE "2008-09-24"
+#define PHP_BUILD_DATE "2008-05-18"
 
 /* hardcode for each of the cross compiler host */
 #define PHP_OS "Darwin"
 
 /* hardcode for each of the cross compiler host */
-#define PHP_UNAME "Darwin talini.apple.com 10.0 Darwin Kernel Version 10.0.0d2: Sat Aug 23 16:42:18 PDT 2008; root:xnu-1299.1~1/RELEASE_I386 i386"
+#define PHP_UNAME "Darwin boilermaker 10.0 Darwin Kernel Version 9.2.0: Mon Feb 18 15:29:49 PST 2008; root:xnu-1228.3.14~1/RELEASE_I386 i386"
 
 /* uname -a output */
-#define PHP_UNAME "Darwin talini.apple.com 10.0 Darwin Kernel Version 10.0.0d2: Sat Aug 23 16:42:18 PDT 2008; root:xnu-1299.1~1/RELEASE_I386 i386"
+#define PHP_UNAME "Darwin boilermaker 10.0 Darwin Kernel Version 9.2.0: Mon Feb 18 15:29:49 PST 2008; root:xnu-1228.3.14~1/RELEASE_I386 i386"
 
 /* uname output */
 #define PHP_OS "Darwin"

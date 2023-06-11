@@ -3,7 +3,7 @@
  
      Contains:   Types, constants, prototypes for Unicode Utilities (Unicode input and text utils)
  
-     Version:    CarbonCore-818~5
+     Version:    CarbonCore-806~1
  
      Copyright:  © 1997-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -665,38 +665,13 @@ UCCompareTextNoLocale(
 
 
 
+/* Standard text break (text boundary) functions*/
+
 /*
-*===============================================================================
-*   Text break (text boundary) functions
-*
-*   These are deprecated. Replacements are as follows:
-*
-*   1. To determine locale-sensitive text breaks for word, line, sentence and
-*   paragraph boundaries, use the CFStringTokenizer functions:
-*   CFStringTokenizerCreate (balanced by CFRelease), CFStringTokenizerAdvanceToNextToken
-*   or CFStringTokenizerGoToTokenAtIndex, then CFStringTokenizerGetCurrentTokenRange...
-*
-*   2. To determine cluster breaks, use CFStringGetRangeOfComposedCharactersAtIndex.
-*
-*   3. For handling character boundaries / surrogate pairs in UTF16 text, the
-*   following inline functions are available in CFString.h:
-*   CFStringIsSurrogateHighCharacter, CFStringIsSurrogateLowCharacter,
-*   CFStringGetLongCharacterForSurrogatePair, and CFStringGetSurrogatePairForLongCharacter.
-*   However, CFString clients do not usually need to worry about handling surrogate pairs
-*   directly.
-*
-*===============================================================================
-*/
-/*
- *  UCCreateTextBreakLocator()   *** DEPRECATED ***
- *  
- *  Deprecated:
- *    Use CFStringTokenizer functions or
- *    CFStringGetRangeOfComposedCharactersAtIndex, see discussion above
- *    for details.
+ *  UCCreateTextBreakLocator()
  *  
  *  Availability:
- *    Mac OS X:         in version 10.0 and later in CoreServices.framework but deprecated in 10.6
+ *    Mac OS X:         in version 10.0 and later in CoreServices.framework
  *    CarbonLib:        in CarbonLib 1.0 and later
  *    Non-Carbon CFM:   in UnicodeUtilitiesLib 9.0 and later
  */
@@ -705,19 +680,14 @@ UCCreateTextBreakLocator(
   LocaleRef                locale,
   LocaleOperationVariant   opVariant,
   UCTextBreakType          breakTypes,
-  TextBreakLocatorRef *    breakRef)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+  TextBreakLocatorRef *    breakRef)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
- *  UCFindTextBreak()   *** DEPRECATED ***
- *  
- *  Deprecated:
- *    Use CFStringTokenizer functions or
- *    CFStringGetRangeOfComposedCharactersAtIndex, see discussion above
- *    for details.
+ *  UCFindTextBreak()
  *  
  *  Availability:
- *    Mac OS X:         in version 10.0 and later in CoreServices.framework but deprecated in 10.6
+ *    Mac OS X:         in version 10.0 and later in CoreServices.framework
  *    CarbonLib:        in CarbonLib 1.0 and later
  *    Non-Carbon CFM:   in UnicodeUtilitiesLib 9.0 and later
  */
@@ -729,24 +699,19 @@ UCFindTextBreak(
   const UniChar *       textPtr,
   UniCharCount          textLength,
   UniCharArrayOffset    startOffset,
-  UniCharArrayOffset *  breakOffset)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+  UniCharArrayOffset *  breakOffset)                          AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 /*
- *  UCDisposeTextBreakLocator()   *** DEPRECATED ***
- *  
- *  Deprecated:
- *    Use CFStringTokenizer functions or
- *    CFStringGetRangeOfComposedCharactersAtIndex, see discussion above
- *    for details.
+ *  UCDisposeTextBreakLocator()
  *  
  *  Availability:
- *    Mac OS X:         in version 10.0 and later in CoreServices.framework but deprecated in 10.6
+ *    Mac OS X:         in version 10.0 and later in CoreServices.framework
  *    CarbonLib:        in CarbonLib 1.0 and later
  *    Non-Carbon CFM:   in UnicodeUtilitiesLib 9.0 and later
  */
 extern OSStatus 
-UCDisposeTextBreakLocator(TextBreakLocatorRef * breakRef)     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER_BUT_DEPRECATED_IN_MAC_OS_X_VERSION_10_6;
+UCDisposeTextBreakLocator(TextBreakLocatorRef * breakRef)     AVAILABLE_MAC_OS_X_VERSION_10_0_AND_LATER;
 
 
 

@@ -2,7 +2,7 @@
 
   ruby.h -
 
-  $Author: shyouhei $
+  $Author: knu $
   created at: Thu Jun 10 14:26:32 JST 1993
 
   Copyright (C) 1993-2003 Yukihiro Matsumoto
@@ -84,7 +84,7 @@ extern "C" {
 # error ---->> ruby requires sizeof(void*) == sizeof(long) to be compiled. <<----
 #else
 typedef unsigned long VALUE;
-typedef unsigned long ID;
+typedef unsigned long RB_ID;
 #endif
 
 #ifdef __STDC__
@@ -166,7 +166,7 @@ VALUE rb_ull2inum _((unsigned LONG_LONG));
 #define FIX2LONG(x) RSHIFT((long)x,1)
 #define FIX2ULONG(x) (((unsigned long)(x))>>1)
 #define FIXNUM_P(f) (((long)(f))&FIXNUM_FLAG)
-#define POSFIXABLE(f) ((f) < FIXNUM_MAX+1)
+#define POSFIXABLE(f) ((f) <= FIXNUM_MAX)
 #define NEGFIXABLE(f) ((f) >= FIXNUM_MIN)
 #define FIXABLE(f) (POSFIXABLE(f) && NEGFIXABLE(f))
 
@@ -208,7 +208,7 @@ VALUE rb_ull2inum _((unsigned LONG_LONG));
 
 #define T_TRUE   0x20
 #define T_FALSE  0x21
-#define T_DATA   0x22
+#define RB_T_DATA   0x22
 #define T_MATCH  0x23
 #define T_SYMBOL 0x24
 
@@ -406,7 +406,7 @@ VALUE rb_data_object_alloc _((VALUE,void*,RUBY_DATA_FUNC,RUBY_DATA_FUNC));
 )
 
 #define Data_Get_Struct(obj,type,sval) do {\
-    Check_Type(obj, T_DATA); \
+    Check_Type(obj, RB_T_DATA); \
     sval = (type*)DATA_PTR(obj);\
 } while (0)
 
@@ -524,9 +524,9 @@ void rb_global_variable _((VALUE*));
 void rb_gc_register_address _((VALUE*));
 void rb_gc_unregister_address _((VALUE*));
 
-ID rb_intern _((const char*));
-char *rb_id2name _((ID));
-ID rb_to_id _((VALUE));
+RB_ID rb_intern _((const char*));
+char *rb_id2name _((RB_ID));
+RB_ID rb_to_id _((VALUE));
 
 char *rb_class2name _((VALUE));
 char *rb_obj_classname _((VALUE));
@@ -536,9 +536,9 @@ void rb_p _((VALUE));
 VALUE rb_eval_string _((const char*));
 VALUE rb_eval_string_protect _((const char*, int*));
 VALUE rb_eval_string_wrap _((const char*, int*));
-VALUE rb_funcall __((VALUE, ID, int, ...));
-VALUE rb_funcall2 _((VALUE, ID, int, const VALUE*));
-VALUE rb_funcall3 _((VALUE, ID, int, const VALUE*));
+VALUE rb_funcall __((VALUE, RB_ID, int, ...));
+VALUE rb_funcall2 _((VALUE, RB_ID, int, const VALUE*));
+VALUE rb_funcall3 _((VALUE, RB_ID, int, const VALUE*));
 int rb_scan_args __((int, const VALUE*, const char*, ...));
 VALUE rb_call_super _((int, const VALUE*));
 
@@ -716,7 +716,7 @@ rb_special_const_p(obj)
 }
 
 #include "missing.h"
-#include "intern.h"
+#include "osx_intern.h"
 
 #if defined(EXTLIB) && defined(USE_DLN_A_OUT)
 /* hook for external modules */

@@ -30,7 +30,11 @@ typedef NSUInteger QTCaptureFileOutputBufferDestination;
 
 @interface QTCaptureFileOutput : QTCaptureOutput {
 @private
+#if __LP64__
+	int32_t						_delegateProxy;
+#else
 	QTCaptureFileOutputInternal	*_fileOutputInternal;
+#endif
 	
 	id __weak					_delegate;
 
@@ -46,7 +50,7 @@ typedef NSUInteger QTCaptureFileOutputBufferDestination;
 - (void)recordToOutputFileURL:(NSURL *)url;	// calls recordToOutputFileURL:bufferDestination: with a buffer destination of QTCaptureFileOutputBufferDestinationNewFile
 - (void)recordToOutputFileURL:(NSURL *)url bufferDestination:(QTCaptureFileOutputBufferDestination)bufferDestination;
 
-#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7
+#if QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6
 
 /*!
     @method isRecordingPaused
@@ -81,7 +85,7 @@ typedef NSUInteger QTCaptureFileOutputBufferDestination;
 */
 - (void)resumeRecording;
 
-#endif /* QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_5_7 */
+#endif /* QTKIT_VERSION_MAX_ALLOWED >= QTKIT_VERSION_7_6 */
 
 - (QTCompressionOptions *)compressionOptionsForConnection:(QTCaptureConnection *)connection;
 - (void)setCompressionOptions:(QTCompressionOptions *)compressionOptions forConnection:(QTCaptureConnection *)connection;

@@ -21,15 +21,10 @@
  * @APPLE_LICENSE_HEADER_END@
  */
 
-#ifndef _OBJC_MESSAGE_H
-#define _OBJC_MESSAGE_H
-
-#include <objc/objc.h>
-#include <objc/runtime.h>
+#import <objc/objc.h>
+#import <objc/runtime.h>
 
 
-#ifndef OBJC_SUPER
-#define OBJC_SUPER
 struct objc_super {
     id receiver;
 #if !defined(__cplusplus)  &&  !__OBJC2__
@@ -39,7 +34,6 @@ struct objc_super {
 #endif
     /* super_class is the first class to search */
 };
-#endif
 
 
 /* Basic Messaging Primitives
@@ -175,7 +169,5 @@ OBJC_EXPORT double objc_msgSendv_fpret(id self, SEL op, unsigned arg_size, marg_
 
 #define marg_setValue(margs, offset, type, value) \
 	( marg_getValue(margs, offset, type) = (value) )
-
-#endif
 
 #endif

@@ -19,7 +19,7 @@
 # configuration parameters.
 
 APRUTIL_MAJOR_VERSION="1"
-APRUTIL_DOTTED_VERSION="1.3.2"
+APRUTIL_DOTTED_VERSION="1.2.12"
 
 prefix="/usr"
 exec_prefix="${prefix}"
@@ -27,15 +27,14 @@ bindir="${exec_prefix}/bin"
 libdir="${exec_prefix}/lib"
 includedir="${prefix}/include/apr-${APRUTIL_MAJOR_VERSION}"
 
-LIBS="-lexpat -liconv    -lsqlite3     "
+LIBS="-lsqlite3 -lexpat -liconv"
 INCLUDES=""
 LDFLAGS=""
-LDAP_LIBS=""
 
 APRUTIL_LIBNAME="aprutil-${APRUTIL_MAJOR_VERSION}"
 
-APU_SOURCE_DIR="/SourceCache/apr/apr-18/apr-util/apr-util"
-APU_BUILD_DIR="/var/tmp/apr/apr-18~28/apr-util"
+APU_SOURCE_DIR="/SourceCache/apr/apr-15/apr-util/apr-util"
+APU_BUILD_DIR="/var/tmp/apr/apr-15~70/apr-util"
 APR_XML_EXPAT_OLD="@APR_XML_EXPAT_OLD@"
 APU_DB_VERSION="0"
 
@@ -54,8 +53,6 @@ Known values for OPTION are:
   --includedir      print location where headers are installed
   --ldflags         print linker flags
   --libs            print library information
-  --avoid-ldap      do not include ldap library information with --libs
-  --ldap-libs       print additional library information to link with ldap
   --srcdir          print APR-util source directory
   --link-ld         print link switch(es) for linking to APR-util
   --link-libtool    print the libtool inputs for linking to APR-util
@@ -112,14 +109,8 @@ while test $# -gt 0; do
     echo $bindir
     exit 0
     ;;
-    --avoid-ldap)
-    LDAP_LIBS=""
-    ;;
     --libs)
-    flags="$flags $LDAP_LIBS $LIBS"
-    ;;
-    --ldap-libs)
-    flags="$flags $LDAP_LIBS"
+    flags="$flags $LIBS"
     ;;
     --includedir)
     if test "$location" = "installed"; then

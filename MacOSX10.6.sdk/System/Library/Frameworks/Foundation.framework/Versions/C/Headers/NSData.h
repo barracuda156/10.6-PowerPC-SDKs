@@ -1,5 +1,5 @@
 /*	NSData.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
@@ -10,35 +10,16 @@
 
 /****************	Read/Write Options	****************/
 
-enum {
-    NSDataReadingMapped =   1UL << 0,	// Hint to map the file in if possible
-    NSDataReadingUncached = 1UL << 1	// Hint to get the file not to be cached in the kernel
-};
-typedef NSUInteger NSDataReadingOptions;
-
-enum {	                          
-    NSDataWritingAtomic = 1UL << 0	// Hint to use auxiliary file when saving; equivalent to atomically:YES
-};
-typedef NSUInteger NSDataWritingOptions;
-
-
-enum {	// Options with old names for NSData reading methods. Please stop using these old names.
-    NSMappedRead = NSDataReadingMapped,	    // Deprecated name for NSDataReadingMapped
-    NSUncachedRead = NSDataReadingUncached  // Deprecated name for NSDataReadingUncached
+enum {	// Options for NSData reading methods
+    NSMappedRead = 1,	    // Hint to map the file in if possible
+    NSUncachedRead = 2	    // Hint to get the file not to be cached in the kernel
 };
 
-enum {	// Options with old names for NSData writing methods. Please stop using these old names.
-    NSAtomicWrite = NSDataWritingAtomic	    // Deprecated name for NSDataWritingAtomic
+enum {	// Options for NSData writing methods
+    NSAtomicWrite = 1	    // Hint to use auxiliary file when saving; equivalent to atomically:YES
 };
 
-/****************	Data Search Options	****************/
-#if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
-enum {
-    NSDataSearchBackwards = 1UL << 0,
-    NSDataSearchAnchored = 1UL << 1
-};
-#endif
-typedef NSUInteger NSDataSearchOptions;
+
 
 /****************	Immutable Data		****************/
 
@@ -60,10 +41,9 @@ typedef NSUInteger NSDataSearchOptions;
 - (BOOL)writeToFile:(NSString *)path atomically:(BOOL)useAuxiliaryFile;
 - (BOOL)writeToURL:(NSURL *)url atomically:(BOOL)atomically; // the atomically flag is ignored if the url is not of a type the supports atomic writes
 #if MAC_OS_X_VERSION_10_4 <= MAC_OS_X_VERSION_MAX_ALLOWED
-- (BOOL)writeToFile:(NSString *)path options:(NSDataWritingOptions)writeOptionsMask error:(NSError **)errorPtr;
-- (BOOL)writeToURL:(NSURL *)url options:(NSDataWritingOptions)writeOptionsMask error:(NSError **)errorPtr;
+- (BOOL)writeToFile:(NSString *)path options:(NSUInteger)writeOptionsMask error:(NSError **)errorPtr;
+- (BOOL)writeToURL:(NSURL *)url options:(NSUInteger)writeOptionsMask error:(NSError **)errorPtr;
 #endif
-- (NSRange)rangeOfData:(NSData *)dataToFind options:(NSDataSearchOptions)mask range:(NSRange)searchRange AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 @end
 
@@ -76,8 +56,8 @@ typedef NSUInteger NSDataSearchOptions;
 + (id)dataWithBytesNoCopy:(void *)bytes length:(NSUInteger)length freeWhenDone:(BOOL)b;
 #endif
 #if MAC_OS_X_VERSION_10_4 <= MAC_OS_X_VERSION_MAX_ALLOWED
-+ (id)dataWithContentsOfFile:(NSString *)path options:(NSDataReadingOptions)readOptionsMask error:(NSError **)errorPtr;
-+ (id)dataWithContentsOfURL:(NSURL *)url options:(NSDataReadingOptions)readOptionsMask error:(NSError **)errorPtr;
++ (id)dataWithContentsOfFile:(NSString *)path options:(NSUInteger)readOptionsMask error:(NSError **)errorPtr;
++ (id)dataWithContentsOfURL:(NSURL *)url options:(NSUInteger)readOptionsMask error:(NSError **)errorPtr;
 #endif
 + (id)dataWithContentsOfFile:(NSString *)path;
 + (id)dataWithContentsOfURL:(NSURL *)url;
@@ -88,8 +68,8 @@ typedef NSUInteger NSDataSearchOptions;
 - (id)initWithBytesNoCopy:(void *)bytes length:(NSUInteger)length freeWhenDone:(BOOL)b;
 #endif
 #if MAC_OS_X_VERSION_10_4 <= MAC_OS_X_VERSION_MAX_ALLOWED
-- (id)initWithContentsOfFile:(NSString *)path options:(NSDataReadingOptions)readOptionsMask error:(NSError **)errorPtr;
-- (id)initWithContentsOfURL:(NSURL *)url options:(NSDataReadingOptions)readOptionsMask error:(NSError **)errorPtr;
+- (id)initWithContentsOfFile:(NSString *)path options:(NSUInteger)readOptionsMask error:(NSError **)errorPtr;
+- (id)initWithContentsOfURL:(NSURL *)url options:(NSUInteger)readOptionsMask error:(NSError **)errorPtr;
 #endif
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithContentsOfURL:(NSURL *)url;
@@ -131,8 +111,6 @@ typedef NSUInteger NSDataSearchOptions;
 
 @end
 
-#if MAC_OS_X_VERSION_10_6 <= MAC_OS_X_VERSION_MAX_ALLOWED
-
 /****************	    Purgeable Data	****************/
 
 @interface NSPurgeableData : NSMutableData <NSDiscardableContent> {
@@ -144,6 +122,3 @@ typedef NSUInteger NSDataSearchOptions;
 }
 
 @end
-
-#endif
-

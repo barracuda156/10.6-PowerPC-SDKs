@@ -46,6 +46,15 @@
 #include <sys/appleapiopts.h>
 
 /*
+ * This should be removed once the interfaces are LP64-ready.
+ */
+#if !defined(KERNEL) && defined(__LP64__)
+#if !defined(IP_FW_PRIVATE)
+#error "Not yet ready for LP64"
+#endif
+#endif
+
+/*
  * Define IPv6 Firewall event subclass, and associated events.
  */
 
@@ -116,7 +125,6 @@ union ip6_fw_if {
  * Warning: setsockopt() will fail if sizeof(struct ip_fw) > MLEN (108)
  */
 
-
 struct ip6_fw {
 	u_int32_t version;		/* Version of this structure.  Should always be */
 							/* set to IP6_FW_CURRENT_API_VERSION by clients. */
@@ -147,7 +155,6 @@ struct ip6_fw {
 					/* src ports; max of 10 ports in all; */
 					/* count of 0 means match all ports) */
 };
-
 
 #define IPV6_FW_GETNSRCP(rule)		((rule)->fw_nports & 0x0f)
 #define IPV6_FW_SETNSRCP(rule, n)		do {				\

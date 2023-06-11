@@ -7,7 +7,7 @@
 
 #import <Foundation/NSObject.h>
 
-@class NSData, NSDictionary, NSError, NSImage, NSURL;
+@class NSData, NSDictionary, NSImage;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
 
@@ -15,11 +15,11 @@ enum {
     
     /* Whether the contents and icons are read immediately, applied recursively in the case of directory file wrappers. If reading with this option succeeds then subsequent invocations of -fileWrappers, -regularFileContents, -symbolicLinkDestinationURL:, -icon, and -serializedRepresentation sent to the receiver and all its descendant file wrappers will only fail and return nil if an actual error (the volume has disappeared, the file server is unreachable, etc.) occurs; they won't fail as a result of the user moving or deleting files. For performance NSFileWrapper may or may not immediately read the contents of some file packages immediately even when this option is chosen. For example, the contents of bundles (not all file packages are bundles) are immutable to the user so NSFileWrapper may read the children of such a directory lazily. You can use this option to take a reasonable snapshot of a file or folder for writing later. For example, an application like TextEdit can use this option when creating new file wrappers to represent attachments that the user creates by copying and pasting or dragging and dropping from the Finder to a TextEdit document. You wouldn't use this option when reading a document file package because that would cause unnecessarily bad perfomance. For example, an application wouldn't use this option when creating file wrappers to represent attachments as it's opening a document stored in a file package.
     */
-    NSFileWrapperReadingImmediate = 1 << 0,
+    NSFileWrapperReadingImmediate = 0x01,
 
     /* Whether file mapping for regular file wrappers is disallowed.
     */
-    NSFileWrapperReadingWithoutMapping = 1 << 1
+    NSFileWrapperReadingWithoutMapping = 0x02
 
     /* You can use NSFileWrapperReadingImmediately and NSFileWrapperReadingWithoutMapping together to take an exact snapshot of a file system hierarchy that is safe from all errors (including the ones mentioned above) once reading has succeeded. If reading with both options succeeds then subsequent invocations of the methods listed in the comment for NSFileWrapperReadingImmediately sent to the receiver and all its descendant file wrappers will never fail. Reading with both options together is expensive in terms of both I/O and memory for large files, or directories containing large files, or even directories containing many small files.
     */
@@ -28,7 +28,7 @@ enum {
 
 #endif
 
-typedef NSUInteger NSFileWrapperReadingOptions;
+typedef NSInteger NSFileWrapperReadingOptions;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
 
@@ -36,17 +36,17 @@ enum {
 
     /* Whether writing is done atomically. You can use this option to ensure that when overwriting a file package the overwriting either completely succeeds or completely fails, with no possibility of leaving the file package in an inconsistent state. Because this option causes additional I/O you shouldn't use it unnecessarily. For example, you wouldn't use this option in an override of -[NSDocument writeToURL:ofType:error:] because NSDocument safe saving is already doing atomic writing.
     */
-    NSFileWrapperWritingAtomic = 1 << 0,
+    NSFileWrapperWritingAtomic = 0x01,
 
     /* Whether descendant file wrappers are sent -setFilename: if the writing succeeds. This is necessary when your application passes original contents URLs to -writeToURL:options:originalContentsURL:error:. Without using this and reusing child file wrappers properly subsequent invocations of -writeToURL:options:originalContentsURL:error: wouldn't be able to reliably create hard links in a new file package for performance because the record of names in the old file package would be out of date.
     */
-    NSFileWrapperWritingWithNameUpdating = 1 << 1
+    NSFileWrapperWritingWithNameUpdating = 0x02
 
 };
 
 #endif
 
-typedef NSUInteger NSFileWrapperWritingOptions;
+typedef NSInteger NSFileWrapperWritingOptions;
 
 @interface NSFileWrapper : NSObject<NSCoding> {
     @private
@@ -103,7 +103,7 @@ typedef NSUInteger NSFileWrapperWritingOptions;
 - (void)setFileAttributes:(NSDictionary *)fileAttributes;
 - (NSDictionary *)fileAttributes;
 
-/* The icon. -icon may return nil if the receiver is the result of reading a parent from the file system (use NSFileWrapperReadingImmediately if appropriate to reduce the likelihood of that). The image that's returned might be shared by many NSFileWrappers so your application must not mutate it. If your application needs to mutate the returned image it should make a copy and mutate the copy instead.
+/* The icon. -icon may return nil if the receiver is the result of reading a parent from the file system (use NSFileWrapperReadingImmediately if appropriate to reduce the likelihood of that).
 */
 - (void)setIcon:(NSImage *)icon;
 - (NSImage *)icon;
@@ -126,7 +126,7 @@ typedef NSUInteger NSFileWrapperWritingOptions;
 
 #pragma mark *** Serialization ***
 
-/* Return an NSData suitable for passing to -initWithSerializedRepresentation:. This method may return nil if the receiver is the result of reading from the file system (use NSFileWrapperReadingImmediately if appropriate to reduce the likelihood of that).
+/* Return an NSData suitable for passing to -initWithSerializedRepresentation:. This may return nil if the receiver is the result of reading from the file system (use NSFileWrapperReadingImmediately if appropriate to reduce the likelihood of that).
 */
 - (NSData *)serializedRepresentation;
 
@@ -146,7 +146,7 @@ typedef NSUInteger NSFileWrapperWritingOptions;
 */
 - (void)removeFileWrapper:(NSFileWrapper *)child;
 
-/* Return a dictionary whose values are the receiver's children and whose keys are the unique file name that has been assigned to each one. This method may return nil if the receiver is the result of reading a parent from the file system (use NSFileWrapperReadingImmediately if appropriate to reduce the likelihood of that).
+/* Return a dictionary whose values are the receiver's children and whose keys are the unique file name that has been assigned to each one. This may return nil if the receiver is the result of reading a parent from the file system (use NSFileWrapperReadingImmediately if appropriate to reduce the likelihood of that).
 */
 - (NSDictionary *)fileWrappers;
 

@@ -770,8 +770,6 @@ extern const CFStringRef  kICANotificationTypeDeviceRemoved             AVAILABL
 extern const CFStringRef  kICANotificationTypeDeviceInfoChanged         AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 extern const CFStringRef  kICANotificationTypeDevicePropertyChanged     AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 extern const CFStringRef  kICANotificationTypeDeviceWasReset            AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-extern const CFStringRef  kICANotificationTypeDeviceStatusInfo          AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-extern const CFStringRef  kICANotificationTypeDeviceStatusError          AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 
 extern const CFStringRef  kICANotificationTypeCaptureComplete           AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 extern const CFStringRef  kICANotificationTypeRequestObjectTransfer     AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
@@ -818,14 +816,6 @@ extern const CFStringRef  kICANotificationScannerButtonTypeKey          AVAILABL
 
 extern const CFStringRef  kICANotificationNumerOfImagesRemainingKey     AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
 extern const CFStringRef  kICANotificationPercentDownloadedKey          AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-
-extern const CFStringRef  kICANotificationSubTypeKey                                  AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-extern const CFStringRef  kICANotificationSubTypeWarmUpStarted                        AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-extern const CFStringRef  kICANotificationSubTypeWarmUpDone                           AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-extern const CFStringRef  kICANotificationVendorErrorCodeKey                          AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER;
-extern const CFStringRef  kICANotificationSubTypePerformOverviewScan                  AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-extern const CFStringRef  kICANotificationSubTypeDocumentLoaded                       AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-extern const CFStringRef  kICANotificationSubTypeDocumentNotLoaded                    AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 // Possible values in the notification dictionary:
 // ...

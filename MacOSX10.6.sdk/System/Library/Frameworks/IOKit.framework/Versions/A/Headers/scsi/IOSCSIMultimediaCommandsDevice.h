@@ -985,18 +985,10 @@ protected:
 	void		SetPollingMode ( UInt32 newPollingMode );
 	
 	
-public:
-	
-	
-	/* 10.6.0 */
-	
-	IOReturn	RequestIdle ( void );
-	
-	
 private:
 	
 	// Space reserved for future expansion.
-    OSMetaClassDeclareReservedUnused ( IOSCSIMultimediaCommandsDevice, 	8 );
+    OSMetaClassDeclareReservedUnused ( IOSCSIMultimediaCommandsDevice,  8 );
     OSMetaClassDeclareReservedUnused ( IOSCSIMultimediaCommandsDevice, 	9 );
     OSMetaClassDeclareReservedUnused ( IOSCSIMultimediaCommandsDevice, 10 );
     OSMetaClassDeclareReservedUnused ( IOSCSIMultimediaCommandsDevice, 11 );

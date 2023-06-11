@@ -1,12 +1,12 @@
 /*	NSDate.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
 
 @class NSString;
 
-FOUNDATION_EXPORT NSString * const NSSystemClockDidChangeNotification AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+FOUNDATION_EXPORT NSString * const NSSystemClockDidChangeNotification;
 
 typedef double NSTimeInterval;
 

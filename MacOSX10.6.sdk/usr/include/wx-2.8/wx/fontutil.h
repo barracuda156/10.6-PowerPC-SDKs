@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     05.11.99
-// RCS-ID:      $Id: fontutil.h 49563 2007-10-31 20:46:21Z VZ $
+// RCS-ID:      $Id: fontutil.h,v 1.42 2006/11/20 20:43:59 VS Exp $
 // Copyright:   (c) wxWidgets team
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -26,8 +26,8 @@
     #include "wx/msw/wrapwin.h"
 #endif
 
-class WXDLLIMPEXP_FWD_BASE wxArrayString;
-struct WXDLLIMPEXP_FWD_CORE wxNativeEncodingInfo;
+class WXDLLIMPEXP_BASE wxArrayString;
+struct WXDLLEXPORT wxNativeEncodingInfo;
 
 #if defined(_WX_X_FONTLIKE)
 

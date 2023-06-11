@@ -110,213 +110,110 @@ extern CFStringRef const kAirPortChanParamKeyChannel;
 extern CFStringRef const kAirPortChanParamKeyFlags;
 
 #pragma mark -
-#pragma mark Regulatory Info Dictionary Keys
+#pragma mark Interface Status Keys
+
+/*! @group Interface Status Keys */
 
 /*!
-	@const kAirPortRegulatoryKeyCountryCode
-	@discussion A CFString containing the ISO/IEC 3166-1:1997 country code
-				in use by the interface
-*/
-
-extern CFStringRef const kAirPortRegulatoryKeyCountryCode;
-
-/*!
-	@const kAirPortRegulatoryKeyChannelList
-	@discussion CFArray of channel dictionaries. Channel parameter
-				dictionary keys are defined in AirPortKeys.h
-*/
-
-extern CFStringRef const kAirPortRegulatoryKeyChannelList;
-
-/*!
-	@const kAirPortStaticParamKeyTxPower
-	@discussion 32 bit number. Target transmit power value in milliwatts.
-*/
-
-extern CFStringRef const kAirPortRegulatoryKeyTxPower;
-
-#pragma mark -
-#pragma mark Static Connection Parameters Dictionary Keys
-
-/*! @group Connection Parameter Keys */
-
-/*!
-	@const kAirPortStaticParamKeyState
-	@discussion 32 bit number containing an AirPortInterfaceState.
-*/
-
-extern CFStringRef const kAirPortStaticParamKeyState;
-
-/*!
-	@const kAirPortStaticParamKeyPhyMode
-	@discussion Dictionary containing supported and active phy modes.
-*/
-
-extern CFStringRef const kAirPortStaticParamKeyPhyMode;
-
-/*!
-	@const kAirPortStaticParamKeyOpMode
-	@discussion 32 bit number containing AirPortInterfaceOpModeFlags.
-*/
-
-extern CFStringRef const kAirPortStaticParamKeyOpMode;
-
-/*!
-	@const kAirPortStaticParamKeyAuthType
-	@discussion Dictionary containing information about interface's current authentication configuration.
-*/
-
-extern CFStringRef const kAirPortStaticParamKeyAuthType;
-
-/*!
-	@const kAirPortStaticParamKeySSID_Bytes
-	@discussion CFData containing the bytes of the SSID of the network in which the interface is currently participating.
-*/
-
-extern CFStringRef const kAirPortStaticParamKeySSID_Bytes;
-
-/*!
-	@const kAirPortStaticParamKeySSID_Str
-	@discussion CFString containing a UTF-8 representation of the SSID of the network in which the interface is currently participating.
-*/
-
-extern CFStringRef const kAirPortStaticParamKeySSID_Str;
-
-#pragma mark -
-#pragma mark Dynamic Connection Parameters Dictionary Keys
-
-/*!
-	@const kAirPortDynamicParamKeyPowerSave
+	@const kAirPortInfoKeyPowerSave
 	@discussion 32 bit number containing an AirPortPowerSaveMode value.
 */
 
-extern CFStringRef const kAirPortDynamicParamKeyPowerSave;
+extern CFStringRef const kAirPortInfoKeyPowerSave;
 
 /*!
-	@const kAirPortDynamicParamKeyNoise
+	@const kAirPortInfoKeyTxPower
+	@discussion 32 bit number. Power value is reported in milliwatts.
+*/
+
+extern CFStringRef const kAirPortInfoKeyTxPower;
+
+/*!
+	@const kAirPortInfoKeyState
+	@discussion 32 bit number containing an AirPortInterfaceState.
+*/
+
+extern CFStringRef const kAirPortInfoKeyState;
+
+/*!
+	@const kAirPortInfoKeyPhyMode
+	@discussion Dictionary containing supported and active phy modes.
+*/
+
+extern CFStringRef const kAirPortInfoKeyPhyMode;
+
+/*!
+	@const kAirPortInfoKeyOpMode
+	@discussion 32 bit number containing AirPortInterfaceOpModeFlags.
+*/
+
+extern CFStringRef const kAirPortInfoKeyOpMode;
+
+/*!
+	@const kAirPortInfoKeyNoise
 	@discussion Dictionary containing per radio chain (if supported)
 		noise measurements.
 */
 
-extern CFStringRef const kAirPortDynamicParamKeyNoise;
+extern CFStringRef const kAirPortInfoKeyNoise;
 
 /*!
-	@const kAirPortDynamicParamKeyRate
+	@const kAirPortInfoKeyRate
 	@discussion 32 bit number. Current data rate in Mbps.
 */
 
-extern CFStringRef const kAirPortDynamicParamKeyRate;
+extern CFStringRef const kAirPortInfoKeyRate;
 
 /*!
-	@const kAirPortDynamicParamKeyRSSI
+	@const kAirPortInfoKeyRSSI
 	@discussion Dictionary containing per radio chain (if supported )
 		RSSI measurements.
 */
 
-extern CFStringRef const kAirPortDynamicParamKeyRSSI;
+extern CFStringRef const kAirPortInfoKeyRSSI;
 
 /*!
-	@const kAirPortDynamicParamKeyBSSID
+	@const kAirPortInfoKeyChannel
+	@discussion Dictionary containing information about interface's current channel.
+*/
+
+extern CFStringRef const kAirPortInfoKeyChannel;
+
+/*!
+	@const kAirPortInfoKeyAuthType
+	@discussion Dictionary containing information about interface's current authentication configuration.
+*/
+
+extern CFStringRef const kAirPortInfoKeyAuthType;
+
+/*!
+	@const kAirPortInfoKeySSID_Bytes
+	@discussion CFData containing the bytes of the SSID of the network in which the interface is currently participating.
+*/
+
+extern CFStringRef const kAirPortInfoKeySSID_Bytes;
+
+/*!
+	@const kAirPortInfoKeySSID_Str
+	@discussion CFString containing a UTF-8 representation of the SSID of the network in which the interface is currently participating.
+*/
+
+extern CFStringRef const kAirPortInfoKeySSID_Str;
+
+/*!
+	@const kAirPortInfoKeyBSSID
 	@discussion CFString containing the BSSID of the of the network in which the interface is currently participating.
 */
 
-extern CFStringRef const kAirPortDynamicParamKeyBSSID;
-
-#pragma mark -
-#pragma mark Interface Capability Keys
-
-/*! @group Interface Capability Keys */
+extern CFStringRef const kAirPortInfoKeyBSSID;
 
 /*!
-	@const kAirPortCapKeyWEP
-	@discussion CFBooleanRef indicating whether or not WEP is supported by the interface.
+	@const kAirPortInfoKeyCaps
+	@discussion CFData object containing an interface capabilities bit vector. See AirPortInterfaceCapability enum in Apple80211Var.h.
 */
 
-extern CFStringRef const kAirPortCapKeyWEP;
+extern CFStringRef const kAirPortInfoKeyCaps;
 
-/*!
-	@const kAirPortCapKeyTKIP
-	@discussion CFBooleanRef indicating whether or not TKIP is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyTKIP;
-
-/*!
-	@const kAirPortCapKeyAES_CCM
-	@discussion CFBooleanRef indicating whether or not AES-CCM is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyAES_CCM;
-
-/*!
-	@const kAirPortCapKeyIBSS
-	@discussion CFBooleanRef indicating whether or not IBSS is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyIBSS;
-
-/*!
-	@const kAirPortCapKeyPowerManagement
-	@discussion CFBooleanRef indicating whether or not power saving modes are supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyPowerManagement;
-
-/*!
-	@const kAirPortCapKeyHostAP
-	@discussion CFBooleanRef indicating whether or not host AP mode is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyHostAP;
-
-/*!
-	@const kAirPortCapKeyMonitorMode
-	@discussion CFBooleanRef indicating whether or not monitor mode is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyMonitorMode;
-
-/*!
-	@const kAirPortCapKeyWPA
-	@discussion CFBooleanRef indicating whether or not WPA is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyWPA;
-
-/*!
-	@const kAirPortCapKeyWPA2
-	@discussion CFBooleanRef indicating whether or not WPA2 is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyWPA2;
-
-/*!
-	@const kAirPortCapKeyWME
-	@discussion CFBooleanRef indicating whether or not WME is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyWME;
-
-/*!
-	@const kAirPortCapKeyShortGI40Mhz
-	@discussion CFBooleanRef indicating whether or not short GI in 40 MHz is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyShortGI40Mhz;
-
-/*!
-	@const kAirPortCapKeyShortGI20Mhz
-	@discussion CFBooleanRef indicating whether or not short GI in 20 MHz is supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyShortGI20Mhz;
-
-/*!
-	@const kAirPortCapKeyTSN
-	@discussion CFBooleanRef indicating whether or not transitional security networks (WEP group cipher with TKIP or AES unicast cipher) are supported by the interface.
-*/
-
-extern CFStringRef const kAirPortCapKeyTSN;
 
 #pragma mark -
 #pragma mark Noise and RSSI Dictionary Keys

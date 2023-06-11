@@ -4,7 +4,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: listbox.h 41257 2006-09-17 01:20:08Z KO $
+// RCS-ID:      $Id: listbox.h,v 1.26 2006/09/17 01:19:51 KO Exp $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

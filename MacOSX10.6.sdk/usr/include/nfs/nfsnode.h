@@ -325,7 +325,6 @@ struct nfs_vattr {
 
 
 __private_extern__ lck_grp_t *nfs_open_grp;
-__private_extern__ uint32_t nfs_open_owner_seqnum, nfs_lock_owner_seqnum;
 
 /*
  * NFSv4 open owner structure - one per cred per mount
@@ -333,15 +332,13 @@ __private_extern__ uint32_t nfs_open_owner_seqnum, nfs_lock_owner_seqnum;
 struct nfs_open_owner {
 	TAILQ_ENTRY(nfs_open_owner)	noo_link;	/* List of open owners (per-mount) */
 	lck_mtx_t			noo_lock;	/* owner mutex */
-	struct nfsmount *		noo_mount;	/* NFS mount */
 	uint32_t			noo_refcnt;	/* # outstanding references */
 	uint32_t			noo_flags;	/* see below */
 	kauth_cred_t			noo_cred;	/* credentials of open owner */
-	uint32_t			noo_name;	/* unique name used otw */
 	uint32_t			noo_seqid;	/* client-side sequence ID */
 };
 /* noo_flags */
-#define NFS_OPEN_OWNER_LINK	0x1	/* linked into mount's open owner list */
+#define NFS_OPEN_OWNER_LINK	0x1	/* linked into mount's owner list */
 #define NFS_OPEN_OWNER_BUSY	0x2	/* open state-modifying operation in progress */
 #define NFS_OPEN_OWNER_WANT	0x4	/* someone else wants to mark busy */
 
@@ -349,18 +346,18 @@ struct nfs_open_owner {
  * NFS open file structure - one per open owner per nfsnode
  */
 struct nfs_open_file {
-	lck_mtx_t			nof_lock;		/* open file mutex */
-	TAILQ_ENTRY(nfs_open_file)	nof_link;		/* list of open files */
-	struct nfs_open_owner *		nof_owner;		/* open owner */
-	nfs_stateid			nof_stateid;		/* open stateid */
-	uint32_t			nof_opencnt;		/* open file count */
-	uint8_t				nof_flags;		/* see below */
-	uint8_t				nof_access;		/* access mode for this open */
-	uint8_t				nof_deny;		/* deny mode for this open */
-	uint8_t				nof_mmap_access;	/* mmap access mode */
-	uint32_t			nof_rcnt;		/* # read opens */
-	uint32_t			nof_wcnt;		/* # write opens */
-	uint32_t			nof_dwcnt;		/* # deny write opens */
+	lck_mtx_t		nof_lock;		/* open file mutex */
+	TAILQ_ENTRY(nfs_open_file) nof_link;		/* list of open files */
+	struct nfs_open_owner	*nof_owner;		/* open owner */
+	nfs_stateid		nof_stateid;		/* open stateid */
+	uint32_t		nof_opencnt;		/* open file count */
+	uint8_t			nof_flags;		/* see below */
+	uint8_t			nof_access;		/* access mode for this open */
+	uint8_t			nof_deny;		/* deny mode for this open */
+	uint8_t			nof_mmap_access;	/* mmap access mode */
+	uint32_t		nof_rcnt;		/* # read opens */
+	uint32_t		nof_wcnt;		/* # write opens */
+	uint32_t		nof_dwcnt;		/* # deny write opens */
 };
 /* nof_flags */
 #define NFS_OPEN_FILE_BUSY	0x01	/* open state-modifying operation in progress */
@@ -369,73 +366,6 @@ struct nfs_open_file {
 #define NFS_OPEN_FILE_NEEDCLOSE	0x08	/* has an open(R) from an (unopen) VNOP_READ call */
 #define NFS_OPEN_FILE_READTOO	0x10	/* open(W) also grabbed R access */
 #define NFS_OPEN_FILE_SETATTR	0x20	/* has an open(W) to perform a SETATTR(size) */
-#define NFS_OPEN_FILE_POSIXLOCK	0x40	/* server supports POSIX locking semantics */
-
-struct nfs_lock_owner;
-/*
- * NFS file lock
- *
- * Each lock request (pending or granted) has an
- * nfs_file_lock structure representing its state.
- */
-struct nfs_file_lock {
-	TAILQ_ENTRY(nfs_file_lock)	nfl_link;	/* List of locks on nfsnode */
-	TAILQ_ENTRY(nfs_file_lock)	nfl_lolink;	/* List of locks held by locker */
-	struct nfs_lock_owner *		nfl_owner;	/* lock owner that holds this lock */
-	uint64_t			nfl_start;	/* starting offset */
-	uint64_t			nfl_end;	/* ending offset (inclusive) */
-	uint32_t			nfl_blockcnt;	/* # locks blocked on this lock */
-	uint16_t			nfl_flags;	/* see below */
-	uint8_t				nfl_type;	/* lock type: read/write */
-};
-/* nfl_flags */
-#define NFS_FILE_LOCK_ALLOC		0x01	/* lock was allocated */
-#define NFS_FILE_LOCK_STYLE_POSIX	0x02	/* POSIX-style fcntl() lock */
-#define NFS_FILE_LOCK_STYLE_FLOCK	0x04	/* flock(2)-style lock */
-#define NFS_FILE_LOCK_STYLE_MASK	0x06	/* lock style mask */
-#define NFS_FILE_LOCK_WAIT		0x08	/* may block on conflicting locks */
-#define NFS_FILE_LOCK_BLOCKED		0x10	/* request is blocked */
-#define NFS_FILE_LOCK_DEAD		0x20	/* lock (request) no longer exists */
-
-TAILQ_HEAD(nfs_file_lock_queue, nfs_file_lock);
-
-/*
- * Calculate length of lock range given the endpoints.
- * Note that struct flock has "to EOF" reported as 0 but
- * the NFSv4 protocol has "to EOF" reported as UINT64_MAX.
- */
-#define NFS_FLOCK_LENGTH(S, E)	(((E) == UINT64_MAX) ? 0 : ((E) - (S) + 1))
-#define NFS_LOCK_LENGTH(S, E)	(((E) == UINT64_MAX) ? UINT64_MAX : ((E) - (S) + 1))
-
-/*
- * NFSv4 lock owner structure - per open owner per process per nfsnode
- *
- * A lock owner is a process + an nfsnode.
- *
- * Note that flock(2) locks technically should have the lock owner be
- * an fglob pointer instead of a process.  However, implementing that
- * correctly would not be trivial.  So, for now, flock(2) locks are
- * treated like POSIX locks.
- */
-struct nfs_lock_owner {
-	lck_mtx_t			nlo_lock;	/* owner mutex */
-	TAILQ_ENTRY(nfs_lock_owner)	nlo_link;	/* List of lock owners (per-mount) */
-	struct nfs_open_owner *		nlo_open_owner;	/* corresponding open owner */
-	struct nfs_file_lock_queue	nlo_locks;	/* list of locks held */
-	struct nfs_file_lock		nlo_alock;	/* most lockers will only ever have one */
-	struct timeval			nlo_pid_start;	/* Start time of process id */
-	pid_t				nlo_pid;	/* lock-owning process ID */
-	uint32_t			nlo_refcnt;	/* # outstanding references */
-	uint32_t			nlo_flags;	/* see below */
-	uint32_t			nlo_name;	/* unique name used otw */
-	uint32_t			nlo_seqid;	/* client-side sequence ID */
-	nfs_stateid			nlo_stateid;	/* lock stateid */
-};
-/* nlo_flags */
-#define NFS_LOCK_OWNER_LINK	0x1	/* linked into mount's lock owner list */
-#define NFS_LOCK_OWNER_BUSY	0x2	/* lock state-modifying operation in progress */
-#define NFS_LOCK_OWNER_WANT	0x4	/* someone else wants to mark busy */
-#define NFS_LOCK_OWNER_NEW	0x8	/* this lock owner isn't known to the server yet */
 
 /*
  * The nfsnode is the NFS equivalent of an inode.
@@ -478,12 +408,11 @@ struct nfsnode {
 	int			n_error;	/* Save write error value */
 	union {
 		struct timespec	nf_atim;	/* Special file times */
-		daddr64_t	nf_lastread;	/* last block# read from (for readahead) */
 		nfsuint64	nd_cookieverf;	/* Cookie verifier (dir only) */
 	} n_un1;
 	union {
 		struct timespec	nf_mtim;	/* Special file times */
-		daddr64_t	nf_lastrahead;	/* last block# read ahead */
+		daddr64_t	nf_lastread;	/* last block# read from (for readahead) */
 		off_t		nd_direof;	/* Dir. EOF offset cache */
 	} n_un2;
 	union {
@@ -502,12 +431,8 @@ struct nfsnode {
 	int			n_bufiterflags;	/* buf iterator flags */
 	/* open state */
 	lck_mtx_t		n_openlock;	/* nfs node open lock */
-	uint32_t		n_openflags;	/* open state flags */
 	uint32_t		n_openrefcnt;	/* # non-file opens */
 	TAILQ_HEAD(,nfs_open_file) n_opens;	/* list of open files */
-	/* lock state */
-	TAILQ_HEAD(, nfs_lock_owner) n_lock_owners; /* list of lock owners */
-	struct nfs_file_lock_queue n_locks;	/* list of locks */
 };
 
 #define NFS_NODE_LOCK_SHARED	1
@@ -529,8 +454,7 @@ struct nfsnode {
 
 #define n_atim			n_un1.nf_atim
 #define n_mtim			n_un2.nf_mtim
-#define n_lastread		n_un1.nf_lastread
-#define n_lastrahead		n_un2.nf_lastrahead
+#define n_lastread		n_un2.nf_lastread
 #define n_sillyrename		n_un3.nf_silly
 #define n_cookieverf		n_un1.nd_cookieverf
 #define n_direofoffset		n_un2.nd_direof
@@ -569,13 +493,6 @@ struct nfsnode {
 #define	NBFLUSHWANT	0x0002	/* waiting for nfs_flush() to complete */
 #define	NBINVALINPROG	0x0004	/* Avoid multiple calls to nfs_vinvalbuf() */
 #define	NBINVALWANT	0x0008	/* waiting for nfs_vinvalbuf() to complete */
-
-/*
- * n_openflags
- * Note: protected by n_openlock
- */
-#define N_OPENBUSY		0x0001	/* open state is busy - being updated */
-#define N_OPENWANT		0x0002	/* someone wants to mark busy */
 
 /* attr/mode timestamp macros */
 #define NATTRVALID(np)		((np)->n_attrstamp != ~0)

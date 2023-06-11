@@ -3,7 +3,7 @@
  
      Contains:   Definitions of the button views provided by HIToolbox.
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 2006-2008 by Apple Computer, Inc., all rights reserved.
  
@@ -226,27 +226,6 @@ enum {
    * is not currently pulsing. Available in Mac OS X 10.5 and later.
    */
   kControlPushButtonAnimatingTag = 'anim'
-};
-
-
-/*
- *  Summary:
- *    Tagged data supported by push buttons
- *  
- *  Discussion:
- *    This new tag is available on Mac OS X 10.4 and later. The
- *    constant is not in the Mac OS X 10.4 and Mac OS X 10.5 headers,
- *    but the constant value is functional on both releases.
- */
-enum {
-
-  /*
-   * Data is a Boolean indicating if a push button is a textured push
-   * button, to be drawn on a textured window. Textured was previously
-   * referred to as "metal". This attribute is only to be set on push
-   * buttons being used in composited windows.
-   */
-  kControlPushButtonIsTexturedTag = 'metl'
 };
 
 /*ÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑÑ*/

@@ -902,29 +902,6 @@ MD_EXPORT const CFStringRef kMDQueryScopeComputer MD_AVAIL;
 MD_EXPORT const CFStringRef kMDQueryScopeNetwork MD_AVAIL;
 
 /*!
- @constant kMDQueryScopeAllIndexed
- A constant, which can be passed in the scopeDirectories array, to specify
- that the search should be restricted to indexed, locally mounted volumes and
- indexed user mounted remote volumes, plus the user's home directory.
- */
-MD_EXPORT const CFStringRef kMDQueryScopeAllIndexed AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/*!
- @constant kMDQueryScopeComputerIndexed
- A constant, which can be passed in the scopeDirectories array, to specify
- that the search should be restricted to indexed, locally mounted volumes, plus the user's
- home directory (which may be on a remote volume).
- */
-MD_EXPORT const CFStringRef kMDQueryScopeComputerIndexed AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/*!
- @constant kMDQueryScopeNetworkIndexed
- A constant, which can be passed in the scopeDirectories array, to specify
- that the search should include indexed user mounted remote volumes.
- */
-MD_EXPORT const CFStringRef kMDQueryScopeNetworkIndexed AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
-/*!
  @function MDQuerySetMaxCount
  @discussion Use MDQuerySetMaxCount to limit the number of results
  returned by the query engine.  This must be called before the query is executed.

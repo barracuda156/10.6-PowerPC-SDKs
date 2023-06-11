@@ -9,7 +9,6 @@
 #import <AppKit/NSSpellProtocol.h>
 
 @class NSColor, NSFont, NSNotification;
-@protocol NSTextDelegate;
 
 /* Various important Unicode code points */
 enum {
@@ -81,8 +80,8 @@ enum {
 - (BOOL)writeRTFDToFile:(NSString *)path atomically:(BOOL)flag;
 - (BOOL)readRTFDFromFile:(NSString *)path;
 
-- (id <NSTextDelegate>)delegate;
-- (void)setDelegate:(id <NSTextDelegate>)anObject;
+- (id)delegate;
+- (void)setDelegate:(id)anObject;
 
 - (BOOL)isEditable;
 - (void)setEditable:(BOOL)flag;
@@ -157,8 +156,7 @@ enum {
 
 @end
 
-@protocol NSTextDelegate <NSObject>
-@optional
+@interface NSObject(NSTextDelegate)
 - (BOOL)textShouldBeginEditing:(NSText *)textObject;        // YES means do it
 - (BOOL)textShouldEndEditing:(NSText *)textObject;          // YES means do it
 - (void)textDidBeginEditing:(NSNotification *)notification;

@@ -10,29 +10,23 @@
 //------------------------------------------------------------------------------------------------------------------------------
 /*!
 	@header ICScannerFunctionalUnit
-    @abstract ICScannerFunctionalUnit is an abstract class that represents a scanner functiona unit. ImageCaptureCore defines three concrete subclasses of ICScannerFunctionalUnit: ICScannerFunctionalUnitFlatbed, ICScannerFunctionalUnitPositiveTransparency, ICScannerFunctionalUnitNegativeTransparency and ICScannerFunctionalUnitDocumentFeeder. ICScannerDevice creates instances of these concrete subclasses.
+    @abstract ICScannerFunctionalUnit is an abstract class that represents a scanner functiona unit. ImageCaptureCore defines three concrete subclasses of ICScannerFunctionalUnit: ICScannerFunctionalUnitFlatbed, ICScannerFunctionalUnitTransparency and ICScannerFunctionalUnitDocumentFeeder. ICScannerDevice creates instances of these concrete subclasses.
 */
-
-//------------------------------------------------------------------------------------------------------------------------------
-
-#import <ImageCaptureCore/ICCommonConstants.h>
 
 //-------------------------------------------------------------------------------------------------------------------- Constants
 /*!
   @enum ICScannerFunctionalUnitType
   @abstract Scanner Functional Unit Types
   @constant ICScannerFunctionalUnitTypeFlatbed Flatbed functional unit.
-  @constant ICScannerFunctionalUnitTypePositiveTransparency Transparency functional unit for scanning positives.
-  @constant ICScannerFunctionalUnitTypeNegativeTransparency Transparency functional unit for scanning negatives.
-  @constant ICScannerFunctionalUnitTypeDocumentFeeder Document feeder functional unit.
+  @constant ICScannerFunctionalUnitTypeFlatbed Transparency functional unit.
+  @constant ICScannerFunctionalUnitTypeFlatbed Document feeder functional unit.
 */
 
 enum
 {
-    ICScannerFunctionalUnitTypeFlatbed              = 0,
-    ICScannerFunctionalUnitTypePositiveTransparency = 1,
-    ICScannerFunctionalUnitTypeNegativeTransparency = 2,
-    ICScannerFunctionalUnitTypeDocumentFeeder       = 3
+    ICScannerFunctionalUnitTypeFlatbed         = 0,
+    ICScannerFunctionalUnitTypeTransparency    = 1,
+    ICScannerFunctionalUnitTypeDocumentFeeder  = 2
 };
 typedef NSUInteger ICScannerFunctionalUnitType;
 
@@ -116,146 +110,134 @@ enum
 typedef NSUInteger ICScannerPixelDataType;
 
 /*!
-  @enum ICScannerDocumentType
-  @abstract Document size types. Corresponds to "ICAP_SUPPORTEDSIZES" used by the Image Catpure scanner modules. Also refer to TWAIN 1.9 Specification, page 9-483.
-  @constant ICScannerDocumentTypeDefault This is the platten size. Not valid for scanners without a platten.
-  @constant ICScannerDocumentTypeA4             A4,                               210.00 mm x  297.00 mm
-  @constant ICScannerDocumentTypeB5             B5/JIS B5,                        182.00 mm x  257.00 mm
-  @constant ICScannerDocumentTypeUSLetter       US Letter,        8.5” x 11.0”,   215.90 mm x  279.40 mm
-  @constant ICScannerDocumentTypeUSLegal        US Legal,         8.5” x 14.0”,   215.90 mm x  355.60 mm
-  @constant ICScannerDocumentTypeA5             A5,                               148.00 mm x  210.00 mm
-  @constant ICScannerDocumentTypeISOB4          B4/ISO B4,                        250.00 mm x  353.00 mm
-  @constant ICScannerDocumentTypeISOB6          B6/ISO B6,                        125.00 mm x  176.00 mm
-  @constant ICScannerDocumentTypeUSLedger       US Ledger,         11” x 17.0”,   279.40 mm x  431.80 mm
-  @constant ICScannerDocumentTypeUSExecutive    US Executive,    7.25" x 10.5",   184.15 mm x  266.70 mm
-  @constant ICScannerDocumentTypeA3             A3,                               297.00 mm x  420.00 mm
-  @constant ICScannerDocumentTypeISOB3          B3/ISO B3,                        353.00 mm x  500.00 mm
-  @constant ICScannerDocumentTypeA6             A6,                               105.00 mm x  148.00 mm
-  @constant ICScannerDocumentTypeC4             C4,                               229.00 mm x  324.00 mm
-  @constant ICScannerDocumentTypeC5             C5,                               162.00 mm x  229.00 mm
-  @constant ICScannerDocumentTypeC6             C6,                               114.00 mm x  162.00 mm
-  @constant ICScannerDocumentType4A0            4A0,                             1682.00 mm x 2378.00 mm
-  @constant ICScannerDocumentType2A0            2A0,                             1189.00 mm x 1682.00 mm
-  @constant ICScannerDocumentTypeA0             A0,                               841.00 mm x 1189.00 mm
-  @constant ICScannerDocumentTypeA1             A1,                               594.00 mm x  841.00 mm
-  @constant ICScannerDocumentTypeA2             A2,                               420.00 mm x  594.00 mm
-  @constant ICScannerDocumentTypeA7             A7,                                74.00 mm x  105.00 mm
-  @constant ICScannerDocumentTypeA8             A8,                                52.00 mm x   74.00 mm
-  @constant ICScannerDocumentTypeA9             A9,                                37.00 mm x   52.00 mm
-  @constant ICScannerDocumentType10             A10,                               26.00 mm x   37.00 mm
-  @constant ICScannerDocumentTypeISOB0          ISO B0,                          1000.00 mm x 1414.00 mm
-  @constant ICScannerDocumentTypeISOB1          ISO B1,                           707.00 mm x 1000.00 mm
-  @constant ICScannerDocumentTypeISOB2          ISO B2,                           500.00 mm x  707.00 mm
-  @constant ICScannerDocumentTypeISOB5          ISO B5,                           176.00 mm x  250.00 mm
-  @constant ICScannerDocumentTypeISOB7          ISO B7,                            88.00 mm x  125.00 mm
-  @constant ICScannerDocumentTypeISOB8          ISO B8,                            62.00 mm x   88.00 mm     
-  @constant ICScannerDocumentTypeISOB9          ISO B9,                            44.00 mm x   62.00 mm
-  @constant ICScannerDocumentTypeISOB10         ISO B10,                           31.00 mm x   44.00 mm
-  @constant ICScannerDocumentTypeJISB0          JIS B0,                          1030.00 mm x 1456.00 mm
-  @constant ICScannerDocumentTypeJISB1          JIS B1,                           728.00 mm x 1030.00 mm
-  @constant ICScannerDocumentTypeJISB2          JIS B2,                           515.00 mm x  728.00 mm
-  @constant ICScannerDocumentTypeJISB3          JIS B3,                           364.00 mm x  515.00 mm
-  @constant ICScannerDocumentTypeJISB4          JIS B4,                           257.00 mm x  364.00 mm
-  @constant ICScannerDocumentTypeJISB6          JIS B6,                           128.00 mm x  182.00 mm
-  @constant ICScannerDocumentTypeJISB7          JIS B7,                            91.00 mm x  128.00 mm 
-  @constant ICScannerDocumentTypeJISB8          JIS B8,                            64.00 mm x   91.00 mm
-  @constant ICScannerDocumentTypeJISB9          JIS B9,                            45.00 mm x   64.00 mm
-  @constant ICScannerDocumentTypeJISB10         JIS B10,                           32.00 mm x   45.00 mm
-  @constant ICScannerDocumentTypeC0             C0,                               917.00 mm x 1297.00 mm
-  @constant ICScannerDocumentTypeC1             C1,                               648.00 mm x  917.00 mm
-  @constant ICScannerDocumentTypeC2             C2,                               458.00 mm x  648.00 mm 
-  @constant ICScannerDocumentTypeC3             C3,                               324.00 mm x  458.00 mm 
-  @constant ICScannerDocumentTypeC7             C7,                                81.00 mm x  114.00 mm
-  @constant ICScannerDocumentTypeC8             C8,                                57.00 mm x   81.00 mm 
-  @constant ICScannerDocumentTypeC9             C9,                                40.00 mm x   57.00 mm
-  @constant ICScannerDocumentTypeC10            C10,                               28.00 mm x   40.00 mm
-  @constant ICScannerDocumentTypeUSStatement    US Statement,     5.5” x  8.5”,   139.70 mm x  215.90 mm
-  @constant ICScannerDocumentTypeBusinessCard   Business Card,                     90.00 mm x   55.00 mm 
-
-  @constant ICScannerDocumentTypeE              Japanese E,      3.25" x 4.75"     82.55 mm x  120.65 mm      11:16
-  @constant ICScannerDocumentType3R             3R,              3.5"  x 5"        88.90 mm x  127.00 mm       7:10
-  @constant ICScannerDocumentType4R             4R,              4"    x 6"       101.60 mm x  152.40 mm       2:3
-  @constant ICScannerDocumentType5R             5R,              5"    x 7"       127.00 mm x  177.80 mm       5:7
-  @constant ICScannerDocumentType6R             6R,              6"    x 8"       152.40 mm x  203.20 mm       3:4
-  @constant ICScannerDocumentType8R             8R,              8"    x 10"      203.20 mm x  254.00 mm       4:5
-  @constant ICScannerDocumentTypeS8R            S8R              8"    x 12"      203.20 mm x  304.80 mm       2:3
-  @constant ICScannerDocumentType10R            10R,             10"   x 12"      254.00 mm x  304.80 mm       5:6
-  @constant ICScannerDocumentTypeS10R           S10R,            10"   x 15"      254.00 mm x  381.00 mm       2:3
-  @constant ICScannerDocumentType11R            11R,             11"   x 14"      279.40 mm x  355.60 mm      11:14
-  @constant ICScannerDocumentType12R            12R,             12"   x 15"      304.80 mm x  381.00 mm       4:5
-  @constant ICScannerDocumentTypeS12R           S12R,            12"   x 18"      304.80 mm x  457.20 mm       2:3
+  @enum ICScannerFilmType
+  @abstract Film types. Corresponds to "ICAP_FILMTYPE" used by the Image Catpure scanner modules.
+  @constant ICScannerFilmTypePositive Positive film.
+  @constant ICScannerFilmTypeNegative Negative film.
 */
 
 enum
 {
-    ICScannerDocumentTypeDefault      = 0,
-    ICScannerDocumentTypeA4           = 1,
-    ICScannerDocumentTypeB5           = 2,
-    ICScannerDocumentTypeUSLetter     = 3,
-    ICScannerDocumentTypeUSLegal      = 4,
-    ICScannerDocumentTypeA5           = 5,
-    ICScannerDocumentTypeISOB4        = 6,
-    ICScannerDocumentTypeISOB6        = 7,
-    ICScannerDocumentTypeUSLedger     = 9,
-    ICScannerDocumentTypeUSExecutive  = 10,
-    ICScannerDocumentTypeA3           = 11,
-    ICScannerDocumentTypeISOB3        = 12,
-    ICScannerDocumentTypeA6           = 13,
-    ICScannerDocumentTypeC4           = 14,
-    ICScannerDocumentTypeC5           = 15,
-    ICScannerDocumentTypeC6           = 16,
-    ICScannerDocumentType4A0          = 17,
-    ICScannerDocumentType2A0          = 18,
-    ICScannerDocumentTypeA0           = 19,
-    ICScannerDocumentTypeA1           = 20,
-    ICScannerDocumentTypeA2           = 21,
-    ICScannerDocumentTypeA7           = 22,
-    ICScannerDocumentTypeA8           = 23,
-    ICScannerDocumentTypeA9           = 24,
-    ICScannerDocumentType10           = 25,
-    ICScannerDocumentTypeISOB0        = 26,
-    ICScannerDocumentTypeISOB1        = 27,
-    ICScannerDocumentTypeISOB2        = 28,
-    ICScannerDocumentTypeISOB5        = 29,
-    ICScannerDocumentTypeISOB7        = 30,
-    ICScannerDocumentTypeISOB8        = 31,
-    ICScannerDocumentTypeISOB9        = 32,
-    ICScannerDocumentTypeISOB10       = 33,
-    ICScannerDocumentTypeJISB0        = 34,
-    ICScannerDocumentTypeJISB1        = 35,
-    ICScannerDocumentTypeJISB2        = 36,
-    ICScannerDocumentTypeJISB3        = 37,
-    ICScannerDocumentTypeJISB4        = 38,
-    ICScannerDocumentTypeJISB6        = 39,
-    ICScannerDocumentTypeJISB7        = 40,
-    ICScannerDocumentTypeJISB8        = 41,
-    ICScannerDocumentTypeJISB9        = 42,
-    ICScannerDocumentTypeJISB10       = 43,
-    ICScannerDocumentTypeC0           = 44,
-    ICScannerDocumentTypeC1           = 45,
-    ICScannerDocumentTypeC2           = 46,
-    ICScannerDocumentTypeC3           = 47,
-    ICScannerDocumentTypeC7           = 48,
-    ICScannerDocumentTypeC8           = 49,
-    ICScannerDocumentTypeC9           = 50,
-    ICScannerDocumentTypeC10          = 51,
-    ICScannerDocumentTypeUSStatement  = 52,
-    ICScannerDocumentTypeBusinessCard = 53,
-    
-    ICScannerDocumentTypeE            = 60,
-    ICScannerDocumentType3R           = 61,
-    ICScannerDocumentType4R           = 62,
-    ICScannerDocumentType5R           = 63,
-    ICScannerDocumentType6R           = 64,
-    ICScannerDocumentType8R           = 65,
-    ICScannerDocumentTypeS8R          = 66,
-    ICScannerDocumentType10R          = 67,
-    ICScannerDocumentTypeS10R         = 68,
-    ICScannerDocumentType11R          = 69,
-    ICScannerDocumentType12R          = 70,
-    ICScannerDocumentTypeS12R         = 71
+    ICScannerFilmTypePositive = 0,
+    ICScannerFilmTypeNegative = 1
 };
-typedef NSUInteger ICScannerDocumentType;
+typedef NSUInteger ICScannerFilmType;
+
+/*!
+  @enum ICScannerDocumentSizeType
+  @abstract Document size types. Corresponds to "ICAP_SUPPORTEDSIZES" used by the Image Catpure scanner modules. Also refer to TWAIN 1.9 Specification, page 9-483.
+  @constant ICScannerDocumentSizeTypeDefault This is the platten size. Not valid for scanners without a platten.
+  @constant ICScannerDocumentSizeTypeA4             A4,                               210mm x  297mm
+  @constant ICScannerDocumentSizeTypeB5             B5/JIS B5,                        182mm x  257mm
+  @constant ICScannerDocumentSizeTypeUSLetter       US Letter,        8.5” x 11.0”,   216mm x  280mm
+  @constant ICScannerDocumentSizeTypeUSLegal        US Legal,         8.5” x 14.0”,   216mm x  356mm
+  @constant ICScannerDocumentSizeTypeA5             A5,                               148mm x  210mm
+  @constant ICScannerDocumentSizeTypeISOB4          B4/ISO B4,                        250mm x  353mm
+  @constant ICScannerDocumentSizeTypeISOB6          B6/ISO B6,                        125mm x  176mm
+  @constant ICScannerDocumentSizeTypeUSLedger       US Ledger,         11” x 17.0”,   280mm x  432mm
+  @constant ICScannerDocumentSizeTypeUSExecutive    US Executive,    7.25" x 10.5",   184mm x  267mm
+  @constant ICScannerDocumentSizeTypeA3             A3,                               297mm x  420mm
+  @constant ICScannerDocumentSizeTypeISOB3          B3/ISO B3,                        353mm x  500mm
+  @constant ICScannerDocumentSizeTypeA6             A6,                               105mm x  148mm
+  @constant ICScannerDocumentSizeTypeC4             C4,                               229mm x  324mm
+  @constant ICScannerDocumentSizeTypeC5             C5,                               162mm x  229mm
+  @constant ICScannerDocumentSizeTypeC6             C6,                               114mm x  162mm
+  @constant ICScannerDocumentSizeType4A0            4A0,                             1682mm x 2378mm
+  @constant ICScannerDocumentSizeType2A0            2A0,                             1189mm x 1682mm
+  @constant ICScannerDocumentSizeTypeA0             A0,                               841mm x 1189mm
+  @constant ICScannerDocumentSizeTypeA1             A1,                               594mm x  841mm
+  @constant ICScannerDocumentSizeTypeA2             A2,                               420mm x  594mm
+  @constant ICScannerDocumentSizeTypeA7             A7,                                74mm x  105mm
+  @constant ICScannerDocumentSizeTypeA8             A8,                                52mm x   74mm
+  @constant ICScannerDocumentSizeTypeA9             A9,                                37mm x   52mm
+  @constant ICScannerDocumentSizeType10             A10,                               26mm x   37mm
+  @constant ICScannerDocumentSizeTypeISOB0          ISO B0,                          1000mm x 1414mm
+  @constant ICScannerDocumentSizeTypeISOB1          ISO B1,                           707mm x 1000mm
+  @constant ICScannerDocumentSizeTypeISOB2          ISO B2,                           500mm x  707mm
+  @constant ICScannerDocumentSizeTypeISOB5          ISO B5,                           176mm x  250mm
+  @constant ICScannerDocumentSizeTypeISOB7          ISO B7,                            88mm x  125mm
+  @constant ICScannerDocumentSizeTypeISOB8          ISO B8,                            62mm x   88mm     
+  @constant ICScannerDocumentSizeTypeISOB9          ISO B9,                            44mm x   62mm
+  @constant ICScannerDocumentSizeTypeISOB10         ISO B10,                           31mm x   44mm
+  @constant ICScannerDocumentSizeTypeJISB0          JIS B0,                          1030mm x 1456mm
+  @constant ICScannerDocumentSizeTypeJISB1          JIS B1,                           728mm x 1030mm
+  @constant ICScannerDocumentSizeTypeJISB2          JIS B2,                           515mm x  728mm
+  @constant ICScannerDocumentSizeTypeJISB3          JIS B3,                           364mm x  515mm
+  @constant ICScannerDocumentSizeTypeJISB4          JIS B4,                           257mm x  364mm
+  @constant ICScannerDocumentSizeTypeJISB6          JIS B6,                           128mm x  182mm
+  @constant ICScannerDocumentSizeTypeJISB7          JIS B7,                            91mm x  128mm 
+  @constant ICScannerDocumentSizeTypeJISB8          JIS B8,                            64mm x   91mm
+  @constant ICScannerDocumentSizeTypeJISB9          JIS B9,                            45mm x   64mm
+  @constant ICScannerDocumentSizeTypeJISB10         JIS B10,                           32mm x   45mm
+  @constant ICScannerDocumentSizeTypeC0             C0,                               917mm x 1297mm
+  @constant ICScannerDocumentSizeTypeC1             C1,                               648mm x  917mm
+  @constant ICScannerDocumentSizeTypeC2             C2,                               458mm x  648mm 
+  @constant ICScannerDocumentSizeTypeC3             C3,                               324mm x  458mm 
+  @constant ICScannerDocumentSizeTypeC7             C7,                                81mm x  114mm
+  @constant ICScannerDocumentSizeTypeC8             C8,                                57mm x   81mm 
+  @constant ICScannerDocumentSizeTypeC9             C9,                                40mm x   57mm
+  @constant ICScannerDocumentSizeTypeC10            C10,                               28mm x   40mm
+  @constant ICScannerDocumentSizeTypeUSStatement    US Statement,     5.5” x  8.5”,   140mm x  216mm
+  @constant ICScannerDocumentSizeTypeBusinessCard   Business Card,                     90mm x   55mm 
+*/
+
+enum
+{
+    ICScannerDocumentSizeTypeDefault      = 0,
+    ICScannerDocumentSizeTypeA4           = 1,
+    ICScannerDocumentSizeTypeB5           = 2,
+    ICScannerDocumentSizeTypeUSLetter     = 3,
+    ICScannerDocumentSizeTypeUSLegal      = 4,
+    ICScannerDocumentSizeTypeA5           = 5,
+    ICScannerDocumentSizeTypeISOB4        = 6,
+    ICScannerDocumentSizeTypeISOB6        = 7,
+    ICScannerDocumentSizeTypeUSLedger     = 9,
+    ICScannerDocumentSizeTypeUSExecutive  = 10,
+    ICScannerDocumentSizeTypeA3           = 11,
+    ICScannerDocumentSizeTypeISOB3        = 12,
+    ICScannerDocumentSizeTypeA6           = 13,
+    ICScannerDocumentSizeTypeC4           = 14,
+    ICScannerDocumentSizeTypeC5           = 15,
+    ICScannerDocumentSizeTypeC6           = 16,
+    ICScannerDocumentSizeType4A0          = 17,
+    ICScannerDocumentSizeType2A0          = 18,
+    ICScannerDocumentSizeTypeA0           = 19,
+    ICScannerDocumentSizeTypeA1           = 20,
+    ICScannerDocumentSizeTypeA2           = 21,
+    ICScannerDocumentSizeTypeA7           = 22,
+    ICScannerDocumentSizeTypeA8           = 23,
+    ICScannerDocumentSizeTypeA9           = 24,
+    ICScannerDocumentSizeType10           = 25,
+    ICScannerDocumentSizeTypeISOB0        = 26,
+    ICScannerDocumentSizeTypeISOB1        = 27,
+    ICScannerDocumentSizeTypeISOB2        = 28,
+    ICScannerDocumentSizeTypeISOB5        = 29,
+    ICScannerDocumentSizeTypeISOB7        = 30,
+    ICScannerDocumentSizeTypeISOB8        = 31,
+    ICScannerDocumentSizeTypeISOB9        = 32,
+    ICScannerDocumentSizeTypeISOB10       = 33,
+    ICScannerDocumentSizeTypeJISB0        = 34,
+    ICScannerDocumentSizeTypeJISB1        = 35,
+    ICScannerDocumentSizeTypeJISB2        = 36,
+    ICScannerDocumentSizeTypeJISB3        = 37,
+    ICScannerDocumentSizeTypeJISB4        = 38,
+    ICScannerDocumentSizeTypeJISB6        = 39,
+    ICScannerDocumentSizeTypeJISB7        = 40,
+    ICScannerDocumentSizeTypeJISB8        = 41,
+    ICScannerDocumentSizeTypeJISB9        = 42,
+    ICScannerDocumentSizeTypeJISB10       = 43,
+    ICScannerDocumentSizeTypeC0           = 44,
+    ICScannerDocumentSizeTypeC1           = 45,
+    ICScannerDocumentSizeTypeC2           = 46,
+    ICScannerDocumentSizeTypeC3           = 47,
+    ICScannerDocumentSizeTypeC7           = 48,
+    ICScannerDocumentSizeTypeC8           = 49,
+    ICScannerDocumentSizeTypeC9           = 50,
+    ICScannerDocumentSizeTypeC10          = 51,
+    ICScannerDocumentSizeTypeUSStatement  = 52,
+    ICScannerDocumentSizeTypeBusinessCard = 53
+};
+typedef NSUInteger ICScannerDocumentSizeType;
 
 /*!
   @enum ICScannerFunctionalUnitState
@@ -285,8 +267,7 @@ enum
 {
     ICScannerFeatureTypeEnumeration = 0,
     ICScannerFeatureTypeRange       = 1,
-    ICScannerFeatureTypeBoolean     = 2,
-    ICScannerFeatureTypeTemplate    = 3
+    ICScannerFeatureTypeBoolean     = 2
 };
 typedef NSUInteger ICScannerFeatureType;
 
@@ -335,7 +316,7 @@ typedef NSUInteger ICScannerFeatureType;
 //-------------------------------------------------------------------------------------------------- ICScannerFeatureEnumeration
 /*!
 	@class ICScannerFeatureEnumeration
-    @abstract ICScannerFeatureEnumeration object is used to represent a feature of a scanner functional unit that can have one of several discrete values.
+    @abstract ICScannerFeatureEnumeration  object is used to represent a feature of a scanner functional unit that can have one of several discrete values.
     @discussion 
 */
 
@@ -451,26 +432,10 @@ typedef NSUInteger ICScannerFeatureType;
 @property(readwrite)  BOOL    value;
 @end
 
-//---------------------------------------------------------------------------------------------------- ICScannerFeatureTemplate
-/*!
-	@class ICScannerFeatureTemplate
-    @abstract ICScannerFeatureTemplate object is used to define a group of one or more rectangular scan areas that can be used with a scanner functional unit.
-    @discussion 
-*/
-
-@interface ICScannerFeatureTemplate : ICScannerFeature
-{
-@private
-    id _tvProps;
-}
-
-@property(readonly) NSArray*  targets;
-@end
-
 //------------------------------------------------------------------------------------------------------ ICScannerFunctionalUnit
 /*!
 	@class ICScannerFunctionalUnit
-    @abstract ICScannerFunctionalUnit is an abstract class that represents a scanner functiona unit. ImageCaptureCore defines three concrete subclasses of ICScannerFunctionalUnit: ICScannerFunctionalUnitFlatbed, ICScannerFunctionalUnitPositiveTransparency, ICScannerFunctionalUnitNegativeTransparency and ICScannerFunctionalUnitDocumentFeeder. ICScannerDevice creates instances of these concrete subclasses.
+    @abstract ICScannerFunctionalUnit is an abstract class that represents a scanner functiona unit. ImageCaptureCore defines three concrete subclasses of ICScannerFunctionalUnit: ICScannerFunctionalUnitFlatbed, ICScannerFunctionalUnitTransparency and ICScannerFunctionalUnitDocumentFeeder. ICScannerDevice creates instances of these concrete subclasses.
 */
 
 @interface ICScannerFunctionalUnit : NSObject
@@ -564,25 +529,11 @@ typedef NSUInteger ICScannerFeatureType;
 @property(readwrite)  NSUInteger                    scaleFactor;
 
 /*!
-    @property templates
-    @abstract An array of objects of type ICScannerFeatureTemplate.
-
-*/
-@property(readonly)   NSArray*                      templates;
-
-/*!
     @property vendorFeatures
     @abstract An array of objects of type ICScannerFeature.
 
 */
 @property(readonly)   NSArray*                      vendorFeatures;
-
-/*!
-    @property physicalSize
-    @abstract ￼Physical size of the scan area in current measurement unit.
-
-*/
-@property(readonly) NSSize                          physicalSize;
 
 /*!
     @property scanArea
@@ -653,34 +604,48 @@ typedef NSUInteger ICScannerFeatureType;
 @private
     id _fbProps;
 }
+
+/*!
+    @property physicalSize
+    @abstract ￼Physical size of the scan area in current measurement unit.
+
+*/
+@property(readonly) NSSize                          physicalSize;
 @end
 
-//---------------------------------------------------------------------------------- ICScannerFunctionalUnitPositiveTransparency
+//------------------------------------------------------------------------------------------ ICScannerFunctionalUnitTransparency
 /*!
-	@class ICScannerFunctionalUnitPositiveTransparency
-    @abstract ICScannerFunctionalUnitPositiveTransparency is a concrete subclass of ICScannerFunctionalUnit class. ICScannerDevice creates instances of this class.
-    @discussion This represents the transparency unit on the scanner for scanning postives
+	@class ICScannerFunctionalUnitTransparency
+    @abstract ICScannerFunctionalUnitTransparency is a concrete subclass of ICScannerFunctionalUnit class. ICScannerDevice creates instances of this class.
+    @discussion This represents the transparency unit on the scanner.
 */
 
-@interface ICScannerFunctionalUnitPositiveTransparency : ICScannerFunctionalUnit
+@interface ICScannerFunctionalUnitTransparency : ICScannerFunctionalUnit
 {
 @private
-    id _ptrProps;
+    id _trProps;
 }
-@end
 
-//---------------------------------------------------------------------------------- ICScannerFunctionalUnitNegativeTransparency
 /*!
-	@class ICScannerFunctionalUnitNegativeTransparency
-    @abstract ICScannerFunctionalUnitNegativeTransparency is a concrete subclass of ICScannerFunctionalUnit class. ICScannerDevice creates instances of this class.
-    @discussion This represents the transparency unit on the scanner for scanning negatives.
-*/
+    @property supportedFilmTypes
+    @abstract ￼Supported fim types. The values in this set are valid values defined by ICScannerFilmType.
 
-@interface ICScannerFunctionalUnitNegativeTransparency : ICScannerFunctionalUnit
-{
-@private
-    id _ntrProps;
-}
+*/
+@property(readonly)   NSIndexSet*                   supportedFilmTypes;
+
+/*!
+    @property filmType
+    @abstract ￼Current film type. This will always be one of the supported film types.
+
+*/
+@property(readwrite)  ICScannerFilmType             filmType;
+
+/*!
+    @property physicalSize
+    @abstract ￼Physical size of the scan area in current measurement unit.
+
+*/
+@property(readonly)   NSSize                        physicalSize;
 @end
 
 //---------------------------------------------------------------------------------------- ICScannerFunctionalUnitDocumentFeeder
@@ -697,25 +662,25 @@ typedef NSUInteger ICScannerFeatureType;
 }
 
 /*!
-    @property supportedDocumentTypes
-    @abstract ￼Supported document types. The values in this set are valid values defined by ICScannerDocumentType.
+    @property supportedSizes
+    @abstract ￼Supported scan sizes.The values in this set are valid values defined by ICScannerDocumentSizeType.
 
 */
-@property(readonly)   NSIndexSet*                   supportedDocumentTypes;
+@property(readonly)   NSIndexSet*                   supportedSizes;
 
 /*!
-    @property documentType
-    @abstract ￼Current document type. This will always be one of the supported sizes.
+    @property preferredSizes
+    @abstract ￼Preferred scan sizes.The values in this set are valid values defined by ICScannerDocumentSizeType.
 
 */
-@property(readwrite)  ICScannerDocumentType         documentType;
+@property(readonly)   NSIndexSet*                   preferredSizes;
 
 /*!
-    @property documentSize
-    @abstract ￼Document size of the current document type expressed in current measurement unit.
+    @property size
+    @abstract ￼Current scan size. This will always be one of the supported sizes.
 
 */
-@property(readonly) NSSize                          documentSize;
+@property(readwrite)  ICScannerDocumentSizeType     size;
 
 /*!
     @property supportsDuplexScanning
@@ -730,32 +695,6 @@ typedef NSUInteger ICScannerFeatureType;
 
 */
 @property(readwrite)  BOOL                          duplexScanningEnabled;
-
-/*!
-    @property documentLoaded
-    @abstract ￼Indicates whether the feeder has documents to scan.
-    @discussion This value will change when the document is loaded or removed from the feeder.
-
-*/
-@property(readonly)   BOOL                          documentLoaded;
-
-/*!
-    @property oddPageOrientation
-    @abstract ￼Desired orientation of the odd pages of the scanned document.
-    @discussion This property is set to ICEXIFOrientation1 initially. 
-
-*/
-@property(readwrite)  ICEXIFOrientationType         oddPageOrientation;
-
-
-/*!
-    @property evenPageOrientation
-    @abstract ￼Desired orientation of the even pages of the scanned document.
-    @discussion This property is set to ICEXIFOrientation1 initially. 
-
-*/
-@property(readwrite)  ICEXIFOrientationType         evenPageOrientation;
-
 @end
 
 //------------------------------------------------------------------------------------------------------------------------------

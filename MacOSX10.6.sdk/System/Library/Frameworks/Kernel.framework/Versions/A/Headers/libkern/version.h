@@ -46,7 +46,7 @@ extern const int version_minor;
 /* VERSION_VARIANT, version_variant is a string that contains the revision,
  * stage, and prerelease level of the kernel
  */
-#define VERSION_VARIANT		"0d2"
+#define VERSION_VARIANT		"0d1"
 extern const char version_variant[];
 
 /* VERSION_REVISION, version_revision is an integer that represents the revision
@@ -66,7 +66,7 @@ extern const int version_stage;
 /* VERSION_PRERELEASE_LEVEL, version_prerelease_level, is an integer sequence
  * number to distinguish between pre-release builds
  */
-#define VERSION_PRERELEASE_LEVEL	2
+#define VERSION_PRERELEASE_LEVEL	1
 extern const int version_prerelease_level;
 
 /* OSTYPE, ostype, is a string as returned by uname -s */
@@ -74,7 +74,7 @@ extern const int version_prerelease_level;
 extern const char ostype[];
 
 /* OSRELEASE, osrelease, is a string as returned by uname -r */
-#define OSRELEASE	"10.0.0d2"
+#define OSRELEASE	"10.0.0d1"
 extern const char osrelease[];
 
 /* osbuilder is a string as returned by uname -r */

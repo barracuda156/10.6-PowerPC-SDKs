@@ -7,7 +7,7 @@
 // Author:      Julian Smart
 // Modified by:
 // Created:     04/01/98
-// RCS-ID:      $Id: laywin.h 49563 2007-10-31 20:46:21Z VZ $
+// RCS-ID:      $Id: laywin.h,v 1.29.8.1 2007/04/16 13:01:37 VZ Exp $
 // Copyright:   (c) Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -196,8 +196,8 @@ private:
 
 #endif // wxUSE_SASH
 
-class WXDLLIMPEXP_FWD_CORE wxMDIParentFrame;
-class WXDLLIMPEXP_FWD_CORE wxFrame;
+class WXDLLEXPORT wxMDIParentFrame;
+class WXDLLEXPORT wxFrame;
 
 // This class implements the layout algorithm
 class WXDLLIMPEXP_ADV wxLayoutAlgorithm: public wxObject

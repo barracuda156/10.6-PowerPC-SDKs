@@ -44,15 +44,6 @@
 // -flat_namespace to work around the way that it doesn't.
 #define _GLIBCXX_WEAK_DEFINITION __attribute__ ((weak))
 
-/* APPLE LOCAL begin version */
-
-#ifndef __GNUC_LIBSTD__
-#define __GNUC_LIBSTD__ 4
-#define __GNUC_LIBSTD_MINOR__ 0
-#endif
-
-/* APPLE LOCAL end version */
-
 /* APPLE LOCAL begin keymgr */
 #if defined(__APPLE__) && defined(__ppc__) && defined(PIC)
 /* Copyright (C) 1989, 92-97, 1998, Free Software Foundation, Inc.

@@ -297,7 +297,12 @@ int     kevent64(int kq, const struct kevent64_s *changelist,
 		    int nchanges, struct kevent64_s *eventlist, 
 		    int nevents, unsigned int flags, 
 		    const struct timespec *timeout);
+int     kevent64(int kq, const struct kevent64_s *changelist, 
+		    int nchanges, struct kevent64_s *eventlist, 
+		    int nevents, unsigned int flags, 
+		    const struct timespec *timeout);
 __END_DECLS
+
 
 
 

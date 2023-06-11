@@ -18,10 +18,10 @@
 
 #include "wx/dialog.h"
 
-class WXDLLIMPEXP_FWD_CORE wxFindDialogEvent;
-class WXDLLIMPEXP_FWD_CORE wxFindReplaceDialog;
-class WXDLLIMPEXP_FWD_CORE wxFindReplaceData;
-class WXDLLIMPEXP_FWD_CORE wxFindReplaceDialogImpl;
+class WXDLLEXPORT wxFindDialogEvent;
+class WXDLLEXPORT wxFindReplaceDialog;
+class WXDLLEXPORT wxFindReplaceData;
+class WXDLLEXPORT wxFindReplaceDialogImpl;
 
 // ----------------------------------------------------------------------------
 // Flags for wxFindReplaceData.Flags

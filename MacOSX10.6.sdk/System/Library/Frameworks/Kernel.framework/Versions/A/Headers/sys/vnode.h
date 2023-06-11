@@ -1089,7 +1089,6 @@ int 	vnode_isinuse(vnode_t, int);
  */
 int	vnode_recycle(vnode_t);
 
-
 #define	VNODE_UPDATE_PARENT	0x01
 #define	VNODE_UPDATE_NAME	0x02
 #define	VNODE_UPDATE_CACHE	0x04
@@ -1177,8 +1176,8 @@ errno_t vnode_close(vnode_t, int, vfs_context_t);
  @function vn_getpath
  @abstract Construct the path to a vnode.
  @discussion Paths to vnodes are not always straightforward: a file with multiple hard-links will have multiple pathnames.  
- This routine can call into the filesystem, so filesystems should take precautions to prevent deadlocks. HFS currently does
- the right thing.
+ This routine does not call into the filesystem, so it may return misleading data (from the most recent open) or fail
+ due to lack of information.
  @param vp The vnode whose path to obtain.
  @param pathbuf Destination for pathname; should be of size MAXPATHLEN
  @param len Destination for length of resulting path string.  Result will include NULL-terminator in count--that is, "len"

@@ -1,7 +1,7 @@
 /*
 	File:		IOBluetoothHCIRequest.h
 	Contains:	Bluetooth Host Controller request object.
-	Copyright:	(c) 2001-2008 by Apple, all rights reserved.
+	Copyright:	© 2002 by Apple Computer, Inc. All rights reserved.
 */
 
 #pragma once

@@ -34,8 +34,6 @@
 #ifndef XPLUGIN_H
 #define XPLUGIN_H 1
 
-#define XPLUGIN_VERSION 1
-
 #include <stdint.h>
 
 /* By default we use the X server definition of BoxRec to define xp_box,
@@ -59,6 +57,7 @@ typedef unsigned int xp_client_id;
 typedef unsigned int xp_request_type;
 typedef int xp_error;
 typedef int xp_bool;
+
 
 /* Error codes that the functions declared here may return. They all
    numerically match their X equivalents, i.e. the XP_ can be dropped
@@ -589,9 +588,5 @@ extern void xp_copy_bytes (unsigned int width, unsigned int height,
 extern unsigned int xp_fill_bytes_threshold, xp_copy_bytes_threshold,
     xp_composite_area_threshold, xp_scroll_area_threshold;
 
-/* e is an EventRef.  This returns true if the passed event corresponds to a
- * hotkey that the user has enabled.
- */
-xp_bool xp_is_symbolic_hotkey_event(const void *e);
 
 #endif /* XPLUGIN_H */

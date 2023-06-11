@@ -55,12 +55,9 @@
  */
 #ifndef	_I386_SEG_H_
 #define	_I386_SEG_H_
-#ifdef MACH_KERNEL
+
 #include <mach_kdb.h>
-#else
-#define	MACH_KDB 0
-#endif	/* MACH_KERNEL */
-#ifndef __ASSEMBLER__
+#ifndef ASSEMBLER
 #include <stdint.h>
 #include <mach/vm_types.h>
 #include <architecture/i386/sel.h>

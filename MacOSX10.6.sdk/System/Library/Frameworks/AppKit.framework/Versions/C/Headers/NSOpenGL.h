@@ -1,7 +1,7 @@
 /*
         NSOpenGL.h
         Application Kit
-        Copyright (c) 2000-2008, Apple Inc.
+        Copyright (c) 2000-2007, Apple Inc.
         All rights reserved.
 */
 
@@ -107,7 +107,6 @@ typedef struct _CGLPixelFormatObject NSOpenGLPixelFormatAuxiliary;
 
 - (id)initWithAttributes:(const NSOpenGLPixelFormatAttribute *)attribs;
 - (id)initWithData:(NSData*)attribs;
-- (id)initWithCGLPixelFormatObj:(void *)format AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 - (NSData*)attributes;
 - (void)setAttributes:(NSData*)attribs;
@@ -143,8 +142,6 @@ typedef struct _CGLPixelFormatObject NSOpenGLPixelFormatAuxiliary;
 ** TEXTURE_RECTANGLE targets.
 */
 - (id)initWithTextureTarget:(GLenum)target textureInternalFormat:(GLenum)format textureMaxMipMapLevel:(GLint)maxLevel pixelsWide:(GLsizei)pixelsWide pixelsHigh:(GLsizei)pixelsHigh;
-- (id)initWithCGLPBufferObj:(void *)pbuffer AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void *)CGLPBufferObj AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 - (GLsizei)pixelsWide;
 - (GLsizei)pixelsHigh;
 - (GLenum)textureTarget;
@@ -165,7 +162,7 @@ typedef enum {
 	NSOpenGLCPSwapRectangle       = 200,	/* Set or get the swap rectangle {x, y, w, h}       */
 	NSOpenGLCPSwapRectangleEnable = 201,	/* Enable or disable the swap rectangle             */
 	NSOpenGLCPRasterizationEnable = 221,	/* Enable or disable all rasterization              */
-	NSOpenGLCPSwapInterval        = 222,	/* 0 -> Don't sync, 1 -> Sync to vertical retrace   */
+	NSOpenGLCPSwapInterval        = 222,	/* 0 -> Don't sync, n -> Sync every n retrace       */
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_2
 	NSOpenGLCPSurfaceOrder        = 235,	/* 1 -> Above Window (default), -1 -> Below Window  */
 	NSOpenGLCPSurfaceOpacity      = 236,	/* 1-> Surface is opaque (default), 0 -> non-opaque */
@@ -188,7 +185,6 @@ typedef struct _CGLContextObject NSOpenGLContextAuxiliary;
 
 /* Context creation */
 - (id)initWithFormat:(NSOpenGLPixelFormat *)format shareContext:(NSOpenGLContext *)share;
-- (id)initWithCGLContextObj:(void *)context AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 /* Drawable management */
 - (void)setView:(NSView *)view;

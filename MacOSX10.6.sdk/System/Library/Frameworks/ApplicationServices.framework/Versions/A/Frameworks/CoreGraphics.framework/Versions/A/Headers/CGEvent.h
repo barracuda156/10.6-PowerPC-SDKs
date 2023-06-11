@@ -338,8 +338,8 @@ CG_EXTERN void CGEventPostToPSN( void *processSerialNumber, /* Temp type, til de
  * If the CGEventTapInformation array is NULL, maxNumberOfTaps is ignored, and *eventTapCount
  * is filled in with the number of event taps that are currently installed.
  */
-CG_EXTERN CGError CGGetEventTapList(uint32_t maxNumberOfTaps,
+CG_EXTERN CGError CGGetEventTapList( CGTableCount maxNumberOfTaps,
                                      CGEventTapInformation tapList[],
-                                     uint32_t *eventTapCount ) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
+                                     CGTableCount *eventTapCount ) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_NA);
 
 #endif /* __CGEVENT_H__ */

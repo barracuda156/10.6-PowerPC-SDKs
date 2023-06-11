@@ -12,8 +12,6 @@
 
 #import <AppKit/AppKit.h>
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-
 
 #ifndef NSINTEGER_DEFINED
 typedef int NSInteger;
@@ -116,20 +114,19 @@ typedef int NSInteger;
 
 /* use - (void) setValue:(id)aValue forKey:(id) aKey (NSKeyValueCoding) to customize the pictureTaker panel appearance and behaviors
  *
- *   <key>                                    <class>						 <default>
- *   IKPictureTakerAllowsVideoCaptureKey	  NSNumber(BOOL)					YES
- *   IKPictureTakerAllowsFileChoosingKey	  NSNumber(BOOL)					YES
- *   IKPictureTakerShowRecentPictureKey		  NSNumber(BOOL)					YES
- *   IKPictureTakerUpdateRecentPictureKey     NSNumber(BOOL)					YES
- *   IKPictureTakerAllowsEditingKey           NSNumber(BOOL)					YES
- *   IKPictureTakerShowEffectsKey			  NSNumber(BOOL)					NO
- *   IKPictureTakerInformationalTextKey		  NSString or NSAttributedString    "Drag Image Here"
- *   IKPictureTakerImageTransformsKey         NSDictionary(serializable)		none
- *   IKPictureTakerOutputImageMaxSizeKey      NSValue(NSSize)				    none
- *   IKPictureTakerCropAreaSizeKey            NSValue(NSSize)				    none
- *   IKPictureTakerShowAddressBookPictureKey  NSNumber(BOOL)					NO
- *   IKPictureTakerShowAddressBookPictureKey  NSImage						    nil
- *   IKPictureTakerRemainOpenAfterValidateKey NSNumber(BOOL)					NO
+ *   <key>                                  <class>							<default>
+ *   IKPictureTakerAllowsVideoCaptureKey	 NSNumber(BOOL)					YES
+ *   IKPictureTakerAllowsFileChoosingKey	 NSNumber(BOOL)					YES
+ *   IKPictureTakerShowRecentPictureKey		 NSNumber(BOOL)					YES
+ *   IKPictureTakerUpdateRecentPictureKey    NSNumber(BOOL)					YES
+ *   IKPictureTakerAllowsEditingKey          NSNumber(BOOL)					YES
+ *   IKPictureTakerShowEffectsKey			 NSNumber(BOOL)					NO
+ *   IKPictureTakerInformationalTextKey		 NSString or NSAttributedString "Drag Image Here"
+ *   IKPictureTakerImageTransformsKey        NSDictionary(serializable)		none
+ *   IKPictureTakerOutputImageMaxSizeKey     NSValue(NSSize)				none
+ *   IKPictureTakerCropAreaSizeKey           NSValue(NSSize)				none
+ *   IKPictureTakerShowAddressBookPictureKey NSNumber(BOOL)					NO
+ *   IKPictureTakerShowAddressBookPictureKey NSImage						nil
  */
 extern NSString *const IKPictureTakerAllowsVideoCaptureKey;
 extern NSString *const IKPictureTakerAllowsFileChoosingKey;
@@ -143,10 +140,3 @@ extern NSString *const IKPictureTakerOutputImageMaxSizeKey;
 extern NSString *const IKPictureTakerCropAreaSizeKey;
 extern NSString *const IKPictureTakerShowAddressBookPictureKey;
 extern NSString *const IKPictureTakerShowEmptyPictureKey;
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-extern NSString *const IKPictureTakerRemainOpenAfterValidateKey;
-#endif
-
-#endif
-

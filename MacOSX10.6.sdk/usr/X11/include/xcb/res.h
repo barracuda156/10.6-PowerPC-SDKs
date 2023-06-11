@@ -13,7 +13,6 @@
 #define __RES_H
 
 #include "xcb.h"
-#include "xproto.h"
 
 #define XCB_RES_MAJOR_VERSION 1
 #define XCB_RES_MINOR_VERSION 0
@@ -41,8 +40,8 @@ typedef struct xcb_res_client_iterator_t {
  * @brief xcb_res_type_t
  **/
 typedef struct xcb_res_type_t {
-    xcb_atom_t resource_type; /**<  */
-    uint32_t   count; /**<  */
+    uint32_t resource_type; /**<  */
+    uint32_t count; /**<  */
 } xcb_res_type_t;
 
 /**

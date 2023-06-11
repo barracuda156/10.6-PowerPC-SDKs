@@ -1,7 +1,7 @@
 /*
 	NSWindow.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -20,8 +20,6 @@
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
 @class NSDockTile;
 #endif
-
-@protocol NSWindowDelegate;
 
 #define NSAppKitVersionNumberWithCustomSheetPosition 686.0
 
@@ -87,34 +85,9 @@ enum {
   NSWindowCollectionBehaviorMoveToActiveSpace = 1 << 1
 };
 
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-/* You may specify at most one of NSWindowCollectionBehaviorManaged, NSWindowCollectionBehaviorTransient, or NSWindowCollectionBehaviorStationary.  If unspecified, the window gets the default behavior determined by its window level */
-enum {
- NSWindowCollectionBehaviorManaged = 1 << 2,  		// participates in spaces, exposé.  Default behavior if windowLevel == NSNormalWindowLevel
- NSWindowCollectionBehaviorTransient = 1 << 3, 		// floats in spaces, hidden by exposé.  Default behavior if windowLevel != NSNormalWindowLevel
- NSWindowCollectionBehaviorStationary = 1 << 4, 	// unaffected by exposé.  Stays visible and stationary, like desktop window
-};
-
-/* You may specify at most one of NSWindowCollectionBehaviorParticipatesInCycle or NSWindowCollectionBehaviorIgnoresCycle.  If unspecified, the window gets the default behavior determined by its window level */
-enum {
-  NSWindowCollectionBehaviorParticipatesInCycle = 1 << 5,   // default behavior if windowLevel == NSNormalWindowLevel
-  NSWindowCollectionBehaviorIgnoresCycle = 1 << 6           // default behavior if windowLevel != NSNormalWindowLevel
-};
-#endif
-
 typedef NSUInteger NSWindowCollectionBehavior;
 
 #endif
-
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_6
-/* Options used in +windowNumbersWithOptions:.  If no options are specified, the returned list contains window numbers for visible windows on the active space belonging to the calling application. */
-enum {
-    NSWindowNumberListAllApplications = 1 << 0,
-    NSWindowNumberListAllSpaces = 1 << 4
-};
-#endif
-
-typedef NSUInteger NSWindowNumberListOptions;
 
 #define NSNormalWindowLevel              kCGNormalWindowLevel
 #define NSFloatingWindowLevel		 kCGFloatingWindowLevel
@@ -280,8 +253,8 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (BOOL)isExcludedFromWindowsMenu;
 - (void)setContentView:(NSView *)aView;
 - (id)contentView;
-- (void)setDelegate:(id <NSWindowDelegate>)anObject;
-- (id <NSWindowDelegate>)delegate;
+- (void)setDelegate:(id)anObject;
+- (id)delegate;
 - (NSInteger)windowNumber;
 - (NSUInteger)styleMask;
 - (NSText *)fieldEditor:(BOOL)createFlag forObject:(id)anObject;
@@ -302,8 +275,6 @@ If the url represents a filename or other resource with a known icon, that icon 
 // setFrame:display:animate: is equivalent to setFrame:display: if animateFlag is NO
 // If animationFlag is YES, this method will perform a smooth resize of the window, where the total time for the resize is specified by -animationResizeTime:
 - (void)setFrame:(NSRect)frameRect display:(BOOL)displayFlag animate:(BOOL)animateFlag;
-
-- (BOOL)inLiveResize    AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 // show/hide resize corner (does not affect whether window is resizable)
 - (void)setShowsResizeIndicator:(BOOL)show;
@@ -409,11 +380,6 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (void)resignMainWindow;
 
 - (BOOL)worksWhenModal;
-
-/* Normally, application termination is prohibited when a modal window or sheet is open, without consulting the application delegate.  Some windows like the open panel or toolbar customization sheet should not prevent application termination.  -setPreventsApplicationTerminationWhenModal:NO on a modal window or sheet will override the default behavior and allow application termination to proceed, either through the sudden termination path if enabled, or on to the next step of consulting the application delegate.  By default, -preventsApplicationTerminationWhenModal returns YES */
-- (BOOL)preventsApplicationTerminationWhenModal AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)setPreventsApplicationTerminationWhenModal:(BOOL)flag AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
 - (NSPoint)convertBaseToScreen:(NSPoint)aPoint;
 - (NSPoint)convertScreenToBase:(NSPoint)aPoint;
 - (void)performClose:(id)sender;
@@ -513,9 +479,6 @@ If the url represents a filename or other resource with a known icon, that icon 
 -(BOOL)canBeVisibleOnAllSpaces                  AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
 -(void)setCanBeVisibleOnAllSpaces:(BOOL)flag    AVAILABLE_MAC_OS_X_VERSION_10_5_AND_LATER_BUT_DEPRECATED;
 
-/* Returns YES if this window is associated with the active space.  For visible windows, this API indicates whether the window is currently visible on the active space.  For offscreen windows, it indicates whether ordering the window onscreen would make it bring it onto the active space */
-- (BOOL)isOnActiveSpace AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
 - (NSString *)stringWithSavedFrame;
 - (void)setFrameFromString:(NSString *)string;
 - (void)saveFrameUsingName:(NSString *)name;
@@ -587,18 +550,6 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (CGFloat)userSpaceScaleFactor;
 
 #endif /* MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_4 */
-
-/* windowNumbersWithOptions: returns an autoreleased array of NSNumbers containing windowNumbers for all visible windows satisfying options.  In no options are specified, only visible windows belonging to the calling application and on the active space are included.  If options include NSWindowNumberListAllApplications, visible windows belonging to all applications are included.  If options include NSWindowNumberListAllSpaces, visible windows on all spaces are included. 
-   Examples: 
-      To get an array of windowNumbers visible on the current space and belonging to the calling application:  
-	windowNumbers = [NSWindow windowNumbersWithOptions:0];
-      To get an array of windowNumbers visible on any space and belonging to any application:
-	windowNumbers = [NSWindow windowNumbersWithOptions:NSWindowNumberListAllApplications|NSWindowNumberListAllSpaces];
-      To get an array of windowNumbers visible on any space and belonging to the calling application:
-	windowNumbers = [NSWindow windowNumbersWithOptions:NSWindowNumberListAllSpaces];
-*/
-+ (NSArray *)windowNumbersWithOptions:(NSWindowNumberListOptions)options AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-
 @end
 
 @interface NSWindow(NSKeyboardUI)
@@ -645,28 +596,8 @@ If the url represents a filename or other resource with a known icon, that icon 
 - (void * /* WindowRef */)windowRef;
 @end
 
-@protocol NSWindowDelegate <NSObject>
-@optional
-- (BOOL)windowShouldClose:(id)sender;
-- (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client;
-- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize;
-- (NSRect)windowWillUseStandardFrame:(NSWindow *)window defaultFrame:(NSRect)newFrame;
-- (BOOL)windowShouldZoom:(NSWindow *)window toFrame:(NSRect)newFrame;
-- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window;
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
-- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect;
-#endif
-#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
-/* If a window has a representedURL, the window will by default show a path popup menu for a command-click on a rectangle containing the window document icon button and the window title.  The window delegate may implement -window:shouldPopupDocumentPathMenu: to override NSWindow's default behavior for path popup menu.  A return of NO will prevent the menu from being shown.  A return of YES will cause the window to show the menu passed to this method, which by default will contain a menuItem for each path component of the representedURL.  If the representedURL has no path components, the menu will have no menu items.  Before returning YES, the window delegate may customize the menu by changing the menuItems.  menuItems may be added or deleted, and each menuItem title, action, or target may be modified. 
-*/
-- (BOOL)window:(NSWindow *)window shouldPopUpDocumentPathMenu:(NSMenu *)menu;
 
-/* The window delegate may implement -window:shouldDragDocumentWithEvent:from:withPasteboard: to override NSWindow document icon's default drag behavior.  The delegate can prohibit the drag by returning NO.  Before returning NO, the delegate may implement its own dragging behavior using -[NSWindow dragImage:at:offset:event:pasteboard:source:slideBack:].  Alternatively, the delegate can enable a drag by returning YES, for example to override NSWindow's default behavior of prohibiting the drag of an edited document.  Lastly, the delegate can customize the pasteboard contents before returning YES.
-*/
-- (BOOL)window:(NSWindow *)window shouldDragDocumentWithEvent:(NSEvent *)event from:(NSPoint)dragImageLocation withPasteboard:(NSPasteboard *)pasteboard;
-
-/* Notifications
-*/
+@interface NSObject(NSWindowNotifications)
 - (void)windowDidResize:(NSNotification *)notification;
 - (void)windowDidExpose:(NSNotification *)notification;
 - (void)windowWillMove:(NSNotification *)notification;
@@ -686,9 +617,27 @@ If the url represents a filename or other resource with a known icon, that icon 
 #endif
 - (void)windowWillBeginSheet:(NSNotification *)notification;
 - (void)windowDidEndSheet:(NSNotification *)notification;
+@end
+
+@interface NSObject(NSWindowDelegate)
+- (BOOL)windowShouldClose:(id)sender;
+- (id)windowWillReturnFieldEditor:(NSWindow *)sender toObject:(id)client;
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize;
+- (NSRect)windowWillUseStandardFrame:(NSWindow *)window defaultFrame:(NSRect)newFrame;
+- (BOOL)windowShouldZoom:(NSWindow *)window toFrame:(NSRect)newFrame;
+- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window;
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
+- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect;
 #endif
-- (void)windowWillStartLiveResize:(NSNotification *)notification    AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-- (void)windowDidEndLiveResize:(NSNotification *)notification   AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
+#if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5
+/* If a window has a representedURL, the window will by default show a path popup menu for a command-click on a rectangle containing the window document icon button and the window title.  The window delegate may implement -window:shouldPopupDocumentPathMenu: to override NSWindow's default behavior for path popup menu.  A return of NO will prevent the menu from being shown.  A return of YES will cause the window to show the menu passed to this method, which by default will contain a menuItem for each path component of the representedURL.  If the representedURL has no path components, the menu will have no menu items.  Before returning YES, the window delegate may customize the menu by changing the menuItems.  menuItems may be added or deleted, and each menuItem title, action, or target may be modified. 
+*/
+- (BOOL)window:(NSWindow *)window shouldPopUpDocumentPathMenu:(NSMenu *)menu;
+
+/* The window delegate may implement -window:shouldDragDocumentWithEvent:from:withPasteboard: to override NSWindow document icon's default drag behavior.  The delegate can prohibit the drag by returning NO.  Before returning NO, the delegate may implement its own dragging behavior using -[NSWindow dragImage:at:offset:event:pasteboard:source:slideBack:].  Alternatively, the delegate can enable a drag by returning YES, for example to override NSWindow's default behavior of prohibiting the drag of an edited document.  Lastly, the delegate can customize the pasteboard contents before returning YES.
+*/
+- (BOOL)window:(NSWindow *)window shouldDragDocumentWithEvent:(NSEvent *)event from:(NSPoint)dragImageLocation withPasteboard:(NSPasteboard *)pasteboard;
+#endif
 @end
 
 
@@ -710,8 +659,4 @@ APPKIT_EXTERN NSString *NSWindowWillMoveNotification;
 APPKIT_EXTERN NSString *NSWindowWillBeginSheetNotification;
 APPKIT_EXTERN NSString *NSWindowDidEndSheetNotification;
 APPKIT_EXTERN NSString *NSWindowDidChangeScreenProfileNotification  AVAILABLE_MAC_OS_X_VERSION_10_4_AND_LATER;
-/* NSWindowWillStartLiveResizeNotification is sent when the user starts a live resize operation via a mouseDown in the resize corner.  The notification will be sent before the window size is changed.  Note that this notification is sent once for a sequence of window resize operations */
-APPKIT_EXTERN NSString * const NSWindowWillStartLiveResizeNotification  AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-/* NSWindowDidEndLiveResizeNotification is sent after the user ends a live resize operation via a mouseUp in the resize corner.  The notification will be sent after the final window size change.    Note that this notification is sent once for a sequence of window resize operations */
-APPKIT_EXTERN NSString * const NSWindowDidEndLiveResizeNotification  AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 

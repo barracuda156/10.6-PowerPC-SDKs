@@ -5,6 +5,7 @@
 //  Copyright 2006-2008 Apple. All rights reserved.
 //
 
+
 // Image Browser
 #import <ImageKit/IKImageBrowserView.h>
 #import <ImageKit/IKImageBrowserCell.h>
@@ -40,5 +41,3 @@
 // Deprecated - for compatibilities
 #import <ImageKit/ImageKitDeprecated.h>
 
-
-#define ImageKitVersion 2516

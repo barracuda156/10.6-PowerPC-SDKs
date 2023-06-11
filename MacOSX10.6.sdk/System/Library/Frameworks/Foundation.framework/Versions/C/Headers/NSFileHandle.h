@@ -1,12 +1,12 @@
 /*	NSFileHandle.h
-	Copyright (c) 1995-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1995-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSObject.h>
 #import <Foundation/NSArray.h>
 #import <Foundation/NSRange.h>
 
-@class NSString, NSData, NSError;
+@class NSString, NSData;
 
 @interface NSFileHandle : NSObject
 
@@ -37,10 +37,6 @@
 + (id)fileHandleForReadingAtPath:(NSString *)path;
 + (id)fileHandleForWritingAtPath:(NSString *)path;
 + (id)fileHandleForUpdatingAtPath:(NSString *)path;
-
-+ (id)fileHandleForReadingFromURL:(NSURL *)url error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-+ (id)fileHandleForWritingToURL:(NSURL *)url error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
-+ (id)fileHandleForUpdatingURL:(NSURL *)url error:(NSError **)error AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 @end
 

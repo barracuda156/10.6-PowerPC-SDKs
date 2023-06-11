@@ -72,13 +72,10 @@ extern "C" {
 #endif
 
 #if defined(OPENSSL_FIPS)
-#define FIPS_RAND_SIZE_T size_t
+#define FIPS_RAND_SIZE_T int
 #endif
 
-/* Already defined in ossl_typ.h */
-/* typedef struct rand_meth_st RAND_METHOD; */
-
-struct rand_meth_st
+typedef struct rand_meth_st
 	{
 	void (*seed)(const void *buf, int num);
 	int (*bytes)(unsigned char *buf, int num);
@@ -86,7 +83,7 @@ struct rand_meth_st
 	void (*add)(const void *buf, int num, double entropy);
 	int (*pseudorand)(unsigned char *buf, int num);
 	int (*status)(void);
-	};
+	} RAND_METHOD;
 
 #ifdef BN_DEBUG
 extern int rand_predictable;
@@ -128,11 +125,17 @@ void ERR_load_RAND_strings(void);
 /* Error codes for the RAND functions. */
 
 /* Function codes. */
+#define RAND_F_FIPS_RAND_BYTES				 102
 #define RAND_F_RAND_GET_RAND_METHOD			 101
 #define RAND_F_SSLEAY_RAND_BYTES			 100
 
 /* Reason codes. */
+#define RAND_R_NON_FIPS_METHOD				 101
+#define RAND_R_PRNG_ASKING_FOR_TOO_MUCH			 105
+#define RAND_R_PRNG_NOT_REKEYED				 103
+#define RAND_R_PRNG_NOT_RESEEDED			 104
 #define RAND_R_PRNG_NOT_SEEDED				 100
+#define RAND_R_PRNG_STUCK				 102
 
 #ifdef  __cplusplus
 }

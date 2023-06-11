@@ -71,11 +71,6 @@ extern void	Assert(
 	const char	*file,
 	int		line,
 	const char	*expression);
-
-#if CONFIG_NO_PANIC_STRINGS
-#define Assert(file, line, ex) (Assert)("", line, "")
-#endif
-
 __END_DECLS
 
 #if	MACH_ASSERT

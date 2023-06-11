@@ -197,11 +197,9 @@ struct nfsmount {
 	mbuf_t	nm_nam;			/* Address of server */
 	u_short nm_sockflags;		/* socket state flags */
 	socket_t nm_so;			/* RPC socket */
-	time_t	nm_deadto_start;	/* dead timeout start time */
-	time_t	nm_reconnect_start;	/* reconnect start time */
+	int	nm_reconnect_start;	/* reconnect start time */
 	int	nm_tprintf_initial_delay;	/* delay first "server down" */
 	int	nm_tprintf_delay;	/* delay between "server down" */
-	int	nm_deadtimeout;		/* delay between first "server down" and dead */
 	int	nm_srtt[4];		/* Timers for RPCs */
 	int	nm_sdrtt[4];
 	int	nm_timeouts;		/* Request timeouts */
@@ -237,7 +235,6 @@ struct nfsmount {
 #define NFSSTA_GOTFSINFO	0x00100000  /* Got the V3 fsinfo */
 #define NFSSTA_SNDLOCK		0x01000000  /* Send socket lock */
 #define NFSSTA_WANTSND		0x02000000  /* Want above */
-#define NFSSTA_DEAD		0x04000000  /* mount is dead */
 
 /* flags for nm_sockflags */
 #define NMSOCK_READY		0x0001	/* socket is ready for use */

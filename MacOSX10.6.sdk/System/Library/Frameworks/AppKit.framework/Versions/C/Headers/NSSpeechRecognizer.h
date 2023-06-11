@@ -1,7 +1,7 @@
 /*
 	NSSpeechRecognizer.h
 	Application Kit
-	Copyright (c) 2003-2008, Apple Inc.
+	Copyright (c) 2003-2007, Apple Inc.
 	All rights reserved.
 */
 
@@ -9,7 +9,6 @@
 #import <Foundation/NSObject.h>
 
 @class NSArray, NSString;
-@protocol NSSpeechRecognizerDelegate;
 
 #if MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_3
 
@@ -23,8 +22,8 @@
 - (void)startListening;
 - (void)stopListening;
 
-- (id <NSSpeechRecognizerDelegate>)delegate;
-- (void)setDelegate:(id <NSSpeechRecognizerDelegate>)anObject;
+- (id)delegate;
+- (void)setDelegate:(id)anObject;
 
 - (NSArray *)commands;
 - (void)setCommands:(NSArray *)commands;
@@ -40,8 +39,8 @@
 
 @end
 
-@protocol NSSpeechRecognizerDelegate <NSObject>
-@optional
+@interface NSObject (NSSpeechRecognizerDelegate)
+
 - (void)speechRecognizer:(NSSpeechRecognizer *)sender didRecognizeCommand:(id)command;
 
 @end

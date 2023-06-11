@@ -85,9 +85,10 @@ struct nfs_gss_clnt_ctx {
 	uint32_t		*gss_clnt_seqbits;	// Bitmap to track seq numbers in use
 	mach_port_t		gss_clnt_mport;		// Mach port for gssd upcall
 	u_char			*gss_clnt_verf;		// RPC verifier from server
+	uint64_t		gss_clnt_gssd_verf;	// Verifier from gssd
 	char			*gss_clnt_svcname;	// Service name e.g. "nfs/big.apple.com"
-	gss_cred		gss_clnt_cred_handle;	// Opaque cred handle from gssd
-	gss_ctx			gss_clnt_context;	// Opaque context handle from gssd
+	uint32_t		gss_clnt_cred_handle;	// Opaque cred handle from gssd
+	uint32_t		gss_clnt_context;	// Opaque context handle from gssd
 	u_char			*gss_clnt_token;	// GSS token exchanged via gssd & server
 	uint32_t		gss_clnt_tokenlen;	// Length of token
 	u_char			gss_clnt_skey[SKEYLEN];	// Context session key (DES)
@@ -119,8 +120,9 @@ struct nfs_gss_svc_ctx {
 	uint32_t		gss_svc_seqmax;		// Current max GSS sequence number
 	uint32_t		gss_svc_seqwin;		// GSS sequence number window
 	uint32_t		*gss_svc_seqbits;	// Bitmap to track seq numbers
-	gss_cred		gss_svc_cred_handle;	// Opaque cred handle from gssd
-	gss_ctx			gss_svc_context;	// Opaque context handle from gssd
+	uint64_t		gss_svc_gssd_verf;	// Verifier from gssd
+	uint32_t		gss_svc_cred_handle;	// Opaque cred handle from gssd
+	uint32_t		gss_svc_context;	// Opaque context handle from gssd
 	u_char			*gss_svc_token;		// GSS token exchanged via gssd & client
 	uint32_t		gss_svc_tokenlen;	// Length of token
 	u_char			gss_svc_skey[SKEYLEN];	// Context session key (DES)

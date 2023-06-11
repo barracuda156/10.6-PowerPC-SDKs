@@ -1,5 +1,7 @@
 /* include/X11/fonts/fontconf.h.  Generated from fontconf.h.in by configure.  */
 /*
+ * $Id$
+ *
  * Copyright © 2005 Keith Packard
  *
  * Permission to use, copy, modify, distribute, and sell this software and its

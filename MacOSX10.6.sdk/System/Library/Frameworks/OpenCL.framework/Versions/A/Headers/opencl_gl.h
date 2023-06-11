@@ -15,29 +15,23 @@ extern "C" {
 
 #include <OpenGL/CGLDevice.h>
 
-extern cl_device_group clCreateDeviceGroupFromCGLShareGroup(CGLShareGroup group);
-extern cl_device_group clCreateDeviceGroupFromCGLContext(CGLContextObj cgl_ctx);
+extern cl_device clCreateDeviceGroupFromCGLShareGroup(CGLShareGroup group);
+extern cl_device clCreateDeviceGroupFromCGLContext(CGLContextObj cgl_ctx);
 
-extern
-cl_mem clCreateGLBufferRef(cl_device_group device, cl_mem_flags flags, GLuint bufobj);
+extern int clAttachGLBuffer(cl_context context, cl_mem array, GLuint obj);
+extern int clDetachGLBuffer(cl_context context, cl_mem array);
 
-extern
-cl_mem clCreateGLTexture2DRef(cl_device_group device, cl_mem_flags flags, GLenum target, GLint miplevel, GLuint texture);
+extern int clAttachGLTexture2D(cl_context context, cl_mem image, GLenum textarget, GLuint texture, GLuint miplevel);
+extern int clDetachGLTexture2D(cl_context context, cl_mem image);
 
-extern
-cl_mem clCreateGLTexture3DRef(cl_device_group device, cl_mem_flags flags, GLenum target, GLint miplevel, GLuint texture);
+extern int clAttachGLTexture3D(cl_context context, cl_mem image, GLenum textarget, GLenum texture, GLint miplevel);
+extern int clDetachGLTexture3D(cl_context context, cl_mem image);
 
-extern
-cl_mem clCreateGLRenderbufferRef(cl_device_group device, cl_mem_flags flags, GLenum renderbuffer);
+extern int clAttachGLRenderbuffer(cl_context context, cl_mem image, GLenum renderbuffer);
+extern int clDetachGLRenderbuffer(cl_context context, cl_mem image);
 
-extern
-int		clAcquireGLMemObjects (cl_device_group device_group, unsigned int num_objects, cl_mem *memobjects);
+extern int clGetGLAttachment(cl_context context, cl_mem memobj, cl_gl_attachment_type type, GLuint *gl_object);
 
-extern
-int		clReleaseGLMemObjects (cl_device_group device_group, unsigned int num_objects, cl_mem *memobjects);
-
-extern 
-int clGetGLObjectInfo(cl_mem memobj, cl_gl_object_type *type, GLuint *object, cl_gl_texture_info *info);
 
 #ifdef __cplusplus
 }

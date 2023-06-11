@@ -136,21 +136,6 @@ kauth_cred_t proc_ucred(proc_t p);
 
 extern int proc_tbe(proc_t);
 
-/*!
- @function proc_selfpgrpid
- @abstract Get the process group id for the current process, as with proc_pgrpid().
- @return pgrpid of current process.
- */
-pid_t proc_selfpgrpid(void);
-
-/*!
- @function proc_pgrpid
- @abstract Get the process group id for the passed-in process.
- @param p Process whose pgrpid to grab.
- @return pgrpid for "p".
- */
-pid_t proc_pgrpid(proc_t);
-
 
 __END_DECLS
 

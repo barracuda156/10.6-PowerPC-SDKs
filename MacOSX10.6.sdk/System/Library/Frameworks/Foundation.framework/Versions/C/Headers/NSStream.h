@@ -1,13 +1,12 @@
 /*	NSStream.h
-        Copyright (c) 2003-2008, Apple Inc. All rights reserved
+        Copyright (c) 2003-2007, Apple Inc. All rights reserved
 */
 
 #import <Foundation/NSObject.h>
 
 #if MAC_OS_X_VERSION_10_3 <= MAC_OS_X_VERSION_MAX_ALLOWED
 
-@class NSData, NSDictionary, NSError, NSHost, NSInputStream, NSOutputStream, NSRunLoop, NSString, NSURL;
-@protocol NSStreamDelegate;
+@class NSData, NSDictionary, NSError, NSHost, NSInputStream, NSRunLoop, NSString, NSOutputStream;
 
 enum {
     NSStreamStatusNotOpen = 0,
@@ -37,8 +36,8 @@ typedef NSUInteger NSStreamEvent;
 - (void)open;
 - (void)close;
 
-- (id <NSStreamDelegate>)delegate;
-- (void)setDelegate:(id <NSStreamDelegate>)delegate;
+- (id)delegate;
+- (void)setDelegate:(id)delegate;
     // By default, a stream is its own delegate, and subclassers of NSInputStream and NSOutputStream must maintain this contract. [someStream setDelegate:nil] must restore this behavior. As usual, delegates are not retained.
 
 - (id)propertyForKey:(NSString *)key;
@@ -84,28 +83,23 @@ typedef NSUInteger NSStreamEvent;
 @interface NSInputStream (NSInputStreamExtensions)
 - (id)initWithData:(NSData *)data;
 - (id)initWithFileAtPath:(NSString *)path;
-- (id)initWithURL:(NSURL *)url AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 + (id)inputStreamWithData:(NSData *)data;
 + (id)inputStreamWithFileAtPath:(NSString *)path;
-+ (id)inputStreamWithURL:(NSURL *)url AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 @end
 
-// The NSOutputStreamExtensions category contains additional initializers and convenience routines for dealing with NSOutputStreams.
+// The NSOutputStreamExtensions category contains additiona initializers and convenience routines for dealing with NSOutputStreams.
 @interface NSOutputStream (NSOutputStreamExtensions)
 - (id)initToMemory;
 - (id)initToBuffer:(uint8_t *)buffer capacity:(NSUInteger)capacity;
 - (id)initToFileAtPath:(NSString *)path append:(BOOL)shouldAppend;
-- (id)initWithURL:(NSURL *)url append:(BOOL)shouldAppend AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 
 + (id)outputStreamToMemory;
 + (id)outputStreamToBuffer:(uint8_t *)buffer capacity:(NSUInteger)capacity;
 + (id)outputStreamToFileAtPath:(NSString *)path append:(BOOL)shouldAppend;
-+ (id)outputStreamWithURL:(NSURL *)url append:(BOOL)shouldAppend AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER;
 @end
 
-@protocol NSStreamDelegate <NSObject>
-@optional
+@interface NSObject (NSStreamDelegateEventExtensions)
 - (void)stream:(NSStream *)aStream handleEvent:(NSStreamEvent)eventCode;
 @end
 
@@ -125,7 +119,7 @@ FOUNDATION_EXPORT NSString * const NSStreamSOCKSProxyHostKey			AVAILABLE_MAC_OS_
     // Value is an NSString
 FOUNDATION_EXPORT NSString * const NSStreamSOCKSProxyPortKey			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
     // Value is an NSNumber
-FOUNDATION_EXPORT NSString * const NSStreamSOCKSProxyVersionKey		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+FOUNDATION_EXPORT NSString * const NSStreamSOCKSProxyVersionKey			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
     // Value is one of NSStreamSOCKSProxyVersion4 or NSStreamSOCKSProxyVersion5
 FOUNDATION_EXPORT NSString * const NSStreamSOCKSProxyUserKey			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
     // Value is an NSString
@@ -137,10 +131,10 @@ FOUNDATION_EXPORT NSString * const NSStreamSOCKSProxyVersion4			AVAILABLE_MAC_OS
 FOUNDATION_EXPORT NSString * const NSStreamSOCKSProxyVersion5			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
     // Value for NSStreamSOCKProxyVersionKey
 
-FOUNDATION_EXPORT NSString * const NSStreamDataWrittenToMemoryStreamKey	AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+FOUNDATION_EXPORT NSString * const NSStreamDataWrittenToMemoryStreamKey		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
     // Key for obtaining the data written to a memory stream.
 
-FOUNDATION_EXPORT NSString * const NSStreamFileCurrentOffsetKey		AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
+FOUNDATION_EXPORT NSString * const NSStreamFileCurrentOffsetKey			AVAILABLE_MAC_OS_X_VERSION_10_3_AND_LATER;
     // Value is an NSNumber representing the current absolute offset of the stream.
 
 // NSString constants for error domains.

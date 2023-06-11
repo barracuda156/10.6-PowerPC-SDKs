@@ -3,7 +3,7 @@
  
      Contains:   AppleEvents Registry Interface.
  
-     Version:    AppleEvents-464~2
+     Version:    AppleEvents-451~1
  
      Copyright:  © 1993-2008 by Apple Computer, Inc., all rights reserved
  
@@ -532,7 +532,6 @@
 #define typeHIMenu 						'mobj'
 #define typeHIWindow 					'wobj'
 
-#define kAEQuitReason 					'why?'				/*  in a kAEQuitApplication event, this property if present is the reason the quit is being sent.  The possible values are kAEQuitAll, kAEShutDown, kAERestart, kAEReallyLogOut  */
 #define kBySmallIcon 					0
 #define kByIconView 					1
 #define kByNameView 					2

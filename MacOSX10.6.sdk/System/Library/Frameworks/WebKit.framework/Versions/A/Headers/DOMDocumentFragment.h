@@ -26,6 +26,5 @@
 
 #import <WebKit/DOMNode.h>
 
-
 @interface DOMDocumentFragment : DOMNode
 @end

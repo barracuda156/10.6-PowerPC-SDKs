@@ -1,5 +1,7 @@
 /* include/X11/XlibConf.h.  Generated from XlibConf.h.in by configure.  */
 /*
+ * $Id: $
+ *
  * Copyright © 2005 Keith Packard
  *
  * Permission to use, copy, modify, distribute, and sell this software and its

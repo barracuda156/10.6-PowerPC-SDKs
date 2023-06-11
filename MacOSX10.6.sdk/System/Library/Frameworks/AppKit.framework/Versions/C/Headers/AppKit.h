@@ -1,7 +1,7 @@
 /*
 	AppKit.h
 	Application Kit
-	Copyright (c) 1994-2008, Apple Inc.
+	Copyright (c) 1994-2007, Apple Inc.
 	All rights reserved.
 
 	This file is included by all AppKit application source files for easy building.  Using this file is preferred over importing individual files because it will use a precompiled version.
@@ -179,5 +179,3 @@
 #import <AppKit/NSPathComponentCell.h>
 #import <AppKit/NSCollectionView.h>
 #import <AppKit/NSTextInputClient.h>
-#import <AppKit/NSTextInputContext.h>
-#import <AppKit/NSUserInterfaceItemSearching.h>

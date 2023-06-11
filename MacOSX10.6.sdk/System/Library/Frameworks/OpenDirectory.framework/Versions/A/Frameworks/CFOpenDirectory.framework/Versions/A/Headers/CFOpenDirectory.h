@@ -745,7 +745,7 @@ bool ODRecordSetValues( ODRecordRef inRecord, ODAttributeType inAttribute, CFArr
                 Any mixture of the types CFData and CFString are accepted.
     @param      inRecord an ODRecordRef to use
     @param      inAttribute a CFStringRef of the attribute for values to be added too
-    @param      inValueOrValues a CFArrayRef of CFStringRef or CFDataRef types or either of the individual types, passing
+    @param      inValues a CFArrayRef of CFStringRef or CFDataRef types or either of the individual types, passing
                 an empty CFArray deletes the attribute.  The underlying implementation will do this in the most efficient manner,
                 either by adding only new values or completely replacing the values depending on the capabilities of the
                 particular plugin.
@@ -855,9 +855,7 @@ bool ODRecordRemoveMember( ODRecordRef inGroup, ODRecordRef inMember, CFErrorRef
 /*!
     @function   ODRecordContainsMember
     @abstract   Will use membership APIs to resolve group membership based on Group and Member record combination
-    @discussion Will use membership APIs to resolve group membership based on Group and Member record combination.
-				This API does not check attributes values directly, instead uses system APIs to deal with nested
-				memberships.
+    @discussion Will use membership APIs to resolve group membership based on Group and Member record combination
     @param      inGroup an ODRecordRef of the group to be checked for membership
     @param      inMember an ODRecordRef of the member to be checked against the group
     @param      outError an optional CFErrorRef reference for error details

@@ -51,7 +51,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 #if TARGET_OS_MAC
-#    pragma pack(push,2)
+#	pragma pack(push,2)
 #endif
 
 #if defined(_MSDOS) || defined(_WIN32)
@@ -74,7 +74,7 @@ extern "C" {
 #include <sys/types.h>
 
 /*
- * $Id: gssapi.hin 19871 2007-08-24 20:32:28Z lxs $
+ * $Id: gssapi.hin 18396 2006-07-25 20:29:43Z lxs $
  */
 
 /*
@@ -152,7 +152,6 @@ typedef	int		gss_cred_usage_t;
 #define	GSS_C_ANON_FLAG 64
 #define GSS_C_PROT_READY_FLAG 128
 #define GSS_C_TRANS_FLAG 256
-#define GSS_C_DELEG_POLICY_FLAG 32768
 
 /*
  * Credential usage options
@@ -781,7 +780,7 @@ OM_uint32 KRB5_CALLCONV gss_canonicalize_name
 	);
 
 #if TARGET_OS_MAC
-#    pragma pack(pop)
+#	pragma pack(pop)
 #endif
 
 #ifdef __cplusplus

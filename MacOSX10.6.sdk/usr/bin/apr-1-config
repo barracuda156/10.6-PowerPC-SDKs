@@ -19,7 +19,7 @@
 # parameters.
 
 APR_MAJOR_VERSION="1"
-APR_DOTTED_VERSION="1.3.2"
+APR_DOTTED_VERSION="1.2.12"
 
 prefix="/usr"
 exec_prefix="${prefix}"
@@ -38,8 +38,8 @@ LDFLAGS=""
 LIBS="-lpthread"
 EXTRA_INCLUDES=""
 SHLIBPATH_VAR="DYLD_LIBRARY_PATH"
-APR_SOURCE_DIR="/SourceCache/apr/apr-18/apr/apr"
-APR_BUILD_DIR="/var/tmp/apr/apr-18~28/apr"
+APR_SOURCE_DIR="/SourceCache/apr/apr-15/apr/apr"
+APR_BUILD_DIR="/var/tmp/apr/apr-15~70/apr"
 APR_SO_EXT="lo"
 APR_LIB_TARGET="-rpath \$(libdir) \$(OBJECTS)"
 APR_LIBNAME="apr-${APR_MAJOR_VERSION}"

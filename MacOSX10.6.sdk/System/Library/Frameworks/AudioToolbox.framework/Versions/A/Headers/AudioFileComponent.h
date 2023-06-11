@@ -30,7 +30,7 @@
 	#include <AudioUnit/AudioComponent.h>
 	#include <AudioToolbox/AudioFile.h>
 #else
-	#include "AudioComponent.h"
+	#include "Components.h"
 	#include "CoreAudioTypes.h"
 	#include "AudioFile.h"
 #endif
@@ -242,41 +242,6 @@ AudioFileComponentReadPackets(
 								AudioFileComponent				inComponent,
 								Boolean							inUseCache,
 								UInt32							*outNumBytes,
-								AudioStreamPacketDescription	*outPacketDescriptions,
-								SInt64							inStartingPacket, 
-								UInt32  						*ioNumPackets, 
-								void							*outBuffer)		__OSX_AVAILABLE_STARTING(__MAC_10_4,__IPHONE_NA);
-									
-
-/*!
-    @function	AudioFileComponentReadPacketData
-    @abstract   implements AudioFileReadPacketData.
-    @discussion For all uncompressed formats, packets == frames.
-				If the byte size of the number packets requested is 
-				less than the buffer size, ioNumBytes will be reduced.
-				If the buffer is too small for the number of packets 
-				requested, ioNumPackets and ioNumBytes will be reduced 
-				to the number of packets that can be accommodated and their byte size.
-				Returns eofErr when read encounters end of file.
-
-    @param inComponent				an AudioFileComponent
-    @param inUseCache 				true if it is desired to cache the data upon read, else false
-    @param ioNumBytes				on input the size of outBuffer in bytes. 
-									on output, the number of bytes actually returned.
-    @param outPacketDescriptions 	on output, an array of packet descriptions describing
-									the packets being returned. NULL may be passed for this
-									parameter. Nothing will be returned for linear pcm data.   
-    @param inStartingPacket 		the packet index of the first packet desired to be returned
-    @param ioNumPackets 			on input, the number of packets to read, on output, the number of
-									packets actually read.
-    @param outBuffer 				outBuffer should be a pointer to user allocated memory.
-    @result							returns noErr if successful.
-*/
-extern OSStatus 
-AudioFileComponentReadPacketData(		
-								AudioFileComponent				inComponent,
-								Boolean							inUseCache,
-								UInt32							*ioNumBytes,
 								AudioStreamPacketDescription	*outPacketDescriptions,
 								SInt64							inStartingPacket, 
 								UInt32  						*ioNumPackets, 
@@ -639,10 +604,10 @@ enum
 	kAudioFileGetUserDataSelect					= 0x0016,
 	kAudioFileSetUserDataSelect					= 0x0017,
 	kAudioFileRemoveUserDataSelect				= 0x0018,
+#define __defined_kAudioFileRemoveUserDataSelect__ 1
 	kAudioFileCreateURLSelect					= 0x0019,
 	kAudioFileOpenURLSelect						= 0x001A,
 	kAudioFileFileDataIsThisFormatSelect		= 0x001B,
-	kAudioFileReadPacketDataSelect				= 0x001C,
 };
 
 
@@ -669,15 +634,7 @@ typedef OSStatus (*ReadPacketsFDF)(	void							*inComponentStorage,
 									SInt64							inStartingPacket, 
 									UInt32  						*ioNumPackets, 
 									void							*outBuffer);
-
-typedef OSStatus (*ReadPacketDataFDF)(	void						*inComponentStorage,
-									Boolean							inUseCache,
-									UInt32							*ioNumBytes,
-									AudioStreamPacketDescription	*outPacketDescriptions,
-									SInt64							inStartingPacket, 
-									UInt32  						*ioNumPackets, 
-									void							*outBuffer);
-
+								
 typedef OSStatus (*WritePacketsFDF)(	void								*inComponentStorage,
 										Boolean								inUseCache,
 										UInt32								inNumBytes,
@@ -745,26 +702,6 @@ typedef struct AudioFileFDFTable
 	GetUserDataFDF		mGetUserDataFDF;
 	SetUserDataFDF		mSetUserDataFDF;
 } AudioFileFDFTable;
-
-typedef struct AudioFileFDFTableExtended
-{
-	void				*mComponentStorage;
-	ReadBytesFDF 		mReadBytesFDF;
-	WriteBytesFDF 		mWriteBytesFDF;
-	ReadPacketsFDF		mReadPacketsFDF;
-	WritePacketsFDF		mWritePacketsFDF;
-
-	GetPropertyInfoFDF	mGetPropertyInfoFDF;
-	GetPropertyFDF		mGetPropertyFDF;
-	SetPropertyFDF		mSetPropertyFDF;
-	
-	CountUserDataFDF	mCountUserDataFDF;
-	GetUserDataSizeFDF  mGetUserDataSizeFDF;
-	GetUserDataFDF		mGetUserDataFDF;
-	SetUserDataFDF		mSetUserDataFDF;
-
-	ReadPacketDataFDF	mReadPacketDataFDF;
-} AudioFileFDFTableExtended;
 
 #pragma mark -
 #pragma mark Deprecated

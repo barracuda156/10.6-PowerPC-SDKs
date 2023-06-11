@@ -200,13 +200,13 @@
  *   kSCPropNetIPv4BroadcastAddresses                   "BroadcastAddresses"           CFArray[CFString]
  *
  *   --- kSCPropNetIPv4ConfigMethod values ---
- *   kSCValNetIPv4ConfigMethodAutomatic                 "Automatic"
  *   kSCValNetIPv4ConfigMethodBOOTP                     "BOOTP"
  *   kSCValNetIPv4ConfigMethodDHCP                      "DHCP"
  *   kSCValNetIPv4ConfigMethodINFORM                    "INFORM"
  *   kSCValNetIPv4ConfigMethodLinkLocal                 "LinkLocal"
  *   kSCValNetIPv4ConfigMethodManual                    "Manual"
  *   kSCValNetIPv4ConfigMethodPPP                       "PPP"
+ *   kSCValNetIPv4ConfigMethodIPSec                     "IPSec"
  *
  * kSCEntNetIPv6 Entity Keys
  *
@@ -1320,12 +1320,6 @@ extern const CFStringRef kSCPropNetIPv4DestAddresses;
 extern const CFStringRef kSCPropNetIPv4BroadcastAddresses;
 
 /*!
-  @const kSCValNetIPv4ConfigMethodAutomatic
-  @availability Introduced in Mac OS X 10.6.
- */
-extern const CFStringRef kSCValNetIPv4ConfigMethodAutomatic;
-
-/*!
   @const kSCValNetIPv4ConfigMethodBOOTP
   @availability Introduced in Mac OS X 10.1.
  */
@@ -1360,6 +1354,12 @@ extern const CFStringRef kSCValNetIPv4ConfigMethodManual;
   @availability Introduced in Mac OS X 10.1.
  */
 extern const CFStringRef kSCValNetIPv4ConfigMethodPPP;
+
+/*!
+  @const kSCValNetIPv4ConfigMethodIPSec
+  @availability Introduced in Mac OS X 10.6.
+ */
+extern const CFStringRef kSCValNetIPv4ConfigMethodIPSec;
 
 /*!
   @group kSCEntNetIPv6 Entity Keys
@@ -3369,14 +3369,6 @@ extern const CFStringRef kSCPropUsersConsoleUserGID;
 		      ,CFArray[CFString]                                )
 #endif
 
-  SC_SCHEMA_DECLARATION(kSCValNetIPv4ConfigMethodAutomatic, __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA))
-#if (__MAC_OS_X_VERSION_MIN_REQUIRED >= 1060)
-  #define kSCValNetIPv4ConfigMethodAutomatic                            \
-	  SC_SCHEMA_KV(kSCValNetIPv4ConfigMethodAutomatic               \
-		      ,"Automatic"                                      \
-		      ,                                                 )
-#endif
-
   SC_SCHEMA_DECLARATION(kSCValNetIPv4ConfigMethodBOOTP, __OSX_AVAILABLE_STARTING(__MAC_10_1,__IPHONE_NA))
 #if (__MAC_OS_X_VERSION_MIN_REQUIRED >= 1010)
   #define kSCValNetIPv4ConfigMethodBOOTP                                \
@@ -3422,6 +3414,14 @@ extern const CFStringRef kSCPropUsersConsoleUserGID;
   #define kSCValNetIPv4ConfigMethodPPP                                  \
 	  SC_SCHEMA_KV(kSCValNetIPv4ConfigMethodPPP                     \
 		      ,"PPP"                                            \
+		      ,                                                 )
+#endif
+
+  SC_SCHEMA_DECLARATION(kSCValNetIPv4ConfigMethodIPSec, __OSX_AVAILABLE_STARTING(__MAC_10_6,__IPHONE_NA))
+#if (__MAC_OS_X_VERSION_MIN_REQUIRED >= 1060)
+  #define kSCValNetIPv4ConfigMethodIPSec                                \
+	  SC_SCHEMA_KV(kSCValNetIPv4ConfigMethodIPSec                   \
+		      ,"IPSec"                                          \
 		      ,                                                 )
 #endif
 

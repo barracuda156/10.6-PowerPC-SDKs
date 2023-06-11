@@ -152,7 +152,7 @@ typedef struct xcb_xinerama_get_screen_size_request_t {
     uint8_t      minor_opcode; /**<  */
     uint16_t     length; /**<  */
     xcb_window_t window; /**<  */
-    uint32_t     screen; /**<  */
+    xcb_screen_t screen; /**<  */
 } xcb_xinerama_get_screen_size_request_t;
 
 /**
@@ -166,7 +166,7 @@ typedef struct xcb_xinerama_get_screen_size_reply_t {
     uint32_t     width; /**<  */
     uint32_t     height; /**<  */
     xcb_window_t window; /**<  */
-    uint32_t     screen; /**<  */
+    xcb_screen_t screen; /**<  */
 } xcb_xinerama_get_screen_size_reply_t;
 
 /**
@@ -526,7 +526,7 @@ xcb_xinerama_get_screen_count_reply (xcb_connection_t                        *c 
  ** 
  ** @param xcb_connection_t *c
  ** @param xcb_window_t      window
- ** @param uint32_t          screen
+ ** @param xcb_screen_t      screen
  ** @returns xcb_xinerama_get_screen_size_cookie_t
  **
  *****************************************************************************/
@@ -534,7 +534,7 @@ xcb_xinerama_get_screen_count_reply (xcb_connection_t                        *c 
 xcb_xinerama_get_screen_size_cookie_t
 xcb_xinerama_get_screen_size (xcb_connection_t *c  /**< */,
                               xcb_window_t      window  /**< */,
-                              uint32_t          screen  /**< */);
+                              xcb_screen_t      screen  /**< */);
 
 /**
  * Delivers a request to the X server
@@ -554,7 +554,7 @@ xcb_xinerama_get_screen_size (xcb_connection_t *c  /**< */,
  ** 
  ** @param xcb_connection_t *c
  ** @param xcb_window_t      window
- ** @param uint32_t          screen
+ ** @param xcb_screen_t      screen
  ** @returns xcb_xinerama_get_screen_size_cookie_t
  **
  *****************************************************************************/
@@ -562,7 +562,7 @@ xcb_xinerama_get_screen_size (xcb_connection_t *c  /**< */,
 xcb_xinerama_get_screen_size_cookie_t
 xcb_xinerama_get_screen_size_unchecked (xcb_connection_t *c  /**< */,
                                         xcb_window_t      window  /**< */,
-                                        uint32_t          screen  /**< */);
+                                        xcb_screen_t      screen  /**< */);
 
 /**
  * Return the reply

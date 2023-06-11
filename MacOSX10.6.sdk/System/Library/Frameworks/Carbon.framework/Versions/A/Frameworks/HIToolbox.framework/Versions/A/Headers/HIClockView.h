@@ -3,7 +3,7 @@
  
      Contains:   Definition of the clock view provided by HIToolbox.
  
-     Version:    HIToolbox-400~2
+     Version:    HIToolbox-388~1
  
      Copyright:  © 2006-2008 by Apple Computer, Inc., all rights reserved.
  

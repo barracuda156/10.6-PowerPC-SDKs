@@ -116,7 +116,6 @@ enum {
 
 @end
 
-#if TARGET_OS_MAC || TARGET_OS_EMBEDDED
 #define NSLocalizedString(key, comment) \
 	    [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
 #define NSLocalizedStringFromTable(key, tbl, comment) \
@@ -125,7 +124,6 @@ enum {
 	    [bundle localizedStringForKey:(key) value:@"" table:(tbl)]
 #define NSLocalizedStringWithDefaultValue(key, tbl, bundle, val, comment) \
 	    [bundle localizedStringForKey:(key) value:(val) table:(tbl)]
-#endif
 
 FOUNDATION_EXPORT NSString * const NSBundleDidLoadNotification;
 FOUNDATION_EXPORT NSString * const NSLoadedClasses;	// notification key

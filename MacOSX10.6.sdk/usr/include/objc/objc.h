@@ -28,8 +28,8 @@
 #ifndef _OBJC_OBJC_H_
 #define _OBJC_OBJC_H_
 
-#include <sys/types.h>      // for __DARWIN_NULL
-#include <objc/objc-api.h>
+#import <objc/objc-api.h>		// for OBJC_EXPORT
+#import <sys/types.h>
 
 
 typedef struct objc_class *Class;

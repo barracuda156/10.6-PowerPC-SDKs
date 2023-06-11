@@ -1,5 +1,5 @@
 /*	NSDebug.h
-	Copyright (c) 1994-2008, Apple Inc. All rights reserved.
+	Copyright (c) 1994-2007, Apple Inc. All rights reserved.
 */
 
 /**************************************************************************
@@ -120,18 +120,11 @@ FOUNDATION_EXPORT NSUInteger NSCountFrames(void);
 // Functions used as interesting breakpoints in a debugger
 // void __NSAutoreleaseNoPool(void *object);
 	// Called to log the "Object X of class Y autoreleased with no
-	// pool in place - just leaking" message.  If an environment
-	// variable named "NSAutoreleaseHaltOnNoPool" is set with string
-	// value "YES", the function will automatically break in the
-	// debugger (or terminate the process).
+	// pool in place - just leaking" message.
 
 // void __NSAutoreleaseFreedObject(void *freedObject);
 	// Called when a previously freed object would be released
-	// by an autorelease pool.  If an environment variable named
-	// "NSAutoreleaseHaltOnFreedObject" is set with string value
-	// "YES", the function will automatically break in the debugger
-	// (or terminate the process).
-
+	// by an autorelease pool.
 
 @interface NSAutoreleasePool (NSAutoreleasePoolDebugging)
 

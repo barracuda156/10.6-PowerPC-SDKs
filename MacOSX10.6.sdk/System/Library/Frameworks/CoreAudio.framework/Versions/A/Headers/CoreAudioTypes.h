@@ -28,7 +28,7 @@
 
 #include <TargetConditionals.h>
 #if TARGET_OS_IPHONE
-    #include <CoreFoundation/CFBase.h>
+	#include <CoreFoundation/CFBase.h>
 #else
   #if !defined(__COREAUDIO_USE_FLAT_INCLUDES__)
     #include <CoreServices/../Frameworks/CarbonCore.framework/Headers/MacTypes.h>
@@ -38,15 +38,15 @@
 #endif
 
 #if !defined(CA_PREFER_FIXED_POINT)
-    #if TARGET_OS_IPHONE
-        #if (TARGET_CPU_X86 || TARGET_CPU_X86_64 || TARGET_CPU_PPC || TARGET_CPU_PPC64) && !TARGET_IPHONE_SIMULATOR
-            #define CA_PREFER_FIXED_POINT 0
-        #else
-            #define CA_PREFER_FIXED_POINT 1
-        #endif
-    #else
-        #define CA_PREFER_FIXED_POINT 0
-    #endif
+	#if TARGET_OS_IPHONE
+		#if (TARGET_CPU_X86 || TARGET_CPU_X86_64 || TARGET_CPU_PPC || TARGET_CPU_PPC64) && !TARGET_IPHONE_SIMULATOR
+			#define CA_PREFER_FIXED_POINT 0
+		#else
+			#define CA_PREFER_FIXED_POINT 1
+		#endif
+	#else
+		#define CA_PREFER_FIXED_POINT 0
+	#endif
 #endif
 
 #if defined(__cplusplus)
@@ -137,15 +137,15 @@ struct AudioBufferList
 typedef struct AudioBufferList  AudioBufferList;
 
 /*!
-    @typedef        AudioSampleType
-    @abstract       The canonical audio sample type used by the various CoreAudio APIs
+	@typedef		AudioSampleType
+	@abstract		The canonical audio sample type used by the various CoreAudio APIs
 */
 #if !CA_PREFER_FIXED_POINT
-typedef Float32     AudioSampleType;
-typedef Float32     AudioUnitSampleType;
+typedef Float32		AudioSampleType;
+typedef Float32		AudioUnitSampleType;
 #else
-typedef SInt16      AudioSampleType;
-typedef SInt32      AudioUnitSampleType;
+typedef SInt16		AudioSampleType;
+typedef SInt32		AudioUnitSampleType;
 #define kAudioUnitSampleFractionBits 24
 #endif
 
@@ -272,28 +272,20 @@ enum
                         describes this relationship. It has no flags.
     @constant       kAudioFormatAppleLossless
                         Apple Lossless, the flags indicate the bit depth of the source material.
-    @constant       kAudioFormatMPEG4AAC_HE
-                        MPEG-4 High Efficiency AAC audio object, has no flags.
+	@constant		kAudioFormatMPEG4AAC_HE
+						MPEG-4 High Efficiency AAC audio object, has no flags.
     @constant       kAudioFormatMPEG4AAC_LD
                         MPEG-4 AAC Low Delay audio object, has no flags.
-    @constant       kAudioFormatMPEG4AAC_HE_V2
-                        MPEG-4 High Efficiency AAC Version 2 audio object, has no flags. 
-    @constant       kAudioFormatMPEG4AAC_Spatial
-                        MPEG-4 Spatial Audio audio object, has no flags.
-    @constant       kAudioFormatAMR
-                        The AMR Narrow Band speech codec.
+    @constant		kAudioFormatMPEG4AAC_HE_V2
+						MPEG-4 High Efficiency AAC Version 2 audio object, has no flags. 
+	@constant		kAudioFormatMPEG4AAC_Spatial
+						MPEG-4 Spatial Audio audio object, has no flags.
+	@constant		kAudioFormatAMR
+						The AMR Narrow Band speech codec.
     @constant       kAudioFormatAudible
                         The format used for Audible audio books. It has no flags.
     @constant       kAudioFormatiLBC
                         The iLBC narrow band speech codec. It has no flags.
-    @constant       kAudioFormatDVIIntelIMA
-                        DVI/Intel IMA ADPCM - ACM code 17.
-    @constant       kAudioFormatMicrosoftGSM
-                        Microsoft GSM 6.10 - ACM code 49.
-    @constant       kAudioFormatAES3
-                        This format is defined by AES3-2003, and adopted into MXF and MPEG-2
-                        containers and SDTI transport streams with SMPTE specs 302M-2002 and
-                        331M-2000. It has no flags.
 */
 enum
 {
@@ -319,16 +311,13 @@ enum
     kAudioFormatMIDIStream              = 'midi',
     kAudioFormatParameterValueStream    = 'apvs',
     kAudioFormatAppleLossless           = 'alac',
-    kAudioFormatMPEG4AAC_HE             = 'aach',
-    kAudioFormatMPEG4AAC_LD             = 'aacl',
-    kAudioFormatMPEG4AAC_HE_V2          = 'aacp',
-    kAudioFormatMPEG4AAC_Spatial        = 'aacs',
-    kAudioFormatAMR                     = 'samr',
+    kAudioFormatMPEG4AAC_HE				= 'aach',
+    kAudioFormatMPEG4AAC_LD				= 'aacl',
+    kAudioFormatMPEG4AAC_HE_V2			= 'aacp',
+    kAudioFormatMPEG4AAC_Spatial		= 'aacs',
+    kAudioFormatAMR						= 'samr',
     kAudioFormatAudible                 = 'AUDB',
-    kAudioFormatiLBC                    = 'ilbc',
-    kAudioFormatDVIIntelIMA             = 0x6D730011,
-    kAudioFormatMicrosoftGSM            = 0x6D730031,
-    kAudioFormatAES3                    = 'aes3'
+    kAudioFormatiLBC                    = 'ilbc'
 };
 
 /*!
@@ -390,16 +379,13 @@ enum
                         Synonym for kAudioFormatFlagIsNonMixable.
     @constant       kLinearPCMFormatFlagsAreAllClear
                         Synonym for kAudioFormatFlagsAreAllClear.
-    @constant       kLinearPCMFormatFlagsSampleFractionShift
-                        The linear PCM flags contain a 6-bit bitfield indicating that an integer
-                        format is to be interpreted as fixed point. The value indicates the number
-                        of bits are used to represent the fractional portion of each sample value.
-                        This constant indicates the bit position (counting from the right) of the
-                        bitfield in mFormatFlags.
-    @constant       kLinearPCMFormatFlagsSampleFractionMask
-                        number_fractional_bits = (mFormatFlags & 
-                        kLinearPCMFormatFlagsSampleFractionMask) >>
-                        kLinearPCMFormatFlagsSampleFractionShift
+	@constant		kLinearPCMFormatFlagsSampleFractionShift
+						The linear PCM flags contain a 6-bit bitfield indicating that an integer format
+						is to be interpreted as fixed point. The value indicates the number of bits
+						are used to represent the fractional portion of each sample value. This constant
+						indicates the bit position (counting from the right) of the bitfield in mFormatFlags.
+	@constant		kLinearPCMFormatFlagsSampleFractionMask
+						number_fractional_bits = (mFormatFlags & kLinearPCMFormatFlagsSampleFractionMask) >> kLinearPCMFormatFlagsSampleFractionShift
     @constant       kAppleLosslessFormatFlag_16BitSourceData
                         This flag is set for Apple Lossless data that was sourced from 16 bit native
                         endian signed integer data.
@@ -415,13 +401,13 @@ enum
 */
 enum
 {
-    kAudioFormatFlagIsFloat                     = (1 << 0),     // 0x1
-    kAudioFormatFlagIsBigEndian                 = (1 << 1),     // 0x2
-    kAudioFormatFlagIsSignedInteger             = (1 << 2),     // 0x4
-    kAudioFormatFlagIsPacked                    = (1 << 3),     // 0x8
-    kAudioFormatFlagIsAlignedHigh               = (1 << 4),     // 0x10
-    kAudioFormatFlagIsNonInterleaved            = (1 << 5),     // 0x20
-    kAudioFormatFlagIsNonMixable                = (1 << 6),     // 0x40
+    kAudioFormatFlagIsFloat                     = (1 << 0),		// 0x1
+    kAudioFormatFlagIsBigEndian                 = (1 << 1),		// 0x2
+    kAudioFormatFlagIsSignedInteger             = (1 << 2),		// 0x4
+    kAudioFormatFlagIsPacked                    = (1 << 3),		// 0x8
+    kAudioFormatFlagIsAlignedHigh               = (1 << 4),		// 0x10
+    kAudioFormatFlagIsNonInterleaved            = (1 << 5),		// 0x20
+    kAudioFormatFlagIsNonMixable                = (1 << 6),		// 0x40
     kAudioFormatFlagsAreAllClear                = (1 << 31),
     
     kLinearPCMFormatFlagIsFloat                 = kAudioFormatFlagIsFloat,
@@ -431,8 +417,8 @@ enum
     kLinearPCMFormatFlagIsAlignedHigh           = kAudioFormatFlagIsAlignedHigh,
     kLinearPCMFormatFlagIsNonInterleaved        = kAudioFormatFlagIsNonInterleaved,
     kLinearPCMFormatFlagIsNonMixable            = kAudioFormatFlagIsNonMixable,
-    kLinearPCMFormatFlagsSampleFractionShift    = 7,
-    kLinearPCMFormatFlagsSampleFractionMask     = (0x3F << kLinearPCMFormatFlagsSampleFractionShift),
+	kLinearPCMFormatFlagsSampleFractionShift	= 7,
+	kLinearPCMFormatFlagsSampleFractionMask		= (0x3F << kLinearPCMFormatFlagsSampleFractionShift),
     kLinearPCMFormatFlagsAreAllClear            = kAudioFormatFlagsAreAllClear,
     
     kAppleLosslessFormatFlag_16BitSourceData    = 1,
@@ -448,11 +434,8 @@ enum
                         Defined to set or clear kAudioFormatFlagIsBigEndian depending on the
                         endianness of the processor at build time.
     @constant       kAudioFormatFlagsCanonical
-                        The flags for the canonical audio sample type. This matches AudioSampleType.
-    @constant       kAudioFormatFlagsAudioUnitCanonical
-                        The flags for the canonical audio unit sample type. This matches
-                        AudioUnitSampleType.
-    @constant       kAudioFormatFlagsNativeFloatPacked
+                        The flags for the canonical audio sample type
+	@constant       kAudioFormatFlagsNativeFloatPacked
                         The flags for fully packed, native endian floating point data.
 */
 enum
@@ -463,11 +446,9 @@ enum
     kAudioFormatFlagsNativeEndian       = 0,
 #endif
 #if !CA_PREFER_FIXED_POINT
-    kAudioFormatFlagsCanonical          = kAudioFormatFlagIsFloat | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked,
-    kAudioFormatFlagsAudioUnitCanonical = kAudioFormatFlagIsFloat | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved,
+	kAudioFormatFlagsCanonical			= kAudioFormatFlagIsFloat | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked,
 #else
-    kAudioFormatFlagsCanonical          = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked,
-    kAudioFormatFlagsAudioUnitCanonical = kAudioFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked | kAudioFormatFlagIsNonInterleaved | (kAudioUnitSampleFractionBits << kLinearPCMFormatFlagsSampleFractionShift),
+	kAudioFormatFlagsCanonical			= kAudioFormatFlagIsSignedInteger | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked,
 #endif
     kAudioFormatFlagsNativeFloatPacked  = kAudioFormatFlagIsFloat | kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked
 };
@@ -887,8 +868,8 @@ enum
     kAudioChannelLabel_DialogCentricMix         = 43,
 
     kAudioChannelLabel_CenterSurroundDirect     = 44,           // back center, non diffuse
-    
-    kAudioChannelLabel_Haptic                   = 45,
+	
+    kAudioChannelLabel_Haptic					= 45,
 
     // first order ambisonic channels
     kAudioChannelLabel_Ambisonic_W              = 200,
@@ -978,7 +959,7 @@ enum
 */
 enum
 {
-    kAudioChannelFlags_AllOff                   = 0,
+	kAudioChannelFlags_AllOff					= 0,
     kAudioChannelFlags_RectangularCoordinates   = (1<<0),
     kAudioChannelFlags_SphericalCoordinates     = (1<<1),
     kAudioChannelFlags_Meters                   = (1<<2)
@@ -1151,8 +1132,8 @@ enum
     kAudioChannelLayoutTag_AudioUnit_5_0            = kAudioChannelLayoutTag_MPEG_5_0_B,    // L R Ls Rs C
     kAudioChannelLayoutTag_AudioUnit_6_0            = (139<<16) | 6,                       // L R Ls Rs C Cs
     kAudioChannelLayoutTag_AudioUnit_7_0            = (140<<16) | 7,                       // L R Ls Rs C Rls Rrs
-    kAudioChannelLayoutTag_AudioUnit_7_0_Front      = (148<<16) | 7,                       // L R Ls Rs C Lc Rc
-    kAudioChannelLayoutTag_AudioUnit_5_1            = kAudioChannelLayoutTag_MPEG_5_1_A,    // L R C LFE Ls Rs
+	kAudioChannelLayoutTag_AudioUnit_7_0_Front      = (148<<16) | 7,                       // L R Ls Rs C Lc Rc
+	kAudioChannelLayoutTag_AudioUnit_5_1            = kAudioChannelLayoutTag_MPEG_5_1_A,    // L R C LFE Ls Rs
     kAudioChannelLayoutTag_AudioUnit_6_1            = kAudioChannelLayoutTag_MPEG_6_1_A,    // L R C LFE Ls Rs Cs
     kAudioChannelLayoutTag_AudioUnit_7_1            = kAudioChannelLayoutTag_MPEG_7_1_C,    // L R C LFE Ls Rs Rls Rrs
     kAudioChannelLayoutTag_AudioUnit_7_1_Front      = kAudioChannelLayoutTag_MPEG_7_1_A,    // L R C LFE Ls Rs Lc Rc
@@ -1171,26 +1152,26 @@ enum
     kAudioChannelLayoutTag_TMH_10_2_std             = (145<<16) | 16,                      // L R C Vhc Lsd Rsd Ls Rs Vhl Vhr Lw Rw Csd Cs LFE1 LFE2
     kAudioChannelLayoutTag_TMH_10_2_full            = (146<<16) | 21,                       // TMH_10_2_std plus: Lc Rc HI VI Haptic
 
-    kAudioChannelLayoutTag_AC3_1_0_1                = (149<<16) | 2,                       // C LFE
-    kAudioChannelLayoutTag_AC3_3_0                  = (150<<16) | 3,                       // L C R
-    kAudioChannelLayoutTag_AC3_3_1                  = (151<<16) | 4,                       // L C R Cs
-    kAudioChannelLayoutTag_AC3_3_0_1                = (152<<16) | 4,                       // L C R LFE
-    kAudioChannelLayoutTag_AC3_2_1_1                = (153<<16) | 4,                       // L R Cs LFE
-    kAudioChannelLayoutTag_AC3_3_1_1                = (154<<16) | 5,                       // L C R Cs LFE
+	kAudioChannelLayoutTag_AC3_1_0_1				= (149<<16) | 2,                       // C LFE
+	kAudioChannelLayoutTag_AC3_3_0					= (150<<16) | 3,                       // L C R
+	kAudioChannelLayoutTag_AC3_3_1					= (151<<16) | 4,                       // L C R Cs
+	kAudioChannelLayoutTag_AC3_3_0_1				= (152<<16) | 4,                       // L C R LFE
+	kAudioChannelLayoutTag_AC3_2_1_1				= (153<<16) | 4,                       // L R Cs LFE
+	kAudioChannelLayoutTag_AC3_3_1_1				= (154<<16) | 5,                       // L C R Cs LFE
 
-    kAudioChannelLayoutTag_DiscreteInOrder          = (147<<16) | 0,                        // needs to be ORed with the actual number of channels  
-    kAudioChannelLayoutTag_Unknown                  = 0xFFFF0000                            // needs to be ORed with the actual number of channels  
+	kAudioChannelLayoutTag_DiscreteInOrder			= (147<<16) | 0,						// needs to be ORed with the actual number of channels  
+	kAudioChannelLayoutTag_Unknown					= 0xFFFF0000							// needs to be ORed with the actual number of channels  
 };
 
 
 // Deprecated constants
 
-/*! @enum           MPEG-4 Audio Object IDs
-    @deprecated     in version 10.5
+/*!	@enum			MPEG-4 Audio Object IDs
+	@deprecated		in version 10.5
 
-    @abstract       Constants that describe the various kinds of MPEG-4 audio data.
-    @discussion     These constants are used in the flags field of an AudioStreamBasicDescription
-                    that describes an MPEG-4 audio stream.
+	@abstract		Constants that describe the various kinds of MPEG-4 audio data.
+	@discussion		These constants are used in the flags field of an AudioStreamBasicDescription
+					that describes an MPEG-4 audio stream.
 */
 enum
 {

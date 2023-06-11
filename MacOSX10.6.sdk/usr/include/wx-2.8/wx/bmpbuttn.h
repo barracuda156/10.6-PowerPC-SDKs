@@ -4,7 +4,7 @@
 // Author:      Vadim Zeitlin
 // Modified by:
 // Created:     25.08.00
-// RCS-ID:      $Id: bmpbuttn.h 45498 2007-04-16 13:03:05Z VZ $
+// RCS-ID:      $Id: bmpbuttn.h,v 1.29.8.1 2007/04/16 13:00:57 VZ Exp $
 // Copyright:   (c) 2000 Vadim Zeitlin
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

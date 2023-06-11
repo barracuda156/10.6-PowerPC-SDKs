@@ -184,9 +184,9 @@ union sigval {
 	void	*sival_ptr;
 };
 
-#define	SIGEV_NONE	0	/* No async notification */
-#define	SIGEV_SIGNAL	1	/* aio - completion notification */
-#define	SIGEV_THREAD	3	/* [NOTIMP] [RTS] call notification function */
+#define	SIGEV_NONE	0		/* No async notification */
+#define	SIGEV_SIGNAL	1		/* aio - completion notification */
+#define SIGEV_THREAD	3		/* A notification function will be called to perform notification */
 
 struct sigevent {
 	int				sigev_notify;				/* Notification type */

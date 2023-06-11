@@ -1,5 +1,5 @@
 /*	NSXMLElement.h
-	Copyright (c) 2004-2008, Apple Inc. All rights reserved.
+	Copyright (c) 2004-2007, Apple Inc. All rights reserved.
 */
 
 #import <Foundation/NSXMLNode.h>
@@ -49,9 +49,7 @@
 */
 - (id)initWithXMLString:(NSString *)string error:(NSError **)error;
 
-#if 0
 #pragma mark --- Elements by name ---
-#endif
 
 /*!
     @method elementsForName:
@@ -65,9 +63,7 @@
 */
 - (NSArray *)elementsForLocalName:(NSString *)localName URI:(NSString *)URI;
 
-#if 0
 #pragma mark --- Attributes ---
-#endif
 
 /*!
     @method addAttribute:
@@ -111,9 +107,7 @@
 */
 - (NSXMLNode *)attributeForLocalName:(NSString *)localName URI:(NSString *)URI; //primitive
 
-#if 0
 #pragma mark --- Namespaces ---
-#endif
 
 /*!
     @method addNamespace:URI:
@@ -157,9 +151,7 @@
 */
 - (NSString *)resolvePrefixForNamespaceURI:(NSString *)namespaceURI;
 
-#if 0
 #pragma mark --- Children ---
-#endif
 
 /*!
     @method insertChild:atIndex:

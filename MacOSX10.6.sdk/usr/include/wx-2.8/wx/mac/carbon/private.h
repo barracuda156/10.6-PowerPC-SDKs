@@ -6,7 +6,7 @@
 // Author:      Stefan Csomor
 // Modified by:
 // Created:     1998-01-01
-// RCS-ID:      $Id: private.h 54029 2008-06-08 15:53:15Z SC $
+// RCS-ID:      $Id: private.h,v 1.75 2006/12/08 15:01:45 SC Exp $
 // Copyright:   (c) Stefan Csomor
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -49,7 +49,6 @@
 
 #ifdef __WXMAC_CARBON__
 #include "wx/mac/corefoundation/cfstring.h"
-#include "wx/mac/corefoundation/cfdataref.h"
 #endif
 
 #ifndef FixedToInt
@@ -430,11 +429,6 @@ public :
 
     operator refType () const { return m_ref; }
 
-    wxMacCFRefHolder& operator=(refType r)
-    {
-        Set( r );
-        return *this;
-    }
 private :
     refType m_ref;
     bool m_release;
@@ -443,40 +437,6 @@ private :
 };
 
 #if wxUSE_GUI
-
-class wxMacToolTipTimer ;
-
-class wxMacToolTip
-{
-public :
-    wxMacToolTip() ;
-    ~wxMacToolTip() ;
-
-    void Setup( WindowRef window , const wxString& text , const wxPoint& localPosition ) ;
-    void Draw() ;
-    void Clear() ;
-
-    long GetMark()
-    { return m_mark ; }
-
-    bool IsShown()
-    { return m_shown ; }
-
-private :
-    wxString    m_label ;
-    wxPoint m_position ;
-    Rect            m_rect ;
-    WindowRef    m_window ;
-    PicHandle    m_backpict ;
-    bool        m_shown ;
-    long        m_mark ;
-#if wxUSE_TIMER 
-    wxMacToolTipTimer* m_timer ;
-#endif
-#if TARGET_CARBON
-    wxMacCFStringHolder m_helpTextRef ;
-#endif
-} ;
 
 /*
 GWorldPtr         wxMacCreateGWorld( int width , int height , int depth );
@@ -488,7 +448,6 @@ CTabHandle         wxMacCreateColorTable( int numColors );
 */
 void wxMacCreateBitmapButton( ControlButtonContentInfo*info , const wxBitmap& bitmap , int forceType = 0 );
 void wxMacReleaseBitmapButton( ControlButtonContentInfo*info );
-CGImageRef wxMacCreateCGImageFromBitmap( const wxBitmap& bitmap );
 
 #define MAC_WXCOLORREF(a) (*((RGBColor*)&(a)))
 #define MAC_WXHBITMAP(a) (GWorldPtr(a))
@@ -514,7 +473,7 @@ void wxMacNativeToRect( const Rect *n , wxRect* wx );
 void wxMacPointToNative( const wxPoint* wx , Point *n );
 void wxMacNativeToPoint( const Point *n , wxPoint* wx );
 
-wxWindowMac *           wxFindControlFromMacControl(ControlRef inControl );
+wxWindow *              wxFindControlFromMacControl(ControlRef inControl );
 wxTopLevelWindowMac*    wxFindWinFromMacWindow( WindowRef inWindow );
 wxMenu*                 wxFindMenuFromMacMenu(MenuRef inMenuRef);
 
@@ -524,7 +483,7 @@ wxMenu*                 wxFindMenuFromMacCommand( const HICommand &macCommandId 
 
 extern wxWindow* g_MacLastWindow;
 pascal OSStatus wxMacTopLevelMouseEventHandler( EventHandlerCallRef handler , EventRef event , void *data );
-Rect wxMacGetBoundsForControl( wxWindowMac* window , const wxPoint& pos , const wxSize &size , bool adjustForOrigin = true );
+Rect wxMacGetBoundsForControl( wxWindow* window , const wxPoint& pos , const wxSize &size , bool adjustForOrigin = true );
 
 ControlActionUPP GetwxMacLiveScrollbarActionProc();
 
@@ -1128,26 +1087,6 @@ public:
 // graphics implementation
 // ============================================================================
 
-// make sure we all use one class for all conversions from wx to native colour
-
-class wxMacCoreGraphicsColour
-{
-public:
-    wxMacCoreGraphicsColour();
-    wxMacCoreGraphicsColour(const wxBrush &brush);
-    ~wxMacCoreGraphicsColour();
-    
-     void Apply( CGContextRef cgContext );
-protected:
-    void Init();
-    wxMacCFRefHolder<CGColorRef> m_color;
-    wxMacCFRefHolder<CGColorSpaceRef> m_colorSpace;
-
-    bool m_isPattern;
-    wxMacCFRefHolder<CGPatternRef> m_pattern;
-    CGFloat* m_patternColorComponents;
-} ;
-
 #if wxMAC_USE_CORE_GRAPHICS && !wxUSE_GRAPHICS_CONTEXT
 
 class WXDLLEXPORT wxMacCGPath : public wxGraphicPath
@@ -1229,7 +1168,7 @@ private:
 
 #ifdef __WXMAC_OSX__
 
-extern "C" CGColorSpaceRef wxMacGetGenericRGBColorSpace(void);
+CGColorSpaceRef wxMacGetGenericRGBColorSpace(void);
 void wxMacMemoryBufferReleaseProc(void *info, const void *data, size_t size);
 
 #endif
@@ -1288,13 +1227,9 @@ public:
 
     // returns a Pict from the bitmap content
     PicHandle     GetPictHandle();
-#if wxMAC_USE_CORE_GRAPHICS
-    CGContextRef  GetBitmapContext() const;
-#else
     GWorldPtr     GetHBITMAP(GWorldPtr * mask = NULL ) const;
     void          UpdateAlphaMask() const;
-#endif
-    int           GetBytesPerRow() const { return m_bytesPerRow; }
+
 private :
     bool Create(int width , int height , int depth);
     void Init();
@@ -1312,14 +1247,10 @@ private :
 #endif
     IconRef       m_iconRef;
     PicHandle     m_pictHandle;
-#if wxMAC_USE_CORE_GRAPHICS
-    CGContextRef  m_hBitmap;
-#else
     GWorldPtr     m_hBitmap;
     GWorldPtr     m_hMaskBitmap;
     wxMemoryBuffer m_maskMemBuf;
     int            m_maskBytesPerRow;
-#endif
 };
 
 class WXDLLEXPORT wxIconRefData : public wxGDIRefData
@@ -1346,16 +1277,6 @@ private :
 };
 
 // toplevel.cpp
-
-class wxMacDeferredWindowDeleter : public wxObject
-{
-public :
-    wxMacDeferredWindowDeleter( WindowRef windowRef );
-    virtual ~wxMacDeferredWindowDeleter();
-
-protected :
-    WindowRef m_macWindow ;
-} ;
 
 ControlRef wxMacFindControlUnderMouse( wxTopLevelWindowMac* toplevelWindow, const Point& location , WindowRef window , ControlPartCode *outPart );
 
@@ -1411,79 +1332,6 @@ void wxMacLocalToGlobal( WindowRef window , Point*pt );
 void wxMacGlobalToLocal( WindowRef window , Point*pt );
 
 #endif
-
-//---------------------------------------------------------------------------
-// cocoa bridging utilities
-//---------------------------------------------------------------------------
-
-bool wxMacInitCocoa();
-
-class wxMacAutoreleasePool
-{
-public :
-    wxMacAutoreleasePool();
-    ~wxMacAutoreleasePool();
-private :
-    void* m_pool;
-};
-
-// NSObject
-
-void wxMacCocoaRelease( void* obj );
-void wxMacCocoaAutorelease( void* obj );
-void wxMacCocoaRetain( void* obj );
-
-#if wxMAC_USE_COCOA
-
-// NSCursor
-
-WX_NSCursor wxMacCocoaCreateStockCursor( int cursor_type );
-WX_NSCursor  wxMacCocoaCreateCursorFromCGImage( CGImageRef cgImageRef, float hotSpotX, float hotSpotY );
-void  wxMacCocoaSetCursor( WX_NSCursor cursor );
-void  wxMacCocoaHideCursor();
-void  wxMacCocoaShowCursor();
-
-typedef struct tagClassicCursor
-{
-    wxUint16 bits[16];
-    wxUint16 mask[16];
-    wxInt16 hotspot[2];
-}ClassicCursor;
-
-#else // !wxMAC_USE_COCOA
-
-// non Darwin
-
-typedef Cursor ClassicCursor;
-
-#endif // wxMAC_USE_COCOA
-
-// -------------
-// Common to all
-// -------------
-
-// Cursor support
-
-const short kwxCursorBullseye = 0;
-const short kwxCursorBlank = 1;
-const short kwxCursorPencil = 2;
-const short kwxCursorMagnifier = 3;
-const short kwxCursorNoEntry = 4;
-const short kwxCursorPaintBrush = 5;
-const short kwxCursorPointRight = 6;
-const short kwxCursorPointLeft = 7;
-const short kwxCursorQuestionArrow = 8;
-const short kwxCursorRightArrow = 9;
-const short kwxCursorSizeNS = 10;
-const short kwxCursorSize = 11;
-const short kwxCursorSizeNESW = 12;
-const short kwxCursorSizeNWSE = 13;
-const short kwxCursorRoller = 14;
-const short kwxCursorLast = kwxCursorRoller;
-
-// exposing our fallback cursor map
-
-extern ClassicCursor gMacCursors[];
 
 #endif
     // _WX_PRIVATE_H_
